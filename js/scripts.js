@@ -10,7 +10,16 @@ $(document).ready(function() {
 		$(".invoice_type").text(invoiceType);
 	});
 
+	// Load dataTables
+	$("#data-table").dataTable();
+
+	$("#data-table-lot").dataTable();
+
 	
+	$("#action_add_lot").click(function(e) {
+		e.preventDefault();
+	    actionAddLot();
+	});
 	
 	
 
