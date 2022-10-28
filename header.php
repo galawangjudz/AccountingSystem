@@ -1,7 +1,3 @@
-<?php
-	//check login
-	include("session.php");
-?>
 
 
 <!DOCTYPE html>
