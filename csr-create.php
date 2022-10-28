@@ -29,6 +29,8 @@ include('functions.php');
 		document.getElementById(tabName).style.display = "block";
 		evt.currentTarget.className += " active";
 
+
+		//testing
 	  }
 	  function showTab(){
 		document.getElementById('Buyer').style.display="block";
