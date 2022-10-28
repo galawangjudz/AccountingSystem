@@ -10,6 +10,8 @@ $(document).ready(function() {
 		$(".invoice_type").text(invoiceType);
 	});
 
+	
+	
 	// Load dataTables
 	$("#data-table").dataTable();
 
@@ -20,8 +22,6 @@ $(document).ready(function() {
 		e.preventDefault();
 	    actionAddLot();
 	});
-	
-	
 
 	// password strength
 	var options = {
@@ -1753,5 +1753,5 @@ function updateTotals(elem) {
 	});
 
 
-		//
+
 });

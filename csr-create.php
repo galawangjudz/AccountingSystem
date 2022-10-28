@@ -793,4 +793,6 @@ include('functions.php');
 		document.getElementById('onlink4').style.backgroundColor="#ccc";
 	}
 
+/* asasasasa */
 </script>
+

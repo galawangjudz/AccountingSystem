@@ -27,6 +27,8 @@ include('functions.php');
 	</div>
 <div>
 
+
+
 <div id="delete_agent" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
