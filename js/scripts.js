@@ -12,16 +12,7 @@ $(document).ready(function() {
 
 	
 	
-	// Load dataTables
-	$("#data-table").dataTable();
-
-	$("#data-table-lot").dataTable();
-
 	
-	$("#action_add_lot").click(function(e) {
-		e.preventDefault();
-	    actionAddLot();
-	});
 
 	// password strength
 	var options = {
