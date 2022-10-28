@@ -79,6 +79,16 @@ include('header.php');
                                     <option name="agent_status" value="Inactive">Inactive</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <style>
+                                select:invalid { color: gray; }
+                            </style>
+                            <select name="agent_status" id="agent_status" class="form-control">
+                                
+                                    <option name="agent_status" value="Active" selected>Active</option>
+                                    <option name="agent_status" value="Inactive">Inactive</option>
+                            </select>
+                        </div>
 					</div>
 
 					<div class="row">
