@@ -39,8 +39,10 @@
 .dropdown a:hover {background-color: #ddd;}
 .show {display: block;}
 </style>
+
 <?php
 include_once("includes/config.php");
+
 function getProject() {
  
    // Connect to the database
