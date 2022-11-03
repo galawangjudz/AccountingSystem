@@ -11,9 +11,8 @@ $(document).ready(function() {
 	});
 
 	
-	
 	// Load dataTables
-	$("#data-table").dataTable();
+	$("#data-table").dataTable()
 
 	$("#data-table-lot").dataTable();
 
@@ -23,7 +22,7 @@ $(document).ready(function() {
 	    actionAddLot();
 	});
 
-	// password strength
+	// password strength 
 	var options = {
         onLoad: function () {
             $('#messages').text('Start typing password');
@@ -34,13 +33,13 @@ $(document).ready(function() {
     };
     $('#password').pwstrength(options);
 
-	// add project
+	// add project 
 	$("#action_add_project").click(function(e) {
 		e.preventDefault();
 		actionAddProject();
 	});
 
-	// add house
+	// add house 
 	$("#action_add_house").click(function(e) {
 		e.preventDefault();
 		actionAddHouse();
