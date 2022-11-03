@@ -23,41 +23,34 @@ $query = "SELECT p.*, i.*, c.*
 
 $result = mysqli_query($mysqli, $query);
 
-// mysqli select query
-if($result) {
-	while ($row = mysqli_fetch_assoc($result)) {
-		$customer_name = $row['name']; // customer name
-		$customer_email = $row['email']; // customer email
-		$customer_address_1 = $row['address_1']; // customer address
-		$customer_address_2 = $row['address_2']; // customer address
-		$customer_town = $row['town']; // customer town
-		$customer_county = $row['county']; // customer county
-		$customer_postcode = $row['postcode']; // customer postcode
-		$customer_phone = $row['phone']; // customer phone number
-		
-		//shipping
-		$customer_name_ship = $row['name_ship']; // customer name (shipping)
-		$customer_address_1_ship = $row['address_1_ship']; // customer address (shipping)
-		$customer_address_2_ship = $row['address_2_ship']; // customer address (shipping)
-		$customer_town_ship = $row['town_ship']; // customer town (shipping)
-		$customer_county_ship = $row['county_ship']; // customer county (shipping)
-		$customer_postcode_ship = $row['postcode_ship']; // customer postcode (shipping)
+// buyer
+$customer_last_name_1 = $row['c_b1_last_name']; // customer last name
+$customer_first_name_1 = $row['c_b1_first_name']; // customer first name
+$customer_middle_name_1 = $row['c_b1_middle_name']; // customer middle name
+$customer_last_name_2 = $row['c_b2_last_name']; // customer last name 2
+$customer_first_name_2 = $row['c_b2_first_name']; // customer first name 2
+$customer_middle_name_2 = $row['c_b2_middle_name']; // customer middle name 2
 
-		// invoice details
-		$invoice_number = $row['invoice']; // invoice number
-		$custom_email = $row['custom_email']; // invoice custom email body
-		$invoice_date = $row['invoice_date']; // invoice date
-		$invoice_due_date = $row['invoice_due_date']; // invoice due date
-		$invoice_subtotal = $row['subtotal']; // invoice sub-total
-		$invoice_shipping = $row['shipping']; // invoice shipping amount
-		$invoice_discount = $row['discount']; // invoice discount
-		$invoice_vat = $row['vat']; // invoice vat
-		$invoice_total = $row['total']; // invoice total
-		$invoice_notes = $row['notes']; // Invoice notes
-		$invoice_type = $row['invoice_type']; // Invoice type
-		$invoice_status = $row['status']; // Invoice status
-	}
+// more details
+
+$customer_address_1 = $row['c_address']; // customer address
+$customer_city_prov= $row['c_city_prov']; // customer city_prov
+$customer_zip_code = $row['c_zip_code']; // customer zip_code
+$customer_address_2 = $row['c_address_abroad']; // customer address abroad
+
+$birth_date = $row['c_birthday']; // customer birthday
+$customer_age = $row['c_age']; // customer age
+
+$customer_phone = $row['c_mobile_no']; // customer phone number
+$customer_email = $row['c_email']; // customer civil status
+$customer_viber= $row['c_viber_no']; // customer viber
+$customer_gender = $row['c_sex']; // customer phone number
+$civil_status = $row['c_civil_status']; // customer civil status
+$employment_status = $row['c_employment_status']; // customer civil status
+
 }
+}
+
 
 /* close connection */
 $mysqli->close();
