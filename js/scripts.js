@@ -20,6 +20,7 @@ $(document).ready(function() {
 	$("#action_add_lot").click(function(e) {
 		e.preventDefault();
 	    actionAddLot();
+	
 	});
 
 	// password strength 
