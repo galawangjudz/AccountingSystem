@@ -130,7 +130,8 @@ $mysqli->close();
 		/* document.getElementById('down_percent').style.display="hidden";  */
 	  }
 
-	  function payment_type1_changed(){
+	  
+c	  function payment_type1_changed(){
 			var l_payment_type1 = $('.payment-type1').val();
 			$('#payment_type2').removeAttr('disabled');
 			$('#loan_text').text("Amount to be financed :");
