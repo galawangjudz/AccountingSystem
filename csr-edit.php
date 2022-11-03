@@ -57,6 +57,9 @@ while ($row = mysqli_fetch_assoc($result)) {
 	$civil_status = $row['c_civil_status']; // customer civil status
 	$employment_status = $row['c_employment_status']; // customer employement status
 
+	
+	//lot details 
+	
 	$lot_id = $row['c_lot_lid'];
 	$lot_area = $row['c_lot_area'];
 	$price_sqm = $row['c_price_sqm'];
