@@ -29,27 +29,7 @@ $customer_first_name_1 = $row['c_b1_first_name']; // customer first name
 $customer_middle_name_1 = $row['c_b1_middle_name']; // customer middle name
 $customer_last_name_2 = $row['c_b2_last_name']; // customer last name 2
 $customer_first_name_2 = $row['c_b2_first_name']; // customer first name 2
-$customer_middle_name_2 = $row['c_b2_middle_name']; // customer middle name 2
 
-// more details
-
-$customer_address_1 = $row['c_address']; // customer address
-$customer_city_prov= $row['c_city_prov']; // customer city_prov
-$customer_zip_code = $row['c_zip_code']; // customer zip_code
-$customer_address_2 = $row['c_address_abroad']; // customer address abroad
-
-$birth_date = $row['c_birthday']; // customer birthday
-$customer_age = $row['c_age']; // customer age
-
-$customer_phone = $row['c_mobile_no']; // customer phone number
-$customer_email = $row['c_email']; // customer civil status
-$customer_viber= $row['c_viber_no']; // customer viber
-$customer_gender = $row['c_sex']; // customer phone number
-$civil_status = $row['c_civil_status']; // customer civil status
-$employment_status = $row['c_employment_status']; // customer civil status
-
-}
-}
 
 
 /* close connection */
