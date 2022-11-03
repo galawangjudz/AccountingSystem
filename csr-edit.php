@@ -212,29 +212,6 @@ c	  function payment_type1_changed(){
 
 	}
 
-	function payment_type2_changed(){
-		var l_payment_type2 = $('.payment-type2').val();
-		$('#loan_text').text("Amount to be financed :");
-		$('#interest_rate').show();
-		$('#fixed_factor').show();
-		$('#monthly_frm').show();
-		$('#rate_text').show()
-		$('#factor_text').show()
-		$('#ma_text').text("Monthly Amortization ");
-		if (l_payment_type2 == "Deferred Cash Payment"){
-			$('#ma_text').text("Deferred Cash Payment ");
-			$('#loan_text').text("Deferred Amount:");
-			$("#interest_rate").val(0);
-			$("#fixed_facotr").val(0);
-			$('#rate_text').hide()
-			$('#factor_text').hide()
-			$('#interest_rate').hide();
-			$('#fixed_factor').hide();
-		}
-
-		compute_monthly_payments();
-
-	}
 
 </script>
 <body>
