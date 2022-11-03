@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-
+	// add date of sale
 	let dt = new Date().toISOString().slice(0, 10);
 	$('#date_of_sale').val(dt);
 
