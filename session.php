@@ -7,10 +7,9 @@
 
 	session_start();
 
-	$username = $_SESSION['login_username'];
-	$usertype = $_SESSION['login_usertype'];
+	$check = $_SESSION['login_username'];
 
-	if(!isset($username)) {
+	if(!isset($check)) {
 	    header("Location:index.php");
 	}
 

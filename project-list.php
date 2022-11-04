@@ -5,7 +5,7 @@ include('functions.php');
 
 ?>
 
-<h2>Project Site List</h2><div class="addbtn"><a href="http://localhost/ALSC/project-add.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
+<h2>Project Site List</h2>
 <hr>
 
 <div class="row">
@@ -37,7 +37,7 @@ include('functions.php');
       </div>
       <div class="modal-footer">
         <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
-		    <button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
+		<button type="button" data-dismiss="modal" class="btn">Cancel</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

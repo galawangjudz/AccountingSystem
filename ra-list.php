@@ -7,7 +7,7 @@ include('functions.php');
 ?>
 
 
-<h2>Reservation Application List</h2>
+<h1>Reservation Application List</h1>
 <hr>
 
 <div class="row">

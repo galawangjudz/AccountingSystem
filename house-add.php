@@ -11,15 +11,15 @@ include('functions.php');
 	<a href="#" class="close" data-dismiss="alert">&times;</a>
 	<div class="message"></div>
 </div>		
-<form method="post" id="add_house">
 <div class="box_big">
 	<div class="main_box">
+		<form method="post" id="add_house">
 		<input type="hidden" name="action" value="add_house">
 		<div class="row">
 			<div class="col-xs-12">		
 				<div class="form-group">
 					<label class="control-label">Code: </label>
-					<input type="number" class="form-control required" name="c_code" id="c_code">
+					<input type="text" class="form-control required" name="c_code" id="c_code">
 				</div>
 			</div>
 		</div>
@@ -39,13 +39,11 @@ include('functions.php');
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-xs-12">
-				<input type="submit" id="action_add_house" class="btn btn-success float-right" value="Add House Model" data-loading-text="Adding...">
-			</div>
+		<div class="col-xs-12 margin-top btn-group">
+			<input type="submit" id="action_add_house" class="btn btn-success float-right" value="Add House Model" data-loading-text="Adding...">
 		</div>
+		</form>
 	</div>
-</form>
 </div>
 <div class="row">
 </div>

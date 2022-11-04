@@ -7,7 +7,7 @@ include('functions.php');
 ?>
 
 
-<h2>Contract List</h2><div class="addbtn"><a href="http://localhost/ALSC/csr-create.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
+<h1>Contract List</h1>
 <hr>
 
 <div class="row">

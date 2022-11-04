@@ -1,12 +1,11 @@
 <?php
 
-
 include('header.php');
 include('functions.php');
 
 ?>
 
-<h2>Agent List</h2><div class="addbtn"><a href="http://localhost/ALSC/agent-add.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
+<h1>Agent List</h1>
 <hr>
 
 <div class="row">
@@ -18,12 +17,17 @@ include('functions.php');
 		</div>
 	
 		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4>AGENTS </h4>
+			</div>
 			<div class="panel-body form-group form-group-sm">
 				<?php getAgents(); ?>
 			</div>
 		</div>
 	</div>
 <div>
+
+
 
 <div id="delete_agent" class="modal fade">
   <div class="modal-dialog">
@@ -37,7 +41,7 @@ include('functions.php');
       </div>
       <div class="modal-footer">
         <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
-		    <button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
+		<button type="button" data-dismiss="modal" class="btn">Cancel</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
