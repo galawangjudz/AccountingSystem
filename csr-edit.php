@@ -824,40 +824,40 @@ $mysqli->close();
 
 													//var_dump($rows);
 
-													$item_product2 = $rows['c_agent'];
-													$item_qty2 = $rows['c_position'];
-													$item_price2 = $rows['c_code'];
-													$item_discount2 = $rows['c_rate'];
-													$item_subtotal2 = $rows['c_amount'];
+													$agent_name = $rows['c_agent'];
+													$position = $rows['c_position'];
+													$code = $rows['c_code'];
+													$rate = $rows['c_rate'];
+													$amount = $rows['c_amount'];
 
 											?>
 										<tr>
 											<td>
 												<div class="form-group form-group-sm  no-margin-bottom">
 													<a href="#" class="btn btn-danger btn-xs delete-row"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-													<input type="text" class="form-control form-group-sm item-input agent-name" name="agent_name[]" placeholder="Agent Name">
+													<input type="text" class="form-control form-group-sm item-input agent-name" name="agent_name[]" placeholder="Agent Name" value="<?php echo $agent_name; ?>">
 													<p class="item-select"><a href="#">select an agent</a></p>
 												</div>
 											</td>
 											<td class="text-right">
 												<div class="form-group form-group-sm no-margin-bottom">
-													<input type="text" class="form-control agent-pos" name="agent_position[]" placeholder="Position" readonly>
+													<input type="text" class="form-control agent-pos" name="agent_position[]" placeholder="Position" readonly value="<?php echo $position; ?>">
 												</div>
 											</td>
 											<td class="text-right">
 												<div class="input-group input-group-sm  no-margin-bottom">
-													<input type="text" class="form-control agent-code" name="agent_code[]" aria-describedby="sizing-addon1" placeholder="Code" readonly >
+													<input type="text" class="form-control agent-code" name="agent_code[]" aria-describedby="sizing-addon1" placeholder="Code" readonly value="<?php echo $code; ?>">
 												</div>
 											</td>
 											<td class="text-right">
 												<div class="form-group form-group-sm  no-margin-bottom">
-													<input type="number" class="form-control calculate agent-rate required" name="agent_rate[]"placeholder="Rate" >
+													<input type="number" class="form-control calculate agent-rate required" name="agent_rate[]"placeholder="Rate" value="<?php echo $rate; ?>">
 												</div>
 											</td>
 											<td class="text-right">
 												<div class="input-group input-group-sm">
 													<span class="input-group-addon"><?php echo CURRENCY ?></span>
-													<input type="text" class="form-control comm-amt" name="comm_amt[]"  placeholder= "Commission" aria-describedby="sizing-addon1">
+													<input type="text" class="form-control comm-amt" name="comm_amt[]"  placeholder= "Commission" aria-describedby="sizing-addon1" value="<?php echo $amount; ?>"> 
 												</div>
 											</td>
 										</tr>
