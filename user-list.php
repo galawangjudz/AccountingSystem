@@ -5,7 +5,7 @@ include('functions.php');
 
 ?>
 
-<h1>User List</h1>
+<h2>User List</h2><div class="addbtn"><a href="http://localhost/ALSC/user-add.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
 <hr>
 
 <div class="row">
@@ -17,9 +17,6 @@ include('functions.php');
 		</div>
 	
 		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4>Users</h4>
-			</div>
 			<div class="panel-body form-group form-group-sm">
 				<?php getUsers(); ?>
 			</div>
@@ -38,8 +35,8 @@ include('functions.php');
         <p>Are you sure you want to delete this user?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
-		<button type="button" data-dismiss="modal" class="btn">Cancel</button>
+	  		<button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
+		    <button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
