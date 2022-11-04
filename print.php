@@ -3,20 +3,39 @@
 <html lang="en">
 <?php include "includes/header.php" ?>
   <?php
-  $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+    $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+    $query = "SELECT * from `t_csr` where c_csr_no = '{$_GET['id']}' ";
+
+    $result = mysqli_query($mysqli, $query);
+
+    // mysqli select query
+    if($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+        
+        $c_b1_last_name = $row['c_b1_last_name']; 
+        $c_b2_last_name = $row['c_b2_last_name']; 
+        $c_b1_first_name = $row['c_b1_first_name']; 
+        $c_b2_first_name = $row['c_b2_first_name']; 
+        $c_b1_middle_name = $row['c_b1_middle_name']; 
+        $c_b2_middle_name = $row['c_b2_middle_name']; 
+        $c_address = $row['c_address']; 
+        $c_city_prov = $row['c_city_prov']; 
+        $c_mobile_no = $row['c_mobile_no']; 
+        $c_viber_no = $row['c_viber_no']; 
+        $c_address_abroad = $row['c_address_abroad']; 
+        $c_mobile_abroad = $row['c_mobile_abroad']; 
+        $c_billing_address = $row['c_billing_address'];
+        $c_birthday = $row['c_birthday'];  
+        $c_age = $row['c_age'];  
+        $c_sex = $row['c_sex'];  
+	}
+}
+
+/* close connection */
+$mysqli->close();
+
 ?>
 
- <?php
-$type = isset($_GET['type']) ? $_GET['type'] : 1 ;
-if(isset($_GET['id']) && $_GET['id'] > 0){
-    $qry = $mysqli->query("SELECT * from `t_csr` where c_csr_no = '{$_GET['id']}' ");
-    if($qry->num_rows > 0){
-        foreach($qry->fetch_assoc() as $k => $v){
-            $$k=$v;
-        }
-    }
-}
-?>
 <?php
 $type = isset($_GET['type']) ? $_GET['type'] : 1 ;
 if(isset($_GET['id']) && $_GET['id'] > 0){
@@ -31,6 +50,9 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 <style>
 .rec{
     height:115px;
+}
+table th{
+    text-align:center;
 }
 .dp_sched{
 	width:25%;
@@ -315,31 +337,8 @@ table{
 </style>
 <img src="images/Header.jpg" class="img-thumbnail" style="height:110px;width:700px" alt="">
 <h3 class="text-center"><b>CLOSED SALES REPORT</b></h3>
-<div class="text-center" id="dateofsale"><b>Date of Sale:</b> <?php echo date("F d, Y",strtotime($c_date_created)) ?></div>
 
-<?php 
-    if ($mysqli -> connect_errno)
-    {
-        echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
-        exit();
-    }
-    
-    $sql = "SELECT * from `t_csr` where c_csr_no = '{$_GET['id']}' ";
-    $result = ($mysqli->query($sql));
-    //declare array to store the data of database
-    $row = []; 
-    
-    if ($result->num_rows > 0) 
-    {
-        // fetch all data from db into array 
-        $row = $result->fetch_all(MYSQLI_ASSOC);  
-    }   
-    ?>
-    <?php
-        if(!empty($row))
-        foreach($row as $rows)
-        { 
-    ?>
+    <div class="text-center" id="dateofsale"><b>Date of Sale:</b> <?php echo date("F d, Y",strtotime($rows['c_date_created'])) ?></div>
     <div class="card-body">
         <div class="checkboxes">
             <div class="csr_status">
@@ -378,24 +377,24 @@ table{
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="control-label">Last Name:</label>
-                        <input type="text" value="<?php echo $rows['c_b1_last_name']; ?>" class="form-control form-control-sm">
-                        <input type="text" value="<?php echo $rows['c_b2_last_name']; ?>" class="form-control form-control-sm">
+                        <input type="text" value="<?php echo $c_b1_last_name; ?>" class="form-control form-control-sm">
+                        <input type="text" value="<?php echo $c_b2_last_name; ?>" class="form-control form-control-sm">
                         <input type="text" value="" class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="control-label">First Name:</label>
-                        <input type="text" value="<?php echo $rows['c_b1_first_name']; ?>" class="form-control form-control-sm">
-                        <input type="text" value="<?php echo $rows['c_b2_first_name']; ?>" class="form-control form-control-sm">
+                        <input type="text" value="<?php echo $c_b1_first_name; ?>" class="form-control form-control-sm">
+                        <input type="text" value="<?php echo $c_b2_first_name; ?>" class="form-control form-control-sm">
                         <input type="text" value="" class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="control-label">Middle Name:</label>
-                        <input type="text" value="<?php echo $rows['c_b1_middle_name']; ?>" class="form-control form-control-sm">
-                        <input type="text" value="<?php echo $rows['c_b2_middle_name']; ?>" class="form-control form-control-sm">
+                        <input type="text" value="<?php echo $c_b1_middle_name; ?>" class="form-control form-control-sm">
+                        <input type="text" value="<?php echo $c_b2_middle_name; ?>" class="form-control form-control-sm">
                         <input type="text" value="" class="form-control form-control-sm">
                     </div>
                 </div>
@@ -412,17 +411,17 @@ table{
                 <div class="col-md-8">
                     <div class="form-group">
                         <label class="control-label">Address in the Philippines (Required):</label>
-                        <input type="text" value="<?php echo $rows['c_address']; ?>"  class="form-control form-control-sm">
+                        <input type="text" value="<?php echo $c_address; ?>"  class="form-control form-control-sm">
                         <label class="control-label">City/Province:</label>
-                        <input type="text" value="<?php echo $rows['c_city_prov']; ?>"  class="form-control form-control-sm">
+                        <input type="text" value="<?php echo $c_city_prov; ?>"  class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="control-label">Contact Numbers:</label>
-                        <input type="text" value="<?php echo $rows['c_mobile_no']; ?>"  class="form-control form-control-sm">
+                        <input type="text" value="<?php echo $c_mobile_no; ?>"  class="form-control form-control-sm">
                         <label class="control-label">Viber Account:</label>
-                        <input type="text" value="<?php echo $rows['c_viber_no']; ?>"  class="form-control form-control-sm">
+                        <input type="text" value="<?php echo $c_viber_no; ?>"  class="form-control form-control-sm">
                     </div>
                 </div>
             </div>
@@ -430,14 +429,14 @@ table{
                 <div class="col-md-8">
                     <div class="form-group">
                         <label class="control-label">Address Abroad (if any):</label>
-                        <input type="text" value="<?php echo $rows['c_address_abroad']; ?>"  class="form-control form-control-sm">
+                        <input type="text" value="<?php echo $c_address_abroad; ?>"  class="form-control form-control-sm">
                         <input type="text" value=""  class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="control-label">Contact Numbers:</label>
-                        <input type="text" value="<?php echo $rows['c_mobile_abroad']; ?>"  class="form-control form-control-sm">
+                        <input type="text" value="<?php echo $c_mobile_abroad; ?>"  class="form-control form-control-sm">
                         <input type="text" value=""  class="form-control form-control-sm">
                     </div>
                 </div>
@@ -446,7 +445,7 @@ table{
                 <div class="col-md-2">
                     <div class="form-group">
                     <label class="control-label" id="lbl_space">Billing Address:</label><br>	
-                    <input type="hidden" id="billing_address" value="<?php echo $rows['c_billing_address']; ?>">					
+                    <input type="hidden" id="billing_address" value="<?php echo $c_billing_address; ?>">					
                     <input type="radio" id="rdolocal"/>
                     <label class="rdobtn">Local</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                     <input type="radio" id="rdoabroad"/>
@@ -456,23 +455,21 @@ table{
                 <div class="col-md-2">
                     <div class="form-group">
                         <label class="control-label">Birthdate:</label>
-                        <input type="date" id="birthdate" name="birthdate" value="<?php echo $rows['c_birthdate']; ?>"  class="form-control form-control-sm">
+                        <input type="date" id="birthdate" name="birthdate" value="<?php echo $c_birthday; ?>"  class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="col-md-1">
                     <div class="form-group">
                         <label class="control-label">Age:</label>
-                        <input type="text" id="age" name="age" value="<?php echo $rows['c_age']; ?>"  class="form-control form-control-sm">
+                        <input type="text" id="age" name="age" value="<?php echo $c_age; ?>"  class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="col-md-1">
                     <div class="form-group">
                         <label class="control-label">Gender:</label>
-                        <input type="hidden" id="gender" value="<?php echo $rows['c_gender']; ?>">
-                        <select class="form-control form-control-sm">
-                        <option style="display:none">
-                        <option id="female">Female</option>
-                        <option id="male">Male</option>
+                        <select name="c_sex" id="c_sex" class="form-control" required>
+                            <option value="M" <?php if($c_sex === 'M'){?>selected<?php }?>>Male</option>
+                            <option value="F" <?php if($c_sex === 'F'){?>selected<?php }?>>Female</option>
                         </select>
                     </div>
                 </div>
@@ -932,8 +929,56 @@ table{
                     </div>
                 </div>
             </div>
-            <div class="sales">
-                <div class="titles">SALES</div>
+            <div class="sales"><?php
+                $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+
+                // output any connection error
+                if ($mysqli->connect_error) {
+                    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+                }
+
+                // the query
+                $query = "SELECT * FROM t_csr_commission WHERE c_csr_no = '{$_GET['id']}' ORDER BY c_code ASC";
+
+                // mysqli select query
+                $results = $mysqli->query($query);
+
+                if($results) {
+
+                    print '<table class="table table-striped table-hover table-bordered" id="data-table"><thead><tr>
+
+                            <th>POSITION</th>
+                            <th>AGENT</th>
+                            <th>SIGNATURE</th>
+
+                        </tr></thead><tbody>';
+
+                    while($row = $results->fetch_assoc()) {
+
+                        print '
+                            <tr>
+                                <td>'.$row["c_position"].'</td>
+                                <td>'.$row["c_agent"].'</td>
+                                <td></td>
+                            </tr>
+                        ';
+                    }
+
+                    print '</tr></tbody></table>';
+
+                } else {
+
+                    echo "<p>There are no project sites to display.</p>";
+
+                }
+
+                // Frees the memory associated with a result
+                $results->free();
+
+                // close connection 
+                $mysqli->close();
+                ?>
+                <!--<div class="titles">SALES</div>
                 <table width="100%">
                     <tr>
                         <td width="30%" class="table_head">POSITION</td>
@@ -941,7 +986,7 @@ table{
                         <td width="20%" class="table_head">SIGNATURE</td>
                     </tr>
                     <tr>
-                        <td width="30%">Sales Director</td>
+                        <td width="30%"></td>
                         <td width="50%">ZANDRO LEMUEL SANTOS</td>
                         <td width="20%"></td>
                     </tr>
@@ -974,7 +1019,7 @@ table{
                         <td width="50%"></td>
                         <td width="25%"></td>
                     </tr>
-                </table>
+                </table>!-->
                 <table width="100%">
                     <tr><td><div class="notes">I have read and understood the Guidelines and Policies for In-House Financing and Data Privacy Consent at the back page.</div></td></tr>
                     <tr><td><div class="client_conforme">Client Conforme:</div><br>
@@ -1014,7 +1059,7 @@ table{
             </table>
         </div>
     </div>
-<?php } ?>
+
 <hr>
 </body>
 </html>
