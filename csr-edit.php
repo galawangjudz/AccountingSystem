@@ -89,6 +89,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 	$monthly_payment = $row['c_monthly_payment'];
 	$start_date = $row['c_start_date'];
 	$csr_status = $row['c_csr_status'];
+	$remarks = $row['c_remarks'];
 	$date_created = $row['c_date_created'];
 	$date_updated = $row['c_date_updated'];
 }
@@ -799,6 +800,35 @@ $mysqli->close();
 										</tr>
 									</thead>
 									<tbody>
+									<?php 
+
+											// Connect to the database
+											$mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+
+											// output any connection error
+											if ($mysqli->connect_error) {
+												die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
+											}
+
+											// the query
+											$query2 = "SELECT * FROM t_csr_commission WHERE c_csr_no = '" . $mysqli->real_escape_string($getID) . "'";
+
+											$result2 = mysqli_query($mysqli, $query2);
+
+											//var_dump($result2);
+
+											// mysqli select query
+											if($result2) {
+												while ($rows = mysqli_fetch_assoc($result2)) {
+
+													//var_dump($rows);
+
+													$item_product = $rows['c_agent'];
+													$item_qty = $rows['c_position'];
+													$item_price = $rows['c_code'];
+													$item_discount = $rows['c_rate'];
+													$item_subtotal = $rows['c_amount'];
+											?>
 										<tr>
 											<td>
 												<div class="form-group form-group-sm  no-margin-bottom">
@@ -829,6 +859,7 @@ $mysqli->close();
 												</div>
 											</td>
 										</tr>
+										<?php } } ?>
 									</tbody>
 
 								</table>
@@ -840,7 +871,7 @@ $mysqli->close();
 											<div class="col-xs-12">
 												<label class="control-label">Additional Notes: </label>
 												<div class="input-group form-group-sm textarea no-margin-bottom">
-													<textarea class-"form-control" name="invoice_notes" id="invoice_notes"></textarea>
+													<textarea class-"form-control" name="invoice_notes" id="invoice_notes"><?php echo $remarks ; ?></textarea>
 												</div>	
 											</div>
 										</div>
