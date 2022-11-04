@@ -1,4 +1,7 @@
 <style>
+.actions{
+	text-align:center !important;
+}
 .dropbtn {
   background-color: #3498DB;
   color: white;
@@ -39,10 +42,8 @@
 .dropdown a:hover {background-color: #ddd;}
 .show {display: block;}
 </style>
-
 <?php
 include_once("includes/config.php");
-
 function getProject() {
  
    // Connect to the database
@@ -61,13 +62,10 @@ function getProject() {
 		echo '<select name="prod_code" id= "prod_code" class="form-control">';
 		while($row = $results->fetch_assoc()) {
 
-		    //echo '<option value="'.$row['c_code'].'">'.$row['c_acronym'].'</option>';
-			echo '<option value="'.$row['c_acronym'].'">'.$row['c_acronym'].'</option>';
+		    print '<option value="'.$row['c_code'].'">'.$row['c_acronym'].'</option>';
 			
 		}
 		echo '</select>';
-		
-
 
 	} else {
 		echo '<select name = "prod_code" id= "prod_code" class="form-control">';
@@ -122,6 +120,7 @@ function getHouseModel() {
 	 
  
  }
+ 
 function getProjectSite() {
 
 	// Connect to the database
@@ -150,7 +149,7 @@ function getProjectSite() {
 				<th>Zip</th>
 				<th>Rate</th>
 				<th>Reservation</th>
-				<th>Action</th>
+				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 
@@ -166,7 +165,7 @@ function getProjectSite() {
 				    <td>'.$row["c_zip"].'</td>
 					<td>'.$row["c_rate"].'</td>
 				    <td>'.$row["c_reservation"].'</td>
-				    <td><a href="project-edit.php?id='.$row["c_code"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-project-id="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-project"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+				    <td class="actions"><a href="project-edit.php?id='.$row["c_code"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-project-id="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-project"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
 		}
@@ -209,7 +208,7 @@ function getHouse() {
 				<th>Code</th>
 				<th>Model</th>
 				<th>Acronym</th>
-				<th>Action</th>
+				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 
@@ -220,7 +219,7 @@ function getHouse() {
 					<td>'.$row["c_code"].'</td>
 				    <td>'.$row["c_model"].'</td>
 				    <td>'.$row["c_acronym"].'</td>
-				    <td><a href="house-edit.php?id='.$row["c_code"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-house-id="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-house"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+				    <td class="actions"><a href="house-edit.php?id='.$row["c_code"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-house-id="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-house"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
 		}
@@ -269,7 +268,7 @@ function getCSRs() {
 				<th>Net TCP</th>
 				<th>Date of Sale</th>
 				<th>Status</th>
-				<th>Actions</th>
+				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 
@@ -321,7 +320,7 @@ function getCSRs() {
 					</td>
 			    </tr>*/
 				print '
-				<td><a href="csr-view.php?id='.$row["c_csr_no"].'" class="btn btn-success btn-xs">
+				<td class="actions"><a href="csr-view.php?id='.$row["c_csr_no"].'" class="btn btn-success btn-xs">
 				<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
 
 				<a href="csr-edit.php?id='.$row["c_csr_no"].'" class="btn btn-primary btn-xs">
@@ -358,7 +357,41 @@ function getCSRs() {
 
 }
 
+// Initial csr number
+function getUserId() {
 
+	// Connect to the database
+	$mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+
+	// output any connection error
+	if ($mysqli->connect_error) {
+	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+	}
+
+	$query = "SELECT user_id FROM users ORDER BY user_id DESC LIMIT 1";
+
+	if ($result = $mysqli->query($query)) {
+
+		$row_cnt = $result->num_rows;
+
+	    $row = mysqli_fetch_assoc($result);
+
+	    //var_dump($row);
+
+	    if($row_cnt == 0){
+			echo CSR_INITIAL_VALUE;
+		} else {
+			echo $row['user_id'] + 1; 
+		}
+
+	    // Frees the memory associated with a result
+		$result->free();
+
+		// close connection 
+		$mysqli->close();
+	}
+	
+}
 
 
 // Initial csr number
@@ -410,11 +443,11 @@ function popLotsList() {
 
 
 	// the query
-	$query = "SELECT distinct(c_lid), i.c_status as c_lot_status, i.*, c.*
+	$query = "SELECT * 
 	FROM t_lots i 
 	JOIN t_projects c 
 	ON i.c_site = c.c_code
-	WHERE (i.c_status = 'Available' or i.c_status = 'Packaged')
+	WHERE i.c_site = c.c_code  
 	ORDER BY c.c_acronym, i.c_block, i.c_lot";
 
 	//echo $query;
@@ -429,31 +462,22 @@ function popLotsList() {
 				<th>Project</th>
 				<th>Block</th>
 				<th>Lot</th>
-				<th>Status</th>
-				<th>Action</th>
+				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 
 		while($row = $results->fetch_assoc()) {
-				$lot_lid = $row["c_lid"];
+
 		    print '
 			    <tr>
 					<td>'.$row["c_lid"].'</td>
 					<td>'.$row["c_acronym"].'</td>
 				    <td>'.$row["c_block"].'</td>
 				    <td>'.$row["c_lot"].'</td>
-					<td>'.$row["c_lot_status"].'</td>';
-					
-				/* 	if($row['c_lot_status'] == "Lot Only"){ */
-
-					print '<td><a href="#" class="btn btn-primary btn-xs lot-select" data-lot-lid="'.$row['c_lid'].'" 
-					data-lot-site="'.$row['c_acronym'].'" data-lot-block="'.$row['c_block'].'" 
-					data-lot-lot="'.$row['c_lot'].'" data-lot-lot-area="'.$row['c_lot_area'].'" 
-					data-lot-per-sqm="'.$row['c_price_sqm'].'" 
-					data-lot-status="'.$row['c_lot_status'].'">Select</a></td>	</tr>
-					';
+				    <td class="actions"><a href="#" class="btn btn-primary btn-xs lot-select" data-lot-lid="'.$row['c_lid'].'" data-lot-site="'.$row['c_acronym'].'" data-lot-block="'.$row['c_block'].'" data-lot-lot="'.$row['c_lot'].'" data-lot-lot-area="'.$row['c_lot_area'].'" data-lot-per-sqm="'.$row['c_price_sqm'].'">Select</a></td>
 			   
-			
+				</tr>
+		    ';
 		}
 
 		print '</tr></tbody></table>';
@@ -471,74 +495,6 @@ function popLotsList() {
 	$mysqli->close();
 
 }
-
-function popHousesList() {
-
-	// Connect to the database
-		$mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
-	
-		// output any connection error
-		if ($mysqli->connect_error) {
-			die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
-		}
-		
-		
-	
-		// the query
-		$query = "SELECT distinct(c_lid), i.c_status as c_lot_status, i.*, c.*
-		FROM t_house i 
-		JOIN t_projects c 
-		ON i.c_site = c.c_code
-		WHERE i.c_site = c.c_code  and i.c_status = 'Available' 
-		ORDER BY c.c_acronym, i.c_block, i.c_lot";
-	
-		//echo $query;
-		// mysqli select query
-		$results = $mysqli->query($query);
-	
-		if($results) {
-	
-			print '<table class="table table-striped table-hover table-bordered" id="data-table-lot"><thead><tr>
-					
-					<th>Lot ID</th>
-					<th>Project</th>
-					<th>Block</th>
-					<th>Lot</th>
-					<th>Status</th>
-					<th>Action</th>
-	
-				  </tr></thead><tbody>';
-	
-			while($row = $results->fetch_assoc()) {
-	
-				print '
-					<tr>
-						<td>'.$row["c_lid"].'</td>
-						<td>'.$row["c_acronym"].'</td>
-						<td>'.$row["c_block"].'</td>
-						<td>'.$row["c_lot"].'</td>
-						<td>'.$row["c_lot_status"].'</td>
-						<td><a href="#" class="btn btn-primary btn-xs house-select" data-house-model="'.$row['c_house_model'].'" data-house-floor-area="'.$row['c_floor_area'].'" data-house-per-sqm="'.$row['c_h_price_sqm'].'">Select</a></td>
-				   
-					</tr>
-				';
-			}
-	
-			print '</tr></tbody></table>';
-	
-		} else {
-	
-			echo "<p>There are no lots to display.</p>";
-	
-		}
-	
-		// Frees the memory associated with a result
-		$results->free();
-	
-		// close connection 
-		$mysqli->close();
-	
-	}
 
 function popCustomersList() {
 
@@ -567,7 +523,7 @@ function popCustomersList() {
 				<th>Middle Name</th>
 				<th>Email</th>
 				<th>Phone</th>
-				<th>Action</th>
+				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 
@@ -580,7 +536,7 @@ function popCustomersList() {
 					<td>'.$row["middle_name"].'</td>
 					<td>'.$row["email"].'</td>
 					<td>'.$row["phone"].'</td>
-					<td><a href="#" class="btn btn-primary btn-xs customer-select" data-customer-lname="'.$row['last_name'].'" data-customer-fname="'.$row['first_name'].'" data-customer-mname="'.$row['middle_name'].'" data-customer-email="'.$row['email'].'" data-customer-phone="'.$row['phone'].'" data-customer-address-1="'.$row['address'].'" data-customer-city-prov="'.$row['city_prov'].'" data-customer-zip-code="'.$row['zip_code'].'">Select</a></td>
+					<td class="actions"><a href="#" class="btn btn-primary btn-xs customer-select" data-customer-lname="'.$row['last_name'].'" data-customer-fname="'.$row['first_name'].'" data-customer-mname="'.$row['middle_name'].'" data-customer-email="'.$row['email'].'" data-customer-phone="'.$row['phone'].'" data-customer-address-1="'.$row['address'].'" data-customer-city-prov="'.$row['city_prov'].'" data-customer-zip-code="'.$row['zip_code'].'">Select</a></td>
 				</tr>
 		    ';
 		}
@@ -614,7 +570,7 @@ function getLots() {
 	}
 
 	// the query
-	$query = "SELECT distinct(c_lid), c_acronym, c_block, c_lot, c_lot_area, c_price_sqm, i.c_status
+	$query = "SELECT c_lid, c_acronym, c_block, c_lot, c_lot_area, c_price_sqm, i.c_status
 			FROM t_lots i 
 			JOIN t_projects c 
 			ON i.c_site = c.c_code
@@ -635,7 +591,7 @@ function getLots() {
 				<th>Lot Area</th>
 				<th>Price SQM</th>
 				<th>Status</th>
-				<th>Action</th>
+				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 
@@ -650,7 +606,7 @@ function getLots() {
 					<td>'.$row["c_lot_area"].'</td>
 					<td>P'.$row["c_price_sqm"].'</td>
 					<td>'.$row["c_status"].'</td>
-				    <td><a href="lot-edit.php?id='.$row["c_lid"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-lot-id="'.$row['c_lid'].'" class="btn btn-danger btn-xs delete-lot"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+				    <td class="actions"><a href="lot-edit.php?id='.$row["c_lid"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-lot-id="'.$row['c_lid'].'" class="btn btn-danger btn-xs delete-lot"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
 		}
@@ -691,11 +647,13 @@ function getUsers() {
 
 		print '<table class="table table-striped table-hover table-bordered" id="data-table"><thead><tr>
 
-				<th>Name</th>
+				<th>User ID</th>
+				<th>Last Name</th>
+				<th>First Name</th>
+				<th>Middle Name</th>
 				<th>Username</th>
-				<th>Email</th>
-				<th>Phone</th>
-				<th>Action</th>
+				<th>User Type</th>
+				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 
@@ -703,11 +661,13 @@ function getUsers() {
 
 		    print '
 			    <tr>
-			    	<td>'.$row['name'].'</td>
+			    	<td>'.$row['user_id'].'</td>
+					<td>'.$row["last_name"].'</td>
+				    <td>'.$row["first_name"].'</td>
+				    <td>'.$row["middle_name"].'</td>
 					<td>'.$row["username"].'</td>
-				    <td>'.$row["email"].'</td>
-				    <td>'.$row["phone"].'</td>
-				    <td><a href="user-edit.php?id='.$row["id"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-user-id="'.$row['id'].'" class="btn btn-danger btn-xs delete-user"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+					<td>'.$row["user_type"].'</td>
+				    <td class="actions"><a href="user-edit.php?id='.$row["user_id"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-user-id="'.$row['user_id'].'" class="btn btn-danger btn-xs delete-user"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
 		}
@@ -790,7 +750,7 @@ function getAgents() {
 				<th>First Name</th>
 				<th>Position</th>
 				<th>Status</th>
-				<th>Action</th>
+				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 
@@ -803,7 +763,9 @@ function getAgents() {
 				    <td>'.$row["c_first_name"].'</td>
 				    <td>'.$row["c_position"].'</td>
 					<td>'.$row["c_status"].'</td>
-				    <td><a href="agent-edit.php?id='.$row["c_code"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-agent-code="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-agent"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+				    <td class="actions">
+					<a href="agent-edit.php?id='.$row["c_code"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
+					<a data-agent-id="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-agent"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
 		}
@@ -848,7 +810,7 @@ function getCustomers() {
 				<th>Name</th>
 				<th>Email</th>
 				<th>Phone</th>
-				<th>Action</th>
+				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 
@@ -859,7 +821,9 @@ function getCustomers() {
 					<td>'.$row["last_name"].', '.$row["first_name"].'</td>
 				    <td>'.$row["email"].'</td>
 				    <td>'.$row["phone"].'</td>
-				    <td><a href="customer-edit.php?id='.$row["id"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-customer-id="'.$row['id'].'" class="btn btn-danger btn-xs delete-customer"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+				    <td class="actions"><a href="customer-edit.php?id='.$row["id"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
+					<a data-customer-id="'.$row['id'].'" class="btn btn-danger btn-xs delete-customer">
+					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
 		}
@@ -914,7 +878,7 @@ function getRAs() {
 				<th>Date of Sale</th>
 				<th>Status</th>
 				<th>Approval</th>
-				<th>Actions</th>
+				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 
@@ -950,7 +914,7 @@ function getRAs() {
 				</select>';
 
 			 print '
-				    <td><a data-ra-id="'.$row['ra_id'].'" class="btn btn-danger btn-xs delete-ra"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+				    <td class="actions"><a data-ra-id="'.$row['ra_id'].'" class="btn btn-danger btn-xs delete-ra"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 			'; 
 
@@ -1048,9 +1012,7 @@ function popRAsList() {
 		$mysqli->close();
 	
 	}
-	
-
-
+	 
 ?>
 <script>
 /* When the user clicks on the button, 
@@ -1076,6 +1038,22 @@ window.onclick = function(event) {
 function redirectToMail() {
 	window.location.href = "http://localhost/ALSC/mail.php";
 }
+</script>
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $(".c_network").change(function(){
+            var c_code=$(this).val();
+            $.ajax({
+                url:"division.php",
+                method:"POST",
+                data:{c_code:c_code},
+                success:function(data){
+                    $(".c_division").html(data);
+                }
+            });
+        });
+    });
 </script>
 
 

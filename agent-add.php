@@ -2,7 +2,6 @@
 
 include('header.php');
 include('functions.php');
-
 ?>
 
 <h2>Add Agent</h2>
@@ -205,15 +204,16 @@ include('functions.php');
                                 select:invalid { color: gray; }
                             </style>
                             <label class="control-label">Network: </label>
-                            <select class="form-control" name="c_network" id="c_network" tabindex ="19" required>
-                                    <?php
-                                        require 'includes/config.php';
-                                        $sql="SELECT DISTINCT(c_network) FROM t_network";
-
-                                        foreach($mysqli->query($sql) as $row){
-                                            echo "<option value=$row[c_network]>$row[c_network]</option>";
-                                        }
-                                    ?>
+                            <select name='c_network' id='c_network' class="c_network form-control" tabindex="19">
+                                <?php
+                                    $sql = mysqli_query($mysqli,"SELECT * FROM t_network ORDER BY c_network");
+                                    while($row = mysqli_fetch_array($sql)){
+                                        ?>
+                                        <option value="<?php echo $row['c_code'];?>">
+                                        <?php echo $row['c_network'];?></option>
+                                        <?php
+                                    }
+                                ?>
                             </select>
                         </div>
                     </div>
@@ -222,15 +222,12 @@ include('functions.php');
                             <style>
                                 select:invalid { color: gray; }
                             </style>
-                            <select name="agent_status" id="agent_status" class="form-control">
-                                
-                                    <option name="agent_status" value="Active" selected>Active</option>
-                                    <option name="agent_status" value="Inactive">Inactive</option>
+                            <label class="control-label">Division: </label>
+                            <select name='c_division' id='c_division' class="c_division form-control" tabindex="20">
                             </select>
                         </div>
                     </div>
                 </div> 
-            </div>
                 <div class="row">
                     <div class="col-xs-12 margin-top btn-group">
                         <input type="submit" id="action_add_agent" class="btn btn-success float-right" value="Create Agent" data-loading-text="Adding...">
@@ -240,25 +237,7 @@ include('functions.php');
         </div>
     </div>
 </form>	
-<script  src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<script>
-    $(document).ready(function(){
-        $('#c_network').change(function(){
-            var c_code=$('#c_network').val();
-            $('#c_division').empty();
-        $.get('includes/division.php',{'c_code':c_code},function(return_data){
-        $.each(return_data.data,function(key,value){
-            $('#c_division').append("
-            <option value="+value.c_code+">"+
-            value.c_division+"</option>");
-        });
-        },
-        'json');
-    });
-
-    });
-</script>
 <?php
 	include('footer.php');
 ?>
