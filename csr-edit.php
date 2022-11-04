@@ -824,11 +824,11 @@ $mysqli->close();
 
 													//var_dump($rows);
 
-													$item_product = $rows['c_agent'];
-													$item_qty = $rows['c_position'];
-													$item_price = $rows['c_code'];
-													$item_discount = $rows['c_rate'];
-													$item_subtotal = $rows['c_amount'];
+													$item_product3 = $rows['c_agent'];
+													$item_qty3 = $rows['c_position'];
+													$item_price4 = $rows['c_code'];
+													$item_discount3 = $rows['c_rate'];
+													$item_subtotal3 = $rows['c_amount'];
 											?>
 										<tr>
 											<td>
