@@ -23,7 +23,7 @@ $(document).ready(function() {
 	    actionAddLot();
 	});
 
-	// password strength
+	// password strength 
 	var options = {
         onLoad: function () {
             $('#messages').text('Start typing password');
@@ -34,7 +34,7 @@ $(document).ready(function() {
     };
     $('#password').pwstrength(options);
 
-	// add project
+	// add project 
 	$("#action_add_project").click(function(e) {
 		e.preventDefault();
 		actionAddProject();
@@ -46,7 +46,7 @@ $(document).ready(function() {
 		actionAddAgent();
 	});
 
-	// add house
+	// add house 
 	$("#action_add_house").click(function(e) {
 		e.preventDefault();
 		actionAddHouse();
@@ -245,7 +245,7 @@ $(document).ready(function() {
 		var pos = data[1];
 
 
-		 $(agent).closest('tr').find('.customer-agent').val(itemText);
+		 $(agent).closest('tr').find('.agent-name').val(itemText);
 		 $(agent).closest('tr').find('.agent-code').val(code);
 		 $(agent).closest('tr').find('.agent-pos').val(pos);
 
@@ -366,6 +366,22 @@ $(document).ready(function() {
 
 	});
 
+	//select lot
+
+	$(document).on('click', ".select-house", function(e) {
+
+		e.preventDefault;
+
+		var house = $(this);
+		
+
+		$('#insert_house').modal({ backdrop: 'static', keyboard: false });
+	
+
+		return false;
+
+	});
+
 	$(document).on('click', ".lot-select", function(e) {
 
 		let prod_lid = $(this).attr('data-lot-lid');
@@ -375,9 +391,15 @@ $(document).ready(function() {
 
 		var prod_lot_area = $(this).attr('data-lot-lot-area');
 		var prod_price_sqm = $(this).attr('data-lot-per-sqm');
+
+		var lot_status = $(this).attr('data-lot-status');
+
+		//alert(lot_status);
 	
 		$('#l_lid').val(prod_lid);
 		$('#l_site').val(prod_site);
+		
+		//$('#prod_code').val(prod_site);
 		$('#l_block').val(prod_block);
 		$('#l_lot').val(prod_lot);
 
@@ -389,7 +411,13 @@ $(document).ready(function() {
 		var lot_disc_amount = 0
 		$('#lot_disc').val(lot_discount.toFixed(2));
 		$('#lot_disc_amt').val(lot_disc_amount.toFixed(2));
-		$('#lcp').val(subtotal.toFixed(2))
+		$('#lcp').val(subtotal.toFixed(2));
+
+		if(lot_status == "Packaged"){
+			$('#insert_lot').modal('hide');
+			$('#insert_house').modal({ backdrop: 'static', keyboard: false });
+			return false;
+		}
 
 
 		$('#insert_lot').modal('hide');
@@ -398,6 +426,46 @@ $(document).ready(function() {
 		compute_net_tcp();
 
 	});
+
+	$(document).on('click', ".house-select", function(e) {
+
+		/* let house_lid = $(this).attr('data-house-lid');
+		var house_site =  $(this).attr('data-house-site');
+		var house_block = $(this).attr('data-house-block');
+		var house_lot = $(this).attr('data-house-lot');
+ */
+		var house_model = $(this).attr('data-house-model');
+		var house_floor_area = $(this).attr('data-house-floor-area');
+		var house_price_sqm = $(this).attr('data-house-per-sqm');
+
+		//var house_status = $(this).attr('data-house-status');
+
+		//alert(lot_status);
+	
+	/* 	$('#_lid').val(house_lid);
+		$('#l_site').val(house_site);
+		$('#l_block').val(house_block);
+		$('#l_lot').val(house_lot); */
+		
+		$('#house_model').val(house_model);
+		$('#floor_area').val(house_floor_area);
+		$('#h_price_per_sqm').val(house_price_sqm);
+		subtotal = parseInt(house_floor_area) * parseFloat(house_price_sqm);
+		var house_disc = 0
+		var house_disc_amt = 0
+		$('#house_disc').val(house_disc.toFixed(2));
+		$('#house_disc_amt').val(house_disc_amt.toFixed(2));
+		$('#hcp').val(subtotal.toFixed(2));
+
+		
+
+		$('#insert_house').modal('hide');
+
+		compute_house();
+		compute_net_tcp();
+
+	});
+
 
 
 	//select ra
@@ -466,6 +534,9 @@ $('#comm_table').on('input', '.calculate', function () {
 function updateTotals(elem) {
 	net_tcp = $('.total-tcp').val()
 	var tr = $(elem).closest('tr'),
+		name = $('[name="agent_name[]"]', tr).val(),
+		pos = $('[name="agent_position[]"]', tr).val(),
+		code = $('[name="agent_code[]"]', tr).val(),
 		rate= $('[name="agent_rate[]"]', tr).val(),
 		subtotal = (parseFloat(rate) / 100) * parseFloat(net_tcp);
 
@@ -543,13 +614,13 @@ function updateTotals(elem) {
 	});
 
 	
-	$(document).on('keyup', ".first-dp-date", function(e) {
+	$(document).on('blur', ".first-dp-date", function(e) {
 		e.preventDefault();
 		auto_terms();
 
 	});	
 
-	$(document).on('keyup', ".full-down-date", function(e) {
+	$(document).on('blur', ".full-down-date", function(e) {
 		e.preventDefault();
 		auto_terms();
 
@@ -595,7 +666,7 @@ function updateTotals(elem) {
 		
 	});
 
-	$(document).on('keyup', ".vat-amt", function(e) {
+	$(document).on('keyup', ".vat-percent", function(e) {
 		e.preventDefault();
 		compute_net_tcp();
 		//compute_house();
@@ -646,6 +717,8 @@ function updateTotals(elem) {
 
 	});
 
+	
+
 
 	$(document).on('change', ".payment-type2", function(e) {
 		e.preventDefault();
@@ -689,8 +762,10 @@ function updateTotals(elem) {
 			} else if(l_payment_type1 == "Full DownPayment"){
 				
 				$('#no_pay_text').hide();
+				$('#no_payment').val(0);
 				$('#no_payment').hide();
 				$('#mo_down_text').hide();
+				$('#monthly_down').val(0);
 				$('#monthly_down').hide();
 				$('#p1').show();
 				document.getElementById('p2').style.width='49%';
@@ -706,7 +781,7 @@ function updateTotals(elem) {
 				l_a = $('.net-tcp').val();
 				l_b = $('.reservation-fee').val();
 				$('#down_frm').hide();
-				$('#no_payment').val('1');
+				/* $('#no_payment').val('1'); */
 				$('#mo_down_text').hide();
 				l_sdate = $('.first-dp-date').val();
 				$('#p1').hide();
@@ -751,6 +826,8 @@ function updateTotals(elem) {
 		if (l_payment_type2 == "Deferred Cash Payment"){
 			$('#ma_text').text("Deferred Cash Payment ");
 			$('#loan_text').text("Deferred Amount:");
+			$("#interest_rate").val(0);
+			$("#fixed_facotr").val(0);
 			$('#rate_text').hide()
 			$('#factor_text').hide()
 			$('#interest_rate').hide();
@@ -808,7 +885,9 @@ function updateTotals(elem) {
 	}
 	
 	function compute_net_tcp(){
-		var vat_percentage = document.getElementById('vat_amt').value;
+		//var vat_percentage = document.getElementById('vat_amt').value;
+		var vat_percentage = $('#vat_percent').val();
+		//alert(vat_percentage);
 		var tcp_l_lcp = $('.l-lcp').val();		
 		var tcp_h_hcp = $('.house-hcp').val();
 		var tcp_discount = $('.tcp-disc').val();
@@ -820,15 +899,17 @@ function updateTotals(elem) {
 		var tcp_total = tcp_sum - tcp_disc_amt;
 
 		$('#total_tcp').val(tcp_total.toFixed(2));
-		var vat_tcp = document.getElementById('total_tcp').value;
+		var vat_tcp = $('#total_tcp').val();
 	
-		l_vat_amt = $('.vat-amt').val();
+		l_vat_amt = $('.vat-percent').val();
 		var vat_net_tcp = ( 1 + (0.01*vat_percentage))*vat_tcp;
 		var vat_total = vat_net_tcp - vat_tcp;
 
-		document.getElementById('vat_amt_computed').value = vat_total.toFixed(2);
+		//document.getElementById('vat_amt_computed').value = vat_total.toFixed(2);
+		$('#vat_amt_computed').val(vat_total.toFixed(2));
 		//$('#vat_amt').val(l_vat_amt.toFixed(2));
 		l_total_ntcp = parseFloat(vat_net_tcp);
+		
 		//l_total_ntcp = parseFloat(tcp_total) + parseFloat(l_vat_amt);
 		$('#net_tcp').val(l_total_ntcp.toFixed(2));
 		$('#net_tcp1').val(l_total_ntcp.toFixed(2));
@@ -1118,6 +1199,7 @@ function updateTotals(elem) {
 					$("#add_lot").remove();
 					setInterval(redirectToLotList,2000);
 					$btn.button("reset");
+					setInterval('location.reload()', 4000);
 				},
 				error: function(data){
 					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
@@ -1158,6 +1240,7 @@ function updateTotals(elem) {
 					$("#add_house").remove();
 					setInterval(redirectToHouseList,2000);
 					$btn.button("reset");
+				
 				},
 				error: function(data){
 					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
@@ -1206,7 +1289,7 @@ function updateTotals(elem) {
 					$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
 					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 					$btn.button("reset");
-				} 
+				}
 
 			});
 		}
@@ -1241,6 +1324,7 @@ function updateTotals(elem) {
 					$("#create_customer").remove();
 					setInterval(redirectToClientList,2000);
 					$btn.button("reset");
+					
 				},
 				error: function(data){
 					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
@@ -1322,7 +1406,7 @@ function updateTotals(elem) {
 					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 					$("#create_csr").before().html("<a href='./csr-create.php' class='btn btn-primary'>Add New CSR</a>");
-					$("#create_csr").remove();
+					//$("#create_csr").remove();
 					$btn.button("reset");
 
 				},
@@ -1537,37 +1621,37 @@ function updateTotals(elem) {
 			$("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
 			$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 		} else {
-	
-			var $btn = $("#action_update_lot").button("loading");
-	
+
+   		var $btn = $("#action_update_lot").button("loading");
+
 			$(".required").parent().removeClass("has-error");
 	
 			$.ajax({
-	
-				url: 'response.php',
-				type: 'POST',
-				data: $("#update_lot").serialize(),
-				dataType: 'json',
-				success: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+
+        	url: 'response.php',
+            type: 'POST', 
+            data: $("#update_lot").serialize(),
+            dataType: 'json', 
+            success: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 					$("html, body").animate({ scrollTop: $('#response').offset().top }, 5000);
 					$("#update_lot").before().html("<a href='./lot-edit.php' class='btn btn-primary'>Edit Another Lot</a>");
 					$("#update_lot").remove();
 					setInterval(redirectToLotList,2000);
-					$btn.button("reset");
+				$btn.button("reset");
 					
-				},
-				error: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$btn.button("reset");
-				} 
+			},
+			error: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				$btn.button("reset");
+			} 
 				
-			});
+    	});
 		}
-	}
+   	}
 
 
 	
@@ -1580,35 +1664,35 @@ function updateTotals(elem) {
 			$("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
 			$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 		} else {
-	
-			var $btn = $("#action_update_project").button("loading");
-	
+
+		var $btn = $("#action_update_project").button("loading");
+
 			$(".required").parent().removeClass("has-error");
 	
 			$.ajax({
-	
-				url: 'response.php',
-				type: 'POST',
-				data: $("#update_project").serialize(),
-				dataType: 'json',
-				success: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+
+		url: 'response.php',
+		type: 'POST', 
+		data: $("#update_project").serialize(),
+		dataType: 'json', 
+		success: function(data){
+			$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+			$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 					$("html, body").animate({ scrollTop: $('#response').offset().top }, 5000);
 					$("#update_project").before().html("<a href='./project-edit.php' class='btn btn-primary'>Edit Another Project</a>");
 					$("#update_project").remove();
 					setInterval(redirectToProjectList,2000);
-					$btn.button("reset");
+			$btn.button("reset");
 					
-				},
-				error: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$btn.button("reset");
-				} 
+		},
+		error: function(data){
+			$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+			$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+			$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+			$btn.button("reset");
+		} 
 				
-			});
+	});
 		}
 	}
 
@@ -1621,37 +1705,37 @@ function updateTotals(elem) {
 			$("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
 			$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 		} else {
-	
-			var $btn = $("#action_update_house").button("loading");
-	
+
+	var $btn = $("#action_update_house").button("loading");
+
 			$(".required").parent().removeClass("has-error");
 	
 			$.ajax({
-	
-				url: 'response.php',
-				type: 'POST',
-				data: $("#update_house").serialize(),
-				dataType: 'json',
-				success: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+
+		url: 'response.php',
+		type: 'POST', 
+		data: $("#update_house").serialize(),
+		dataType: 'json', 
+		success: function(data){
+			$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+			$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 					$("html, body").animate({ scrollTop: $('#response').offset().top }, 5000);
 					$("#update_house").before().html("<a href='./house-edit.php' class='btn btn-primary'>Edit Another House</a>");
 					$("#update_house").remove();
 					setInterval(redirectToHouseList,2000);
-					$btn.button("reset");
+			$btn.button("reset");
 					
-				},
-				error: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$btn.button("reset");
-				} 
+		},
+		error: function(data){
+			$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+			$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+			$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+			$btn.button("reset");
+		} 
 				
-			});
+	});
 		}
-	}
+}
 
    	function updateUser() {
 
@@ -1663,36 +1747,36 @@ function updateTotals(elem) {
 			$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 		} else {
 	
-			var $btn = $("#action_update_user").button("loading");
-	
+   		var $btn = $("#action_update_user").button("loading");
+
 			$(".required").parent().removeClass("has-error");
 	
 			$.ajax({
-	
-				url: 'response.php',
-				type: 'POST',
-				data: $("#update_user").serialize(),
-				dataType: 'json',
-				success: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+
+        	url: 'response.php',
+            type: 'POST', 
+            data: $("#update_user").serialize(),
+            dataType: 'json', 
+            success: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 					$("html, body").animate({ scrollTop: $('#response').offset().top }, 5000);
 					$("#update_user").before().html("<a href='./house-edit.php' class='btn btn-primary'>Edit Another House</a>");
 					$("#update_user").remove();
 					setInterval(redirectToUserList,2000);
-					$btn.button("reset");
+				$btn.button("reset");
 					
-				},
-				error: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$btn.button("reset");
-				} 
+			},
+			error: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				$btn.button("reset");
+			} 
 				
-			});
+    	});
 		}
-	}
+   	}
 
 
 	function updateCustomer(){
@@ -1705,17 +1789,17 @@ function updateTotals(elem) {
 		$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 	} else {
 
-		var $btn = $("#action_update_customer").button("loading");
+   		var $btn = $("#action_update_customer").button("loading");
 
 		$(".required").parent().removeClass("has-error");
 
 		$.ajax({
 
-			url: 'response.php',
-			type: 'POST',
-			data: $("#update_customer").serialize(),
-			dataType: 'json',
-			success: function(data){
+        	url: 'response.php',
+            type: 'POST', 
+            data: $("#update_customer").serialize(),
+            dataType: 'json', 
+            success: function(data){
 				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
 				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 				$("html, body").animate({ scrollTop: $('#response').offset().top }, 5000);
@@ -1732,7 +1816,7 @@ function updateTotals(elem) {
 				$btn.button("reset");
 			} 
 			
-		});
+    	});
 	}
 }
 
@@ -1772,10 +1856,10 @@ function updateAgent(){
 				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 				$btn.button("reset");
 			} 
-			
+
 		});
 	}
-}
+   	}
 
    	function updateCSR() {
 
@@ -1890,7 +1974,7 @@ function updateAgent(){
 			 $("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
 			 $("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
 			 $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-			 setInterval('location.reload()', 4000);
+			  setInterval('location.reload()', 4000);
 		 } 
 	 });
 
@@ -1904,7 +1988,7 @@ function updateAgent(){
 		e.preventDefault();
 	    opentab(evt, tabName);
 	}); */
-
+		
 	$(document).on('click', ".tablinks", function(e) {
 		e.preventDefault();
 		opentab(evt, tabName);

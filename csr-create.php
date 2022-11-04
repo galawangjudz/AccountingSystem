@@ -35,14 +35,8 @@ include('functions.php');
 	  }
 
 </script>
-<style>
-	.select-customer{
-		margin-top:5px!important;
-		padding-top:0px;
-	}
-</style>
 <body onload="showTab()">
-		<h2>Create New <span class="csr_type">CSR</span> </h2><div class="addbtn"><a href="#" class="btn select-customer" id="btntop"><span class="fas fa-mouse-pointer"></span>	Select An Existing Client</a></div>
+		<h2>Create New <span class="csr_type">CSR</span> </h2>
 		<hr>
 		<div id="response" class="alert alert-success" style="display:none;">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -55,14 +49,17 @@ include('functions.php');
 			<button class="tablinks" onclick="opentab(event, 'Payment')" id="onlink3" onkeyup="tabclicked3()">Payment Computation</button>
 			<button class="tablinks" onclick="opentab(event, 'Agents and Commission')" id="onlink4" onkeyup="tabclicked4()">Agents and Commission</button>
 		</div>
-		<div id="Buyer" class="tabcontent">
 		<form method="post" id="create_csr">
 			<input type="hidden" name="action" value="create_csr">
+			<div id="Buyer" class="tabcontent">
+	<!-- 	<form method="post" id="create_csr">
+			<input type="hidden" name="action" value="create_csr"> -->
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<div class="titles">Buyer's Information Details</div>
+							<a href="#" class="float-right select-customer"><b>OR</b> Select Existing Customer</a>
 							<div class="clear"></div>
 						</div>
 						<div class="panel-body form-group form-group-sm">
@@ -90,28 +87,28 @@ include('functions.php');
 							<div class="col-xs-4">		
 								<div class="form-group">
 								<label class="control-label">Last Name: </label>
-									<input type="text" class="form-control margin-bottom required" name="customer_last_name_1" id="customer_last_name_1" tabindex="3">
+									<input type="text" class="form-control margin-bottom required" name="customer_last_name_1" id="customer_last_name_1" placeholder="Buyer 1 Last Name" tabindex="3">
 								</div>
 								<div class="form-group">
-									<input type="text" class="form-control margin-bottom" name="customer_last_name_2" id="customer_last_name_2" tabindex="6">	
+									<input type="text" class="form-control margin-bottom" name="customer_last_name_2" id="customer_last_name_2" placeholder="Buyer 2 Last Name" tabindex="6">	
 								</div>
 							</div>
 							<div class="col-xs-4">
 								<div class="form-group">
 									<label class="control-label">First Name: </label>
-									<input type="text" class="form-control margin-bottom required" name="customer_first_name_1" id="customer_first_name_1" tabindex="5">
+									<input type="text" class="form-control margin-bottom required" name="customer_first_name_1" id="customer_first_name_1" placeholder="Buyer 1 First Name" tabindex="5">
 								</div>
 								<div class="form-group">
-									<input type="text" class="form-control margin-bottom" name="customer_first_name_2" id="customer_first_name_2" tabindex="7">	
+									<input type="text" class="form-control margin-bottom" name="customer_first_name_2" id="customer_first_name_2" placeholder="Buyer 2 First Name" tabindex="7">	
 								</div>	
 							</div>
 							<div class="col-xs-4">
 								<div class="form-group">
 									<label class="control-label">Middle Name: </label>
-									<input type="text" class="form-control margin-bottom" name="customer_middle_name_1" id="customer_middle_name_1" tabindex="5">
+									<input type="text" class="form-control margin-bottom" name="customer_middle_name_1" id="customer_middle_name_1" placeholder="Buyer 1 Middle Name" tabindex="5">
 								</div>
 								<div class="form-group">
-									<input type="text" class="form-control margin-bottom" name="customer_middle_name_2" id="customer_middle_name_2" tabindex="8">	
+									<input type="text" class="form-control margin-bottom" name="customer_middle_name_2" id="customer_middle_name_2" placeholder="Buyer 2 Middle Name" tabindex="8">	
 								</div>
 							</div>
 						</div>
@@ -193,7 +190,7 @@ include('functions.php');
 											select:invalid { color: gray; }
 										</style>
 										<label class="control-label">Gender: </label>
-										<select name="customer_gender" id="customer_gender" class="form-control" tabindex = "18" required>
+										<select name="customer_gender" id="customer_gender" class="form-control" tabindex = "18" require>
 											
 												<option name="customer_gender" value="M" selected>Male</option>
 												<option name="customer_gender" value="F">Female</option>
@@ -205,7 +202,7 @@ include('functions.php');
 									<style>
 										select:invalid { color: gray; }
 									</style>
-									<select name="civil_status" id="civil_status" class="form-control" tabindex = "19" required>
+									<select name="civil_status" id="civil_status" class="form-control" tabindex = "19"required>
 									
 										<option name="civil_status" value="Single" selected>Single</option>
 										<option name="civil_status" value="Married">Married</option>
@@ -249,31 +246,33 @@ include('functions.php');
 									<hr>
 									<div class="row">
 										<div class="col-xs-3">
-											<!-- <div class="form-group" tabindex = "21">	
-											<?php getProject(); ?>
+											<!--  <div class="form-group" tabindex = "21">	
+											
 											</div> -->
 											<input type="hidden" class="form-control margin-bottom copy-input" name="l_lid" id="l_lid" >
 											<div class="form-group">
 												<label class="control-label">Phase: </label>
-												<input type="text" class="form-control margin-bottom copy-input" name="l_site" id="l_site" readonly tabindex="21">
+												<input type="list" class="form-control margin-bottom copy-input" placeholder = "Phase" name="l_site" id="l_site" tabindex="21">
+											<!-- 	<?php  getProject(); ?> -->
 											</div>
 										</div>
 										<div class="col-xs-3">
 											<div class="form-group">
 												<label class="control-label">Block: </label>
-												<input type="text" class="form-control margin-bottom copy-input" name="l_block" id="l_block" readonly tabindex="22">
+												<input type="text" class="form-control margin-bottom copy-input" placeholder = "Blk" name="l_block" id="l_block"  tabindex="22">
 											</div>
 										</div>
 										<div class="col-xs-3">
 											<div class="form-group">
 												<label class="control-label">Lot: </label>
-												<input type="text" class="form-control margin-bottom copy-input" name="l_lot" id="l_lot" readonly alt="" tabindex="23">
+												<input type="text" class="form-control margin-bottom copy-input"  placeholder = "Lot" name="l_lot" id="l_lot" alt="" tabindex="23">
 											</div>
 										</div>
 										<div class="col-xs-3">
 											<div class="form-group">
 												<br>
 												<input type="submit" class="btn btn-success float-right select-lot" value="Find Lot" data-loading-text="Finding..." id="btnfind" tabindex ="37">
+												
 											</div>
 										</div>
 									</div>
@@ -281,13 +280,13 @@ include('functions.php');
 										<div class="col-xs-6">
 											<div class="form-group">
 												<label class="control-label">Lot Area: </label>
-												<input type="text" class="form-control margin-bottom lot-area" name="lot_area" id="lot_area" readonly tabindex="24">
+												<input type="text" class="form-control margin-bottom lot-area" value="0.0" name="lot_area" id="lot_area" readonly placeholder="Lot Area" tabindex="24">
 											</div>
 										</div>
 										<div class="col-xs-6">
 											<div class="form-group">
 												<label class="control-label">Price/SQM: </label>
-												<input type="text" class="form-control margin-bottom price-sqm" name="price_per_sqm" id="price_per_sqm" readonly tabindex="25">
+												<input type="text" class="form-control margin-bottom price-sqm" value="0.0" name="price_per_sqm" id="price_per_sqm" readonly placeholder="Price/SQM" tabindex="25">
 											</div>
 										</div>
 									</div>
@@ -295,7 +294,7 @@ include('functions.php');
 										<div class="col-xs-12">
 											<div class="form-group">
 												<label class="control-label">Amount: </label>
-												<input type="text" class="form-control margin-bottom l-amount" name="amount" id="amount" readonly tabindex="26">
+												<input type="text" class="form-control margin-bottom l-amount" value="0.00" name="amount" id="amount" readonly placeholder="Amount" tabindex="26">
 											</div>
 										</div>
 									</div>
@@ -303,13 +302,13 @@ include('functions.php');
 										<div class="col-xs-4">
 											<div class="form-group">
 												<label class="control-label">Discount (%): </label>
-												<input type="text" class="form-control margin-bottom lot-disc" name="lot_disc" id="lot_disc" tabindex="27">
+												<input type="text" class="form-control margin-bottom lot-disc" value="0.00" name="lot_disc" id="lot_disc" placeholder="%" tabindex="27">
 											</div>
 										</div>
 										<div class="col-xs-8">
 											<div class="form-group">
 												<label class="control-label">Discount Amount: </label>
-												<input type="text" class="form-control margin-bottom lot-disc-amt" name="lot_disc_amt" id="lot_disc_amt" readonly tabindex="28">
+												<input type="text" class="form-control margin-bottom lot-disc-amt" value="0.00" name="lot_disc_amt" id="lot_disc_amt" readonly placeholder="Disc Amt" tabindex="28">
 											</div>
 										</div>
 									</div>	
@@ -317,7 +316,7 @@ include('functions.php');
 										<div class="col-xs-12">
 											<div class="form-group">
 												<label class="control-label">Lot Contract Price: </label>
-												<input type="text" class="form-control margin-bottom l-lcp" name="lcp" id="lcp" tabindex="29">
+												<input type="text" class="form-control margin-bottom l-lcp" value="0.00" name="lcp" id="lcp" placeholder="LCP" tabindex="29">
 											</div>
 										</div>
 									</div>
@@ -326,10 +325,17 @@ include('functions.php');
 									<div class="titles">House</div>
 									<hr>
 									<div class="row">
-										<div class="col-xs-12">		
+										<div class="col-xs-8">		
 											<div class="form-group">
 												<label class="control-label">House Model: </label>
-												<?php getHouseModel(); ?>
+												<input type="text" class="form-control margin-bottom house-model" readonly name="house_model" id="house_model" placeholder="Model House" tabindex="31">
+											<!-- <?php getHouseModel(); ?> -->
+											</div>
+										</div>
+										<div class="col-xs-4">		
+											<div class="form-group">
+												<br>
+												<input type="submit" class="btn btn-success float-right select-house" value="Add House" data-loading-text="Finding..." id="btnfind" >
 											</div>
 										</div>
 									</div>
@@ -337,7 +343,7 @@ include('functions.php');
 										<div class="col-xs-12">
 											<div class="form-group">
 												<label class="control-label">Floor area: </label>
-												<input type="text" class="form-control margin-bottom floor-area" name="floor_area" id="floor_area" value = "0" tabindex="31">
+												<input type="text" class="form-control margin-bottom floor-area" name="floor_area" id="floor_area" value = "0.00" placeholder="Floor Area" tabindex="31">
 											</div>
 										</div>
 									</div>
@@ -345,7 +351,7 @@ include('functions.php');
 										<div class="col-xs-12">
 											<div class="form-group">
 												<label class="control-label">House Price/SQM: </label>
-												<input type="text" class="form-control margin-bottom h-price-sqm"  name="h_price_per_sqm" id="h_price_per_sqm" value = "0" tabindex="32">
+												<input type="text" class="form-control margin-bottom h-price-sqm"  name="h_price_per_sqm" id="h_price_per_sqm" value = "0.00" placeholder="Price/SQM" tabindex="32">
 											</div>
 										</div>
 									</div>
@@ -353,13 +359,13 @@ include('functions.php');
 										<div class="col-xs-5">
 											<div class="form-group">
 												<label class="control-label">House Discount(%): </label>
-												<input type="text" class="form-control margin-bottom house-disc" name="house_disc" id="house_disc" value = "0" tabindex="33">
+												<input type="text" class="form-control margin-bottom house-disc" name="house_disc" id="house_disc" value = "0.00" placeholder="%" tabindex="33">
 											</div>
 										</div>
 										<div class="col-xs-7">
 											<div class="form-group">
 												<label class="control-label">House Discount Amount: </label>
-												<input type="text" class="form-control margin-bottom h-disc-amt" name="house_disc_amt" id="house_disc_amt" value = "0" tabindex="34">
+												<input type="text" class="form-control margin-bottom h-disc-amt" name="house_disc_amt" id="house_disc_amt" value = "0.00" placeholder="Disc Amt" tabindex="34">
 											</div>
 										</div>
 									</div>
@@ -367,7 +373,7 @@ include('functions.php');
 										<div class="col-xs-12">
 											<div class="form-group">
 												<label class="control-label">House Contract Price: </label>
-												<input type="text" class="form-control margin-bottom house-hcp" name="hcp" id="hcp" value= "0" tabindex="35">
+												<input type="text" class="form-control margin-bottom house-hcp" name="hcp" id="hcp" value= "0.00" placeholder="HCP" tabindex="35">
 											</div>
 										</div>	
 									</div>		
@@ -382,7 +388,7 @@ include('functions.php');
 										</div>
 										<div class="col-xs-3" >
 											<div class="form-group">
-												<input type="text" class="form-control margin-bottom tcp-disc"  name="tcp_disc" id="tcp_disc" value= "0.00" tabindex = '36'>
+												<input type="text" class="form-control margin-bottom tcp-disc"  name="tcp_disc" id="tcp_disc" value= "0.00" placeholder="%" tabindex = '36'>
 											</div>
 										</div>
 										<div class="col-xs-2">
@@ -392,7 +398,7 @@ include('functions.php');
 										</div>
 										<div class="col-xs-4" >
 											<div class="form-group">
-												<input type="text" class="form-control margin-bottom tcp-disc-amt"  value= "0.00" name="tcp_disc_amt" id="tcp_disc_amt" tabindex = '37'>
+												<input type="text" class="form-control margin-bottom tcp-disc-amt" value= "0.00" name="tcp_disc_amt" id="tcp_disc_amt" placeholder="Amount" tabindex = '37'>
 											</div>
 										</div>
 									</div>
@@ -404,7 +410,7 @@ include('functions.php');
 										</div>
 										<div class="col-xs-9">
 											<div class="form-group">
-												<input type="text" class="form-control margin-bottom total-tcp" value= "0.00" name="total_tcp" id="total_tcp" tabindex = '38'>
+												<input type="text" class="form-control margin-bottom total-tcp" value= "0.00" name="total_tcp" id="total_tcp" placeholder="TCP" tabindex = '38'>
 												<input type="hidden" name="invoice_discount" id="invoice_discount">
 											</div>
 										</div>
@@ -417,7 +423,7 @@ include('functions.php');
 										</div>
 										<div class="col-xs-3" >
 											<div class="form-group">
-											<input type="text" class="form-control margin-bottom vat-amt" value= "0.00" name="vat_amt" id="vat_amt" tabindex = '39' onkeyup='getVat()'>
+											<input type="text" class="form-control margin-bottom vat-percent" value= "0.00" name="vat_percent" id="vat_percent" placeholder="Vat Amount" tabindex = '39' onkeyup='getVat()'>
 											</div> 
 										</div> 
 										<div class="col-xs-2">
@@ -438,7 +444,7 @@ include('functions.php');
 											</div>
 										</div>
 										<div class="col-xs-9">
-										<input type="text" class="form-control margin-bottom net-tcp"  name="net_tcp" readonly id="net_tcp" tabindex = '40'>
+											<input type="text" class="form-control margin-bottom net-tcp"  name="net_tcp" id="net_tcp" tabindex = '40'>
 											<input type="hidden" name="total_net_tcp" id="total_net_tcp">
 										</div>
 									</div>
@@ -461,13 +467,13 @@ include('functions.php');
 										<div class="col-xs-6">
 											<div class="form-group">
 												<label class="control-label">Total Selling Price:</label>
-												<input type="text" class="form-control margin-bottom required net-tcp-1" name="net_tcp1" id="net_tcp1" value = "0.00" tabindex = "1" >
+												<input type="text" class="form-control margin-bottom required net-tcp-1" name="net_tcp1" id="net_tcp1" placeholder="Net tcp" value = "0.00" tabindex = "1" >
 											</div>
 										</div>
 										<div class="col-xs-6">	
 											<div class="form-group">
 												<label class="control-label">Reservation: </label>
-												<input type="text" class="form-control margin-bottom required reservation-fee" name="reservation" id="reservation" value="0.00" tabindex ="1" >
+												<input type="text" class="form-control margin-bottom required reservation-fee" name="reservation" id="reservation" placeholder="Reservation" value="0.00" tabindex ="1" >
 											</div>
 										</div>
 									</div>
@@ -512,19 +518,19 @@ include('functions.php');
 											<label class="control-label">Net DP: </label>
 											<input type="text" class="form-control margin-bottom required net-dp" name="net_dp" id="net_dp" value= '0.00' tabindex="5">
 											<label class="control-label" id= "no_pay_text"># Payments : </label>
-											<input type="text" class="form-control margin-bottom required no-payment" name="no_payment" id="no_payment" value= "0.00" maxlength= "2" tabindex="6">
+											<input type="text" class="form-control margin-bottom required no-payment" name="no_payment" id="no_payment" value= "0.00" maxlength= "2" placeholder="No of Payment" tabindex="6">
 											<label class="control-label" id = "mo_down_text">Monthly Down: </label>
-											<input type="text" class="form-control margin-bottom required monthly-down" name="monthly_down" value= '0.00' id="monthly_down" tabindex="7">
+											<input type="text" class="form-control margin-bottom required monthly-down" name="monthly_down" value= '0.00' id="monthly_down" placeholder="Monthly Down" tabindex="7">
 											<label class="control-label">First DP: </label>
 											<div class="input-group date margin-bottom" id="down_start_date">
-												<input type="text" class="form-control required first-dp-date" name="first_dp_date" id = "first_dp_date" tabindex ="8" data-date-format="<?php echo DATE_FORMAT ?>" />
+												<input type="text" class="form-control required first-dp-date" name="first_dp_date" id = "first_dp_date" placeholder="First DP Date" tabindex ="8" data-date-format="<?php echo DATE_FORMAT ?>" />
 												<span class="input-group-addon">
 													<span class="glyphicon glyphicon-calendar"></span>
 												</span>
 											</div>
 											<label class="control-label">Full Down: </label>
 											<div class="input-group date margin-bottom" id="down_end_date">
-												<input type="text" class="form-control required full-down-date" name="full_down_date" id = "full_down_date" tabindex ="9" data-date-format="<?php echo DATE_FORMAT ?>" />
+												<input type="text" class="form-control required full-down-date" name="full_down_date" id = "full_down_date" placeholder="Full Down Date" tabindex ="9" data-date-format="<?php echo DATE_FORMAT ?>" />
 												<span class="input-group-addon">
 													<span class="glyphicon glyphicon-calendar"></span>
 												</span>
@@ -540,15 +546,15 @@ include('functions.php');
 											<label class="control-label">Terms: </label>
 											<input type="text" class="form-control margin-bottom required terms-count" name="terms" id="terms" value="1" tabindex="11">
 											<label class="control-label" id='rate_text'>Interest Rate: </label>
-											<input type="text" class="form-control margin-bottom required interest-rate" name="interest_rate" id="interest_rate" value="0.00" tabindex="12">
+											<input type="text" class="form-control margin-bottom required interest-rate" name="interest_rate" id="interest_rate" value="0.00" placeholder="Interest Rate" tabindex="12">
 											<label class="control-label" id='factor_text' >Fixed Factor: </label>
-											<input type="text" class="form-control margin-bottom required fixed-factor" name="fixed_factor" id="fixed_factor" value="0.00" tabindex="13">
+											<input type="text" class="form-control margin-bottom required fixed-factor" name="fixed_factor" id="fixed_factor" value="0.00" placeholder="Fixed Factor" tabindex="13">
 											<label class="control-label">Monthly Payment: </label>
 											<input type="text" class="form-control margin-bottom required monthly-amor" name="monthly_amortization" id="monthly_amortization" value="0.00" tabindex="14">	
 										</div>
 										<label class="control-label" id= "start_text">Start Date: </label>	
 										<div class="input-group date margin-bottom" id="mo_start_date">
-											<input type="text" class="form-control required mo-start-date" name="start_date" id = "start_date" tabindex ="15" data-date-format="<?php echo DATE_FORMAT ?>" />
+											<input type="text" class="form-control required mo-start-date" name="start_date" id = "start_date" placeholder="Start Date" tabindex ="15" data-date-format="<?php echo DATE_FORMAT ?>" />
 											<span class="input-group-addon">
 												<span class="glyphicon glyphicon-calendar"></span>
 											</span>
@@ -595,34 +601,34 @@ include('functions.php');
 											<td>
 												<div class="form-group form-group-sm  no-margin-bottom">
 													<a href="#" class="btn btn-danger btn-xs delete-row"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-													<input type="text" class="form-control form-group-sm item-input customer-agent" name="customer_agent[]">
-													<p class="item-select"><a href="#">or select an agent</a></p>
+													<input type="text" class="form-control form-group-sm item-input agent-name" name="agent_name[]" placeholder="Agent Name">
+													<p class="item-select"><a href="#">select an agent</a></p>
 												</div>
 											</td>
 											<td class="text-right">
 												<div class="form-group form-group-sm no-margin-bottom">
-													<input type="text" class="form-control agent-pos" name="agent_position[]" id="agent_position" readonly>
+													<input type="text" class="form-control agent-pos" name="agent_position[]" placeholder="Position" readonly>
 												</div>
 											</td>
 											<td class="text-right">
 												<div class="input-group input-group-sm  no-margin-bottom">
-													
-													<input type="text" class="form-control agent-code" name="code" id="code" aria-describedby="sizing-addon1" readonly>
+													<input type="text" class="form-control agent-code" name="agent_code[]" aria-describedby="sizing-addon1" placeholder="Code" readonly >
 												</div>
 											</td>
 											<td class="text-right">
 												<div class="form-group form-group-sm  no-margin-bottom">
-													<input type="number" class="form-control calculate agent-rate required" name="agent_rate[]" id="agent_rate" value="0.0">
+													<input type="number" class="form-control calculate agent-rate required" name="agent_rate[]"placeholder="Rate" value="0.0">
 												</div>
 											</td>
 											<td class="text-right">
 												<div class="input-group input-group-sm">
 													<span class="input-group-addon"><?php echo CURRENCY ?></span>
-													<input type="text" class="form-control comm-amt" name="comm_amt[]" id="comm_amt" value="0.00" aria-describedby="sizing-addon1">
+													<input type="text" class="form-control comm-amt" name="comm_amt[]" value="0.00" placeholder= "Commission" aria-describedby="sizing-addon1">
 												</div>
 											</td>
 										</tr>
 									</tbody>
+
 								</table>
 								<hr>
 								<div class="space"></div>
@@ -641,15 +647,23 @@ include('functions.php');
 								<div class="col-xs-12 margin-top btn-group">
 									<input type="submit" id="action_create_csr" class="btn btn-success float-right btn-l" value="Create CSR" data-loading-text="Creating...">
 								</div>
+
 							</div>
+
+
 						</div>
 					</div>
 				</div>
+				
 			</div>
-			<div class="row">	
+		
+
+			<div class="row">
+				
 			</div>
 		</form>
 		</div>	
+
 		<div id="insert_customer" class="modal fade">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
@@ -658,6 +672,7 @@ include('functions.php');
 					<h4 class="modal-title">Select An Existing Customer</h4>
 				</div>
 				<div class="modal-body">
+					
 					<?php popCustomersList(); ?>
 				</div>
 				<div class="modal-footer">
@@ -666,6 +681,7 @@ include('functions.php');
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
+
 <div id="insert_lot" class="modal fade">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -679,6 +695,28 @@ include('functions.php');
 				<input type="text" name="l_lot" id="hide_lot" value="" > -->
 			<?php				
 				popLotsList();
+			?>
+		</div>
+		<div class="modal-footer">
+			<button type="button" data-dismiss="modal" class="btn">Cancel</button>
+		</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->	
+</div><!-- /.modal -->
+
+<div id="insert_house" class="modal fade">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title">Select House</h4>
+		</div>
+		<div class="modal-body">
+				<!-- <input type="text" name="l_code" id="hide_code" value="" >
+				<input type="text" name="l_blk" id="hide_blk" value="" >
+				<input type="text" name="l_lot" id="hide_lot" value="" > -->
+			<?php				
+				popHousesList();
 			?>
 		</div>
 		<div class="modal-footer">
@@ -755,4 +793,6 @@ include('functions.php');
 		document.getElementById('onlink4').style.backgroundColor="#ccc";
 	}
 
+/* asasasasa */
 </script>
+

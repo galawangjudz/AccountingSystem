@@ -8,7 +8,6 @@ ini_set('display_errors', 1);
 
 
 
-
 // output any connection error
 if ($mysqli->connect_error) {
     die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
@@ -87,8 +86,128 @@ if ($action == 'create_customer'){
 	//close database connection
 	$mysqli->close();
 }
+// Create Project
+if ($action == 'add_project'){
+
+	$c_code = $_POST['c_code']; 
+	$c_name = $_POST['c_name']; 
+	$c_acronym = $_POST['c_acronym']; 
+	$c_address = $_POST['c_address']; 
+	$c_province = $_POST['c_province']; 
+	$c_zip = $_POST['c_zip']; 
+	$c_rate = $_POST['c_rate']; 
+	$c_reservation = $_POST['c_reservation']; 
+	$c_status = $_POST['c_status']; 
 
 
+	$query = "INSERT INTO t_projects (
+					c_code,
+					c_name,
+					c_acronym,
+					c_address,
+					c_province,
+					c_zip,
+					c_rate,
+					c_reservation,
+					c_status
+				) VALUES (
+					?,
+					?,
+					?,
+					?,
+					?,
+					?,
+					?,
+					?,
+					?
+				);
+			";
+
+	/* Prepare statement */
+	$stmt = $mysqli->prepare($query);
+	if($stmt === false) {
+	  trigger_error('Wrong SQL: ' . $query . ' Error: ' . $mysqli->error, E_USER_ERROR);
+	}
+
+	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
+	$stmt->bind_param(
+		'sssssssss',
+		$c_code,$c_name,$c_acronym,$c_address,$c_province,$c_zip,$c_rate,$c_reservation,$c_status);
+
+	if($stmt->execute()){
+		//if saving success
+		echo json_encode(array(
+			'status' => 'Success',
+			'message' => 'Project site has been created successfully!'
+		));
+		
+
+
+	} else {
+		// if unable to create invoice
+		echo json_encode(array(
+			'status' => 'Error',
+			'message' => 'There has been an error, please try again.'
+			// debug
+			//'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>'
+		));
+	}
+
+	//close database connection
+	$mysqli->close();
+}
+
+// Create House
+if ($action == 'add_house'){
+
+	$c_code = $_POST['c_code']; 
+	$c_model = $_POST['c_model']; 
+	$c_acronym = $_POST['c_acronym']; 
+
+	$query = "INSERT INTO t_model_house (
+					c_code,
+					c_model,
+					c_acronym
+				) VALUES (
+					?,
+					?,
+					?
+				);
+			";
+
+	/* Prepare statement */
+	$stmt = $mysqli->prepare($query);
+	if($stmt === false) {
+	  trigger_error('Wrong SQL: ' . $query . ' Error: ' . $mysqli->error, E_USER_ERROR);
+	}
+
+	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
+	$stmt->bind_param(
+		'sss',
+		$c_code,$c_model,$c_acronym);
+
+	if($stmt->execute()){
+		//if saving success
+		echo json_encode(array(
+			'status' => 'Success',
+			'message' => 'House model has been created successfully!',
+		));
+		
+
+
+	} else {
+		// if unable to create invoice
+		echo json_encode(array(
+			'status' => 'Error',
+			'message' => 'There has been an error, please try again.'
+			// debug
+			//'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>'
+		));
+	}
+
+	//close database connection
+	$mysqli->close();
+}
 
 // Create Reservation
 if ($action == 'save_reservation'){
@@ -244,7 +363,7 @@ if ($action == 'create_csr'){
 	$tcp_disc = $_POST['tcp_disc'];
 	$tcp_disc_amt = $_POST['tcp_disc_amt'];
 	$total_tcp = $_POST['total_tcp'];
-	$vat_amt = $_POST['vat_amt'];
+	$vat_amt = $_POST['vat_amt_co'];
 	$net_tcp = $_POST['net_tcp'];
 
 
@@ -381,42 +500,38 @@ if ($action == 'create_csr'){
 						);
 					"; 
 
-	// invoice product items
-	foreach($_POST['customer_agent'] as $key => $value) {
-	    $agent = $value;
-	    // $item_description = $_POST['invoice_product_desc'][$key];
-	    $agent_code = $_POST['code'][$key];
-		$agent_pos = $_POST['agent_position'][$key];
-	    $agent_amount = $_POST['comm_amt'][$key];
-	    $agent_rate = $_POST['aget_rate'][$key];
+ 
+	foreach($_POST['agent_name'] as $key => $value) {
 	
 
-	    // insert invoice items into database
-		$query .= "INSERT INTO t_commission (
+		$agent = $value;
+	
+		$agent_code = $_POST['agent_code'][$key];
+		$agent_pos = $_POST['agent_position'][$key];
+		$agent_amount = $_POST['comm_amt'][$key];
+		$agent_rate = $_POST['agent_rate'][$key]; 
+
+		
+		
+		$query .= "INSERT INTO t_csr_commission (
+				c_csr_no,
 				c_code,
 				c_position,
+				c_agent,
 				c_amount,
-				c_rate,
-				c_agent
+				c_rate
 				) VALUES (
-				'".$agent_code."',
-				'".$agent_pos."',
-				'".$agent_amount."',
-				'".$agent_rate."',
-				'".$agent."'	
-			);
-		";
-
-	}
-						
-
-
-
+				'".$csr_id."',
+				'$agent_code',
+				'$agent_pos',
+				'".$agent."',
+				'$agent_amount',
+				'$agent_rate'
+				);
+				";
+		}
+	
 	header('Content-Type: application/json');
-
-
-
-
 
 	// execute the query
 	if($mysqli -> multi_query($query)){
@@ -440,9 +555,7 @@ if ($action == 'create_csr'){
 
 }
 if($action == 'update_stat') {
-	
 
-	// output any connection error
 	if ($mysqli->connect_error) {
 	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
 	}
@@ -557,8 +670,6 @@ if($action == 'ra_stat') {
 	$mysqli->close();
 
 }
-
-// delete csr
 if($action == 'delete_ra') {
 
 	// output any connection error
@@ -592,6 +703,7 @@ if($action == 'delete_ra') {
 	$mysqli->close();
 
 }
+
 // delete csr
 if($action == 'delete_csr') {
 
@@ -610,7 +722,7 @@ if($action == 'delete_csr') {
 	    //if saving success
 		echo json_encode(array(
 			'status' => 'Success',
-			'message'=> 'Product has been deleted successfully!'
+			'message'=> 'CSR has been deleted successfully!'
 		));
 
 	} else {
@@ -627,7 +739,7 @@ if($action == 'delete_csr') {
 
 }
 
-// Adding new customer
+// Updating new customer
 if($action == 'update_customer') {
 
 	// output any connection error
@@ -698,25 +810,26 @@ if($action == 'update_customer') {
 	
 }
 
-// Update product
-if($action == 'update_product') {
+// Update lot
+if($action == 'update_lot') {
 
 	// output any connection error
 	if ($mysqli->connect_error) {
 	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
 	}
 
-	// invoice product information
 	$getID = $_POST['prod_lid']; // lid
-	$c_lot_area = $_POST['prod_lot_area']; // product name
-	$c_price_sqm= $_POST['prod_lot_price']; // product desc
-	$c_status = $_POST['prod_status']; // product price
+	$c_lot_area = $_POST['prod_lot_area']; 
+	$c_price_sqm= $_POST['prod_lot_price']; 
+	$c_status = $_POST['prod_status']; 
+	$c_remarks = $_POST['prod_remarks']; 
 
 	// the query
 	$query = "UPDATE t_lots SET
 				c_lot_area = ?,
 				c_price_sqm = ?,
-				c_status = ?
+				c_status = ?,
+				c_remarks = ?
 			 WHERE c_lid = ?
 			";
 
@@ -729,10 +842,11 @@ if($action == 'update_product') {
 
 	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
 	$stmt->bind_param(
-		'ddss',
+		'ddsss',
 		$c_lot_area,
 		$c_price_sqm,
 		$c_status,
+		$c_remarks,
 		$getID);
 
 	//execute the query
@@ -740,7 +854,7 @@ if($action == 'update_product') {
 	    //if saving success
 		echo json_encode(array(
 			'status' => 'Success',
-			'message'=> 'Product has been updated successfully!'
+			'message'=> 'Lot has been updated successfully!'
 		));
 
 	} else {
@@ -757,8 +871,133 @@ if($action == 'update_product') {
 	
 }
 
+// Update project
+if($action == 'update_project') {
 
-// Adding new product
+	// output any connection error
+	if ($mysqli->connect_error) {
+	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+	}
+	$getID = $_POST['c_code']; 
+	$c_name = $_POST['c_name']; 
+	$c_acronym= $_POST['c_acronym']; 
+	$c_address = $_POST['c_address']; 
+	$c_province = $_POST['c_province']; 
+	$c_zip= $_POST['c_zip']; 
+	$c_rate = $_POST['c_rate']; 
+	$c_reservation = $_POST['c_reservation'];
+	$c_status= $_POST['c_status'];
+
+	// the query
+	$query = "UPDATE t_projects SET
+				c_name = ?,
+				c_acronym = ?,
+				c_address = ?,
+				c_province = ?,
+				c_zip = ?,
+				c_rate = ?,
+				c_reservation = ?,
+				c_status = ?
+			 WHERE c_code = ?
+			";
+
+	
+	/* Prepare statement */
+	$stmt = $mysqli->prepare($query);
+	if($stmt === false) {
+	  trigger_error('Wrong SQL: ' . $query . ' Error: ' . $mysqli->error, E_USER_ERROR);
+	}
+
+	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
+	$stmt->bind_param(
+		'sssssssss',
+		$c_name,
+		$c_acronym,
+		$c_address,
+		$c_province,
+		$c_zip,
+		$c_rate,
+		$c_reservation,
+		$c_status,
+		$getID);
+
+	//execute the query
+	if($stmt->execute()){
+	    //if saving success
+		echo json_encode(array(
+			'status' => 'Success',
+			'message'=> 'Project has been updated successfully!'
+		));
+
+	} else {
+	    //if unable to create new record
+	    echo json_encode(array(
+	    	'status' => 'Error',
+	    	//'message'=> 'There has been an error, please try again.'
+	    	'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>'
+	    ));
+	}
+
+	//close database connection
+	$mysqli->close();
+	
+}
+
+// Update house
+if($action == 'update_house') {
+
+	// output any connection error
+	if ($mysqli->connect_error) {
+	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+	}
+
+	$getID = $_POST['c_code']; // lid
+	$c_model = $_POST['c_model']; 
+	$c_acronym= $_POST['c_acronym']; 
+
+	// the query
+	$query = "UPDATE t_model_house SET
+				c_model = ?,
+				c_acronym = ?
+			 WHERE c_code = ?
+			";
+
+	
+	/* Prepare statement */
+	$stmt = $mysqli->prepare($query);
+	if($stmt === false) {
+	  trigger_error('Wrong SQL: ' . $query . ' Error: ' . $mysqli->error, E_USER_ERROR);
+	}
+
+	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
+	$stmt->bind_param(
+		'sss',
+		$c_model,
+		$c_acronym,
+		$getID);
+
+	//execute the query
+	if($stmt->execute()){
+	    //if saving success
+		echo json_encode(array(
+			'status' => 'Success',
+			'message'=> 'House Model has been updated successfully!'
+		));
+
+	} else {
+	    //if unable to create new record
+	    echo json_encode(array(
+	    	'status' => 'Error',
+	    	//'message'=> 'There has been an error, please try again.'
+	    	'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>'
+	    ));
+	}
+
+	//close database connection
+	$mysqli->close();
+	
+}
+
 if($action == 'update_csr') {
 
 	// output any connection error
@@ -877,8 +1116,8 @@ if($action == 'update_csr') {
 
 }
 
-// Adding new product
-if($action == 'delete_product') {
+// Delete lot
+if($action == 'delete_lot') {
 
 	// output any connection error
 	if ($mysqli->connect_error) {
@@ -904,7 +1143,93 @@ if($action == 'delete_product') {
 	    //if saving success
 		echo json_encode(array(
 			'status' => 'Success',
-			'message'=> 'Product has been deleted successfully!'
+			'message'=> 'Lot has been deleted successfully!',
+		));
+
+	} else {
+	    //if unable to create new record
+	    echo json_encode(array(
+	    	'status' => 'Error',
+	    	//'message'=> 'There has been an error, please try again.'
+	    	'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>'
+	    ));
+	}
+
+	// close connection 
+	$mysqli->close();
+
+}
+// Delete house
+if($action == 'delete_house') {
+
+	// output any connection error
+	if ($mysqli->connect_error) {
+	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+	}
+
+	$id = $_POST["delete"];
+
+	// the query
+	$query = "DELETE FROM t_model_house WHERE c_code = ?";
+
+	/* Prepare statement */
+	$stmt = $mysqli->prepare($query);
+	if($stmt === false) {
+	  trigger_error('Wrong SQL: ' . $query . ' Error: ' . $mysqli->error, E_USER_ERROR);
+	}
+
+	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
+	$stmt->bind_param('s',$id);
+
+	//execute the query
+	if($stmt->execute()){
+	    //if saving success
+		echo json_encode(array(
+			'status' => 'Success',
+			'message'=> 'House model has been deleted successfully!'
+		));
+
+	} else {
+	    //if unable to create new record
+	    echo json_encode(array(
+	    	'status' => 'Error',
+	    	//'message'=> 'There has been an error, please try again.'
+	    	'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>'
+	    ));
+	}
+
+	// close connection 
+	$mysqli->close();
+
+}
+// Delete project
+if($action == 'delete_project') {
+
+	// output any connection error
+	if ($mysqli->connect_error) {
+	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+	}
+
+	$id = $_POST["delete"];
+
+	// the query
+	$query = "DELETE FROM t_projects WHERE c_code = ?";
+
+	/* Prepare statement */
+	$stmt = $mysqli->prepare($query);
+	if($stmt === false) {
+	  trigger_error('Wrong SQL: ' . $query . ' Error: ' . $mysqli->error, E_USER_ERROR);
+	}
+
+	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
+	$stmt->bind_param('s',$id);
+
+	//execute the query
+	if($stmt->execute()){
+	    //if saving success
+		echo json_encode(array(
+			'status' => 'Success',
+			'message'=> 'Project site has been deleted successfully!'
 		));
 
 	} else {
@@ -965,8 +1290,8 @@ if($action == 'login') {
     }
 }
 
-// Adding new product
-if($action == 'add_product') {
+// Adding new lot
+if($action == 'add_lot') {
 
 	$prod_code = $_POST['prod_code'];
 	$prod_block = $_POST['prod_block'];
@@ -1017,7 +1342,7 @@ if($action == 'add_product') {
 	    //if saving success
 		echo json_encode(array(
 			'status' => 'Success',
-			'message'=> 'Product has been added successfully!'
+			'message'=> 'Lot has been added successfully!'
 		));
 
 	} else {
@@ -1092,7 +1417,6 @@ if($action == 'add_user') {
 	$mysqli->close();
 }
 
-// Update product
 if($action == 'update_user') {
 
 	// output any connection error
@@ -1215,7 +1539,7 @@ if($action == 'delete_user') {
 
 }
 
-// Delete User
+// Delete Customer
 if($action == 'delete_customer') {
 
 	// output any connection error

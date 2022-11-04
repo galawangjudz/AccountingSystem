@@ -126,7 +126,8 @@ $mysqli->close();
 	  }
 	  function showTab(){
 			
-	
+		/*  document.getElementById('Buyer').style.display="block"; */
+		/* document.getElementById('down_percent').style.display="hidden";  */
 	  }
 
 	  function payment_type1_changed(){
