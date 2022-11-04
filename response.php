@@ -540,37 +540,37 @@ if ($action == 'create_csr'){
 						);
 					"; 
 					
-					foreach($_POST['customer_agent'] as $key => $value) {
+ 
+	foreach($_POST['agent_name'] as $key => $value) {
+	
+
 						$agent = $value;
-						// $item_description = $_POST['invoice_product_desc'][$key];
-						$csr_no = $_POST['csr_id'][$key];
-						$agent_code = $_POST['code'][$key];
+	
+						$agent_code = $_POST['agent_code'][$key];
 						$agent_pos = $_POST['agent_position'][$key];
 						$agent_amount = $_POST['comm_amt'][$key];
 						$agent_rate = $_POST['agent_rate'][$key];
 					
 				
-						// insert invoice items into database
+		
 						$query .= "INSERT INTO t_csr_commission (
 								c_csr_no,
 								c_code,
 								c_position,
+								c_agent,
 								c_amount,
-								c_rate,
-								c_agent
+								c_rate
 								) VALUES (
-								'".$csr_no."',
-								'".$agent_code."',
-								'".$agent_pos."',
-								'".$agent_amount."',
-								'".$agent_rate."',
-								'".$agent."'	
+								'".$csr_id."',
+								'$agent_code',
+								'$agent_pos',
+								'".$agent."',
+								'$agent_amount',
+								'$agent_rate'
 							);
 						";
-				
 					}
 										
-				
 	header('Content-Type: application/json');
 
 	// execute the query
@@ -743,7 +743,6 @@ if($action == 'delete_ra') {
 	$mysqli->close();
 
 }
-
 
 // delete csr
 if($action == 'delete_csr') {

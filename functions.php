@@ -62,10 +62,13 @@ function getProject() {
 		echo '<select name="prod_code" id= "prod_code" class="form-control">';
 		while($row = $results->fetch_assoc()) {
 
-		    print '<option value="'.$row['c_code'].'">'.$row['c_acronym'].'</option>';
+		    //echo '<option value="'.$row['c_code'].'">'.$row['c_acronym'].'</option>';
+			echo '<option value="'.$row['c_acronym'].'">'.$row['c_acronym'].'</option>';
 			
 		}
 		echo '</select>';
+
+
 
 	} else {
 		echo '<select name = "prod_code" id= "prod_code" class="form-control">';
