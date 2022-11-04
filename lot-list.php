@@ -5,7 +5,7 @@ include('functions.php');
 
 ?>
 
-<h2>Lot List</h2><div class="addbtn"><a href="http://localhost/ALSC/lot-add.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
+<h2>Lot List</h2><div class="addbtn"><a href="lot-add.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
 <hr>
 
 <div class="row">

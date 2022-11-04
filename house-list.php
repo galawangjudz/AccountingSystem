@@ -5,7 +5,7 @@ include('functions.php');
 
 ?>
 
-<h2>House Model List</h2><div class="addbtn"><a href="http://localhost/ALSC/house-add.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
+<h2>House Model List</h2><div class="addbtn"><a href="house-add.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
 <hr>
 
 <div class="row">
