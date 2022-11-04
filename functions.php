@@ -507,7 +507,7 @@ function popLotsList() {
 			  </tr></thead><tbody>';
 
 		while($row = $results->fetch_assoc()) {
-
+	
 		    print '
 			    <tr>
 					<td>'.$row["c_lid"].'</td>

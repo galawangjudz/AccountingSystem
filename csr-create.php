@@ -253,7 +253,6 @@ include('functions.php');
 											<div class="form-group">
 												<label class="control-label">Phase: </label>
 												<input type="list" class="form-control margin-bottom copy-input" placeholder = "Phase" name="l_site" id="l_site" tabindex="21">
-											<!-- 	<?php  getProject(); ?> -->
 											</div>
 										</div>
 										<div class="col-xs-3">
@@ -328,16 +327,16 @@ include('functions.php');
 										<div class="col-xs-8">		
 											<div class="form-group">
 												<label class="control-label">House Model: </label>
-												<input type="text" class="form-control margin-bottom house-model" readonly name="house_model" id="house_model" placeholder="Model House" tabindex="31">
-											<!-- <?php getHouseModel(); ?> -->
+											<!-- 	<input type="text" class="form-control margin-bottom house-model" readonly name="house_model" id="house_model" placeholder="Model House" tabindex="31"> -->
+											<?php getHouseModel(); ?>
 											</div>
 										</div>
-										<div class="col-xs-4">		
+										<!-- <div class="col-xs-4">		
 											<div class="form-group">
 												<br>
 												<input type="submit" class="btn btn-success float-right select-house" value="Add House" data-loading-text="Finding..." id="btnfind" >
 											</div>
-										</div>
+										</div> -->
 									</div>
 									<div class="row">
 										<div class="col-xs-12">
