@@ -829,6 +829,7 @@ $mysqli->close();
 													$item_price2 = $rows['c_code'];
 													$item_discount2 = $rows['c_rate'];
 													$item_subtotal2 = $rows['c_amount'];
+
 											?>
 										<tr>
 											<td>
