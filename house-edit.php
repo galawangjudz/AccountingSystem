@@ -40,46 +40,45 @@ $mysqli->close();
 	<a href="#" class="close" data-dismiss="alert">&times;</a>
 	<div class="message"></div>
 </div>		
+<form method="post" id="update_house">
 <div class="box_big">
 	<div class="main_box">
-		<form method="post" id="update_house">
-			<input type="hidden" name="action" value="update_house">
-			<input type="hidden" name="c_code" value="<?php echo $getID; ?>">
-			<div class="row">
-				<div class="col-xs-12">		
-					<div class="form-group">
-						<label class="control-label">Code: </label>
-						<input type="text" class="form-control required" name="c_code" value="<?php echo $c_code; ?>" readonly>
-					</div>
+		<input type="hidden" name="action" value="update_house">
+		<input type="hidden" name="c_code" value="<?php echo $getID; ?>">
+		<div class="row">
+			<div class="col-xs-12">		
+				<div class="form-group">
+					<label class="control-label">Code: </label>
+					<input type="text" class="form-control required" name="c_code" value="<?php echo $c_code; ?>" readonly>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-xs-12">		
-					<div class="form-group">
-						<label class="control-label">Model Name: </label>
-						<input type="text" class="form-control required" name="c_model" value="<?php echo $c_model; ?>">
-					</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">		
+				<div class="form-group">
+					<label class="control-label">Model Name: </label>
+					<input type="text" class="form-control required" name="c_model" value="<?php echo $c_model; ?>">
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-xs-12">		
-					<div class="form-group">
-						<label class="control-label">Acronym: </label>
-						<input type="text" class="form-control required" name="c_acronym" value="<?php echo $c_acronym; ?>">
-					</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">		
+				<div class="form-group">
+					<label class="control-label">Acronym: </label>
+					<input type="text" class="form-control required" name="c_acronym" value="<?php echo $c_acronym; ?>">
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-xs-12 margin-top btn-group">
-					<input type="submit" id="action_update_house" class="btn btn-success float-right" value="Update House Model" data-loading-text="Updating...">
-				</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">		
+				<input type="submit" id="action_update_house" class="btn btn-success float-right" value="Update House Model" data-loading-text="Updating...">
 			</div>
-		</form>
-	</div>
-<div>
-
-
-
+		</div>
+	</div>	
+</form>
+</div>
+<div class="row">
+</div>
 <?php
 	include('footer.php');
 ?>

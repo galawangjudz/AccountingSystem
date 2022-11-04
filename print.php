@@ -17,6 +17,17 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
     }
 }
 ?>
+<?php
+$type = isset($_GET['type']) ? $_GET['type'] : 1 ;
+if(isset($_GET['id']) && $_GET['id'] > 0){
+    $qry = $mysqli->query("SELECT * from `t_csr_commission` where c_csr_no = '{$_GET['id']}' ");
+    if($qry->num_rows > 0){
+        foreach($qry->fetch_assoc() as $k => $v){
+            $$k=$v;
+        }
+    }
+}
+?>
 <style>
 .rec{
     height:115px;
@@ -445,7 +456,7 @@ table{
                 <div class="col-md-2">
                     <div class="form-group">
                         <label class="control-label">Birthdate:</label>
-                        <input type="date" id="birthdate" name="birthdate" value="<?php echo $rows['c_birthday']; ?>"  class="form-control form-control-sm">
+                        <input type="date" id="birthdate" name="birthdate" value="<?php echo $rows['c_birthdate']; ?>"  class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="col-md-1">
@@ -457,7 +468,7 @@ table{
                 <div class="col-md-1">
                     <div class="form-group">
                         <label class="control-label">Gender:</label>
-                        <input type="hidden" id="gender" value="<?php echo $rows['c_sex']; ?>">
+                        <input type="hidden" id="gender" value="<?php echo $rows['c_gender']; ?>">
                         <select class="form-control form-control-sm">
                         <option style="display:none">
                         <option id="female">Female</option>

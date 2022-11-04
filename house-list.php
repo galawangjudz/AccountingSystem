@@ -5,13 +5,11 @@ include('functions.php');
 
 ?>
 
-<h2>House Model List</h2>
+<h2>House Model List</h2><div class="addbtn"><a href="http://localhost/ALSC/house-add.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
 <hr>
 
 <div class="row">
-	
 	<div class="col-xs-12">
-
 		<div id="response" class="alert alert-success" style="display:none;">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
 			<div class="message"></div>
@@ -37,12 +35,11 @@ include('functions.php');
       </div>
       <div class="modal-footer">
         <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
-		<button type="button" data-dismiss="modal" class="btn">Cancel</button>
+		    <button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 <?php
 	include('footer.php');
 ?>

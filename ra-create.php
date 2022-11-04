@@ -8,15 +8,21 @@ include('functions.php');
 ?>
 
 
+<style>
+	.select-ra{
+		margin-top:5px!important;
+		padding-top:0px;
+	}
+</style>
+<body>
+    <h2><span class="ra_type">Reservation</span></h2>
 
-    <h2> <span class="ra_type">Reservation</span> </h2>
-            <!-- <hr> -->
-
+    <div class="addbtn"><a href="#" class="btn select-ra" id="btntop"><span class="fas fa-mouse-pointer"></span>	Select An Existing RA</a></div>
+    <hr>
     <div id="response" class="alert alert-success" style="display:none;">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
         <div class="message"></div>
     </div>
-
     <div>
     <form method="post" id="save_reservation">
         <input type="hidden" name="action" value="save_reservation">
@@ -24,17 +30,12 @@ include('functions.php');
         <div class="row">
             <div class="col-xs-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="float-left">RESERVATION</h4>
-                        
-                        <div class="clear"></div>
-                    </div>
                     <div class="panel-body form-group form-group-sm">
                     <div class="row">
 
                            
                         <div class="col-xs-12 form-group">
-							    <a href="#" class="float-right select-ra">Select Existing RA</a>
+							   
                         </div>
 
                         <div class="col-xs-4">	
@@ -121,6 +122,7 @@ include('functions.php');
     </div><!-- /.modal -->
     
 </div>
+</body>
 <?php
 	
 	include('footer.php');
