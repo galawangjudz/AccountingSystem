@@ -456,25 +456,54 @@ $mysqli->close();
 									<hr>
 									<div class="row">
 										<div class="col-xs-3">
-											<!-- <div class="form-group" tabindex = "21">	
-											<?php getProject(); ?>
-											</div> -->
+										
+											<?php 
+
+												// Connect to the database
+												$mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+
+												// output any connection error
+												if ($mysqli->connect_error) {
+													die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
+												}
+
+												// the query
+												$query3 = "SELECT * 
+												FROM t_lots  WHERE c_lid = '" . $mysqli->real_escape_string($lot_id) . "'";
+
+												$result3 = mysqli_query($mysqli, $query3);
+
+												//var_dump($result2);
+
+												// mysqli select query
+												if($result3) {
+													while ($rows = mysqli_fetch_assoc($result3)) {
+
+														//var_dump($rows);
+														$phase = $rows['c_site'];
+														$block = $rows['c_block'];
+														$lot = $rows['c_lot'];
+													}
+												}
+
+												?>
+																							
 											<input type="hidden" class="form-control margin-bottom copy-input" name="l_lid" id="l_lid"  value="<?php echo $lot_id; ?>">
 											<div class="form-group">
 												<label class="control-label">Phase: </label>
-												<input type="text" class="form-control margin-bottom copy-input" name="l_site" id="l_site" readonly tabindex="21">
+												<input type="text" class="form-control margin-bottom copy-input" name="l_site" id="l_site" readonly tabindex="21" value="<?php get_acronym($phase); ?>">
 											</div>
 										</div>
 										<div class="col-xs-3">
 											<div class="form-group">
 												<label class="control-label">Block: </label>
-												<input type="text" class="form-control margin-bottom copy-input" name="l_block" id="l_block" readonly tabindex="22">
+												<input type="text" class="form-control margin-bottom copy-input" name="l_block" id="l_block" readonly tabindex="22" value="<?php echo $block; ?>">
 											</div>
 										</div>
 										<div class="col-xs-3">
 											<div class="form-group">
 												<label class="control-label">Lot: </label>
-												<input type="text" class="form-control margin-bottom copy-input" name="l_lot" id="l_lot" readonly alt="" tabindex="23">
+												<input type="text" class="form-control margin-bottom copy-input" name="l_lot" id="l_lot" readonly alt="" tabindex="23" value="<?php echo $lot; ?>">
 											</div>
 										</div>
 										<div class="col-xs-3">
