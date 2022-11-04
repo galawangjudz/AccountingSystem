@@ -253,7 +253,7 @@ include('functions.php');
 											<div class="form-group">
 												<label class="control-label">Phase: </label>
 												<input type="list" class="form-control margin-bottom copy-input" placeholder = "Phase" name="l_site" id="l_site" tabindex="21">
-												<?php  getProject(); ?>
+											<!-- 	<?php  getProject(); ?> -->
 											</div>
 										</div>
 										<div class="col-xs-3">

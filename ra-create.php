@@ -71,6 +71,7 @@ include('functions.php');
                                 <label>OR #</label>
                                 <input type="text" class="form-control margin-bottom required" name="or_no" id="or_no" placeholder="OR #" tabindex="1">	
                             </div>
+                                <label>Pay Date</label>
                             <div class="input-group date margin-bottom" id="first_dp_date">
                                 <input type="text" class="form-control required" name="pay_date" id = "pay_date" placeholder="Pay Date" tabindex ="7" data-date-format="<?php echo DATE_FORMAT ?>" />
                                 <span class="input-group-addon">
