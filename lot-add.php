@@ -11,9 +11,9 @@ include('functions.php');
 	<a href="#" class="close" data-dismiss="alert">&times;</a>
 	<div class="message"></div>
 </div>		
-<form method="post" id="add_lot">
 <div class="box_big">
 	<div class="main_box">
+		<form method="post" id="add_lot">
 		<input type="hidden" name="action" value="add_lot">
 		<div class="row">
 			<div class="col-xs-12">		
@@ -27,7 +27,7 @@ include('functions.php');
 			<div class="col-xs-12">		
 				<div class="form-group">
 					<label class="control-label">Block: </label>
-					<input type="number" class="form-control required" name="prod_block">
+					<input type="text" class="form-control required" name="prod_block">
 				</div>
 			</div>
 		</div>
@@ -35,7 +35,7 @@ include('functions.php');
 			<div class="col-xs-12">		
 				<div class="form-group">
 					<label class="control-label">Lot: </label>
-					<input type="number" class="form-control required" name="prod_lot">
+					<input type="text" class="form-control required" name="prod_lot">
 				</div>
 			</div>
 		</div>
@@ -43,7 +43,7 @@ include('functions.php');
 			<div class="col-xs-12">		
 				<div class="form-group">
 					<label class="control-label">Lot Area: </label>
-					<input type="number" class="form-control required" name="prod_lot_area" id="prod_lot_area" onchange="lcp()">
+					<input type="text" class="form-control required" name="prod_lot_area">
 				</div>
 			</div>
 		</div>
@@ -51,7 +51,7 @@ include('functions.php');
 			<div class="col-xs-12">		
 				<div class="form-group">
 					<label class="control-label">Price/Sqm: </label>
-					<input type="number" class="form-control required" name="prod_lot_price" id="prod_lot_price" onchange="lcp()">
+					<input type="text" class="form-control required" name="prod_lot_price">
 				</div>
 			</div>
 		</div>
@@ -78,7 +78,7 @@ include('functions.php');
 					<label class="control-label">Lot Contract Price: </label>
 					<div class="input-group">
 						<span class="input-group-addon"><?php echo CURRENCY ?></span>
-						<input type="number" name="prod_lcp" id="prod_lcp" class="form-control" placeholder="0.00" aria-describedby="sizing-addon1">
+						<input type="number" name="prod_lcp" class="form-control" placeholder="0.00" aria-describedby="sizing-addon1">
 					</div>
 				</div>
 			</div>
@@ -88,31 +88,19 @@ include('functions.php');
 				<div class="form-group">
 					<label class="control-label">Remarks: </label>
 					<div class="input-group form-group-sm textarea no-margin-bottom">
-						<textarea class="textarea" name="prod_remarks" rows="3"></textarea>
+						<textarea class-"form-control" name="prod_remarks"></textarea>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-xs-12">		
-				<input type="submit" id="action_add_lot" class="btn btn-success float-right" value="Add Lot" data-loading-text="Adding...">
-			</div>
+		<div class="col-xs-12 margin-top btn-group">
+			<input type="submit" id="action_add_lot" class="btn btn-success float-right" value="Add Lot" data-loading-text="Adding...">
 		</div>
+		</form>
 	</div>
-</form>
 </div>
 <div class="row">
 </div>
-<script>
-	function lcp(){
-		var lot_area = document.getElementById('prod_lot_area').value;
-		var lot_price = document.getElementById('prod_lot_price').value;
-
-		var res = lot_area * lot_price;
-
-		document.getElementById('prod_lcp').value=res;
-	}
-</script>
 <?php
 	include('footer.php');
 ?>

@@ -5,7 +5,7 @@ include('functions.php');
 
 ?>
 
-<h2>Lot List</h2><div class="addbtn"><a href="http://localhost/ALSC/lot-add.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
+<h2>Lot List</h2>
 <hr>
 
 <div class="row">
@@ -30,14 +30,14 @@ include('functions.php');
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Delete Lot</h4>
+        <h4 class="modal-title">Delete lot</h4>
       </div>
       <div class="modal-body">
         <p>Are you sure you want to delete this lot?</p>
       </div>
       <div class="modal-footer">
         <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
-        <button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
+		<button type="button" data-dismiss="modal" class="btn">Cancel</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

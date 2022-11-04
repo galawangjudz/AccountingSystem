@@ -45,6 +45,7 @@
   <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 	<link rel="stylesheet" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
 	<link rel="stylesheet" href="css/styles.css">
+
 </head>
 <div class="header"></div>
 <body class="hold-transition skin-green sidebar-mini">
@@ -68,6 +69,7 @@
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
+         
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
@@ -75,8 +77,7 @@
               <!-- The user image in the navbar-->
               <img src="https://pcrt.crab.org/images/default-user.png" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs"><?php echo $_SESSION['login_usertype'];?> - <?php echo $_SESSION['login_username'];?></span>
-              
+              <span class="hidden-xs"><?php echo $_SESSION['login_username'];?></span>
             </a>
             <ul class="dropdown-menu">
              <!-- Drop down list-->
@@ -101,15 +102,27 @@
         <br>
         <!-- Menu 0.1 -->
         <li class="treeview">
-          <a href="dashboard.php"><i class="fa fa-th"></i><span>Dashboard</span></a>
+          <a href="dashboard.php"><i class="fa fa-tachometer"></i> <span>Dashboard</span>
+            
+          </a>
+          
         </li>
         <!-- Menu 1 -->
          <li class="treeview">
-          <a href="csr-list.php"><i class="fa fa-file-invoice"></i><span>Contract</span></a>
+          <a href="#"><i class="fa fa-file-text"></i> <span>Contract</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="csr-create.php"><i class="fa fa-plus"></i>Create Contract</a></li>
+            <li><a href="csr-list.php"><i class="fa fa-cog"></i>Manage Contracts</a></li>
+            <!-- <li><a href="#" class="download-csv"><i class="fa fa-download"></i>Download CSV</a></li> -->
+          </ul>
         </li>
           <!-- Menu 1.1 -->
         <li class="treeview">
-          <a href="#"><i class="fa fa-calendar-check"></i><span>Reservation</span>
+          <a href="#"><i class="fa fa-file-text"></i> <span>Reservation Application</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -123,35 +136,59 @@
         </li>
         <!-- Menu 2 -->
          <li class="treeview">
-          <a href="#"><i class="fa fa-clipboard-list"></i><span>Inventory</span>
+          <a href="#"><i class="fa fa-archive"></i><span>Inventory</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="project-list.php"><i class="fa fa-map-location-dot"></i>Manage Project Site</a></li>
-            <li><a href="lot-list.php"><i class="fa fa-square"></i>Manage Lots</a></li>
-            <li><a href="house-list.php"><i class="fa fa-house"></i>Manage House</a></li>
+            <li id="lot_nav"><a href="lot-add.php"><i class="fa fa-plus"></i>Add Lot</a></li>
+            <li><a href="lot-list.php"><i class="fa fa-cog"></i>Manage Lots</a></li>
+          </ul>
+          <ul class="treeview-menu">
+            <li id="proj_nav"><a href="project-add.php"><i class="fa fa-plus"></i>Add Project Site</a></li>
+            <li><a href="project-list.php"><i class="fa fa-cog"></i>Manage Project Site</a></li>
+          </ul>
+          <ul class="treeview-menu">
+            <li id="house_nav"><a href="house-add.php"><i class="fa fa-plus"></i>Add House</a></li>
+            <li><a href="house-list.php"><i class="fa fa-cog"></i>Manage House</a></li>
           </ul>
         </li>
         <!-- Menu 3 -->
         <li class="treeview">
-          <a href="customer-list.php"><i class="fa fa-users"></i> <span>Clients</span></a>
-        </li>
-        
-        <!-- Menu 4 -->
-        <li class="treeview">
-          <a href="user-list.php"><i class="fa fa-user"></i><span>System Users</span></a>
-        </li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-id-card"></i><span>Agents and Commissions</span>
+          <a href="#"><i class="fa fa-users"></i><span>Clients</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="agent-list.php"><i class="fa fa-id-card-clip"></i>Manage Agents</a></li>
-            <li><a href="commission-list.php"><i class="fa fa-money-bill-1-wave"></i>Commissions</a></li>
+            <li><a href="customer-add.php"><i class="fa fa-user-plus"></i>Add Client</a></li>
+            <li><a href="customer-list.php"><i class="fa fa-cog"></i>Manage Clients</a></li>
+          </ul>
+        </li>
+        
+        <!-- Menu 4 -->
+        <li class="treeview">
+          <a href="#"><i class="fa fa-user"></i><span>System Users</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="user-add.php"><i class="fa fa-plus"></i>Add User</a></li>
+            <li><a href="user-list.php"><i class="fa fa-cog"></i>Manage Users</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#"><i class="fa fa-user"></i><span>Agents and Commissions</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="agent-add.php"><i class="fa fa-plus"></i>Add Agent</a></li>
+            <li><a href="agent-list.php"><i class="fa fa-cog"></i>Manage Agents</a></li>
+            <li><a href="commission-list.php"><i class="fa fa-cog"></i>Commissions</a></li>
           </ul>
         </li>        
       </ul>
