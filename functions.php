@@ -434,6 +434,42 @@ function getCSRId() {
 	
 }
 
+function get_acronym($phase) {
+	$mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+
+	// output any connection error
+	if ($mysqli->connect_error) {
+	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+	}
+	
+
+
+	// the query
+	$query = "SELECT * from t_projects where c_code = $phase ";
+	
+	$results = $mysqli->query($query);
+
+	if($results) {
+
+		while($row = $results->fetch_assoc()) {
+
+			print ' '.$row["c_acronym"].'';
+
+		}
+	}else{
+			print "None";
+
+		}
+
+
+	// Frees the memory associated with a result
+	$results->free();
+
+	// close connection 
+	$mysqli->close();
+
+}
+
 function popLotsList() {
 
 // Connect to the database
@@ -447,9 +483,9 @@ function popLotsList() {
 
 
 	// the query
-	$query = "SELECT * 
+	$query = "SELECT DISTINCT * 
 	FROM t_lots i 
-	JOIN t_projects c 
+	LEFT JOIN t_projects c 
 	ON i.c_site = c.c_code
 	WHERE i.c_site = c.c_code  
 	ORDER BY c.c_acronym, i.c_block, i.c_lot";
