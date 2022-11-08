@@ -493,7 +493,7 @@ include('functions.php');
 									</div>	
 								</div>
 								</div>
-								<div class="payment_box2" id = 'py2'>
+								<div class="payment_box2">
 									<div class="col-xs-12 " id= "pay_type2">
 										<label class="control-label">Payment Type 2: </label>
 										<div class="form-group">
@@ -501,7 +501,7 @@ include('functions.php');
 												select:invalid { color: gray; }
 											</style>
 											<select name="payment_type2" id="payment_type2" class="form-control required payment-type2" tabindex = "3" >
-												<option name="payment_type2" value="Monthly Amortization" selected>Monthly Amortization</option>
+												<option name="payment_type2" value="Monthly Amortization" >Monthly Amortization</option>
 												<option name="payment_type2" value="Deferred Cash Payment">Deferred Cash Payment</option>
 											</select>	
 										</div>
@@ -605,24 +605,24 @@ include('functions.php');
 											</td>
 											<td class="text-right">
 												<div class="form-group form-group-sm no-margin-bottom">
-													<input type="text" class="form-control agent-pos" name="agent_position[]" id="agent_position" readonly>
+													<input type="text" class="form-control agent-pos" name="agent_position[]" readonly>
 												</div>
 											</td>
 											<td class="text-right">
 												<div class="input-group input-group-sm  no-margin-bottom">
 													
-													<input type="text" class="form-control agent-code" name="agent_code[]" id = "agent_code" aria-describedby="sizing-addon1" readonly>
+													<input type="text" class="form-control agent-code" name="agent_code[]" aria-describedby="sizing-addon1" readonly>
 												</div>
 											</td>
 											<td class="text-right">
 												<div class="form-group form-group-sm  no-margin-bottom">
-													<input type="number" class="form-control calculate agent-rate required" name="agent_rate[]" id="agent_rate" value="0.0">
+													<input type="number" class="form-control calculate agent-rate required" name="agent_rate[]" value="0.0">
 												</div>
 											</td>
 											<td class="text-right">
 												<div class="input-group input-group-sm">
 													<span class="input-group-addon"><?php echo CURRENCY ?></span>
-													<input type="text" class="form-control comm-amt" name="comm_amt[]" id="comm_amt" value="0.00" aria-describedby="sizing-addon1">
+													<input type="text" class="form-control comm-amt" name="comm_amt[]" value="0.00" aria-describedby="sizing-addon1">
 												</div>
 											</td>
 										</tr>

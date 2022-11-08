@@ -777,7 +777,8 @@ function updateTotals(elem) {
 			$('#ma_text').text("Monthly Amortization ");
 			//alert(l_payment_type1);
 			if (l_payment_type1 == "Spot Cash"){
-				/* $('#py2').hide(); */
+				$('#payment_type2').attr('readonly','readonly');
+				/* $('#payment_type2').val('Spot Cash'); */
 				$('#down_frm').hide();
 				$('#monthly_frm').hide();
 				$('#down_text').hide();
@@ -1456,6 +1457,7 @@ function updateTotals(elem) {
 					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 					$("#create_csr").before().html("<a href='./csr-create.php' class='btn btn-primary'>Add New CSR</a>");
+					setInterval(redirectToCSRList,2000);
 					//$("#create_csr").remove();
 					$btn.button("reset");
 
@@ -2064,6 +2066,11 @@ function redirectToHouseList(){
 function redirectToLotList(){
 	window.location.href = "./lot-list.php";
 }
+
+function redirectToCSRList(){
+	window.location.href = "./csr-create.php";
+}
+
 
 function redirectToAgentList(){
 	window.location.href = "./agent-list.php";

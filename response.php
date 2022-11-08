@@ -530,7 +530,9 @@ if ($action == 'create_csr'){
 			
 	foreach($_POST['agent_name'] as $key => $value) {
 
-		$agent = $value;	
+
+		$agent = $value;
+	
 		$agent_code = $_POST['agent_code'][$key];
 		$agent_pos = $_POST['agent_position'][$key];
 		$agent_amount = $_POST['comm_amt'][$key];
@@ -546,18 +548,15 @@ if ($action == 'create_csr'){
 				c_amount,
 				c_rate
 				) VALUES (
-				'".$csr_id."',
-				'$agent_code',
-				'$agent_pos',
-				'".$agent."',
-				'$agent_amount',
-				'$agent_rate'
+					'".$csr_id."',
+					'$agent_code',
+					'$agent_pos',
+					'".$agent."',
+					'$agent_amount',
+					'$agent_rate'
 				);
-				";
+			";
 		}
-
-
-
 
 	header('Content-Type: application/json');
 	// execute the query

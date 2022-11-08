@@ -851,7 +851,9 @@ $mysqli->close();
 
 											// the query
 											$query2 = "SELECT * FROM t_csr_commission WHERE c_csr_no = '" . $mysqli->real_escape_string($getID) . "'";
+											
 
+											echo $query2;
 											$result2 = mysqli_query($mysqli, $query2);
 
 											//var_dump($result2);
