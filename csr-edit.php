@@ -92,6 +92,13 @@ while ($row = mysqli_fetch_assoc($result)) {
 	$remarks = $row['c_remarks'];
 	$date_created = $row['c_date_created'];
 	$date_updated = $row['c_date_updated'];
+
+	if ($vat_amt_computed == 0){
+		$vat_percent = 0.00;
+	}else{
+		$vat_percent = round(($vat_amt_computed / $tcp) * 100,2) ;
+		
+	}
 }
 }
 
@@ -656,7 +663,7 @@ $mysqli->close();
 										</div>
 										<div class="col-xs-3" >
 											<div class="form-group">
-											<input type="text" class="form-control margin-bottom vat-percent" name="vat_percent" id="vat_percent" placeholder="Vat Amount" tabindex = '39' onkeyup='getVat()' value="<?php echo $vat_amt_computed; ?>" >
+											<input type="text" class="form-control margin-bottom vat-percent" name="vat_percent" id="vat_percent" placeholder="Vat Amount" tabindex = '39' value="<?php echo $vat_percent; ?>" >
 											</div> 
 										</div> 
 										<div class="col-xs-2">
@@ -666,7 +673,7 @@ $mysqli->close();
 										</div>
 										<div class="col-xs-4" >
 											<div class="form-group">
-											<input type="text" class="form-control margin-bottom vat-amt-computed" name="vat_amt_computed" id="vat_amt_computed" tabindex = '39' value="<?php echo  $vat_percent = $net_tcp / $vat_amt_computed; ?>" >
+											<input type="text" class="form-control margin-bottom vat-amt-computed" name="vat_amt_computed" id="vat_amt_computed" tabindex = '39' value="<?php echo $vat_amt_computed; ?>" >
 											</div> 
 										</div> 
 									</div>
