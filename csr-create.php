@@ -493,14 +493,14 @@ include('functions.php');
 									</div>	
 								</div>
 								</div>
-								<div class="payment_box2">
+								<div class="payment_box2" id = 'py2'>
 									<div class="col-xs-12 " id= "pay_type2">
 										<label class="control-label">Payment Type 2: </label>
 										<div class="form-group">
 											<style>
 												select:invalid { color: gray; }
 											</style>
-											<select name="payment_type2" id="payment_type2" class="form-control payment-type2" tabindex = "3" >
+											<select name="payment_type2" id="payment_type2" class="form-control required payment-type2" tabindex = "3" >
 												<option name="payment_type2" value="Monthly Amortization" selected>Monthly Amortization</option>
 												<option name="payment_type2" value="Deferred Cash Payment">Deferred Cash Payment</option>
 											</select>	
@@ -611,7 +611,7 @@ include('functions.php');
 											<td class="text-right">
 												<div class="input-group input-group-sm  no-margin-bottom">
 													
-													<input type="text" class="form-control agent-code" name="agent_code[]" aria-describedby="sizing-addon1" readonly>
+													<input type="text" class="form-control agent-code" name="agent_code[]" id = "agent_code" aria-describedby="sizing-addon1" readonly>
 												</div>
 											</td>
 											<td class="text-right">

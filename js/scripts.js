@@ -777,7 +777,7 @@ function updateTotals(elem) {
 			$('#ma_text').text("Monthly Amortization ");
 			//alert(l_payment_type1);
 			if (l_payment_type1 == "Spot Cash"){
-				$('#payment_type2').attr('disabled','disable');
+				/* $('#py2').hide(); */
 				$('#down_frm').hide();
 				$('#monthly_frm').hide();
 				$('#down_text').hide();

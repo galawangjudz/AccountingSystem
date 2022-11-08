@@ -530,9 +530,7 @@ if ($action == 'create_csr'){
 			
 	foreach($_POST['agent_name'] as $key => $value) {
 
-
-		$agent = $value;
-	
+		$agent = $value;	
 		$agent_code = $_POST['agent_code'][$key];
 		$agent_pos = $_POST['agent_position'][$key];
 		$agent_amount = $_POST['comm_amt'][$key];
