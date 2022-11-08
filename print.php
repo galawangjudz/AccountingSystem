@@ -12,6 +12,7 @@
     if($result) {
         while ($row = mysqli_fetch_assoc($result)) {
         
+        $c_csr_no = $row['c_csr_no']; 
         $c_b1_last_name = $row['c_b1_last_name']; 
         $c_b2_last_name = $row['c_b2_last_name']; 
         $c_b1_first_name = $row['c_b1_first_name']; 
@@ -27,25 +28,28 @@
         $c_billing_address = $row['c_billing_address'];
         $c_birthday = $row['c_birthday'];  
         $c_age = $row['c_age'];  
-        $c_sex = $row['c_sex'];  
+        $c_sex = $row['c_sex']; 
+        $c_civil_status = $row['c_civil_status'];  
+        $c_email = $row['c_email'];  
+        $c_lot_area = $row['c_lot_area'];
+        $c_price_sqm = $row['c_price_sqm'];
+        $c_lot_discount_amt = $row['c_lot_discount_amt'];
+        $c_lot_discount = $row['c_lot_discount'];
+        $c_house_model = $row['c_house_model'];
+        $c_date_created = $row['c_date_created'];
+        $c_floor_area = $row['c_floor_area'];
+        $c_house_discount = $row['c_house_discount'];
+        $c_house_discount_amt = $row['c_house_discount_amt'];
+        $c_house_price_sqm = $row['c_house_price_sqm'];
+        $c_tcp = $row['c_tcp'];
+        $remarks = $row['c_remarks'];
+        $c_lot_discount_percentage = $row['c_lot_discount'];
 	}
 }
 
 /* close connection */
 $mysqli->close();
 
-?>
-
-<?php
-$type = isset($_GET['type']) ? $_GET['type'] : 1 ;
-if(isset($_GET['id']) && $_GET['id'] > 0){
-    $qry = $mysqli->query("SELECT * from `t_csr_commission` where c_csr_no = '{$_GET['id']}' ");
-    if($qry->num_rows > 0){
-        foreach($qry->fetch_assoc() as $k => $v){
-            $$k=$v;
-        }
-    }
-}
 ?>
 <style>
 .rec{
@@ -335,10 +339,11 @@ table{
     font-weight:normal;
 }
 </style>
+<body onload="loadBasics()">
 <img src="images/Header.jpg" class="img-thumbnail" style="height:110px;width:700px" alt="">
 <h3 class="text-center"><b>CLOSED SALES REPORT</b></h3>
 
-    <div class="text-center" id="dateofsale"><b>Date of Sale:</b> <?php echo date("F d, Y",strtotime($rows['c_date_created'])) ?></div>
+    <div class="text-center" id="dateofsale"><b>Date of Sale:</b> <?php echo date("F d, Y",strtotime('c_date_created')) ?></div>
     <div class="card-body">
         <div class="checkboxes">
             <div class="csr_status">
@@ -464,7 +469,7 @@ table{
                         <input type="text" id="age" name="age" value="<?php echo $c_age; ?>"  class="form-control form-control-sm">
                     </div>
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <div class="form-group">
                         <label class="control-label">Gender:</label>
                         <select name="c_sex" id="c_sex" class="form-control" required>
@@ -476,20 +481,18 @@ table{
                 <div class="col-md-2">
                     <div class="form-group">
                         <label class="control-label">Civil Status:</label>
-                        <input type="hidden" id="civil_status" value="<?php echo $rows['c_civil_status']; ?>">
-                        <select class="form-control form-control-sm">
-                        <option style="display:none">
-                        <option id="married">Married</option>
-                        <option id="separated">Separated</option>
-                        <option id="single">Single</option>
-                        <option id="widowed">Widowed</option>
+                        <select name="c_civil_status" id="c_civil_status" class="form-control" required>
+                            <option value="Married" <?php if($c_civil_status === 'Married'){?>selected<?php }?>>Married</option>
+                            <option value="Separated" <?php if($c_civil_status === 'Separated'){?>selected<?php }?>>Separated</option>
+                            <option value="Single" <?php if($c_civil_status === 'Single'){?>selected<?php }?>>Single</option>
+                            <option value="Widowed" <?php if($c_civil_status === 'Widowed'){?>selected<?php }?>>Widowed</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label class="control-label">Email Address:</label>
-                        <input type="text" id="email_address" name="email_address" value="<?php echo $rows['c_email']; ?>"  class="form-control form-control-sm">
+                        <input type="text" id="email_address" name="email_address" value="<?php echo $c_email; ?>"  class="form-control form-control-sm">
                     </div>
                 </div>
             </div>
@@ -570,6 +573,8 @@ table{
 				</div>
             </div>
         </div>
+
+        <!--------------------------------------------------------------------------------------------------------->
         <div class="row">
             <div class="small_box_lot">
                 <div class="titles">LOT</div>
@@ -578,7 +583,7 @@ table{
                         <label class="control-label2">Lot Area:</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" value="<?php echo $rows['c_lot_area']; ?>" class="form-control form-control-sm">
+                        <input type="text" id="c_lot_area" name="c_lot_area" value="<?php echo $c_lot_area; ?>" class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="row">
@@ -586,7 +591,7 @@ table{
                         <label class="control-label2">Price/SQM:</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" value="<?php echo $rows['c_price_sqm']; ?>" class="form-control form-control-sm">
+                        <input type="text" id="c_price_sqm" name="c_price_sqm" value="<?php echo $c_price_sqm; ?>" class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="row">
@@ -594,7 +599,7 @@ table{
                         <label class="control-label2">Lot Price:</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" value="" class="form-control form-control-sm">
+                        <input type="text" id="c_lot_price" name="c_lot_price" class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="row">
@@ -602,7 +607,7 @@ table{
                         <label class="control-label2">Discount (%):</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" value="" class="form-control form-control-sm">
+                        <input type="text" id="c_lot_discount_percentage" name="c_lot_discount_percentage" value="<?php echo $c_lot_discount; ?>" class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="row">
@@ -610,7 +615,7 @@ table{
                         <label class="control-label2">Disc. Amount:</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" value="" class="form-control form-control-sm">
+                        <input type="text" id="c_lot_discount_amount" name="c_lot_discount_amount" value="<?php echo $c_lot_discount_amt; ?>" class="form-control form-control-sm">
                     </div>
                 </div>
                 <label class="control-label2"></label><br>
@@ -624,7 +629,18 @@ table{
                         <label class="control-label2">House Model:</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" value="<?php echo $rows['c_house_model']; ?>" class="form-control form-control-sm">
+                        <?php
+                        $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+                        $query1 = "SELECT * FROM t_model_house WHERE c_acronym = '" . $c_house_model . "'";
+
+                        $result1 = mysqli_query($mysqli, $query1);
+                        if($result1) {
+                            while ($row = mysqli_fetch_assoc($result1)) {
+                                $c_model = $row['c_model']; 
+                            }
+                        }
+                        ?>
+                        <input type="text" value="<?php echo $c_model; ?>" class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="row">
@@ -632,7 +648,7 @@ table{
                         <label class="control-label2">Floor Area:</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" value="<?php echo $rows['c_floor_area']; ?>" class="form-control form-control-sm">
+                        <input type="text" id="c_floor_area" name="c_floor_area" value="<?php echo $c_floor_area; ?>" class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="row">
@@ -640,23 +656,23 @@ table{
                         <label class="control-label2">House Price:</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" value="<?php echo $rows['c_house_price_sqm']; ?>" class="form-control form-control-sm">
+                        <input type="text" id="c_house_price_sqm" name="c_house_price_sqm" value="<?php echo $c_house_price_sqm; ?>" class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <label class="control-label2">Misc. Fee:</label>
+                        <label class="control-label2">Discount (%):</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" value="" class="form-control form-control-sm">
+                        <input type="text" id="c_house_discount" name="c_house_discount" value="<?php echo $c_house_discount; ?>" value="" class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <label class="control-label2">Soil Poisoning:</label>
+                        <label class="control-label2">Disc. Amount:</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" value="" class="form-control form-control-sm">
+                        <input type="text" id="c_house_discount_amt" name="c_house_discount_amt" value="<?php echo $c_house_discount_amt; ?>" value="" class="form-control form-control-sm">
                     </div>
                 </div>
                 <label class="control-label2"></label><br>
@@ -739,7 +755,7 @@ table{
                     <label class="control-label3">TOTAL SELLING PRICE:</label><br>
                 </div>
                 <div class="small_box2">
-                    <input type="text" value="<?php echo $rows['c_tcp']; ?>" class="form-control form-control-sm">
+                    <input type="text" value="<?php echo $c_tcp; ?>" class="form-control form-control-sm">
                     <input type="text" value="" class="form-control form-control-sm">
                     <input type="text" value="" class="form-control form-control-sm">
                 </div>
@@ -938,7 +954,7 @@ table{
                 }
 
                 // the query
-                $query = "SELECT * FROM t_csr_commission WHERE c_csr_no = '{$_GET['id']}' ORDER BY c_code ASC";
+                $query = "SELECT * FROM t_csr_commission WHERE c_csr_no = $c_csr_no";
 
                 // mysqli select query
                 $results = $mysqli->query($query);
@@ -1023,7 +1039,7 @@ table{
                 <table width="100%">
                     <tr><td><div class="notes">I have read and understood the Guidelines and Policies for In-House Financing and Data Privacy Consent at the back page.</div></td></tr>
                     <tr><td><div class="client_conforme">Client Conforme:</div><br>
-                    <?php echo $rows['c_b1_first_name']; ?> <?php echo $rows['c_b1_middle_name']; ?> <?php echo $rows['c_b1_last_name']; ?><br>
+                    <?php echo $c_b1_first_name; ?> <?php echo $c_b1_middle_name; ?> <?php echo $c_b1_last_name; ?><br>
                             <input type="text" class="txtSignature" value="Client's Signature Over Printed Name">
                     </td></tr>
                 </table>
@@ -1048,7 +1064,7 @@ table{
                 </tr>
                 <tr>
                     <td width="75%">
-                        <textarea style="width: 100%; max-width: 98%;" class="noborder"></textarea>
+                        <textarea style="width: 100%; max-width: 98%;" class="noborder"><?php echo $remarks; ?></textarea>
                     </td>
                     <td width="25%">
                         <input type="text" value="" style="width: 100%; max-width: 98%;" class="noborder">

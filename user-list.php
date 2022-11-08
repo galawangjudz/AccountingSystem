@@ -5,7 +5,7 @@ include('functions.php');
 
 ?>
 
-<h2>User List</h2><div class="addbtn"><a href="http://localhost/ALSC/user-add.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
+<h2>User List</h2><div class="addbtn"><a href="user-add.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
 <hr>
 
 <div class="row">

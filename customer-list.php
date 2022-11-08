@@ -6,7 +6,7 @@ include('functions.php');
 
 ?>
 
-<h2>Client List</h2><div class="addbtn"><a href="http://localhost/ALSC/customer-add.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
+<h2>Client List</h2><div class="addbtn"><a href="customer-add.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
 <hr>
 
 <div class="row">

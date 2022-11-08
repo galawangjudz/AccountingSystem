@@ -16,14 +16,37 @@ body {
   color:black;
 }
 
+.btn{
+  color:white;
+  font-weight:bold;
+  background-color: #0038a5;
+}
+
+#btncancel{
+  color:white;
+  font-weight:bold;
+  background-color: #cc0a2f;
+}
+
+#btncancel:hover{
+  color:white;
+  font-weight:bold;
+  background-color: red;
+}
+
+.btn:hover{
+  color:white;
+  background-color: blue;
+}
+
 .btn-primary {
-  background-color: #9966cc;
-  border-color: #9966cc;
+  background-color: #0038a5;
+  border-color: #0038a5;
 }
 
 .btn-primary:hover {
-  background-color: #993399;
-  border-color: #993399;
+  background-color: blue;
+  border-color: blue;
 }
 
 .btn-danger {
@@ -34,11 +57,6 @@ body {
 .btn-danger:hover {
   background-color: #f72a1b;
   border-color: #f72a1b;
-}
-
-.btn-success {
-  background-color: #009966;
-  border-color: #009966;
 }
 
 .panel-login {
@@ -61,8 +79,30 @@ body {
   border-radius:5px;
 }
 .login-panel {
-  box-shadow: 5px 0px 77px #333;
-  margin-top: 150px;
+  box-shadow: 2px 20px 20px #C0C0C0;
+  margin-top: 80px;
+  height:auto;
+  width:auto;
+  margin-bottom: 30px;
+}
+.addbtn{
+  float:right;
+  margin-top:-52px;
+  background-color: #0038a5;
+  padding:3px;
+  border-radius:5px;
+  color: white !important;
+  font-weight: bold;
+  border:none!important;
+}
+
+#btntop{
+  font-weight: bold;
+  color:white;
+}
+
+.addbtn:hover{
+  background-color: blue;
 }
 
 .panel-body {
@@ -239,7 +279,8 @@ strong.shipping {
 	text-align:center;
   font-size:20px;
   padding-top:5px;
-  padding-bottom:5px;
+  padding-bottom:15px;
+  margin-top:10px;
 }
 .control-label{
   display: inline-block;
@@ -334,12 +375,15 @@ input{
   margin-left:10px;
   margin-right:10px;
 }
+.btn{
+  border:none!important;
+}
 .space{
   float:left;
   width:100%;
   height:15px;
 }
-#action_update_house{
+#action_update_user{
   width:100%;
   padding-left:150px!important;
   padding-right:150px!important;
@@ -347,17 +391,60 @@ input{
   margin-right:0px;
   font-weight: bold;
   margin-bottom:10px;
-  margin-top:-25px;
+  background-color:#0038a5;
+  color:white!important;
+}
+#action_update_agent{
+  width:100%;
+  padding-left:150px!important;
+  padding-right:150px!important;
+  margin-left:0px;
+  margin-right:0px;
+  font-weight: bold;
+  margin-bottom:10px;
+  background-color:#0038a5;
+  color:white!important;
+}
+#action_update_customer{
+  width:100%;
+  padding-left:150px!important;
+  padding-right:150px!important;
+  margin-left:0px;
+  margin-right:0px;
+  font-weight: bold;
+  margin-bottom:10px;
+  background-color:#0038a5;
+  color:white!important;
+}
+#action_update_customer:hover{
+  width:100%;
+  padding-left:150px!important;
+  padding-right:150px!important;
+  margin-left:0px;
+  margin-right:0px;
+  font-weight: bold;
+  margin-bottom:10px;
+  background-color:blue;
+  color:white!important;
+}
+#action_add_user{
+  width:100%;
+  font-weight: bold;
+  margin-bottom:10px;
+  background-color:#0038a5;
+  color:white!important;
 }
 #action_add_lot{
   width:100%;
-  padding-left:150px!important;
-  padding-right:150px!important;
-  margin-left:0px;
-  margin-right:0px;
   font-weight: bold;
+  margin-top:10px;
   margin-bottom:10px;
-  margin-top:-25px;
+  background-color:#0038a5;
+  color:white!important;
+}
+#action_add_lot:hover{
+  background-color:blue;
+  color:white!important;
 }
 #action_update_lot{
   width:100%;
@@ -367,27 +454,13 @@ input{
   margin-right:0px;
   font-weight: bold;
   margin-bottom:10px;
-  margin-top:-25px;
+  background-color:#0038a5;
+  color:white!important;
+  margin-top:-20px;
 }
-#action_update_project{
-  width:100%;
-  padding-left:150px!important;
-  padding-right:150px!important;
-  margin-left:0px;
-  margin-right:0px;
-  font-weight: bold;
-  margin-bottom:10px;
-  margin-top:-25px;
-}
-#action_add_house{
-  width:100%;
-  padding-left:150px!important;
-  padding-right:150px!important;
-  margin-left:0px;
-  margin-right:0px;
-  font-weight: bold;
-  margin-bottom:10px;
-  margin-top:-25px;
+#action_update_lot:hover{
+  background-color:blue;
+  color:white!important;
 }
 #action_add_product{
   width:100%;
@@ -399,16 +472,7 @@ input{
   margin-bottom:10px;
   margin-top:-25px;
 }
-#action_add_project{
-  width:100%;
-  padding-left:150px!important;
-  padding-right:150px!important;
-  margin-left:0px;
-  margin-right:0px;
-  font-weight: bold;
-  margin-bottom:10px;
-  margin-top:-15px;
-}
+
 #action_create_csr{
   width:100%;
   padding-left:150px!important;
@@ -418,14 +482,71 @@ input{
   font-weight: bold;
   margin-bottom:10px;
 }
-#action_create_customer{
+#action_add_agent{
   width:100%;
-  padding-left:150px!important;
-  padding-right:150px!important;
-  margin-left:0px;
-  margin-right:0px;
   font-weight: bold;
   margin-bottom:10px;
+  background-color:#0038a5;
+  color:white!important;
+}
+#action_create_customer{
+  width:100%;
+  font-weight: bold;
+  margin-bottom:10px;
+  background-color:#0038a5;
+  color:white!important;
+}
+#action_add_project{
+  width:100%;
+  font-weight: bold;
+  margin-top:10px;
+  margin-bottom:10px;
+  background-color:#0038a5;
+  color:white!important;
+}
+#action_add_house{
+  width:100%;
+  font-weight: bold;
+  margin-top:10px;
+  margin-bottom:10px;
+  background-color:#0038a5;
+  color:white!important;
+}
+#action_update_house{
+  width:100%;
+  font-weight: bold;
+  margin-top:10px;
+  margin-bottom:10px;
+  background-color:#0038a5;
+  color:white!important;
+}
+#action_update_house:hover{
+  background-color:blue;
+  color:white!important;
+}
+#action_update_project{
+  width:100%;
+  font-weight: bold;
+  margin-top:10px;
+  margin-bottom:10px;
+  background-color:#0038a5;
+  color:white!important;
+}
+#action_update_project:hover{
+  background-color:blue;
+  color:white!important;
+}
+#action_create_customer:hover{
+  background-color:blue;
+  color:white!important;
+}
+#action_add_project:hover{
+  background-color:blue;
+  color:white!important;
+}
+#action_add_house:hover{
+  background-color:blue;
+  color:white!important;
 }
 .header{
   width:100%;
@@ -471,3 +592,24 @@ input{
   border-radius: 10px 10px 0 0;
   padding-left:15px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.alsclogo{
+  height:auto;
+  width:auto;
+  padding-left:100%;
+}
+

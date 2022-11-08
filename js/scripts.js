@@ -319,11 +319,15 @@ $(document).ready(function() {
 
    	});
 
-	$(document).on('click', ".customer-select", function(e) {
+	   $(document).on('click', ".customer-select", function(e) {
 
 		var customer_last_name = $(this).attr('data-customer-lname');
 		var customer_first_name = $(this).attr('data-customer-fname');
 		var customer_middle_name = $(this).attr('data-customer-mname');
+		var customer_last_name2 = $(this).attr('data-customer-lname2');
+		var customer_first_name2 = $(this).attr('data-customer-fname2');
+		var customer_middle_name2 = $(this).attr('data-customer-mname2');
+
 		var customer_email = $(this).attr('data-customer-email');
 		var customer_phone = $(this).attr('data-customer-phone');
 
@@ -331,11 +335,22 @@ $(document).ready(function() {
 		var customer_city_prov = $(this).attr('data-customer-city-prov');
 		var customer_zip_code = $(this).attr('data-customer-zip-code');
 
-	   
+		var customer_address_abroad = $(this).attr('data-customer-address-abroad');
+
+		var customer_viber = $(this).attr('data-customer-viber');
+		var customer_birthday = $(this).attr('data-customer-birthday');
+		var customer_age = $(this).attr('data-customer-age');
+		var customer_gender = $(this).attr('data-customer-gender');
+		var customer_civil = $(this).attr('data-customer-civil');
+		var customer_employment = $(this).attr('data-customer-employment');
 
 		$('#customer_last_name_1').val(customer_last_name);
 		$('#customer_first_name_1').val(customer_first_name);
 		$('#customer_middle_name_1').val(customer_middle_name);
+		$('#customer_last_name_2').val(customer_last_name2);
+		$('#customer_first_name_2').val(customer_first_name2);
+		$('#customer_middle_name_2').val(customer_middle_name2);
+
 		$('#customer_email').val(customer_email);
 		$('#customer_phone').val(customer_phone);
 
@@ -343,6 +358,14 @@ $(document).ready(function() {
 		$('#customer_city_prov').val(customer_city_prov);
 		$('#customer_zip_code').val(customer_zip_code);
 
+		$('#customer_address_2').val(customer_address_abroad);
+		$('#customer_viber').val(customer_viber);
+		$('#birth_day').val(customer_birthday);
+		$('#customer_age').val(customer_age);
+
+		$('#customer_gender').val(customer_gender);
+		$('#civil_status').val(customer_civil);
+		$('#employment_status').val(customer_employment);
 
 		$('#insert_customer').modal('hide');
 

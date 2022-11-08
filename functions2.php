@@ -1,11 +1,49 @@
+<style>
+.actions{
+	text-align:center !important;
+}
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+  border-radius:2px;
+  font-weight:bold;
+
+}
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  text-align:center;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown a:hover {background-color: #ddd;}
+.show {display: block;}
+</style>
 <?php
-
-
 include_once("includes/config.php");
-
-
-
-
 function getProject() {
  
    // Connect to the database
@@ -44,7 +82,162 @@ function getProject() {
 	
 
 }
-	
+function getHouseModel() {
+ 
+	// Connect to the database
+	 $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+ 
+	 // output any connection error
+	 if ($mysqli->connect_error) {
+		 die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
+	 }
+ 
+	 // Get all the project
+	 $sql = "SELECT * FROM t_model_house order by c_code";
+	 $results = $mysqli->query($sql);
+	 //$all_categories = mysqli_query($con,$sql);
+	 if($results) {
+		 echo '<select name="house_model" id= "house_model" class="form-control">';
+		 while($row = $results->fetch_assoc()) {
+ 
+			 print '<option value="'.$row['c_acronym'].'">'.$row['c_model'].'</option>';
+			 
+		 }
+		 echo '</select>';
+ 
+	 } else {
+		 echo '<select name = "house_model" id= "house_model" class="form-control">';
+		 echo '<option value="">No House Model</option>';
+		 echo '</select>';
+		 
+	 }
+ 
+	 // Frees the memory associated with a result
+	 $results->free();
+ 
+	 // close connection 
+	 $mysqli->close();
+	 
+ 
+ }
+ 
+function getProjectSite() {
+
+	// Connect to the database
+	$mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+
+	// output any connection error
+	if ($mysqli->connect_error) {
+	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+	}
+
+	// the query
+	$query = "SELECT * FROM t_projects ORDER BY c_code ASC";
+
+	// mysqli select query
+	$results = $mysqli->query($query);
+
+	if($results) {
+
+		print '<table class="table table-striped table-hover table-bordered" id="data-table"><thead><tr>
+
+				<th>Code</th>
+				<th>Name</th>
+				<th>Acronym</th>
+				<th>Address</th>
+				<th>Province</th>
+				<th>Zip</th>
+				<th>Rate</th>
+				<th>Reservation</th>
+				<th class="actions">Actions</th>
+
+			  </tr></thead><tbody>';
+
+		while($row = $results->fetch_assoc()) {
+
+		    print '
+			    <tr>
+					<td>'.$row["c_code"].'</td>
+				    <td>'.$row["c_name"].'</td>
+				    <td>'.$row["c_acronym"].'</td>
+					<td>'.$row["c_address"].'</td>
+				    <td>'.$row["c_province"].'</td>
+				    <td>'.$row["c_zip"].'</td>
+					<td>'.$row["c_rate"].'</td>
+				    <td>'.$row["c_reservation"].'</td>
+				    <td class="actions"><a href="project-edit.php?id='.$row["c_code"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-project-id="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-project"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+			    </tr>
+		    ';
+		}
+
+		print '</tr></tbody></table>';
+
+	} else {
+
+		echo "<p>There are no project sites to display.</p>";
+
+	}
+
+	// Frees the memory associated with a result
+	$results->free();
+
+	// close connection 
+	$mysqli->close();
+}
+
+function getHouse() {
+
+	// Connect to the database
+	$mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+
+	// output any connection error
+	if ($mysqli->connect_error) {
+	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+	}
+
+	// the query
+	$query = "SELECT * FROM t_model_house ORDER BY c_code ASC";
+
+	// mysqli select query
+	$results = $mysqli->query($query);
+
+	if($results) {
+
+		print '<table class="table table-striped table-hover table-bordered" id="data-table"><thead><tr>
+
+				<th>Code</th>
+				<th>Model</th>
+				<th>Acronym</th>
+				<th class="actions">Actions</th>
+
+			  </tr></thead><tbody>';
+
+		while($row = $results->fetch_assoc()) {
+
+		    print '
+			    <tr>
+					<td>'.$row["c_code"].'</td>
+				    <td>'.$row["c_model"].'</td>
+				    <td>'.$row["c_acronym"].'</td>
+				    <td class="actions"><a href="house-edit.php?id='.$row["c_code"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-house-id="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-house"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+			    </tr>
+		    ';
+		}
+
+		print '</tr></tbody></table>';
+
+	} else {
+
+		echo "<p>There are no project sites to display.</p>";
+
+	}
+
+	// Frees the memory associated with a result
+	$results->free();
+
+	// close connection 
+	$mysqli->close();
+}
 
 // get csr list
 function getCSRs() {
@@ -75,7 +268,7 @@ function getCSRs() {
 				<th>Net TCP</th>
 				<th>Date of Sale</th>
 				<th>Status</th>
-				<th>Actions</th>
+				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 
@@ -90,9 +283,7 @@ function getCSRs() {
 					<td>'.$row["c_net_tcp"].'</td>
 				    <td>'.$row["c_date_of_sale"].'</td>
 				';
-		/* 		
-			print '<td><button onclick="updateStatus(<?php echo '.$row["c_csr_no"].';?>)" id="statusBtn<?php echo '.$row["c_csr_no"].';?>" class="status-btn <?php echo '.$row["c_csr_status"].'==0?"approve":"disapprove"; ?>"><?php echo '.$row["c_csr_status"].'==0?"Approve":"Disapprove"; ?></button></td>'
- */
+			
 				if($row['c_csr_status'] == "Approved"){
 					print '<td><span class="label label-success">'.$row['c_csr_status'].'</span></td>';
 				} elseif ($row['c_csr_status'] == "Pending"){
@@ -102,29 +293,51 @@ function getCSRs() {
 
 				else{
 					print '<td><span class="label label-danger">No status</span></td>';
-				} 
-			/*  	print '<td>
-				 <select class= "csr-stat" name= "status_list" id ="status_list" csr-id ='.$row["c_csr_no"].' >
-					<option value="No Status">Update Status</option>  
-					<option value="Pending">Pending</option>  
-					<option value="Approved">Approved</option>  
-					<option value="Disapproved">Disapproved</option>  
-				 </select>';
-   */
+				}
+			
+			 /*print '
+				    <td>
+						<button type="button" class="dropbtn" onclick="myFunction()">
+							Action
+						</button>
+						<div id="myDropdown" class="dropdown-content">
+							<a href="csr-view.php?id='.$row["c_csr_no"].'" class="dropdown-item">
+								<span class="glyphicon glyphicon-search" aria-hidden="true">View</span>
+							</a> 
+							<div class="dropdown-divider"></div>
+							<a href="csr-edit.php?id='.$row["c_csr_no"].'" class="dropdown-item">
+								<span class="glyphicon glyphicon-edit" aria-hidden="true">Edit</span>
+							</a> 
+							<div class="dropdown-divider"></div>
+							<a href="print.php?id='.$row["c_csr_no"].'" class="dropdown-item" target="_blank">
+								<span class="glyphicon glyphicon-download-alt" aria-hidden="true">Download</span>
+							</a> 
+							<div class="dropdown-divider"></div>
+							<a data-csr-id="'.$row['c_csr_no'].'" class="delete-csr">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true">Delete</span>
+							</a>
+						</div>
+					</td>
+			    </tr>*/
 				print '
-				<td><a href="csr-view.php?id='.$row["c_csr_no"].'" class="btn btn-success btn-xs">
+				<td class="actions"><a href="csr-view.php?id='.$row["c_csr_no"].'" class="btn btn-success btn-xs">
 				<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
+
 				<a href="csr-edit.php?id='.$row["c_csr_no"].'" class="btn btn-primary btn-xs">
 				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
-				<a href="#" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-success btn-xs email-invoice">
+
+				<a href="#" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-success btn-xs email-invoice" onclick="redirectToMail()">
 				<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a> 
+
 				<a href="print.php?id='.$row["c_csr_no"].'" class="btn btn-info btn-xs" target="_blank">
 				<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a> 
+				
 				<a data-csr-id="'.$row['c_csr_no'].'" class="btn btn-danger btn-xs delete-csr">
 				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 				
 			    </tr>
 			'; 
+
 
 		}
 
@@ -142,6 +355,42 @@ function getCSRs() {
 	// close connection 
 	$mysqli->close();
 
+}
+
+// Initial csr number
+function getUserId() {
+
+	// Connect to the database
+	$mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+
+	// output any connection error
+	if ($mysqli->connect_error) {
+	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+	}
+
+	$query = "SELECT user_id FROM users ORDER BY user_id DESC LIMIT 1";
+
+	if ($result = $mysqli->query($query)) {
+
+		$row_cnt = $result->num_rows;
+
+	    $row = mysqli_fetch_assoc($result);
+
+	    //var_dump($row);
+
+	    if($row_cnt == 0){
+			echo CSR_INITIAL_VALUE;
+		} else {
+			echo $row['user_id'] + 1; 
+		}
+
+	    // Frees the memory associated with a result
+		$result->free();
+
+		// close connection 
+		$mysqli->close();
+	}
+	
 }
 
 
@@ -181,8 +430,7 @@ function getCSRId() {
 	
 }
 
-// populate product dropdown for invoice creation
-function popProductsList() {
+function popLotsList() {
 
 // Connect to the database
 	$mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
@@ -214,7 +462,7 @@ function popProductsList() {
 				<th>Project</th>
 				<th>Block</th>
 				<th>Lot</th>
-				<th>Action</th>
+				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 
@@ -226,7 +474,7 @@ function popProductsList() {
 					<td>'.$row["c_acronym"].'</td>
 				    <td>'.$row["c_block"].'</td>
 				    <td>'.$row["c_lot"].'</td>
-				    <td><a href="#" class="btn btn-primary btn-xs lot-select" data-lot-lid="'.$row['c_lid'].'" data-lot-site="'.$row['c_acronym'].'" data-lot-block="'.$row['c_block'].'" data-lot-lot="'.$row['c_lot'].'" data-lot-lot-area="'.$row['c_lot_area'].'" data-lot-per-sqm="'.$row['c_price_sqm'].'">Select</a></td>
+				    <td class="actions"><a href="#" class="btn btn-primary btn-xs lot-select" data-lot-lid="'.$row['c_lid'].'" data-lot-site="'.$row['c_acronym'].'" data-lot-block="'.$row['c_block'].'" data-lot-lot="'.$row['c_lot'].'" data-lot-lot-area="'.$row['c_lot_area'].'" data-lot-per-sqm="'.$row['c_price_sqm'].'">Select</a></td>
 			   
 				</tr>
 		    ';
@@ -247,10 +495,6 @@ function popProductsList() {
 	$mysqli->close();
 
 }
-
-// populate product dropdown for invoice creation
-
-
 
 function popCustomersList() {
 
@@ -279,7 +523,7 @@ function popCustomersList() {
 				<th>Middle Name</th>
 				<th>Email</th>
 				<th>Phone</th>
-				<th>Action</th>
+				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 
@@ -292,7 +536,7 @@ function popCustomersList() {
 					<td>'.$row["middle_name"].'</td>
 					<td>'.$row["email"].'</td>
 					<td>'.$row["phone"].'</td>
-					<td><a href="#" class="btn btn-primary btn-xs customer-select" data-customer-lname="'.$row['last_name'].'" data-customer-fname="'.$row['first_name'].'" data-customer-mname="'.$row['middle_name'].'" data-customer-email="'.$row['email'].'" data-customer-phone="'.$row['phone'].'" data-customer-address-1="'.$row['address'].'" data-customer-city-prov="'.$row['city_prov'].'" data-customer-zip-code="'.$row['zip_code'].'">Select</a></td>
+					<td class="actions"><a href="#" class="btn btn-primary btn-xs customer-select" data-customer-employment="'.$row['employment_status'].'" data-customer-civil="'.$row['civil_status'].'" data-customer-gender="'.$row['gender'].'" data-customer-age="'.$row['age'].'" data-customer-birthday="'.$row['birthdate'].'" data-customer-viber="'.$row['viber'].'" data-customer-address-1="'.$row['address'].'" data-customer-zip-code="'.$row['zip_code'].'" data-customer-city-prov="'.$row['city_prov'].'" data-customer-address-abroad="'.$row['address_abroad'].'" data-customer-lname2="'.$row['b2_last_name'].'" data-customer-fname2="'.$row['b2_first_name'].'" data-customer-mname2="'.$row['b2_middle_name'].'" data-customer-lname="'.$row['last_name'].'" data-customer-fname="'.$row['first_name'].'" data-customer-mname="'.$row['middle_name'].'" data-customer-email="'.$row['email'].'" data-customer-phone="'.$row['phone'].'">Select</a></td>
 				</tr>
 		    ';
 		}
@@ -301,7 +545,7 @@ function popCustomersList() {
 
 	} else {
 
-		echo "<p>There are no products to display.</p>";
+		echo "<p>There are no clients to display.</p>";
 
 	}
 
@@ -315,8 +559,7 @@ function popCustomersList() {
 
 }
 
-// get products list
-function getProducts() {
+function getLots() {
 
 	// Connect to the database
 	$mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
@@ -348,7 +591,7 @@ function getProducts() {
 				<th>Lot Area</th>
 				<th>Price SQM</th>
 				<th>Status</th>
-				<th>Action</th>
+				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 
@@ -363,7 +606,7 @@ function getProducts() {
 					<td>'.$row["c_lot_area"].'</td>
 					<td>P'.$row["c_price_sqm"].'</td>
 					<td>'.$row["c_status"].'</td>
-				    <td><a href="product-edit.php?id='.$row["c_lid"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-product-id="'.$row['c_lid'].'" class="btn btn-danger btn-xs delete-product"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+				    <td class="actions"><a href="lot-edit.php?id='.$row["c_lid"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-lot-id="'.$row['c_lid'].'" class="btn btn-danger btn-xs delete-lot"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
 		}
@@ -372,7 +615,7 @@ function getProducts() {
 
 	} else {
 
-		echo "<p>There are no products to display.</p>";
+		echo "<p>There are no lots to display.</p>";
 
 	}
 
@@ -404,11 +647,13 @@ function getUsers() {
 
 		print '<table class="table table-striped table-hover table-bordered" id="data-table"><thead><tr>
 
-				<th>Name</th>
+				<th>User ID</th>
+				<th>Last Name</th>
+				<th>First Name</th>
+				<th>Middle Name</th>
 				<th>Username</th>
-				<th>Email</th>
-				<th>Phone</th>
-				<th>Action</th>
+				<th>User Type</th>
+				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 
@@ -416,11 +661,13 @@ function getUsers() {
 
 		    print '
 			    <tr>
-			    	<td>'.$row['name'].'</td>
+			    	<td>'.$row['user_id'].'</td>
+					<td>'.$row["last_name"].'</td>
+				    <td>'.$row["first_name"].'</td>
+				    <td>'.$row["middle_name"].'</td>
 					<td>'.$row["username"].'</td>
-				    <td>'.$row["email"].'</td>
-				    <td>'.$row["phone"].'</td>
-				    <td><a href="user-edit.php?id='.$row["id"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-user-id="'.$row['id'].'" class="btn btn-danger btn-xs delete-user"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+					<td>'.$row["user_type"].'</td>
+				    <td class="actions"><a href="user-edit.php?id='.$row["user_id"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-user-id="'.$row['user_id'].'" class="btn btn-danger btn-xs delete-user"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
 		}
@@ -439,7 +686,6 @@ function getUsers() {
 	// close connection 
 	$mysqli->close();
 }
-
 function popAgentsList() {
 
 	// Connect to the database
@@ -504,7 +750,7 @@ function getAgents() {
 				<th>First Name</th>
 				<th>Position</th>
 				<th>Status</th>
-				<th>Action</th>
+				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 
@@ -517,7 +763,9 @@ function getAgents() {
 				    <td>'.$row["c_first_name"].'</td>
 				    <td>'.$row["c_position"].'</td>
 					<td>'.$row["c_status"].'</td>
-				    <td><a href="agent-edit.php?id='.$row["c_code"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-agent-code="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-agent"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+				    <td class="actions">
+					<a href="agent-edit.php?id='.$row["c_code"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
+					<a data-agent-id="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-agent"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
 		}
@@ -562,7 +810,7 @@ function getCustomers() {
 				<th>Name</th>
 				<th>Email</th>
 				<th>Phone</th>
-				<th>Action</th>
+				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 
@@ -573,7 +821,9 @@ function getCustomers() {
 					<td>'.$row["last_name"].', '.$row["first_name"].'</td>
 				    <td>'.$row["email"].'</td>
 				    <td>'.$row["phone"].'</td>
-				    <td><a href="customer-edit.php?id='.$row["id"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-customer-id="'.$row['id'].'" class="btn btn-danger btn-xs delete-customer"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+				    <td class="actions"><a href="customer-edit.php?id='.$row["id"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
+					<a data-customer-id="'.$row['id'].'" class="btn btn-danger btn-xs delete-customer">
+					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
 		}
@@ -595,7 +845,7 @@ function getCustomers() {
 
 
 
-// get ra list
+// get csr list
 function getRAs() {
 
 	// Connect to the database
@@ -612,7 +862,6 @@ function getRAs() {
 		JOIN t_csr x 
 		ON i.c_csr_no = x.c_csr_no
 		ORDER BY c_date_approved";
-		
 
 	// mysqli select query
 	$results = $mysqli->query($query);
@@ -629,7 +878,7 @@ function getRAs() {
 				<th>Date of Sale</th>
 				<th>Status</th>
 				<th>Approval</th>
-				<th>Actions</th>
+				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 
@@ -655,9 +904,8 @@ function getRAs() {
 				else{
 					print '<td><span class="label label-danger">No status</span></td>';
 				}
-
-
-			print '<td>
+				
+				print '<td>
 				<select id= "ra_stat" onchange=status_change(this.option[this.selectedIndex].value,'.$row["ra_id"].')>
 					<option value="No Status">Update Status</option>  
 					<option value="Pending">Pending</option>  
@@ -666,7 +914,7 @@ function getRAs() {
 				</select>';
 
 			 print '
-				    <td><a data-ra-id="'.$row['ra_id'].'" class="btn btn-danger btn-xs delete-ra"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+				    <td class="actions"><a data-ra-id="'.$row['ra_id'].'" class="btn btn-danger btn-xs delete-ra"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 			'; 
 
@@ -676,7 +924,7 @@ function getRAs() {
 
 	} else {
 
-		echo "<p>There are no reservation application to display.</p>";
+		echo "<p>There are no invoices to display.</p>";
 
 	}
 
@@ -753,7 +1001,7 @@ function popRAsList() {
 	
 		} else {
 	
-			echo "<p>There are no reservation application to display.</p>";
+			echo "<p>There are no RAs to display.</p>";
 	
 		}
 	
@@ -764,9 +1012,48 @@ function popRAsList() {
 		$mysqli->close();
 	
 	}
-	
-	// populate product dropdown for invoice creation
-
-
+	 
 ?>
+<script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+function redirectToMail() {
+	window.location.href = "http://localhost/ALSC/mail.php";
+}
+</script>
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $(".c_network").change(function(){
+            var c_code=$(this).val();
+            $.ajax({
+                url:"division.php",
+                method:"POST",
+                data:{c_code:c_code},
+                success:function(data){
+                    $(".c_division").html(data);
+                }
+            });
+        });
+    });
+</script>
+
 

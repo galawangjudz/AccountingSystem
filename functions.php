@@ -15,7 +15,6 @@
   border-radius:2px;
   font-weight:bold;
 
-  
 }
 .dropbtn:hover, .dropbtn:focus {
   background-color: #2980B9;
@@ -63,13 +62,10 @@ function getProject() {
 		echo '<select name="prod_code" id= "prod_code" class="form-control">';
 		while($row = $results->fetch_assoc()) {
 
-		    //echo '<option value="'.$row['c_code'].'">'.$row['c_acronym'].'</option>';
-			echo '<option value="'.$row['c_acronym'].'">'.$row['c_acronym'].'</option>';
+			print '<option value="'.$row['c_code'].'">'.$row['c_acronym'].'</option>';
 			
 		}
 		echo '</select>';
-
-
 
 	} else {
 		echo '<select name = "prod_code" id= "prod_code" class="form-control">';
@@ -433,7 +429,6 @@ function getCSRId() {
 	}
 	
 }
-
 function get_acronym($phase) {
 	$mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
 
@@ -469,7 +464,6 @@ function get_acronym($phase) {
 	$mysqli->close();
 
 }
-
 function popLotsList() {
 
 // Connect to the database
@@ -483,9 +477,9 @@ function popLotsList() {
 
 
 	// the query
-	$query = "SELECT DISTINCT * 
+	$query = "SELECT * 
 	FROM t_lots i 
-	LEFT JOIN t_projects c 
+	JOIN t_projects c 
 	ON i.c_site = c.c_code
 	WHERE i.c_site = c.c_code  
 	ORDER BY c.c_acronym, i.c_block, i.c_lot";
@@ -535,8 +529,6 @@ function popLotsList() {
 	$mysqli->close();
 
 }
-
-
 function popHousesList() {
 
 	// Connect to the database
@@ -607,68 +599,68 @@ function popHousesList() {
 
 
 
-function popCustomersList() {
+	function popCustomersList() {
 
 	
-	// Connect to the database
-	$mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
-
-	// output any connection error
-	if ($mysqli->connect_error) {
-	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
-	}
-
-	// the query
-	$query = "SELECT * FROM store_customers ORDER BY last_name ASC";
-
-	//echo $query;
-	// mysqli select query
-	$results = $mysqli->query($query);
-
-	if($results) {
-
-		print '<table class="table table-striped table-hover table-bordered" id="data-table"><thead><tr>
-
-				<th>Last Name</th>
-				<th>First Name</th>
-				<th>Middle Name</th>
-				<th>Email</th>
-				<th>Phone</th>
-				<th class="actions">Actions</th>
-
-			  </tr></thead><tbody>';
-
-		while($row = $results->fetch_assoc()) {
-
-		    print '
-			    <tr>
-					<td>'.$row["last_name"].'</td>
-					<td>'.$row["first_name"].'</td>
-					<td>'.$row["middle_name"].'</td>
-					<td>'.$row["email"].'</td>
-					<td>'.$row["phone"].'</td>
-					<td class="actions"><a href="#" class="btn btn-primary btn-xs customer-select" data-customer-lname="'.$row['last_name'].'" data-customer-fname="'.$row['first_name'].'" data-customer-mname="'.$row['middle_name'].'" data-customer-email="'.$row['email'].'" data-customer-phone="'.$row['phone'].'" data-customer-address-1="'.$row['address'].'" data-customer-city-prov="'.$row['city_prov'].'" data-customer-zip-code="'.$row['zip_code'].'">Select</a></td>
-				</tr>
-		    ';
+		// Connect to the database
+		$mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+	
+		// output any connection error
+		if ($mysqli->connect_error) {
+			die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
 		}
-
-		print '</tr></tbody></table>';
-
-	} else {
-
-		echo "<p>There are no clients to display.</p>";
-
+	
+		// the query
+		$query = "SELECT * FROM store_customers ORDER BY last_name ASC";
+	
+		//echo $query;
+		// mysqli select query
+		$results = $mysqli->query($query);
+	
+		if($results) {
+	
+			print '<table class="table table-striped table-hover table-bordered" id="data-table"><thead><tr>
+	
+					<th>Last Name</th>
+					<th>First Name</th>
+					<th>Middle Name</th>
+					<th>Email</th>
+					<th>Phone</th>
+					<th class="actions">Actions</th>
+	
+				  </tr></thead><tbody>';
+	
+			while($row = $results->fetch_assoc()) {
+	
+				print '
+					<tr>
+						<td>'.$row["last_name"].'</td>
+						<td>'.$row["first_name"].'</td>
+						<td>'.$row["middle_name"].'</td>
+						<td>'.$row["email"].'</td>
+						<td>'.$row["phone"].'</td>
+						<td class="actions"><a href="#" class="btn btn-primary btn-xs customer-select" data-customer-employment="'.$row['employment_status'].'" data-customer-civil="'.$row['civil_status'].'" data-customer-gender="'.$row['gender'].'" data-customer-age="'.$row['age'].'" data-customer-birthday="'.$row['birthdate'].'" data-customer-viber="'.$row['viber'].'" data-customer-address-1="'.$row['address'].'" data-customer-zip-code="'.$row['zip_code'].'" data-customer-city-prov="'.$row['city_prov'].'" data-customer-address-abroad="'.$row['address_abroad'].'" data-customer-lname2="'.$row['b2_last_name'].'" data-customer-fname2="'.$row['b2_first_name'].'" data-customer-mname2="'.$row['b2_middle_name'].'" data-customer-lname="'.$row['last_name'].'" data-customer-fname="'.$row['first_name'].'" data-customer-mname="'.$row['middle_name'].'" data-customer-email="'.$row['email'].'" data-customer-phone="'.$row['phone'].'">Select</a></td>
+					</tr>
+				';
+			}
+	
+			print '</tr></tbody></table>';
+	
+		} else {
+	
+			echo "<p>There are no clients to display.</p>";
+	
+		}
+	
+		// Frees the memory associated with a result
+		$results->free();
+	
+		// close connection 
+		$mysqli->close();
+	
+	
+	
 	}
-
-	// Frees the memory associated with a result
-	$results->free();
-
-	// close connection 
-	$mysqli->close();
-
-
-
-}
 
 function getLots() {
 

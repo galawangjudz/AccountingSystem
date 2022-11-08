@@ -39,7 +39,7 @@ include('functions.php');
       </div>
       <div class="modal-footer">
         <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
-		<button type="button" data-dismiss="modal" class="btn">Cancel</button>
+		<button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
