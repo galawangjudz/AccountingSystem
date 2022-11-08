@@ -127,117 +127,115 @@ $mysqli->close();
 	  }
 	  function showTab(){
 			
-		/*  document.getElementById('Buyer').style.display="block"; */
-		/* document.getElementById('down_percent').style.display="hidden";  */
-	  }
-
-	  function payment_type1_changed(){
-			var l_payment_type1 = $('.payment-type1').val();
-			$('#payment_type2').removeAttr('disabled');
-			$('#loan_text').text("Amount to be financed :");
-			$('#down_frm').show();
-			$('#monthly_frm').show();
-			$('#no_pay_text').show();
-			$('#no_payment').show();
-			$('#mo_down_text').show();
-			$('#monthly_down').show();
-			$('#down_text').show();
-			$('#start_text').text("Start Date :");	
-			$('#ma_text').text("Monthly Amortization ");
-			//alert(l_payment_type1);
-			if (l_payment_type1 == "Spot Cash"){
-				$('#payment_type2').attr('disabled','disable');
-				$('#down_frm').hide();
-				$('#monthly_frm').hide();
-				$('#down_text').hide();
-				$('#p1').hide();
-				document.getElementById('p2').style.width='100%';
-				document.getElementById('p2').style.marginLeft='0%';
-
-				$('#loan_text').text("Amount :");
-				$('#start_text').text("Pay Date :");	
-				$('#ma_text').text("Spot Cash Payment ");
-			} else if(l_payment_type1 == "Full DownPayment"){
-				
-				$('#no_pay_text').hide();
-				$('#no_payment').val(0);
-				$('#no_payment').hide();
-				$('#mo_down_text').hide();
-				$('#monthly_down').val(0);
-				$('#monthly_down').hide();
-				$('#p1').show();
-				document.getElementById('p2').style.width='49%';
-				document.getElementById('p2').style.marginLeft='2%';
-				compute_net_dp();
-				compute_no_payment();
-				compute_rate();
-				compute_monthly_payments();
-				
-				
-			} else if(l_payment_type1 == "No DownPayment"){
-				$('#down_text').hide();
-				l_a = $('.net-tcp').val();
-				l_b = $('.reservation-fee').val();
-				$('#down_frm').hide();
-				/* $('#no_payment').val('1'); */
-				$('#mo_down_text').hide();
-				l_sdate = $('.first-dp-date').val();
-				$('#p1').hide();
-				document.getElementById('p2').style.width='100%';
-				document.getElementById('p2').style.marginLeft='0%';
-				
-				$('#start_date').val(l_sdate);
-
-				var l_c = parseFloat(l_a) - parseFloat(l_b);
-				$('#amt_to_be_financed').val(l_c.toFixed(2))
-				$("#down_percent").val(0);
-				$("#net_dp").val(0);
-				$("#no_payment").val(0);
-				$("#monthly_down").val(0);
-				compute_net_dp();
-				compute_no_payment();
-				compute_rate();
-				compute_monthly_payments();
-				
-			}else{
-				$('#p1').show();
-				document.getElementById('p2').style.width='49%';
-				document.getElementById('p2').style.marginLeft='2%';
-				compute_net_dp();
-				compute_no_payment();
-				compute_rate();
-				compute_monthly_payments();
-				
-			}
-
-	}
-
-	function payment_type2_changed(){
-		var l_payment_type2 = $('.payment-type2').val();
+		document.getElementById('Buyer').style.display="block";
+		
+		var l_payment_type1 = $('.payment-type1').val();
+		$('#payment_type2').removeAttr('disabled');
 		$('#loan_text').text("Amount to be financed :");
-		$('#interest_rate').show();
-		$('#fixed_factor').show();
+		$('#down_frm').show();
 		$('#monthly_frm').show();
-		$('#rate_text').show()
-		$('#factor_text').show()
+		$('#no_pay_text').show();
+		$('#no_payment').show();
+		$('#mo_down_text').show();
+		$('#monthly_down').show();
+		$('#down_text').show();
+		$('#start_text').text("Start Date :");	
 		$('#ma_text').text("Monthly Amortization ");
-		if (l_payment_type2 == "Deferred Cash Payment"){
-			$('#ma_text').text("Deferred Cash Payment ");
-			$('#loan_text').text("Deferred Amount:");
-			$("#interest_rate").val(0);
-			$("#fixed_facotr").val(0);
-			$('#rate_text').hide()
-			$('#factor_text').hide()
-			$('#interest_rate').hide();
-			$('#fixed_factor').hide();
+		//alert(l_payment_type1);
+		if (l_payment_type1 == "Spot Cash"){
+			$('#payment_type2').attr('disabled','disable');
+			$('#down_frm').hide();
+			$('#monthly_frm').hide();
+			$('#down_text').hide();
+			$('#p1').hide();
+			document.getElementById('p2').style.width='100%';
+			document.getElementById('p2').style.marginLeft='0%';
+
+			$('#loan_text').text("Amount :");
+			$('#start_text').text("Pay Date :");	
+			$('#ma_text').text("Spot Cash Payment ");
+		} else if(l_payment_type1 == "Full DownPayment"){
+			
+			$('#no_pay_text').hide();
+			$('#no_payment').val(0);
+			$('#no_payment').hide();
+			$('#mo_down_text').hide();
+			$('#monthly_down').val(0);
+			$('#monthly_down').hide();
+			$('#p1').show();
+			document.getElementById('p2').style.width='49%';
+			document.getElementById('p2').style.marginLeft='2%';
+			compute_net_dp();
+			compute_no_payment();
+			compute_rate();
+			compute_monthly_payments();
+			
+			
+		} else if(l_payment_type1 == "No DownPayment"){
+			$('#down_text').hide();
+			l_a = $('.net-tcp').val();
+			l_b = $('.reservation-fee').val();
+			$('#down_frm').hide();
+			/* $('#no_payment').val('1'); */
+			$('#mo_down_text').hide();
+			l_sdate = $('.first-dp-date').val();
+			$('#p1').hide();
+			document.getElementById('p2').style.width='100%';
+			document.getElementById('p2').style.marginLeft='0%';
+			
+			$('#start_date').val(l_sdate);
+
+			var l_c = parseFloat(l_a) - parseFloat(l_b);
+			$('#amt_to_be_financed').val(l_c.toFixed(2))
+			$("#down_percent").val(0);
+			$("#net_dp").val(0);
+			$("#no_payment").val(0);
+			$("#monthly_down").val(0);
+			compute_net_dp();
+			compute_no_payment();
+			compute_rate();
+			compute_monthly_payments();
+			
+		}else{
+			$('#p1').show();
+			document.getElementById('p2').style.width='49%';
+			document.getElementById('p2').style.marginLeft='2%';
+			compute_net_dp();
+			compute_no_payment();
+			compute_rate();
+			compute_monthly_payments();
+			
 		}
 
-		compute_monthly_payments();
+	
 
+	var l_payment_type2 = $('.payment-type2').val();
+
+	if (l_payment_type2 == "Deferred Cash Payment"){
+	$('#loan_text').text("Amount to be financed :");
+	$('#interest_rate').show();
+	$('#fixed_factor').show();
+	$('#monthly_frm').show();
+	$('#rate_text').show()
+	$('#factor_text').show()
+	$('#ma_text').text("Monthly Amortization ");
+	
+	}else if (l_payment_type2 == "Deferred Cash Payment"){
+		$('#ma_text').text("Deferred Cash Payment ");
+		$('#loan_text').text("Deferred Amount:");
+		$("#interest_rate").val(0);
+		$("#fixed_facotr").val(0);
+		$('#rate_text').hide()
+		$('#factor_text').hide()
+		$('#interest_rate').hide();
+		$('#fixed_factor').hide();
+	
 	}
 
+}
+
 </script>
-<body>
+<body onload="showTab()">
 		
 		
 	
@@ -276,7 +274,7 @@ $mysqli->close();
 							<div class="col-xs-6">		
 								<label class="control-label">Date of Sale: </label>
 								<div class="input-group date margin-bottom" id="dos">
-									<input type="text" class="form-control required date-of-sale" value= "" id ="date_of_sale" name = "date_of_sale" tabindex =1 data-date-format="<?php echo DATE_FORMAT ?>" value="<?php echo $customer_date_of_sale; ?>" />
+									<input type="text" class="form-control required date-of-sale" id ="date_of_sale" name = "date_of_sale" tabindex =1 value="<?php echo $customer_date_of_sale; ?>" />
 									<span class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 									</span>
@@ -565,8 +563,12 @@ $mysqli->close();
 										<div class="col-xs-12">		
 											<div class="form-group">
 												<label class="control-label">House Model: </label>
-												<?php echo $house_model; ?>
+												<!-- <?php echo $house_model; ?> -->
 												<?php getHouseModel(); ?>
+												
+												<option value="<?php echo $house_model ?> " selected> <?php echo $house_model?></option>
+												</select>
+														
 											</div>
 										</div>
 									</div>
@@ -1004,7 +1006,7 @@ $mysqli->close();
 ?>
 <script>
 	function redirectToMail() {
-        window.location.href = "http://localhost/ALSC/mail.php";
+        window.location.href = "./mail.php";
     }
 	function tabclicked1(){
 		document.getElementById('activation_text').value='1';

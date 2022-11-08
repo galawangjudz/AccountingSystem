@@ -32,6 +32,9 @@ include('functions.php');
 	  }
 	  function showTab(){
 		document.getElementById('Buyer').style.display="block";
+	
+	
+
 	  }
 
 </script>
@@ -330,6 +333,7 @@ include('functions.php');
 											<div class="form-group">
 												<label class="control-label">House Model: </label>
 												<?php getHouseModel(); ?>
+												</select>
 											</div>
 										</div>
 									</div>

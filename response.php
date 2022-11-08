@@ -1309,7 +1309,6 @@ if($action == 'update_csr') {
 	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */					
  	$stmt->bind_param(
 		'sssssssssssssssssssssssssssssssssssssssssssssssssssss',
-
 		$csr_id,
 		$lot_lid,
 		$customer_date_of_sale,
@@ -1361,8 +1360,8 @@ if($action == 'update_csr') {
 		$monthly_amortization, 
 		$start_date,
 		$invoice_notes,
-		$mysqldate
-		$id);
+		$mysqldate,
+		$csr_id);
 								    
 	
 	//execute the query

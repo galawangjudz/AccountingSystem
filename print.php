@@ -631,7 +631,7 @@ table{
                     <div class="col-md-8">
                         <?php
                         $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
-                        $query1 = "SELECT * FROM t_model_house WHERE c_acronym = '" . $c_house_model . "'";
+                        $query1 = "SELECT * FROM t_model_house WHERE c_model = '" . $c_house_model . "'";
 
                         $result1 = mysqli_query($mysqli, $query1);
                         if($result1) {
