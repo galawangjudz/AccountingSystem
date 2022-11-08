@@ -392,7 +392,7 @@ if ($action == 'create_csr'){
 	$tcp_disc_amt = $_POST['tcp_disc_amt'];
 	$total_tcp = $_POST['total_tcp'];
 	$vat_amt = $_POST['vat_amt'];
-	$vat_amt = $_POST['vat_amt_computed'];
+	$vat_amount = $_POST['vat_amt_computed'];
 	$net_tcp = $_POST['net_tcp'];
 
 
@@ -413,7 +413,8 @@ if ($action == 'create_csr'){
 	$monthly_amortization = $_POST['monthly_amortization'];
 	$start_date = $_POST['start_date'];
 	$invoice_notes = $_POST['invoice_notes'];
-	// insert invoice into database
+
+	// insert csr into database
 	$query = "INSERT INTO t_csr (
 					c_csr_no,
 					c_lot_lid,
@@ -504,7 +505,7 @@ if ($action == 'create_csr'){
 					'$tcp_disc', 
 					'$tcp_disc_amt', 
 					'$total_tcp',
-					'$vat_amt',
+					'$vat_amount',
 					'$net_tcp',
 					'$c_reservation',
 					'".$payment_type1."',
