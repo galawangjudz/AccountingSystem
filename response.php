@@ -361,6 +361,7 @@ if ($action == 'create_csr'){
 	$customer_last_name_2 = $_POST['customer_last_name_2']; // customer last name 2
 	$customer_first_name_2 = $_POST['customer_first_name_2']; // customer first name 2
 	$customer_middle_name_2 = $_POST['customer_middle_name_2']; // customer middle name 2
+
 	
 	
 	$customer_address_1 = $_POST['customer_address_1']; // customer address
@@ -369,8 +370,10 @@ if ($action == 'create_csr'){
 	$customer_city_prov= $_POST['customer_city_prov']; // customer city_prov
 	$customer_zip_code = $_POST['customer_zip_code']; // customer zip_code
 	$customer_address_2 = $_POST['customer_address_2']; // customer address abroad
+
 	$birth_day = $_POST['birth_day']; // customer birthday
 	$customer_age = $_POST['customer_age']; // customer age
+
 	$customer_phone = $_POST['customer_phone']; // customer phone number
 	$customer_email = $_POST['customer_email']; // customer civil status
 	$customer_viber= $_POST['customer_viber']; // customer viber
@@ -378,6 +381,7 @@ if ($action == 'create_csr'){
 	$civil_status = $_POST['civil_status']; // customer civil status
 	$employment_status = $_POST['employment_status']; // customer civil status
 	
+
 	// Investment Value
 	$lot_area = $_POST['lot_area'];
 	$price_sqm = $_POST['price_per_sqm'];
@@ -391,8 +395,7 @@ if ($action == 'create_csr'){
 	$tcp_disc = $_POST['tcp_disc'];
 	$tcp_disc_amt = $_POST['tcp_disc_amt'];
 	$total_tcp = $_POST['total_tcp'];
-	$vat_amt = $_POST['vat_amt'];
-	$vat_amount = $_POST['vat_amt_computed'];
+	$vat_amt = $_POST['vat_amt_computed'];
 	$net_tcp = $_POST['net_tcp'];
 
 
@@ -413,6 +416,7 @@ if ($action == 'create_csr'){
 	$monthly_amortization = $_POST['monthly_amortization'];
 	$start_date = $_POST['start_date'];
 	$invoice_notes = $_POST['invoice_notes'];
+
 
 	// insert csr into database
 	$query = "INSERT INTO t_csr (

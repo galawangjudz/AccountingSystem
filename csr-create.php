@@ -611,7 +611,7 @@ include('functions.php');
 											<td class="text-right">
 												<div class="input-group input-group-sm  no-margin-bottom">
 													
-													<input type="text" class="form-control agent-code" name="code" id="code" aria-describedby="sizing-addon1" readonly>
+													<input type="text" class="form-control agent-code" name="agent_code" id="agent_code" aria-describedby="sizing-addon1" readonly>
 												</div>
 											</td>
 											<td class="text-right">
