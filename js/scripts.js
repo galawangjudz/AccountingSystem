@@ -791,7 +791,7 @@ function updateTotals(elem) {
 				$("#first_dp_date").val("");
 				$("#full_down_date").val("");
 				$("#interest_rate").val(0);
-				$("#fixed_facotr").val(0);
+				$("#fixed_factor").val(0);
 				$("#monthly_amortization").val(0);
 				
 
@@ -870,7 +870,7 @@ function updateTotals(elem) {
 			$('#ma_text').text("Deferred Cash Payment ");
 			$('#loan_text').text("Deferred Amount:");
 			$("#interest_rate").val(0);
-			$("#fixed_facotr").val(0);
+			$("#fixed_factor").val(0);
 			$('#rate_text').hide()
 			$('#factor_text').hide()
 			$('#interest_rate').hide();
