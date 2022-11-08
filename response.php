@@ -344,18 +344,13 @@ if ($action == 'save_reservation'){
 
 // Create invoice
 if ($action == 'create_csr'){
-
-
 	if ($mysqli->connect_error) {
 	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
 	}
-
-
 	//
 	date_default_timezone_set("Asia/Manila");
 	$mysqldate = date("Y-m-d H:i:s"); 
 	$csr_status = 'Pending';
-
 	$csr_id = $_POST['csr_id'];
 	$lot_lid = $_POST['l_lid'];
 	$customer_date_of_sale = $_POST['date_of_sale'];
@@ -366,7 +361,6 @@ if ($action == 'create_csr'){
 	$customer_last_name_2 = $_POST['customer_last_name_2']; // customer last name 2
 	$customer_first_name_2 = $_POST['customer_first_name_2']; // customer first name 2
 	$customer_middle_name_2 = $_POST['customer_middle_name_2']; // customer middle name 2
-
 	
 	
 	$customer_address_1 = $_POST['customer_address_1']; // customer address
@@ -375,10 +369,8 @@ if ($action == 'create_csr'){
 	$customer_city_prov= $_POST['customer_city_prov']; // customer city_prov
 	$customer_zip_code = $_POST['customer_zip_code']; // customer zip_code
 	$customer_address_2 = $_POST['customer_address_2']; // customer address abroad
-
 	$birth_day = $_POST['birth_day']; // customer birthday
 	$customer_age = $_POST['customer_age']; // customer age
-
 	$customer_phone = $_POST['customer_phone']; // customer phone number
 	$customer_email = $_POST['customer_email']; // customer civil status
 	$customer_viber= $_POST['customer_viber']; // customer viber
@@ -386,7 +378,6 @@ if ($action == 'create_csr'){
 	$civil_status = $_POST['civil_status']; // customer civil status
 	$employment_status = $_POST['employment_status']; // customer civil status
 	
-
 	// Investment Value
 	$lot_area = $_POST['lot_area'];
 	$price_sqm = $_POST['price_per_sqm'];
@@ -400,6 +391,7 @@ if ($action == 'create_csr'){
 	$tcp_disc = $_POST['tcp_disc'];
 	$tcp_disc_amt = $_POST['tcp_disc_amt'];
 	$total_tcp = $_POST['total_tcp'];
+	$vat_amt = $_POST['vat_amt'];
 	$vat_amt = $_POST['vat_amt_computed'];
 	$net_tcp = $_POST['net_tcp'];
 
@@ -421,10 +413,6 @@ if ($action == 'create_csr'){
 	$monthly_amortization = $_POST['monthly_amortization'];
 	$start_date = $_POST['start_date'];
 	$invoice_notes = $_POST['invoice_notes'];
-
-
-
-
 	// insert invoice into database
 	$query = "INSERT INTO t_csr (
 					c_csr_no,
@@ -540,38 +528,37 @@ if ($action == 'create_csr'){
 						);
 					"; 
 					
-					foreach($_POST['customer_agent'] as $key => $value) {
+ 
+	foreach($_POST['agent_name'] as $key => $value) {
+	
 						$agent = $value;
-						// $item_description = $_POST['invoice_product_desc'][$key];
-						$csr_no = $_POST['csr_id'][$key];
-						$agent_code = $_POST['code'][$key];
+	
+						$agent_code = $_POST['agent_code'][$key];
 						$agent_pos = $_POST['agent_position'][$key];
 						$agent_amount = $_POST['comm_amt'][$key];
 						$agent_rate = $_POST['agent_rate'][$key];
 					
 				
-						// insert invoice items into database
+		
 						$query .= "INSERT INTO t_csr_commission (
 								c_csr_no,
 								c_code,
 								c_position,
+								c_agent,
 								c_amount,
-								c_rate,
-								c_agent
+								c_rate
 								) VALUES (
-								'".$csr_no."',
-								'".$agent_code."',
-								'".$agent_pos."',
-								'".$agent_amount."',
-								'".$agent_rate."',
-								'".$agent."'	
+								'".$csr_id."',
+								'$agent_code',
+								'$agent_pos',
+								'".$agent."',
+								'$agent_amount',
+								'$agent_rate'
 							);
 						";
-				
 					}
 										
 	header('Content-Type: application/json');
-
 	// execute the query
 	if($mysqli -> multi_query($query)){
 		//if saving success
@@ -588,10 +575,8 @@ if ($action == 'create_csr'){
 			'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>');
 		echo json_encode($arr);
 			}
-
 	//close database connection
 	$mysqli->close();
-
 }
 if($action == 'update_stat') {
 
