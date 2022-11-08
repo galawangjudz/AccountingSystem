@@ -563,8 +563,12 @@ $mysqli->close();
 										<div class="col-xs-12">		
 											<div class="form-group">
 												<label class="control-label">House Model: </label>
-												<?php echo $house_model; ?>
+												<!-- <?php echo $house_model; ?> -->
 												<?php getHouseModel(); ?>
+												
+												<option value="<?php echo $house_model ?> " selected> <?php echo $house_model?></option>
+												</select>
+														
 											</div>
 										</div>
 									</div>

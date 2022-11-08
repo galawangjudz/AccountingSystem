@@ -333,6 +333,7 @@ include('functions.php');
 											<div class="form-group">
 												<label class="control-label">House Model: </label>
 												<?php getHouseModel(); ?>
+												</select>
 											</div>
 										</div>
 									</div>
