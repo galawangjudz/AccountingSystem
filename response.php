@@ -527,7 +527,40 @@ if ($action == 'create_csr'){
 					'".$mysqldate."'
 						);
 					"; 
-														
+			
+	foreach($_POST['agent_name'] as $key => $value) {
+
+
+		$agent = $value;
+	
+		$agent_code = $_POST['agent_code'][$key];
+		$agent_pos = $_POST['agent_position'][$key];
+		$agent_amount = $_POST['comm_amt'][$key];
+		$agent_rate = $_POST['agent_rate'][$key]; 
+
+		
+		
+		$query .= "INSERT INTO t_csr_commission (
+				c_csr_no,
+				c_code,
+				c_position,
+				c_agent,
+				c_amount,
+				c_rate
+				) VALUES (
+				'".$csr_id."',
+				'$agent_code',
+				'$agent_pos',
+				'".$agent."',
+				'$agent_amount',
+				'$agent_rate'
+				);
+				";
+		}
+
+
+
+
 	header('Content-Type: application/json');
 	// execute the query
 	if($mysqli -> multi_query($query)){
