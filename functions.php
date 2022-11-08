@@ -1139,7 +1139,7 @@ window.onclick = function(event) {
 }
 
 function redirectToMail() {
-	window.location.href = "http://localhost/ALSC/mail.php";
+	window.location.href = "./mail.php";
 }
 </script>
 <script type="text/javascript">
