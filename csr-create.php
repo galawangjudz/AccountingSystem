@@ -32,6 +32,9 @@ include('functions.php');
 	  }
 	  function showTab(){
 		document.getElementById('Buyer').style.display="block";
+	
+	
+
 	  }
 
 </script>
