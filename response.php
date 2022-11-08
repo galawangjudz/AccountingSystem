@@ -1171,16 +1171,13 @@ if($action == 'update_house') {
 
 if($action == 'update_csr') {
 
-	// output any connection error
-	if ($mysqli->connect_error) {
-		die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
-	}
+	date_default_timezone_set("Asia/Manila");
+	$mysqldate = date("Y-m-d H:i:s"); 
 
-	$id = $_POST["update_id"];
-	//
-	//$csr_id = $_POST['csr_id'];
+	$csr_id = $_POST['csr_id'];
+	$lot_lid = $_POST['l_lid'];
 	$customer_date_of_sale = $_POST['date_of_sale'];
-	// buyer
+	// buyer details
 	$customer_last_name_1 = $_POST['customer_last_name_1']; // customer last name
 	$customer_first_name_1 = $_POST['customer_first_name_1']; // customer first name
 	$customer_middle_name_1 = $_POST['customer_middle_name_1']; // customer middle name
@@ -1188,8 +1185,8 @@ if($action == 'update_csr') {
 	$customer_first_name_2 = $_POST['customer_first_name_2']; // customer first name 2
 	$customer_middle_name_2 = $_POST['customer_middle_name_2']; // customer middle name 2
 
-	// more details
-
+	
+	
 	$customer_address_1 = $_POST['customer_address_1']; // customer address
 	$remove[] = "'";
 	$customer_address_1 = str_replace( $remove, "", $customer_address_1);
@@ -1197,8 +1194,8 @@ if($action == 'update_csr') {
 	$customer_zip_code = $_POST['customer_zip_code']; // customer zip_code
 	$customer_address_2 = $_POST['customer_address_2']; // customer address abroad
 
-	$birth_date = $_POST['birth_date']; // customer birthday
-	$customer_age = strval($_POST['customer_age']); // customer age
+	$birth_day = $_POST['birth_day']; // customer birthday
+	$customer_age = $_POST['customer_age']; // customer age
 
 	$customer_phone = $_POST['customer_phone']; // customer phone number
 	$customer_email = $_POST['customer_email']; // customer civil status
@@ -1208,9 +1205,47 @@ if($action == 'update_csr') {
 	$employment_status = $_POST['employment_status']; // customer civil status
 	
 
+	// Investment Value
+	$lot_area = $_POST['lot_area'];
+	$price_sqm = $_POST['price_per_sqm'];
+	$lot_disc = $_POST['lot_disc'];
+	$lot_disc_amt = $_POST['lot_disc_amt'];
+	$house_model = $_POST['house_model'];
+	$floor_area = $_POST['floor_area'];
+	$h_price_per_sqm = $_POST['h_price_per_sqm'];
+	$house_disc = $_POST['house_disc'];
+	$house_disc_amt = $_POST['house_disc_amt'];
+	$tcp_disc = $_POST['tcp_disc'];
+	$tcp_disc_amt = $_POST['tcp_disc_amt'];
+	$total_tcp = $_POST['total_tcp'];
+	$vat_amt = $_POST['vat_amt_computed'];
+	$net_tcp = $_POST['net_tcp'];
+
+
+	// Payment Details
+	$c_reservation = $_POST['reservation'];
+	$payment_type1 = $_POST['payment_type1'];
+	$payment_type2 = $_POST['payment_type2'];
+	$down_percent = $_POST['down_percent'];
+	$net_dp = $_POST['net_dp'];
+	$no_payment = $_POST['no_payment'];
+	$monthly_down = $_POST['monthly_down'];
+	$first_dp_date = $_POST['first_dp_date'];
+	$full_down_date = $_POST['full_down_date'];
+	$amt_to_be_financed = $_POST['amt_to_be_financed'];
+	$terms= $_POST['terms'];
+	$interest_rate = $_POST['interest_rate'];
+	$fixed_factor = $_POST['fixed_factor'];
+	$monthly_amortization = $_POST['monthly_amortization'];
+	$start_date = $_POST['start_date'];
+	$invoice_notes = $_POST['invoice_notes'];
+
+
+
 
 	$query = "UPDATE t_csr SET 
 			c_csr_no = ?,
+			c_lot_lid = ?,
 			c_date_of_sale = ?,
 			c_b1_last_name = ?,
 			c_b1_first_name = ?,
@@ -1222,14 +1257,45 @@ if($action == 'update_csr') {
 			c_city_prov = ?,
 			c_zip_code = ?,
 			c_address_abroad = ?,
-			c_birthdate = ?,
+			c_birthday = ?,
 			c_age = ?,
-			c_mobile_no = ?,
-			c_email= ?,
-			c_viber_no = ?,
-			c_gender = ?,
-			c_civil_status = ?,	
-			c_employment_status = ? 
+			c_sex = ?,
+			c_mobile_no = ?,  
+			c_viber_no = ?, 
+			c_civil_status = ?, 
+			c_email = ?,
+			c_employment_status = ?,
+			c_lot_area = ?, 
+			c_price_sqm = ?, 
+			c_lot_discount = ?, 
+			c_lot_discount_amt = ?,
+			c_house_model = ?,
+			c_floor_area = ?, 
+			c_house_price_sqm = ?, 
+			c_house_discount = ?, 
+			c_house_discount_amt = ?, 
+			c_tcp_discount = ?, 
+			c_tcp_discount_amt = ?, 
+			c_tcp = ?, 
+			c_vat_amount = ?, 
+			c_net_tcp = ?, 
+			c_reservation = ?,
+			c_payment_type1 = ?, 
+			c_payment_type2 = ?, 
+			c_down_percent = ?, 
+			c_net_dp = ?, 
+			c_no_payments = ?, 
+			c_monthly_down = ?, 
+			c_first_dp = ?, 
+			c_full_down = ?, 
+			c_amt_financed = ?, 
+			c_terms = ?, 
+			c_interest_rate = ?, 
+			c_fixed_factor = ?, 
+			c_monthly_payment = ?, 
+			c_start_date = ?,
+			c_remarks = ?,
+			c_date_updated = ?
 			WHERE c_csr_no = ?
 			";
 
@@ -1242,8 +1308,10 @@ if($action == 'update_csr') {
 
 	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */					
  	$stmt->bind_param(
-		'sssssssssssssssssssss',
-		$id,
+		'sssssssssssssssssssssssssssssssssssssssssssssssssssss',
+
+		$csr_id,
+		$lot_lid,
 		$customer_date_of_sale,
 		$customer_last_name_1,
 		$customer_first_name_1,
@@ -1255,14 +1323,45 @@ if($action == 'update_csr') {
 		$customer_city_prov,
 		$customer_zip_code,
 		$customer_address_2,
-		$birth_date,
+		$birth_day,
 		$customer_age,
-		$customer_phone,
-		$customer_email,
-		$customer_viber,
 		$customer_gender,
+		$customer_phone,
+		$customer_viber,
 		$civil_status,
+		$customer_email,
 		$employment_status,
+		$lot_area, 
+		$price_sqm, 
+		$lot_disc,
+		$lot_disc_amt,
+		$house_model,
+		$floor_area,
+		$h_price_per_sqm, 
+		$house_disc,
+		$house_disc_amt,
+		$tcp_disc, 
+		$tcp_disc_amt, 
+		$total_tcp,
+		$vat_amt,
+		$net_tcp,
+		$c_reservation,
+		$payment_type1,
+		$payment_type2, 
+		$down_percent,
+		$net_dp, 
+		$no_payment,
+		$monthly_down,
+		$first_dp_date, 
+		$full_down_date, 
+		$amt_to_be_financed, 
+		$terms,
+		$interest_rate,
+		$fixed_factor, 
+		$monthly_amortization, 
+		$start_date,
+		$invoice_notes,
+		$mysqldate
 		$id);
 								    
 	

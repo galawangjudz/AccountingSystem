@@ -779,9 +779,16 @@ function updateTotals(elem) {
 				document.getElementById('p2').style.width='100%';
 				document.getElementById('p2').style.marginLeft='0%';
 
+				$("#interest_rate").val(0);
+				$("#fixed_facotr").val(0);
+				$("#monthly_amortization").val(0);
+				
+
 				$('#loan_text').text("Amount :");
 				$('#start_text').text("Pay Date :");	
 				$('#ma_text').text("Spot Cash Payment ");
+
+
 			} else if(l_payment_type1 == "Full DownPayment"){
 				
 				$('#no_pay_text').hide();
@@ -1071,6 +1078,8 @@ function updateTotals(elem) {
 			var l_net_tcp = $('.net-tcp').val();
 			var l_rsv_fee = $('.reservation-fee').val();
 			l_amt_2b_finance = parseFloat(l_net_tcp) - parseFloat(l_rsv_fee);
+			$("#fixed_facotr").val(0);
+			$("#mothly_amortization").val(0);	
 			$('#amt_to_be_financed').val(l_amt_2b_finance.toFixed(2));		
 		}else if(l_payment_type2 == "Deferred Cash Payment"){
 			/* if (l_terms == 0){
