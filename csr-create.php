@@ -442,7 +442,7 @@ include('functions.php');
 											</div>
 										</div>
 										<div class="col-xs-9">
-										<input type="text" class="form-control margin-bottom net-tcp"  name="net_tcp" readonly id="net_tcp" tabindex = '40'>
+										<input type="text" class="form-control margin-bottom net-tcp"  value= "0.00" name="net_tcp" readonly id="net_tcp" tabindex = '40'>
 											<input type="hidden" name="total_net_tcp" id="total_net_tcp">
 										</div>
 									</div>
@@ -500,7 +500,7 @@ include('functions.php');
 											<style>
 												select:invalid { color: gray; }
 											</style>
-											<select name="payment_type2" id="payment_type2" class="form-control required payment-type2" tabindex = "3" >
+											<select name="payment_type2" id="payment_type2" class="form-control payment-type2" tabindex = "3" >
 												<option name="payment_type2" value="Monthly Amortization" selected>Monthly Amortization</option>
 												<option name="payment_type2" value="Deferred Cash Payment">Deferred Cash Payment</option>
 											</select>	
@@ -521,14 +521,14 @@ include('functions.php');
 											<input type="text" class="form-control margin-bottom required monthly-down" name="monthly_down" value= '0.00' id="monthly_down" tabindex="7">
 											<label class="control-label">First DP: </label>
 											<div class="input-group date margin-bottom" id="down_start_date">
-												<input type="text" class="form-control required first-dp-date" name="first_dp_date" id = "first_dp_date" tabindex ="8" data-date-format="<?php echo DATE_FORMAT ?>" />
+												<input type="text" class="form-control first-dp-date" name="first_dp_date" id = "first_dp_date" tabindex ="8" data-date-format="<?php echo DATE_FORMAT ?>" />
 												<span class="input-group-addon">
 													<span class="glyphicon glyphicon-calendar"></span>
 												</span>
 											</div>
 											<label class="control-label">Full Down: </label>
 											<div class="input-group date margin-bottom" id="down_end_date">
-												<input type="text" class="form-control required full-down-date" name="full_down_date" id = "full_down_date" tabindex ="9" data-date-format="<?php echo DATE_FORMAT ?>" />
+												<input type="text" class="form-control full-down-date" name="full_down_date" id = "full_down_date" tabindex ="9" data-date-format="<?php echo DATE_FORMAT ?>" />
 												<span class="input-group-addon">
 													<span class="glyphicon glyphicon-calendar"></span>
 												</span>

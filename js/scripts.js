@@ -1098,13 +1098,17 @@ function updateTotals(elem) {
 			/* if (l_terms == 0){
 				return
 			} */
+			
 			var l_loan_amt = $('.amt-to-be-financed').val();
 			var l_terms = $('.terms-count').val();
 			//alert(l_terms);
 			var l_amt_2b_finance = parseFloat(l_loan_amt)/parseFloat(l_terms);
+			l_amt_2b_finance = isFinite(l_amt_2b_finance) ? l_amt_2b_finance : 0;
 			//$('#amt_to_be_financed').val(l_amt_2b_finance.toFixed(2));	
 			$("#monthly_amortization").val(l_amt_2b_finance.toFixed(2));
 		}else if (l_payment_type2 == "Monthly Amortization"){
+			compute_no_payment();
+			compute_net_dp();
 			var l_terms = $('.terms-count').val();
 			var l_factor = parseFloat(l_rate_value)/(1-(1+parseFloat(l_rate_value))**(-parseFloat(l_terms)));
 			//alert(l_factor);
@@ -1116,6 +1120,7 @@ function updateTotals(elem) {
 			//var rate_factor = parseFloat(l_rate_value)/parseFloat(l_factor);
 			var l_loan_amt = $('.amt-to-be-financed').val();
 			var monthly_ma = parseFloat(l_loan_amt)*parseFloat(l_factor);
+			monthly_ma = isFinite(monthly_ma) ? monthly_ma : 0;
 			$("#fixed_factor").val(l_factor.toFixed(8));
 			$("#monthly_amortization").val(monthly_ma.toFixed(2));
 
