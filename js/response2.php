@@ -1,5 +1,3 @@
-
-
 <?php
 
 
@@ -23,58 +21,26 @@ if ($action == 'create_customer'){
 
 	// customer information
 
-	
 	$customer_last_name = $_POST['customer_last_name']; // customer last name
 	$customer_first_name = $_POST['customer_first_name']; // customer first name
 	$customer_middle_name = $_POST['customer_middle_name']; // customer midddle name
-	$b2_customer_last_name = $_POST['b2_customer_last_name']; // customer last name
-	$b2_customer_first_name = $_POST['b2_customer_first_name']; // customer first name
-	$b2_customer_middle_name = $_POST['b2_customer_middle_name']; // customer midddle name
 	$customer_address = $_POST['customer_address']; // customer address
 	$customer_city_prov = $_POST['customer_city_prov']; // customer city/prov
 	$customer_zip_code = $_POST['customer_zip_code']; // customer zipcode
-
-	$customer_address_abroad = $_POST['customer_address_2']; // customer zipcode
-	$customer_bday = $_POST['birth_day']; // customer zipcode
-	$customer_age = $_POST['customer_age']; // customer zipcode
-	
 	$customer_email = $_POST['customer_email']; // customer email
 	$customer_phone = $_POST['customer_phone']; // customer phone number
-	$customer_viber = $_POST['customer_viber']; // customer phone number
-	$customer_gender = $_POST['customer_gender']; // customer phone number
-	$civil_status = $_POST['civil_status']; // customer civil status
-	$employment_status = $_POST['employment_status']; // customer civil status
+
 
 	$query = "INSERT INTO store_customers (
 					last_name,
 					first_name,
 					middle_name,
-					b2_last_name,
-					b2_first_name,
-					b2_middle_name,
 					address,
 					city_prov,
 					zip_code,
-					address_abroad,
-					birthdate,
-					age,
-					phone,
-					viber,
 					email,
-					gender,
-					civil_status,
-					employment_status
+					phone
 				) VALUES (
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
 					?,
 					?,
 					?,
@@ -94,18 +60,15 @@ if ($action == 'create_customer'){
 
 	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
 	$stmt->bind_param(
-		'ssssssssssssssssss',
-		$customer_last_name,$customer_first_name,$customer_middle_name,
-		$b2_customer_last_name,$b2_customer_first_name,$b2_customer_middle_name,
-		$customer_address,$customer_city_prov,$customer_zip_code,
-		$customer_address_abroad,$customer_bday,$customer_age,$customer_phone,
-		$customer_viber,$customer_email,$customer_gender,$civil_status,$employment_status);
+		'ssssssss',
+		$customer_last_name,$customer_first_name,$customer_middle_name,$customer_address,
+		$customer_city_prov,$customer_zip_code,$customer_email,$customer_phone);
 
 	if($stmt->execute()){
 		//if saving success
 		echo json_encode(array(
 			'status' => 'Success',
-			'message' => 'Client has been created successfully!'
+			'message' => 'Customer has been created successfully!'
 		));
 		
 
@@ -344,13 +307,18 @@ if ($action == 'save_reservation'){
 
 // Create invoice
 if ($action == 'create_csr'){
+
+
 	if ($mysqli->connect_error) {
 	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
 	}
+
+
 	//
 	date_default_timezone_set("Asia/Manila");
 	$mysqldate = date("Y-m-d H:i:s"); 
 	$csr_status = 'Pending';
+
 	$csr_id = $_POST['csr_id'];
 	$lot_lid = $_POST['l_lid'];
 	$customer_date_of_sale = $_POST['date_of_sale'];
@@ -361,14 +329,19 @@ if ($action == 'create_csr'){
 	$customer_last_name_2 = $_POST['customer_last_name_2']; // customer last name 2
 	$customer_first_name_2 = $_POST['customer_first_name_2']; // customer first name 2
 	$customer_middle_name_2 = $_POST['customer_middle_name_2']; // customer middle name 2
+
+	
+	
 	$customer_address_1 = $_POST['customer_address_1']; // customer address
 	$remove[] = "'";
 	$customer_address_1 = str_replace( $remove, "", $customer_address_1);
 	$customer_city_prov= $_POST['customer_city_prov']; // customer city_prov
 	$customer_zip_code = $_POST['customer_zip_code']; // customer zip_code
 	$customer_address_2 = $_POST['customer_address_2']; // customer address abroad
+
 	$birth_day = $_POST['birth_day']; // customer birthday
 	$customer_age = $_POST['customer_age']; // customer age
+
 	$customer_phone = $_POST['customer_phone']; // customer phone number
 	$customer_email = $_POST['customer_email']; // customer civil status
 	$customer_viber= $_POST['customer_viber']; // customer viber
@@ -395,7 +368,7 @@ if ($action == 'create_csr'){
 
 
 	// Payment Details
-	$reservation = $_POST['reservation'];
+	$c_reservation = $_POST['reservation'];
 	$payment_type1 = $_POST['payment_type1'];
 	$payment_type2 = $_POST['payment_type2'];
 	$down_percent = $_POST['down_percent'];
@@ -410,10 +383,11 @@ if ($action == 'create_csr'){
 	$fixed_factor = $_POST['fixed_factor'];
 	$monthly_amortization = $_POST['monthly_amortization'];
 	$start_date = $_POST['start_date'];
-	$invoice_notes = $_POST['invoice_notes'];
 
 
-	// insert csr into database
+
+
+	// insert invoice into database
 	$query = "INSERT INTO t_csr (
 					c_csr_no,
 					c_lot_lid,
@@ -466,7 +440,6 @@ if ($action == 'create_csr'){
 					c_monthly_payment, 
 					c_start_date,
 					c_csr_status,
-					c_remarks,
 					c_date_created,
 					c_date_updated
 			
@@ -506,7 +479,7 @@ if ($action == 'create_csr'){
 					'$total_tcp',
 					'$vat_amt',
 					'$net_tcp',
-					'$reservation',
+					'$c_reservation',
 					'".$payment_type1."',
 					'".$payment_type2."', 
 					'".$down_percent."',
@@ -522,13 +495,44 @@ if ($action == 'create_csr'){
 					'".$monthly_amortization."', 
 					'".$start_date."',
 					'".$csr_status."',
-					'".$invoice_notes."',
 					'".$mysqldate."',
 					'".$mysqldate."'
 						);
 					"; 
-														
+
+ 
+	foreach($_POST['agent_name'] as $key => $value) {
+	
+
+		$agent = $value;
+	
+		$agent_code = $_POST['agent_code'][$key];
+		$agent_pos = $_POST['agent_position'][$key];
+		$agent_amount = $_POST['comm_amt'][$key];
+		$agent_rate = $_POST['agent_rate'][$key]; 
+
+		
+		
+		$query .= "INSERT INTO t_csr_commission (
+				c_csr_no,
+				c_code,
+				c_position,
+				c_agent,
+				c_amount,
+				c_rate
+				) VALUES (
+				'".$csr_id."',
+				'$agent_code',
+				'$agent_pos',
+				'".$agent."',
+				'$agent_amount',
+				'$agent_rate'
+				);
+				";
+		}
+	
 	header('Content-Type: application/json');
+
 	// execute the query
 	if($mysqli -> multi_query($query)){
 		//if saving success
@@ -545,8 +549,10 @@ if ($action == 'create_csr'){
 			'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>');
 		echo json_encode($arr);
 			}
+
 	//close database connection
 	$mysqli->close();
+
 }
 if($action == 'update_stat') {
 
@@ -748,45 +754,24 @@ if($action == 'update_customer') {
 	$customer_last_name = $_POST['customer_last_name']; // customer last name
 	$customer_first_name = $_POST['customer_first_name']; // customer first name
 	$customer_middle_name = $_POST['customer_middle_name']; // customer midddle name
-	$b2_customer_last_name = $_POST['b2_customer_last_name']; // customer last name
-	$b2_customer_first_name = $_POST['b2_customer_first_name']; // customer first name
-	$b2_customer_middle_name = $_POST['b2_customer_middle_name']; // customer midddle name
 	$customer_address = $_POST['customer_address']; // customer address
 	$customer_city_prov = $_POST['customer_city_prov']; // customer city/prov
 	$customer_zip_code = $_POST['customer_zip_code']; // customer zipcode
-
-	$customer_address_abroad = $_POST['customer_address_abroad']; // customer address
-	$customer_bday = $_POST['customer_bday']; // customer address
-	$customer_age = $_POST['customer_age']; // customer address
-
 	$customer_email = $_POST['customer_email']; // customer email
 	$customer_phone = $_POST['customer_phone']; // customer phone number
 
-	$customer_viber = $_POST['customer_viber']; // customer phone number
-	$customer_gender = $_POST['customer_gender']; // customer phone number
-	$civil_status = $_POST['civil_status']; // customer phone number
-	$employment_status = $_POST['employment_status']; // customer phone number
+
 
 	// the query
 	$query = "UPDATE store_customers SET
 				last_name = ?,
 				first_name = ?,
 				middle_name = ?,
-				b2_last_name = ?,
-				b2_first_name = ?,
-				b2_middle_name = ?,
 				address = ?,
 				city_prov = ?,
 				zip_code = ?,
-				address_abroad = ?,
-				birthdate = ?,
-				age = ?,
 				email = ?,
-				phone = ?,
-				viber = ?,
-				gender = ?,
-				civil_status = ?,
-				employment_status = ?
+				phone = ?
 				WHERE id = ?
 
 			";
@@ -799,21 +784,16 @@ if($action == 'update_customer') {
 
 	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
 	$stmt->bind_param(
-		'sssssssssssssssssss',
-		$customer_last_name,$customer_first_name,$customer_middle_name,
-		$b2_customer_last_name,$b2_customer_first_name,$b2_customer_middle_name,
-		$customer_address,
-		$customer_city_prov,$customer_zip_code,
-		$customer_address_abroad,$customer_bday,$customer_age,
-		$customer_email,$customer_phone,
-		$customer_viber,$customer_gender,$civil_status,$employment_status,$getID);
+		'sssssssss',
+		$customer_last_name,$customer_first_name,$customer_middle_name,$customer_address,
+		$customer_city_prov,$customer_zip_code,$customer_email,$customer_phone,$getID);
 
 	//execute the query
 	if($stmt->execute()){
 	    //if saving success
 		echo json_encode(array(
 			'status' => 'Success',
-			'message'=> 'Client has been updated successfully!',
+			'message'=> 'Customer has been updated successfully!'
 		));
 
 	} else {
@@ -875,112 +855,6 @@ if($action == 'update_lot') {
 		echo json_encode(array(
 			'status' => 'Success',
 			'message'=> 'Lot has been updated successfully!'
-		));
-
-	} else {
-	    //if unable to create new record
-	    echo json_encode(array(
-	    	'status' => 'Error',
-	    	//'message'=> 'There has been an error, please try again.'
-	    	'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>'
-	    ));
-	}
-
-	//close database connection
-	$mysqli->close();
-	
-}
-
-// Update agent
-if($action == 'update_agent') {
-
-	// output any connection error
-	if ($mysqli->connect_error) {
-	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
-	}
-
-	$getID = $_POST['c_code']; // lid
-	$c_last_name = $_POST['c_last_name']; 
-	$c_first_name = $_POST['c_first_name']; 
-	$c_middle_initial = $_POST['c_middle_initial']; 
-	$c_nick_name = $_POST['c_nick_name']; 
-	$c_sex = $_POST['c_sex']; 
-	$c_birthdate = $_POST['c_birthdate']; 
-	$c_birth_place = $_POST['c_birth_place']; 
-	$c_civil_status = $_POST['c_civil_status']; 
-	$c_address_ln1 = $_POST['c_address_ln1']; 
-	$c_address_ln2 = $_POST['c_address_ln2']; 
-	$c_tel_no = $_POST['c_tel_no']; 
-	$c_sss_no =$_POST['c_sss_no']; 
-	$c_tin = $_POST['c_tin']; 
-	$c_status =$_POST['c_status']; 
-	$c_recruited_by = $_POST['c_recruited_by']; 
-	$c_hire_date = $_POST['c_hire_date']; 
-	$c_position = $_POST['c_position']; 
-	$c_network = $_POST['c_network']; 
-	$c_division = $_POST['c_division']; 		
-
-	// the query
-	$query = "UPDATE t_agents SET
-				c_last_name = ?,
-				c_first_name = ?,
-				c_middle_initial = ?,
-				c_nick_name = ?,
-				c_sex = ?,
-				c_birthdate = ?,
-				c_birth_place = ?,
-				c_civil_status = ?,
-				c_address_ln1 = ?,
-				c_address_ln2 = ?,
-				c_tel_no = ?,
-				c_sss_no = ?,
-				c_tin = ?,
-				c_status = ?,
-				c_recruited_by = ?,
-				c_hire_date = ?,
-				c_position = ?,
-				c_network = ?,
-				c_division = ?
-			 WHERE c_code = ?
-			";
-
-	
-	/* Prepare statement */
-	$stmt = $mysqli->prepare($query);
-	if($stmt === false) {
-	  trigger_error('Wrong SQL: ' . $query . ' Error: ' . $mysqli->error, E_USER_ERROR);
-	}
-
-	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
-	$stmt->bind_param(
-		'ssssssssssssssssssss',
-		$c_last_name,
-		$c_first_name,
-		$c_middle_initial,
-		$c_nick_name,
-		$c_sex,
-		$c_birthdate,
-		$c_birth_place,
-		$c_civil_status,
-		$c_address_ln1,
-		$c_address_ln2,
-		$c_tel_no,
-		$c_sss_no,
-		$c_tin,
-		$c_status,
-		$c_recruited_by,
-		$c_hire_date,
-		$c_position,
-		$c_network,
-		$c_division,
-		$getID);
-
-	//execute the query
-	if($stmt->execute()){
-	    //if saving success
-		echo json_encode(array(
-			'status' => 'Success',
-			'message'=> 'Agent has been updated successfully!'
 		));
 
 	} else {
@@ -1126,13 +1000,16 @@ if($action == 'update_house') {
 
 if($action == 'update_csr') {
 
-	date_default_timezone_set("Asia/Manila");
-	$mysqldate = date("Y-m-d H:i:s"); 
+	// output any connection error
+	if ($mysqli->connect_error) {
+		die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+	}
 
-	$csr_id = $_POST['csr_id'];
-	$lot_lid = $_POST['l_lid'];
+	$id = $_POST["update_id"];
+	//
+	//$csr_id = $_POST['csr_id'];
 	$customer_date_of_sale = $_POST['date_of_sale'];
-	// buyer details
+	// buyer
 	$customer_last_name_1 = $_POST['customer_last_name_1']; // customer last name
 	$customer_first_name_1 = $_POST['customer_first_name_1']; // customer first name
 	$customer_middle_name_1 = $_POST['customer_middle_name_1']; // customer middle name
@@ -1140,8 +1017,8 @@ if($action == 'update_csr') {
 	$customer_first_name_2 = $_POST['customer_first_name_2']; // customer first name 2
 	$customer_middle_name_2 = $_POST['customer_middle_name_2']; // customer middle name 2
 
-	
-	
+	// more details
+
 	$customer_address_1 = $_POST['customer_address_1']; // customer address
 	$remove[] = "'";
 	$customer_address_1 = str_replace( $remove, "", $customer_address_1);
@@ -1149,8 +1026,8 @@ if($action == 'update_csr') {
 	$customer_zip_code = $_POST['customer_zip_code']; // customer zip_code
 	$customer_address_2 = $_POST['customer_address_2']; // customer address abroad
 
-	$birth_day = $_POST['birth_day']; // customer birthday
-	$customer_age = $_POST['customer_age']; // customer age
+	$birth_date = $_POST['birth_date']; // customer birthday
+	$customer_age = strval($_POST['customer_age']); // customer age
 
 	$customer_phone = $_POST['customer_phone']; // customer phone number
 	$customer_email = $_POST['customer_email']; // customer civil status
@@ -1160,47 +1037,9 @@ if($action == 'update_csr') {
 	$employment_status = $_POST['employment_status']; // customer civil status
 	
 
-	// Investment Value
-	$lot_area = $_POST['lot_area'];
-	$price_sqm = $_POST['price_per_sqm'];
-	$lot_disc = $_POST['lot_disc'];
-	$lot_disc_amt = $_POST['lot_disc_amt'];
-	$house_model = $_POST['house_model'];
-	$floor_area = $_POST['floor_area'];
-	$h_price_per_sqm = $_POST['h_price_per_sqm'];
-	$house_disc = $_POST['house_disc'];
-	$house_disc_amt = $_POST['house_disc_amt'];
-	$tcp_disc = $_POST['tcp_disc'];
-	$tcp_disc_amt = $_POST['tcp_disc_amt'];
-	$total_tcp = $_POST['total_tcp'];
-	$vat_amt = $_POST['vat_amt_computed'];
-	$net_tcp = $_POST['net_tcp'];
-
-
-	// Payment Details
-	$c_reservation = $_POST['reservation'];
-	$payment_type1 = $_POST['payment_type1'];
-	$payment_type2 = $_POST['payment_type2'];
-	$down_percent = $_POST['down_percent'];
-	$net_dp = $_POST['net_dp'];
-	$no_payment = $_POST['no_payment'];
-	$monthly_down = $_POST['monthly_down'];
-	$first_dp_date = $_POST['first_dp_date'];
-	$full_down_date = $_POST['full_down_date'];
-	$amt_to_be_financed = $_POST['amt_to_be_financed'];
-	$terms= $_POST['terms'];
-	$interest_rate = $_POST['interest_rate'];
-	$fixed_factor = $_POST['fixed_factor'];
-	$monthly_amortization = $_POST['monthly_amortization'];
-	$start_date = $_POST['start_date'];
-	$invoice_notes = $_POST['invoice_notes'];
-
-
-
 
 	$query = "UPDATE t_csr SET 
 			c_csr_no = ?,
-			c_lot_lid = ?,
 			c_date_of_sale = ?,
 			c_b1_last_name = ?,
 			c_b1_first_name = ?,
@@ -1212,45 +1051,14 @@ if($action == 'update_csr') {
 			c_city_prov = ?,
 			c_zip_code = ?,
 			c_address_abroad = ?,
-			c_birthday = ?,
+			c_birthdate = ?,
 			c_age = ?,
-			c_sex = ?,
-			c_mobile_no = ?,  
-			c_viber_no = ?, 
-			c_civil_status = ?, 
-			c_email = ?,
-			c_employment_status = ?,
-			c_lot_area = ?, 
-			c_price_sqm = ?, 
-			c_lot_discount = ?, 
-			c_lot_discount_amt = ?,
-			c_house_model = ?,
-			c_floor_area = ?, 
-			c_house_price_sqm = ?, 
-			c_house_discount = ?, 
-			c_house_discount_amt = ?, 
-			c_tcp_discount = ?, 
-			c_tcp_discount_amt = ?, 
-			c_tcp = ?, 
-			c_vat_amount = ?, 
-			c_net_tcp = ?, 
-			c_reservation = ?,
-			c_payment_type1 = ?, 
-			c_payment_type2 = ?, 
-			c_down_percent = ?, 
-			c_net_dp = ?, 
-			c_no_payments = ?, 
-			c_monthly_down = ?, 
-			c_first_dp = ?, 
-			c_full_down = ?, 
-			c_amt_financed = ?, 
-			c_terms = ?, 
-			c_interest_rate = ?, 
-			c_fixed_factor = ?, 
-			c_monthly_payment = ?, 
-			c_start_date = ?,
-			c_remarks = ?,
-			c_date_updated = ?
+			c_mobile_no = ?,
+			c_email= ?,
+			c_viber_no = ?,
+			c_gender = ?,
+			c_civil_status = ?,	
+			c_employment_status = ? 
 			WHERE c_csr_no = ?
 			";
 
@@ -1263,9 +1071,8 @@ if($action == 'update_csr') {
 
 	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */					
  	$stmt->bind_param(
-		'sssssssssssssssssssssssssssssssssssssssssssssssssssss',
-		$csr_id,
-		$lot_lid,
+		'sssssssssssssssssssss',
+		$id,
 		$customer_date_of_sale,
 		$customer_last_name_1,
 		$customer_first_name_1,
@@ -1277,46 +1084,15 @@ if($action == 'update_csr') {
 		$customer_city_prov,
 		$customer_zip_code,
 		$customer_address_2,
-		$birth_day,
+		$birth_date,
 		$customer_age,
-		$customer_gender,
 		$customer_phone,
-		$customer_viber,
-		$civil_status,
 		$customer_email,
+		$customer_viber,
+		$customer_gender,
+		$civil_status,
 		$employment_status,
-		$lot_area, 
-		$price_sqm, 
-		$lot_disc,
-		$lot_disc_amt,
-		$house_model,
-		$floor_area,
-		$h_price_per_sqm, 
-		$house_disc,
-		$house_disc_amt,
-		$tcp_disc, 
-		$tcp_disc_amt, 
-		$total_tcp,
-		$vat_amt,
-		$net_tcp,
-		$c_reservation,
-		$payment_type1,
-		$payment_type2, 
-		$down_percent,
-		$net_dp, 
-		$no_payment,
-		$monthly_down,
-		$first_dp_date, 
-		$full_down_date, 
-		$amt_to_be_financed, 
-		$terms,
-		$interest_rate,
-		$fixed_factor, 
-		$monthly_amortization, 
-		$start_date,
-		$invoice_notes,
-		$mysqldate,
-		$csr_id);
+		$id);
 								    
 	
 	//execute the query
@@ -1494,7 +1270,6 @@ if($action == 'login') {
 		$row = $results->fetch_assoc();
 
 		$_SESSION['login_username'] = $row['username'];
-		$_SESSION['login_usertype'] = $row['user_type'];
 
 		// processing remember me option and setting cookie with long expiry date
 		if (isset($_POST['remember'])) {	
@@ -1583,48 +1358,34 @@ if($action == 'add_lot') {
 	$mysqli->close();
 }
 
-///////////useruser
-if ($action == 'add_user'){
+// Adding new user
+if($action == 'add_user') {
 
-	$user_id = $_POST['user_id'];
-	$last_name = $_POST['last_name'];
-	$first_name = $_POST['first_name'];
-	$middle_name = $_POST['middle_name'];
-	$username = $_POST['username'];
-	$email = $_POST['email'];
-	$phone = $_POST['phone'];
-	$date_hired = $_POST['date_hired'];
-	$password = $_POST['password1'];
-	$user_type = $_POST['user_type'];
+	$user_name = $_POST['name'];
+	$user_username = $_POST['username'];
+	$user_email = $_POST['email'];
+	$user_phone = $_POST['phone'];
+	$user_password = $_POST['password'];
 
-	$query = "INSERT INTO users (
-					user_id,
-					last_name,
-					first_name,
-					middle_name,
+	//our insert query query
+	$query  = "INSERT INTO users
+				(
+					name,
 					username,
 					email,
 					phone,
-					date_hired,
-					password,
-					user_type
-				) VALUES (
+					password
+				)
+				VALUES (
 					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?
-				);
-			";
+					?, 
+                	?,
+                	?,
+                	?
+                );
+              ";
 
-	header('Content-Type: application/json');
-
-	$password = md5($password);
+    header('Content-Type: application/json');
 
 	/* Prepare statement */
 	$stmt = $mysqli->prepare($query);
@@ -1632,28 +1393,24 @@ if ($action == 'add_user'){
 	  trigger_error('Wrong SQL: ' . $query . ' Error: ' . $mysqli->error, E_USER_ERROR);
 	}
 
+	$user_password = md5($user_password);
 	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
-	$stmt->bind_param(
-		'ssssssssss',
-		$user_id,$last_name,$first_name,$middle_name,$username,$email,$phone,$date_hired,$password,$user_type);
+	$stmt->bind_param('sssss',$user_name,$user_username,$user_email,$user_phone,$user_password);
 
 	if($stmt->execute()){
-		//if saving success
+	    //if saving success
 		echo json_encode(array(
 			'status' => 'Success',
-			'message' => 'User account has been created successfully!',
+			'message'=> 'User has been added successfully!'
 		));
-		
-
 
 	} else {
-		// if unable to create invoice
-		echo json_encode(array(
-			'status' => 'Error',
-			'message' => 'There has been an error, please try again.'
-			// debug
-			//'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>'
-		));
+	    //if unable to create new record
+	    echo json_encode(array(
+	    	'status' => 'Error',
+	    	//'message'=> 'There has been an error, please try again.'
+	    	'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>'
+	    ));
 	}
 
 	//close database connection
@@ -1669,42 +1426,30 @@ if($action == 'update_user') {
 
 	// user information
 	$getID = $_POST['id']; // id
-	$last_name = $_POST['last_name']; // id
-	$first_name = $_POST['first_name']; // id
-	$middle_name = $_POST['middle_name']; // id
-	$username = $_POST['username']; // id
-	$password = $_POST['password1']; // password
-	$email = $_POST['email'];
-	$phone = $_POST['phone'];
-	$date_hired = $_POST['date_hired'];
-	$usertype = $_POST['user_type'];
+	$name = $_POST['name']; // name
+	$username = $_POST['username']; // username
+	$email = $_POST['email']; // email
+	$phone = $_POST['phone']; // phone
+	$password = $_POST['password']; // password
 
 	if($password == ''){
 		// the query
 		$query = "UPDATE users SET
-					last_name = ?,
-					first_name = ?,
-					middle_name = ?,
-					email = ?,
-					date_hired = ?,
-					phone = ?,
+					name = ?,
 					username = ?,
-					user_type = ?
-				 WHERE user_id = ?
+					email = ?,
+					phone = ?
+				 WHERE id = ?
 				";
 	} else {
 		// the query
 		$query = "UPDATE users SET
-					last_name = ?,
-					first_name = ?,
-					middle_name = ?,
-					email = ?,
-					date_hired = ?,
-					phone = ?,
+					name = ?,
 					username = ?,
-					user_type = ?,
-					password = ?
-				WHERE user_id = ?
+					email = ?,
+					phone = ?,
+					password =?
+				 WHERE id = ?
 				";
 	}
 
@@ -1717,14 +1462,16 @@ if($action == 'update_user') {
 	if($password == ''){
 		/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
 		$stmt->bind_param(
-			'sssssssss',
-			$last_name,$first_name,$middle_name,$email,$date_hired,$phone,$username,$usertype,$getID);
+			'sssss',
+			$name,$username,$email,$phone,$getID
+		);
 	} else {
 		$password = md5($password);
 		/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
 		$stmt->bind_param(
-			'ssssssssss',
-			$last_name,$first_name,$middle_name,$email,$date_hired,$phone,$username,$usertype,$password,$getID);
+			'ssssss',
+			$name,$username,$email,$phone,$password,$getID
+		);
 	}
 
 	//execute the query
@@ -1732,7 +1479,7 @@ if($action == 'update_user') {
 	    //if saving success
 		echo json_encode(array(
 			'status' => 'Success',
-			'message'=> 'User account has been updated successfully!'
+			'message'=> 'User has been updated successfully!'
 		));
 
 	} else {
@@ -1760,7 +1507,7 @@ if($action == 'delete_user') {
 	$id = $_POST["delete"];
 
 	// the query
-	$query = "DELETE FROM users WHERE user_id = ?";
+	$query = "DELETE FROM users WHERE id = ?";
 
 	/* Prepare statement */
 	$stmt = $mysqli->prepare($query);
@@ -1775,7 +1522,7 @@ if($action == 'delete_user') {
 	    //if saving success
 		echo json_encode(array(
 			'status' => 'Success',
-			'message'=> 'User account has been deleted successfully!'
+			'message'=> 'User has been deleted successfully!'
 		));
 
 	} else {
@@ -1818,7 +1565,7 @@ if($action == 'delete_customer') {
 	    //if saving success
 		echo json_encode(array(
 			'status' => 'Success',
-			'message'=> 'Client has been deleted successfully!'
+			'message'=> 'Customer has been deleted successfully!'
 		));
 
 	} else {
@@ -1835,150 +1582,4 @@ if($action == 'delete_customer') {
 
 }
 
-// Delete Agent
-if($action == 'delete_agent') {
-
-	// output any connection error
-	if ($mysqli->connect_error) {
-	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
-	}
-
-	$id = $_POST["delete"];
-
-	// the query
-	$query = "DELETE FROM t_agents WHERE c_code = ?";
-
-	/* Prepare statement */
-	$stmt = $mysqli->prepare($query);
-	if($stmt === false) {
-	  trigger_error('Wrong SQL: ' . $query . ' Error: ' . $mysqli->error, E_USER_ERROR);
-	}
-
-	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
-	$stmt->bind_param('s',$id);
-
-	if($stmt->execute()){
-	    //if saving success
-		echo json_encode(array(
-			'status' => 'Success',
-			'message'=> 'Agent has been deleted successfully!'
-		));
-
-	} else {
-	    //if unable to create new record
-	    echo json_encode(array(
-	    	'status' => 'Error',
-	    	//'message'=> 'There has been an error, please try again.'
-	    	'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>'
-	    ));
-	}
-
-	// close connection 
-	$mysqli->close();
-
-}
-
-// Create Agent
-if ($action == 'add_agent'){
-
-	$c_code = $_POST['c_code']; 
-	$c_last_name = $_POST['c_last_name']; 
-	$c_first_name = $_POST['c_first_name']; 
-	$c_middle_initial = $_POST['c_middle_initial']; 
-	$c_nick_name = $_POST['c_nick_name']; 
-	$c_sex = $_POST['c_sex']; 
-	$c_birthdate = $_POST['c_birthdate']; 
-	$c_birth_place = $_POST['c_birth_place']; 
-	$c_address_ln1 = $_POST['c_address_ln1']; 
-	$c_address_ln2 = $_POST['c_address_ln2']; 
-	$c_tel_no = $_POST['c_tel_no']; 
-	$c_civil_status = $_POST['c_civil_status']; 
-	$c_sss_no = $_POST['c_sss_no']; 
-	$c_tin = $_POST['c_tin']; 
-	$c_status = $_POST['c_status']; 
-	$c_recruited_by = $_POST['c_recruited_by']; 
-	$c_hire_date = $_POST['c_hire_date']; 
-	$c_position = $_POST['c_position']; 
-	$c_network = $_POST['c_network']; 
-	$c_division = $_POST['c_division']; 
-
-	$query = "INSERT INTO t_agents (
-					c_code,
-					c_last_name,
-					c_first_name,
-					c_middle_initial,
-					c_nick_name,
-					c_sex,
-					c_birthdate,
-					c_birth_place,
-					c_address_ln1,
-					c_address_ln2,
-					c_tel_no,
-					c_civil_status,
-					c_sss_no,
-					c_tin,
-					c_status,
-					c_recruited_by,
-					c_hire_date,
-					c_position,
-					c_network,
-					c_division
-				) VALUES (
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?,
-					?
-				);
-			";
-
-	/* Prepare statement */
-	$stmt = $mysqli->prepare($query);
-	if($stmt === false) {
-	  trigger_error('Wrong SQL: ' . $query . ' Error: ' . $mysqli->error, E_USER_ERROR);
-	}
-
-	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
-	$stmt->bind_param(
-		'ssssssssssssssssssss',
-		$c_code,$c_last_name,$c_first_name,$c_middle_initial,$c_nick_name,$c_sex,$c_birthdate,$c_birth_place,$c_address_ln1,$c_address_ln2,$c_tel_no,$c_civil_status,$c_sss_no,$c_tin,$c_status,$c_recruited_by,$c_hire_date,$c_position,$c_network,$c_division);
-
-	if($stmt->execute()){
-		//if saving success
-		echo json_encode(array(
-			'status' => 'Success',
-			'message' => 'Agent has been created successfully!'
-		));
-		
-
-
-	} else {
-		// if unable to create invoice
-		echo json_encode(array(
-			'status' => 'Error',
-			'message' => 'There has been an error, please try again.'
-			// debug
-			//'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>'
-		));
-	}
-
-	//close database connection
-	$mysqli->close();
-}
 ?>
-
