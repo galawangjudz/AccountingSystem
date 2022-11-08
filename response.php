@@ -400,7 +400,7 @@ if ($action == 'create_csr'){
 	$tcp_disc = $_POST['tcp_disc'];
 	$tcp_disc_amt = $_POST['tcp_disc_amt'];
 	$total_tcp = $_POST['total_tcp'];
-	$vat_amt = $_POST['vat_amt'];
+	$vat_amt = $_POST['vat_amt_computed'];
 	$net_tcp = $_POST['net_tcp'];
 
 
