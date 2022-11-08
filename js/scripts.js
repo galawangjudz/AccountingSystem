@@ -2,7 +2,13 @@ $(document).ready(function() {
 
 
 	let dt = new Date().toISOString().slice(0, 10);
-	$('#date_of_sale').val(dt);
+
+
+/* 	$(document).on('blur', ".date_of_sale", function(e) {
+		var today = new Date();
+		$('#date_of_sale').val(dt);
+	});
+	 */
 
 	// Invoice Type
 	$('#invoice_type').change(function() {
@@ -586,7 +592,7 @@ function updateTotals(elem) {
 
 	// update csr
 	//$("#action_update_csr").click(function(e) {
-	$(document).on('click', "#action_edit_csr", function(e) {
+	$(document).on('click', "#action_update_csr", function(e) {
 		e.preventDefault();
 		updateCSR();
 	});
@@ -779,6 +785,11 @@ function updateTotals(elem) {
 				document.getElementById('p2').style.width='100%';
 				document.getElementById('p2').style.marginLeft='0%';
 
+				$("#down_percent").val(0);
+				$("#net_dp").val(0);
+				$("#terms").val(0);
+				$("#first_dp_date").val("");
+				$("#full_down_date").val("");
 				$("#interest_rate").val(0);
 				$("#fixed_facotr").val(0);
 				$("#monthly_amortization").val(0);
@@ -826,6 +837,8 @@ function updateTotals(elem) {
 				$("#net_dp").val(0);
 				$("#no_payment").val(0);
 				$("#monthly_down").val(0);
+				$("#first_dp_date").val("");
+				$("#full_down_date").val("");
 				compute_net_dp();
 				compute_no_payment();
 				compute_rate();
@@ -2032,26 +2045,25 @@ function updateAgent(){
 //** //////////////////////////////////////////////////////////////////*/
 
 function redirectToClientList(){
-	window.location.href = "http://localhost/ALSC/customer-list.php";
+	window.location.href = "./customer-list.php";
 }
 
 function redirectToProjectList(){
-	window.location.href = "http://localhost/ALSC/project-list.php";
+	window.location.href = "./project-list.php";
 }
 
 function redirectToHouseList(){
-	window.location.href = "http://localhost/ALSC/house-list.php";
+	window.location.href = "./house-list.php";
 }
 
 function redirectToLotList(){
-	window.location.href = "http://localhost/ALSC/lot-list.php";
+	window.location.href = "./lot-list.php";
 }
 
 function redirectToAgentList(){
-	window.location.href = "http://localhost/ALSC/agent-list.php";
+	window.location.href = "./agent-list.php";
 }
 
 function redirectToUserList(){
-	window.location.href = "http://localhost/ALSC/user-list.php";
+	window.location.href = "./user-list.php";
 }
-

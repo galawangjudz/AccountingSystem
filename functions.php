@@ -100,15 +100,15 @@ function getHouseModel() {
 		 echo '<select name="house_model" id= "house_model" class="form-control">';
 		 while($row = $results->fetch_assoc()) {
  
-			 print '<option value="'.$row['c_acronym'].'">'.$row['c_model'].'</option>';
+			 print '<option value="'.$row['c_model'].'">'.$row['c_model'].'</option>';
 			 
 		 }
-		 echo '</select>';
+	
  
 	 } else {
 		 echo '<select name = "house_model" id= "house_model" class="form-control">';
 		 echo '<option value="">No House Model</option>';
-		 echo '</select>';
+	
 		 
 	 }
  
