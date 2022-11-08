@@ -654,7 +654,7 @@ $mysqli->close();
 										</div>
 										<div class="col-xs-3" >
 											<div class="form-group">
-											<input type="text" class="form-control margin-bottom vat-amt" name="vat_amt" id="vat_amt" placeholder="Vat Amount" tabindex = '39' onkeyup='getVat()' value="<?php echo $vat_percent = $net_tcp / $vat_amt_computed; ?>" >
+											<input type="text" class="form-control margin-bottom vat-percent" name="vat_percent" id="vat_percent" placeholder="Vat Amount" tabindex = '39' onkeyup='getVat()' value="<?php echo $vat_amt_computed; ?>" >
 											</div> 
 										</div> 
 										<div class="col-xs-2">
@@ -664,7 +664,7 @@ $mysqli->close();
 										</div>
 										<div class="col-xs-4" >
 											<div class="form-group">
-											<input type="text" class="form-control margin-bottom vat-amt-computed" name="vat_amt_computed" id="vat_amt_computed" tabindex = '39' value="<?php echo $vat_amt_computed; ?>" >
+											<input type="text" class="form-control margin-bottom vat-amt-computed" name="vat_amt_computed" id="vat_amt_computed" tabindex = '39' value="<?php echo  $vat_percent = $net_tcp / $vat_amt_computed; ?>" >
 											</div> 
 										</div> 
 									</div>
@@ -909,7 +909,7 @@ $mysqli->close();
 									</div>
 								</div>
 								<div class="col-xs-12 margin-top btn-group">
-									<input type="submit" id="action_create_csr" class="btn btn-success float-right btn-l" value="Create CSR" data-loading-text="Creating...">
+									<input type="submit" id="action_update_csr" class="btn btn-success float-right btn-l" value="Update CSR" data-loading-text="Creating...">
 								</div>
 
 							</div>
