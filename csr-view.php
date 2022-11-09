@@ -90,6 +90,18 @@ while ($row = mysqli_fetch_assoc($result)) {
     $p1 = $row['c_payment_type1'];
     $p2 = $row['c_payment_type2'];
 
+    $amt_fnanced = $row['c_amt_financed'];
+    $monthly_down = $row['c_monthly_down'];
+    $first_dp = $row['c_first_dp'];
+    $full_down = $row['c_full_down'];
+    $terms = $row['c_terms'];
+    $interest_rate = $row['c_interest_rate'];
+    $fixed_factor = $row['c_fixed_factor'];
+    $monthly_payment = $row['c_monthly_payment'];
+    $no_payments = $row['c_no_payments'];
+    $net_dp = $row['c_net_dp'];
+    $down_percent = $row['c_down_percent'];
+    $start_date = $row['c_start_date'];
     }
 }
 
@@ -403,34 +415,34 @@ table{
                                 </div>
                             </div>
                             <div class="space"></div>
-                            <div class="space"></div>
+                            <div id="space1" class="space"></div>
                             <div id="pd" class="pd">
                                 <div class="titles">Partial DownPayment</div>
                                 <div class="float-left col-xs-12">
                                     <table class="table table-striped">
                                         <tr>
                                             <td><b>Down %:</b></td>
-                                            <td><?php echo $house_model ?></td>
+                                            <td><?php echo $down_percent ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Net DP:</b></td>
-                                            <td><?php echo $floor_area ?></td>
+                                            <td><?php echo $down_percent ?></td>
                                         </tr>
                                         <tr>
                                             <td><b># of Payments:</b></td>
-                                            <td><?php echo $house_price_sqm ?></td>
+                                            <td><?php echo $no_payments ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Monthly Down:</b></td>
-                                            <td><?php echo $house_disc ?></td>
+                                            <td><?php echo $monthly_down ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>First DP:</b></td>
-                                            <td><?php echo $house_disc_amt ?></td>
+                                            <td><?php echo $first_dp ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Full Down:</b></td>
-                                            <td><?php echo $hcp ?></td>
+                                            <td><?php echo $full_down ?></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -441,69 +453,71 @@ table{
                                     <table class="table table-striped">
                                         <tr>
                                             <td><b>Down %:</b></td>
-                                            <td><?php echo $house_model ?></td>
+                                            <td><?php echo $down_percent ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Net DP:</b></td>
-                                            <td><?php echo $floor_area ?></td>
+                                            <td><?php echo $net_dp ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Full Down:</b></td>
-                                            <td><?php echo $house_price_sqm ?></td>
+                                            <td><?php echo $full_down ?></td>
                                         </tr>
                                     </table>
                                 </div>
                             </div>
+                            <div id="space1" class="space"></div>
                             <div id="ma" class="ma">
                                 <div class="titles">Monthly Amortization</div>
                                 <div class="float-left col-xs-12">
                                     <table class="table table-striped">
                                         <tr>
                                             <td><b>Amount to be Financed:</b></td>
-                                            <td><?php echo $house_model ?></td>
+                                            <td><?php echo $amt_fnanced ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Terms:</b></td>
-                                            <td><?php echo $floor_area ?></td>
+                                            <td><?php echo $terms ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Interest Rate:</b></td>
-                                            <td><?php echo $house_price_sqm ?></td>
+                                            <td><?php echo $interest_rate ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Fixed Factor:</b></td>
-                                            <td><?php echo $house_disc ?></td>
+                                            <td><?php echo $fixed_factor ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Monthly Payment:</b></td>
-                                            <td><?php echo $house_disc_amt ?></td>
+                                            <td><?php echo $monthly_payment ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Start Date:</b></td>
-                                            <td><?php echo $hcp ?></td>
+                                            <td><?php echo $start_date ?></td>
                                         </tr>
                                     </table>
                                 </div>
                             </div>
+                            <div id="space1" class="space"></div>
                             <div id="dfc" class="dfc">
                                 <div class="titles">Deferred Cash Payment</div>
                                 <div class="float-left col-xs-12">
                                     <table class="table table-striped">
                                         <tr>
                                             <td><b>Deferred Amount:</b></td>
-                                            <td><?php echo $house_model ?></td>
+                                            <td><?php echo $amt_fnanced ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Terms:</b></td>
-                                            <td><?php echo $floor_area ?></td>
+                                            <td><?php echo $terms ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Monthly Payment:</b></td>
-                                            <td><?php echo $house_price_sqm ?></td>
+                                            <td><?php echo $monthly_payment ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Start Date:</b></td>
-                                            <td><?php echo $house_disc ?></td>
+                                            <td><?php echo $start_date ?></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -554,7 +568,7 @@ table{
     function loadPaymentType(){
         var dp1=document.getElementById('p1').value;
         var dp2=document.getElementById('p2').value;
-        if(dp1 == "FD" && dp2 == "MA"){
+        if(dp1 == "Full DownPayment" && dp2 == "Monthly Amortization"){
                 $('#pd').hide();
                 $('#ma').show();
                 $('#dfc').hide();
@@ -562,7 +576,7 @@ table{
                 $('#fdp').show();
                 return;
         }
-        if(dp1 == "FD" && dp2 == "DFC"){
+        if(dp1 == "Full DownPayment" && dp2 == "Deferred Cash Payment"){
                 $('#pd').hide();
                 $('#ma').hide();
                 $('#dfc').show();
@@ -570,7 +584,7 @@ table{
                 $('#fdp').show();
                 return;
         }
-        if (dp1 == "PD" && dp2 == "MA"){
+        if (dp1 == "Partial DownPayment" && dp2 == "Monthly Amortization"){
                 $('#pd').show();
                 $('#ma').show();
                 $('#dfc').hide();
@@ -578,7 +592,7 @@ table{
                 $('#fdp').hide();
                 return;
         }
-        if(dp1 == "PD" && dp2 == "DFC"){
+        if(dp1 == "Partial DownPayment" && dp2 == "Deferred Cash Payment"){
                 $('#pd').show();
                 $('#ma').hide();
                 $('#dfc').show();
@@ -586,7 +600,7 @@ table{
                 $('#fdp').hide();
                 return;
         }
-        if(dp1 == "ND" && dp2 == "MA"){
+        if(dp1 == "No DownPayment" && dp2 == "Monthly Amortization"){
                 $('#pd').hide();
                 $('#ma').show();
                 $('#dfc').hide();
@@ -594,7 +608,7 @@ table{
                 $('#fdp').hide();
                 return;
         }
-        if(dp1 == "ND" && dp2 == "DFC"){
+        if(dp1 == "No DownPayment" && dp2 == "Deferred Cash Payment"){
                 $('#pd').hide();
                 $('#ma').hide();
                 $('#dfc').show();
@@ -602,7 +616,8 @@ table{
                 $('#fdp').hide();
                 return;
         }
-        if(dp1 == "SC"){
+        if(dp1 == "Spot Cash"){
+                $('#space1').hide();
                 $('#pd').hide();
                 $('#ma').hide();
                 $('#dfc').hide();

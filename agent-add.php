@@ -189,7 +189,7 @@ include('functions.php');
                                 <option name="c_position" value="PSMI">PSMI</option>
                                 <option name="c_position" value="Remax">Remax</option>
                                 <option name="c_position" value="SG">SG</option>
-                                <option name="c_position" value="SM">SM</option>
+                                <option name="c_position" value="Sales">SM</option>
                                 <option name="c_position" value="SMG">SMG</option>
                                 <option name="c_position" value="SPC">SPC</option>
                                 <option name="c_position" value="TF">TF</option>
