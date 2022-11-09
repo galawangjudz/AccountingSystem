@@ -347,20 +347,18 @@ function lotCalculation(){
 
 	document.getElementById('c_lot_discount_amount').value = l_discount_amt;
 	document.getElementById('c_lcp').value = l_lcp;
-	getTCP();
 }
 function houseCalculation(){
-    var h_price = document.getElementById('c_house_price').value;
+    var h_price = document.getElementById('c_house_price_sqm').value;
     var h_flr_area = document.getElementById('c_floor_area').value;
 
 	var res = h_price / h_flr_area;
-    document.getElementById('c_hprice_sqm').value = res;
 
-	var h_disc_percentage = document.getElementById('c_house_discount_percentage').value;
+	var h_disc_percentage = document.getElementById('c_house_discount').value;
 
 	var h_discount_amt = h_price*(h_disc_percentage*0.01);     
 
-	document.getElementById('c_hdiscount_amount').value = h_discount_amt;
+	document.getElementById('c_house_discount_amt').value = h_discount_amt;
 	var h_hcp = h_price - h_discount_amt
 
 	document.getElementById('c_hcp').value = h_hcp;
@@ -386,10 +384,13 @@ function getNTCP(){
 
 //////////////////////////////////////////////////////////////////////////PRINT.PHP
 function loadBasics(){
+	lotCalculation();
+	houseCalculation();
+	loadEmpStatus();
 	loadBillingAddress();
 	loadGender();
 	loadCivilStatus();	
-	loadEmpStatus();
+	
 	loadInvestmentType();
 }
 function loadBillingAddress(){
@@ -420,22 +421,7 @@ function loadCivilStatus(){
 		document.getElementById("widowed").selected = true;
 	}
 }
-function loadEmpStatus(){
-	var empstats=document.getElementById("employment_status").value;
-	if(empstats=='0'){
-		document.getElementById("rdounemployed").checked=true;
-	}else if(empstats=='1'){
-		document.getElementById("rdoemployed").checked=true;
-	}else if(empstats=='2'){
-		document.getElementById("rdoselfemployed").checked=true;
-	}else if(empstats=='3'){
-		document.getElementById("rdoocw").checked=true;
-	}else if(empstats=='4'){
-		document.getElementById("rdoretired").checked=true;
-	}else if(empstats=='5'){
-		document.getElementById("rdoothers").checked=true;
-	}
-}
+
 function loadInvestmentType(){
 	var investment=document.getElementById("investment_type").value;
 	if(investment=='0'){
