@@ -17,13 +17,13 @@
 
     $mail->Port = "587";
 
-    $mail->Username = "it.asianland.ph@gmail.com";
+    $mail->Username = "asianland.ph.it@gmail.com";
 
-    $mail->Password = "vbhyuejfciqgbwzl";
+    $mail->Password = "fnvdjrculizsfdbo";
 
     $mail->Subject = "Test";
 
-    $mail->setFrom("it.asianland.ph@gmail.com");
+    $mail->setFrom("asianland.ph.it@gmail.com");
 
     $mail->Body = "Sample Notification";
 
@@ -32,14 +32,14 @@
     if($mail->Send()){?>
         <script>
             alert("Email Sent!");
-            location.href="http://localhost/ALSC/csr-list.php";
+            location.href="csr-list.php";
         </script>
     <?php
     }else{
     ?>
         <script>
             alert("Error! Email not sent!");
-            location.href="http://localhost/ALSC/csr-list.php";
+            location.href="csr-list.php";
         </script>
     <?php
     }
