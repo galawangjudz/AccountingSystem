@@ -76,6 +76,20 @@ while ($row = mysqli_fetch_assoc($result)) {
     $house_disc_amt = $row['c_house_discount_amt'];
     $hres = $floor_area * $house_price_sqm;
     $hcp = $hres-($hres*($house_disc*0.01));
+
+    
+    //PAYMENT
+    $tcp = $row['c_tcp'];
+    $tcp_discount = $row['c_tcp_discount'];
+    $tcp_discount_amt = $row['c_tcp_discount_amt'];
+    $vat = $row['c_vat_amount'];
+    $vat_amt = (0.01 * $vat)*$tcp;
+    $net_tcp = $row['c_net_tcp'];
+
+    $reservation = $row['c_reservation'];
+    $p1 = $row['c_payment_type1'];
+    $p2 = $row['c_payment_type2'];
+
     }
 }
 
@@ -92,7 +106,7 @@ $mysqli->close();
     width:100%;
     background-color:white;
     border-radius:5px;
-    box-shadow: 5px 5px #E2DFD2;
+   /**box-shadow: 5px 5px #E2DFD2; */ 
     float:left;
 }
 .view_lot{
@@ -102,7 +116,7 @@ $mysqli->close();
     margin-right:1%;
     background-color:white;
     border-radius:5px;
-    box-shadow: 5px 5px #E2DFD2;
+    /**box-shadow: 5px 5px #E2DFD2;*/
     float:left;
 }
 .view_house{
@@ -112,13 +126,59 @@ $mysqli->close();
     margin-left:1%;
     background-color:white;
     border-radius:5px;
-    box-shadow: 5px 5px #E2DFD2;
+    /**box-shadow: 5px 5px #E2DFD2;*/
+    float:left;
+}
+.sc{
+    border: solid black 1px;
+    height:auto;
+    width:100%;
+    background-color:white;
+    border-radius:5px;
+    /**box-shadow: 5px 5px #E2DFD2;*/
+    float:left;
+}
+.pd{
+    border: solid black 1px;
+    height:auto;
+    width:100%;
+    background-color:white;
+    border-radius:5px;
+   /** box-shadow: 5px 5px #E2DFD2;*/
+    float:left;
+}
+.ma{
+    border: solid black 1px;
+    height:auto;
+    width:100%;
+    background-color:white;
+    border-radius:5px;
+   /** box-shadow: 5px 5px #E2DFD2;*/
+    float:left;
+}
+.dfc{
+    border: solid black 1px;
+    height:auto;
+    width:100%;
+    background-color:white;
+    border-radius:5px;
+   /** box-shadow: 5px 5px #E2DFD2;*/
+    float:left;
+}
+.fdp{
+    border: solid black 1px;
+    height:auto;
+    width:100%;
+    background-color:white;
+    border-radius:5px;
+    /**box-shadow: 5px 5px #E2DFD2;*/
     float:left;
 }
 table{
     width:100%;
 }
 </style>
+<body onload="loadPaymentType()">
 <div id="response" class="alert alert-success" style="display:none;">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
     <div class="message"></div>
@@ -129,6 +189,8 @@ table{
     <div class="col-xs-12">
         <div class="panel panel-default">
             <div class="panel-heading">
+                <input type="hidden" value="<?php echo $p1; ?>" id="p1">
+                <input type="hidden" value="<?php echo $p2; ?>" id="p2">
                 <h2 class="float-left">CSR. No. <?php echo $getID; ?></h2>
                 <div class="clear"></div>
             </div>
@@ -302,8 +364,161 @@ table{
                                 <div class="float-left col-xs-12">
                                     <table class="table table-striped">
                                         <tr>
-                                            <td><b>Date of Sale: </b></td>
-                                            <td></td>
+                                            <td><b>TCP Discount: </b></td>
+                                            <td><?php echo $tcp_discount ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>TCP Discount Amount: </b></td>
+                                            <td><?php echo $tcp_discount_amt ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Total Contract Price: </b></td>
+                                            <td><?php echo $tcp ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>VAT: </b></td>
+                                            <td><?php echo $vat ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>VAT Amount: </b></td>
+                                            <td><?php echo $vat_amt ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Net TCP: </b></td>
+                                            <td><?php echo $net_tcp ?></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="space"></div>
+                            <div class="space"></div>
+                            <div class="view_box">
+                                <div class="float-left col-xs-12">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <td><b>Reservation: </b></td>
+                                            <td><?php echo $reservation ?></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="space"></div>
+                            <div class="space"></div>
+                            <div id="pd" class="pd">
+                                <div class="titles">Partial DownPayment</div>
+                                <div class="float-left col-xs-12">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <td><b>Down %:</b></td>
+                                            <td><?php echo $house_model ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Net DP:</b></td>
+                                            <td><?php echo $floor_area ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b># of Payments:</b></td>
+                                            <td><?php echo $house_price_sqm ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Monthly Down:</b></td>
+                                            <td><?php echo $house_disc ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>First DP:</b></td>
+                                            <td><?php echo $house_disc_amt ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Full Down:</b></td>
+                                            <td><?php echo $hcp ?></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="fdp" class="fdp" >
+                                <div class="titles">Full Down Payment</div>
+                                <div class="float-left col-xs-12">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <td><b>Down %:</b></td>
+                                            <td><?php echo $house_model ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Net DP:</b></td>
+                                            <td><?php echo $floor_area ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Full Down:</b></td>
+                                            <td><?php echo $house_price_sqm ?></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="ma" class="ma">
+                                <div class="titles">Monthly Amortization</div>
+                                <div class="float-left col-xs-12">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <td><b>Amount to be Financed:</b></td>
+                                            <td><?php echo $house_model ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Terms:</b></td>
+                                            <td><?php echo $floor_area ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Interest Rate:</b></td>
+                                            <td><?php echo $house_price_sqm ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Fixed Factor:</b></td>
+                                            <td><?php echo $house_disc ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Monthly Payment:</b></td>
+                                            <td><?php echo $house_disc_amt ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Start Date:</b></td>
+                                            <td><?php echo $hcp ?></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="dfc" class="dfc">
+                                <div class="titles">Deferred Cash Payment</div>
+                                <div class="float-left col-xs-12">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <td><b>Deferred Amount:</b></td>
+                                            <td><?php echo $house_model ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Terms:</b></td>
+                                            <td><?php echo $floor_area ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Monthly Payment:</b></td>
+                                            <td><?php echo $house_price_sqm ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Start Date:</b></td>
+                                            <td><?php echo $house_disc ?></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="sc" class="sc">
+                                <div class="titles">Spot Cash</div>
+                                <div class="float-left col-xs-12">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <td><b>Amount:</b></td>
+                                            <td><?php echo $house_model ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Pay Date:</b></td>
+                                            <td><?php echo $floor_area ?></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -333,8 +548,67 @@ table{
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-
-   
-
 </div>
+</body>
+<script>
+    function loadPaymentType(){
+        var dp1=document.getElementById('p1').value;
+        var dp2=document.getElementById('p2').value;
+        if(dp1 == "FD" && dp2 == "MA"){
+                $('#pd').hide();
+                $('#ma').show();
+                $('#dfc').hide();
+                $('#sc').hide();
+                $('#fdp').show();
+                return;
+        }
+        if(dp1 == "FD" && dp2 == "DFC"){
+                $('#pd').hide();
+                $('#ma').hide();
+                $('#dfc').show();
+                $('#sc').hide();
+                $('#fdp').show();
+                return;
+        }
+        if (dp1 == "PD" && dp2 == "MA"){
+                $('#pd').show();
+                $('#ma').show();
+                $('#dfc').hide();
+                $('#sc').hide();
+                $('#fdp').hide();
+                return;
+        }
+        if(dp1 == "PD" && dp2 == "DFC"){
+                $('#pd').show();
+                $('#ma').hide();
+                $('#dfc').show();
+                $('#sc').hide();
+                $('#fdp').hide();
+                return;
+        }
+        if(dp1 == "ND" && dp2 == "MA"){
+                $('#pd').hide();
+                $('#ma').show();
+                $('#dfc').hide();
+                $('#sc').hide();
+                $('#fdp').hide();
+                return;
+        }
+        if(dp1 == "ND" && dp2 == "DFC"){
+                $('#pd').hide();
+                $('#ma').hide();
+                $('#dfc').show();
+                $('#sc').hide();
+                $('#fdp').hide();
+                return;
+        }
+        if(dp1 == "SC"){
+                $('#pd').hide();
+                $('#ma').hide();
+                $('#dfc').hide();
+                $('#sc').show();
+                $('#fdp').hide();
+                return;
+        }
+}
+</script>
