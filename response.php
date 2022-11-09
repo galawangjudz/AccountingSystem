@@ -548,14 +548,14 @@ if ($action == 'create_csr'){
 				c_amount,
 				c_rate
 				) VALUES (
-					'".$csr_id."',
-					'$agent_code',
-					'$agent_pos',
-					'".$agent."',
-					'$agent_amount',
-					'$agent_rate'
+				'".$csr_id."',
+				'$agent_code',
+				'$agent_pos',
+				'".$agent."',
+				'$agent_amount',
+				'$agent_rate'
 				);
-			";
+				";
 		}
 
 	header('Content-Type: application/json');
@@ -578,6 +578,7 @@ if ($action == 'create_csr'){
 	//close database connection
 	$mysqli->close();
 }
+
 if($action == 'update_stat') {
 
 	if ($mysqli->connect_error) {

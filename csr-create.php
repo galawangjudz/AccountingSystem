@@ -58,9 +58,10 @@ include('functions.php');
 			<button class="tablinks" onclick="opentab(event, 'Payment')" id="onlink3" onkeyup="tabclicked3()">Payment Computation</button>
 			<button class="tablinks" onclick="opentab(event, 'Agents and Commission')" id="onlink4" onkeyup="tabclicked4()">Agents and Commission</button>
 		</div>
-		<div id="Buyer" class="tabcontent">
+		
 		<form method="post" id="create_csr">
 			<input type="hidden" name="action" value="create_csr">
+			<div id="Buyer" class="tabcontent">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="panel panel-default">
@@ -728,7 +729,7 @@ include('functions.php');
 ?>
 <script>
 	function redirectToMail() {
-        window.location.href = "http://localhost/ALSC/mail.php";
+        window.location.href = "./mail.php";
     }
 	function tabclicked1(){
 		document.getElementById('activation_text').value='1';
