@@ -601,7 +601,7 @@ include('functions.php');
 												<div class="form-group form-group-sm  no-margin-bottom">
 													<a href="#" class="btn btn-danger btn-xs delete-row"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
 													<input type="text" class="form-control form-group-sm item-input agent-name" name="agent_name[]">
-													<p class="item-select"><a href="#">or select an agent</a></p>
+													<p class="item-select"><a href="#"> select an agent</a></p>
 												</div>
 											</td>
 											<td class="text-right">

@@ -405,7 +405,11 @@ function getCSRId() {
 	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
 	}
 
-	$query = "SELECT c_csr_no FROM t_csr ORDER BY c_csr_no DESC LIMIT 1";
+	$query = "SELECT AUTO_INCREMENT AS c_csr_no
+		FROM information_schema.TABLES
+		WHERE TABLE_SCHEMA = 'alscdb'
+		AND TABLE_NAME = 't_csr'";
+
 
 	if ($result = $mysqli->query($query)) {
 
@@ -418,8 +422,10 @@ function getCSRId() {
 	    if($row_cnt == 0){
 			echo CSR_INITIAL_VALUE;
 		} else {
-			echo $row['c_csr_no'] + 1; 
-		}
+
+			echo $row['c_csr_no']; 
+				
+			}
 
 	    // Frees the memory associated with a result
 		$result->free();
