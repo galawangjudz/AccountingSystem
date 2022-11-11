@@ -28,14 +28,7 @@ include('functions.php');
     <div class="box_big">
 	    <div class="main_box">
         <input type="hidden" name="action" value="save_reservation">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="form-group">
-                    <label> RA #:</label>
-                    <input type="text" class="form-control margin-bottom required" name="reserve_no" id="reserve_no" readonly >
-                </div>
-            </div>
-        </div>
+       
         <div class="row">
             <div class="col-xs-12">
                 <div class="form-group">
@@ -88,7 +81,7 @@ include('functions.php');
             <div class="col-xs-12">   
                 <div class="form-group">
                     <label>Pay Date:</label>
-                    <div class="input-group date margin-bottom" id="first_dp_date">
+                    <div class="input-group date margin-bottom" id="reserve_date">
                         <input type="text" class="form-control required" name="pay_date" id = "pay_date" tabindex ="7" data-date-format="<?php echo DATE_FORMAT ?>" />
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
