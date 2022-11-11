@@ -251,9 +251,23 @@ function getCSRs() {
 	}
 
 	// the query
-    $query = "SELECT *
+
+	$usertype = $_SESSION['login_usertype'];
+	$username = $_SESSION['login_username'];
+	
+	if(($usertype) == ('IT Admin')){
+		$query = "SELECT *
 		FROM t_csr
 		ORDER BY c_date_of_sale";
+	}else{
+		$query = "SELECT *
+		FROM t_csr 
+		WHERE c_created_by = '$username'
+		ORDER BY c_date_of_sale";
+		
+	}
+
+    
 
 	// mysqli select query
 	$results = $mysqli->query($query);
@@ -295,30 +309,6 @@ function getCSRs() {
 					print '<td><span class="label label-danger">No status</span></td>';
 				}
 			
-			 /*print '
-				    <td>
-						<button type="button" class="dropbtn" onclick="myFunction()">
-							Action
-						</button>
-						<div id="myDropdown" class="dropdown-content">
-							<a href="csr-view.php?id='.$row["c_csr_no"].'" class="dropdown-item">
-								<span class="glyphicon glyphicon-search" aria-hidden="true">View</span>
-							</a> 
-							<div class="dropdown-divider"></div>
-							<a href="csr-edit.php?id='.$row["c_csr_no"].'" class="dropdown-item">
-								<span class="glyphicon glyphicon-edit" aria-hidden="true">Edit</span>
-							</a> 
-							<div class="dropdown-divider"></div>
-							<a href="print.php?id='.$row["c_csr_no"].'" class="dropdown-item" target="_blank">
-								<span class="glyphicon glyphicon-download-alt" aria-hidden="true">Download</span>
-							</a> 
-							<div class="dropdown-divider"></div>
-							<a data-csr-id="'.$row['c_csr_no'].'" class="delete-csr">
-								<span class="glyphicon glyphicon-trash" aria-hidden="true">Delete</span>
-							</a>
-						</div>
-					</td>
-			    </tr>*/
 				print '
 				<td class="actions"><a href="csr-view.php?id='.$row["c_csr_no"].'" class="btn btn-success btn-xs">
 				<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
@@ -405,7 +395,11 @@ function getCSRId() {
 	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
 	}
 
-	$query = "SELECT c_csr_no FROM t_csr ORDER BY c_csr_no DESC LIMIT 1";
+	$query = "SELECT AUTO_INCREMENT AS c_csr_no
+		FROM information_schema.TABLES
+		WHERE TABLE_SCHEMA = 'alscdb'
+		AND TABLE_NAME = 't_csr'";
+
 
 	if ($result = $mysqli->query($query)) {
 
@@ -418,8 +412,10 @@ function getCSRId() {
 	    if($row_cnt == 0){
 			echo CSR_INITIAL_VALUE;
 		} else {
-			echo $row['c_csr_no'] + 1; 
-		}
+
+			echo $row['c_csr_no']; 
+				
+			}
 
 	    // Frees the memory associated with a result
 		$result->free();

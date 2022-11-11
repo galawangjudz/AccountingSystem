@@ -351,6 +351,10 @@ if ($action == 'create_csr'){
 	date_default_timezone_set("Asia/Manila");
 	$mysqldate = date("Y-m-d H:i:s"); 
 	$csr_status = 'Pending';
+
+	$username =  $_POST['login_username'];
+
+
 	$csr_id = $_POST['csr_id'];
 	$lot_lid = $_POST['l_lid'];
 	$customer_date_of_sale = $_POST['date_of_sale'];
@@ -468,7 +472,8 @@ if ($action == 'create_csr'){
 					c_csr_status,
 					c_remarks,
 					c_date_created,
-					c_date_updated
+					c_date_updated,
+					c_created_by
 			
 				) VALUES (
 					'".$csr_id."',
@@ -524,7 +529,8 @@ if ($action == 'create_csr'){
 					'".$csr_status."',
 					'".$invoice_notes."',
 					'".$mysqldate."',
-					'".$mysqldate."'
+					'".$mysqldate."',
+					'".$username."'
 						);
 					"; 
 			
