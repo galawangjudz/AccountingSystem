@@ -1971,7 +1971,7 @@ function updateAgent(){
 					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 					$btn.button("reset");
-
+					
 					window.location = "dashboard.php";
 				},
 				error: function(data){
@@ -2019,14 +2019,14 @@ function updateAgent(){
 				 $("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
 				 $("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 				 $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				 setInterval('location.reload()', 4000);
+				 setInterval('location.reload()', 500);
 			
 		 },
 		 error: function(data){
 			 $("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
 			 $("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
 			 $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-			  setInterval('location.reload()', 4000);
+			  setInterval('location.reload()', 500);
 		 } 
 	 });
 

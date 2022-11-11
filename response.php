@@ -1525,7 +1525,7 @@ if($action == 'login') {
 
 		$_SESSION['login_username'] = $row['username'];
 		$_SESSION['login_usertype'] = $row['user_type'];
-
+		
 		// processing remember me option and setting cookie with long expiry date
 		if (isset($_POST['remember'])) {	
 			session_set_cookie_params([604800]); //one week (value in seconds)
@@ -1535,6 +1535,9 @@ if($action == 'login') {
 		echo json_encode(array(
 			'status' => 'Success',
 			'message'=> 'Login was a success! Transfering you to the system now, hold tight!'
+				
+
+				
 		));
     } else {
     	echo json_encode(array(
@@ -1543,6 +1546,7 @@ if($action == 'login') {
 	    	'message' => 'Login incorrect, does not exist or simply a problem! Try again!'
 	    ));
     }
+
 }
 
 // Adding new lot
