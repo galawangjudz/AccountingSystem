@@ -520,6 +520,10 @@ $(document).ready(function() {
 		var ra_block = $(this).attr('data-ra-block');
 		var ra_lot = $(this).attr('data-ra-lot');
 
+		var reserve_or_no = $(this).attr('data-or-no');
+		var reserve_date = $(this).attr('data-reserve-date');
+		var reserve_amt = $(this).attr('data-amt-paid');
+
 
 		$('#reserve_no').val(ra_no);
 		$('#lot_lid').val(lot_lid);
@@ -527,6 +531,10 @@ $(document).ready(function() {
 		$('#reserve_site').val(ra_site);
 		$('#reserve_block').val(ra_block);
 		$('#reserve_lot').val(ra_lot);
+
+		$('#or_no').val(reserve_or_no);
+		$('#pay_date').val(reserve_date);
+		$('#amount_paid').val(reserve_amt);
 
 		
 
@@ -617,6 +625,11 @@ function updateTotals(elem) {
 	});
 	
 	$('#dos').datetimepicker({
+		showClose: false,
+		format: "YYYY-MM-DD"
+	});
+
+	$('#reserve_date').datetimepicker({
 		showClose: false,
 		format: "YYYY-MM-DD"
 	});

@@ -254,8 +254,7 @@ if ($action == 'save_reservation'){
 	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
 	}
 
-
-	$ra_no =  $_POST['reserve_no'];
+	$reserved = "Paid";
 	$csr_no = $_POST['csr_no'];
 	$c_or_no = $_POST['or_no'];
 	/* $c_acronym = $_POST['reserve_site'];
@@ -265,83 +264,49 @@ if ($action == 'save_reservation'){
 	$c_amount_paid = $_POST['amount_paid'];
 	$c_lot_lid =  $_POST['lot_lid'];
 
-/* 
-	// insert reservation into database
-	$query = "INSERT INTO t_reservation (
-					ra_id,
+	$query ="UPDATE t_csr 
+	SET c_reserve_status = '".$reserved."' 
+	where c_csr_no = '$csr_no'
+	;";
+
+	$query .= "INSERT INTO t_reservation (
 					c_csr_no,
 					c_or_no,
 					c_reserve_date,
 					c_amount_paid,
 					c_lot_id
 				) VALUES (
-					'".$ra_no."',
 					'".$csr_no."',
 					'".$c_or_no."',
 					'".$c_reserve_date."',
-					'".$c_amount_paid."',
+					$c_amount_paid,
 					'".$c_lot_lid."'
 					);
-				";  */
-	
-	$query = "INSERT INTO t_reservation (
-					ra_id,
-					c_csr_no,
-					c_or_no,
-					c_reserve_date,
-					c_amount_paid,
-					c_lot_id
-				) VALUES (
-					?,
-					?,
-					?,
-					?,
-					?,
-					?
+
 				);
 			";
 
-	/* Prepare statement */
-	$stmt = $mysqli->prepare($query);
-	if($stmt === false) {
-	  trigger_error('Wrong SQL: ' . $query . ' Error: ' . $mysqli->error, E_USER_ERROR);
-	}
-
-	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
-	$stmt->bind_param(
-		'ssssss',
-		$ra_no,$csr_no,$c_or_no,$c_reserve_date,$c_amount_paid,$c_lot_lid);
-
-
-
 	header('Content-Type: application/json');
-
-	if($stmt->execute()){
+	// execute the query
+	if($mysqli -> multi_query($query)){
 		//if saving success
-		echo json_encode(array(
+		$arr = array(
 			'status' => 'Success',
-			'message' => 'Reservation has been created successfully!'
-		));
+			'message'=> 'Reservation has been created successfully!'
+		);
+		echo json_encode($arr);
 		
-
-
 	} else {
-		// if unable to create invoice
-		echo json_encode(array(
+		$arr = array(
 			'status' => 'Error',
-			'message' => 'There has been an error, please try again.'
-			// debug
-			//'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>'
-		));
-	}
-
+			//'message'=> 'There has been an error, please try again.');
+			'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>');
+		echo json_encode($arr);
+			}
 	//close database connection
 	$mysqli->close();
-				
-
-
 }
-
+	
 // Create invoice
 if ($action == 'create_csr'){
 	if ($mysqli->connect_error) {
@@ -594,30 +559,14 @@ if($action == 'update_stat') {
 	$id = $_POST["id"];
 	$stat = $_POST["stat"];
 	$lot_lid = $_POST["lot_lid"];
-	$ra_stat = "Pending";
 	date_default_timezone_set("Asia/Manila");
-	$ra_date_create = date("Y-m-d H:i:s"); 
+	$csr_approved_date = date("Y-m-d H:i:s"); 
 
 	
 
 	// the query
 	$query = "UPDATE t_csr SET c_csr_status = ".$stat." where c_csr_no = ".$id.";";
 
-
-	if ($stat == '"Approved"'){
-		
-		$query .= "INSERT INTO t_ra (
-				c_csr_no,
-				c_lot_lid,
-				c_ra_status,
-				c_date_created
-			) VALUES (
-				'".$id."',
-				'".$lot_lid."',
-				'".$ra_stat."',
-				'".$ra_date_create."'
-			)
-		";}
 
 
 
@@ -711,14 +660,21 @@ if($action == 'delete_ra') {
 	$id = $_POST["delete"];
 
 	// the query
-	$query = "DELETE FROM t_ra WHERE ra_id = ".$id.";";
+
+	$query ="UPDATE t_csr 
+	SET c_reserve_status = ''
+	where c_csr_no = ".$id."
+	;";
+
+	$query .= "DELETE FROM t_reservation WHERE c_csr_no = ".$id.";";
+
 
 
 	if($mysqli -> multi_query($query)) {
 	    //if saving success
 		echo json_encode(array(
 			'status' => 'Success',
-			'message'=> 'RA has been deleted successfully!'
+			'message'=> 'Reservation has been deleted successfully!'
 		));
 
 	} else {
@@ -747,6 +703,9 @@ if($action == 'delete_csr') {
 
 	// the query
 	$query = "DELETE FROM t_csr WHERE c_csr_no = ".$id.";";
+
+
+	$query .= "DELETE FROM t_csr_commission WHERE c_csr_no = ".$id.";";
 
 
 	if($mysqli -> multi_query($query)) {
@@ -1532,7 +1491,7 @@ if($action == 'login') {
 
 		$_SESSION['login_username'] = $row['username'];
 		$_SESSION['login_usertype'] = $row['user_type'];
-		
+
 		// processing remember me option and setting cookie with long expiry date
 		if (isset($_POST['remember'])) {	
 			session_set_cookie_params([604800]); //one week (value in seconds)
@@ -1542,9 +1501,6 @@ if($action == 'login') {
 		echo json_encode(array(
 			'status' => 'Success',
 			'message'=> 'Login was a success! Transfering you to the system now, hold tight!'
-				
-
-				
 		));
     } else {
     	echo json_encode(array(
@@ -1553,7 +1509,6 @@ if($action == 'login') {
 	    	'message' => 'Login incorrect, does not exist or simply a problem! Try again!'
 	    ));
     }
-
 }
 
 // Adding new lot
