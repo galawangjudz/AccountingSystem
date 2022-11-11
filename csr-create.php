@@ -61,6 +61,7 @@ include('functions.php');
 		
 		<form method="post" id="create_csr">
 			<input type="hidden" name="action" value="create_csr">
+			<input type="hidden" name="login_username" value="<?php echo $username ?>">
 			<div id="Buyer" class="tabcontent">
 			<div class="row">
 				<div class="col-xs-12">
