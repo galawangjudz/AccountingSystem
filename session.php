@@ -10,8 +10,9 @@
 	$username = $_SESSION['login_username'];
 	$usertype = $_SESSION['login_usertype'];
 
-	if(!isset($username)) {
-	    header("Location:index.php");
-	}
+	//if(!isset($username)) {
+	   // header("Location:index.php");
+	//}
+
 
 ?>

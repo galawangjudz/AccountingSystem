@@ -7,7 +7,7 @@ include('functions.php');
 ?>
 
 
-<h2>Reservation Application List</h2>
+<h2>Reservation Application List</h2><div class="addbtn"><a href="ra-create.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
 <hr>
 
 <div class="row">

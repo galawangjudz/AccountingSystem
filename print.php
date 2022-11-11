@@ -602,7 +602,7 @@ table{
                         <label class="control-label2">Price/SQM:</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" id="c_price_sqm" name="c_price_sqm" value="<?php echo number_format($c_price_sqm); ?>" class="form-control form-control-sm">
+                        <input type="text" id="c_price_sqm" name="c_price_sqm" value="<?php echo $c_price_sqm; ?>" class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="row">

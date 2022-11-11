@@ -189,8 +189,48 @@ $mysqli->close();
 table{
     width:100%;
 }
+#status_list{
+    width:175px;
+    float: right;
+    height:30px!important;
+    margin-top:-5px;
+    border-radius:5px;
+    font-weight:bold;
+}
+#update_status{
+    width:100%;
+    height:42px;
+    border-radius:10px;
+    margin-bottom:-25px;
+}
+#updatestatus{
+    height:auto;
+    width:125px;
+    float: left;
+    margin-left:750px;
+    margin-top:2px;
+}
+#upstat{
+    border:none;
+    font-weight:bold;
+    font-style:italic;
+    width:95px;
+    padding:auto;
+}
+#txtstatus{
+    border:none;
+    text-align:center;
+    font-weight:bold;
+    color:white!important;
+    font-style:italic;
+    border-radius:5px;
+}
+.options1{
+    background-color:white!important;
+    color:black;
+}
 </style>
-<body onload="loadPaymentType()">
+<body onload="loadAll()">
 <div id="response" class="alert alert-success" style="display:none;">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
     <div class="message"></div>
@@ -203,22 +243,20 @@ table{
             <div class="panel-heading">
                 <input type="hidden" value="<?php echo $p1; ?>" id="p1">
                 <input type="hidden" value="<?php echo $p2; ?>" id="p2">
-                <h2 class="float-left">CSR. No. <?php echo $getID; ?></h2>
+                <h2 class="float-left">CSR #<?php echo $getID; ?></h2>
                 <div class="clear"></div>
             </div>
             <div class="panel-body form-group form-group-sm">
                 <div class="row">
                     <div class="titles">Buyer's Profile</div>
                     <form method="POST">
-                        <div id="update_status" class="padding-right row text-right">
-                            <div class="float-right col-xs-8">
-                            
-                                <select class= "status-list" name= "status_list" id ="status_list" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> >
-                                    <option value="No Status">Update Status</option>  
-                                    <option value="Pending">Pending</option>  
-                                    <option value="Approved">Approved</option>  
-                                    <option value="Disapproved">Disapproved</option>  
-                                </select>
+                        <div id="update_status">
+                        <label id="updatestatus">Update Status: </label>
+                            <select class= "status-list" name= "status_list" id ="status_list" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?>>
+                                <option class="options1" id="pendingselected" value="Pending" <?php if($csr_status === 'Pending'){?>selected<?php }?>>Pending</option>
+                                <option class="options1" id="approvedselected" value="Approved" <?php if($csr_status === 'Approved'){?>selected<?php }?>>Approved</option>
+                                <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($csr_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
+                            </select>
                             <!--  <button type="submit" class="btn btn-sm btn-success" name = "approved_csr" id="approve_csr">Approved<i class="fa fa-check"></i></button>'
                                 <button type="submit" class="btn btn-sm btn-danger ml-2" name = "reject_csr" id="reject_csr">Reject<i class="fa fa-times"></i></button></td></tr></tbody>';
                                 -->
@@ -228,7 +266,6 @@ table{
                                     <button type="sumbit" class="btn btn-warning waves-effect waves-light csr-status" id="csr_status" name="csr_disapproved"><i class="fa fa-times"></i>  Disapproved </button></a>
                                     --> <!-- <input type="submit" id="" class="btn btn-success float-right" value="Aprroved" data-loading-text="Creating..."> -->
                                 
-                            </div>
                         </div>
                 
                         <br>
@@ -297,7 +334,7 @@ table{
                                     </tr>
                                     <tr>
                                         <td><b>Status: </b></td>
-                                        <td><?php echo $csr_status?></td>
+                                        <td><input type="text" id="txtstatus" value="<?php echo $csr_status?>"></td>
                                     </tr>
                                 </table> 
                             </div>       
@@ -553,19 +590,42 @@ table{
         <h4 class="modal-title">Update Status</h4>
       </div>
       <div class="modal-body">
-        <p>Change Status to <input type="text" name="upstat" id="upstat" value="" readonly/> ? </p>
+        <p>Are you sure you want to change the status to <input type="text" name="upstat" id="upstat" value="" readonly/>?</p>
       </div>
       <div class="modal-footer">
         <button type="button" data-dismiss="modal" class="btn btn-primary" id="confirm">Confirm</button>
-		<button type="button" data-dismiss="modal" class="btn">Cancel</button>
+		<button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 </div>
 </body>
+
 <script>
-    function loadPaymentType(){
+
+
+
+    function statusColor(){
+        var cstatus=document.getElementById('txtstatus').value;
+        if (cstatus=='Disapproved'){
+            document.getElementById('txtstatus').style.background = "#dd4b39";
+            document.getElementById('status_list').style.background = "#dd4b39";
+            document.getElementById('status_list').style.color = "white";
+        }else if (cstatus=='Approved'){
+            document.getElementById('txtstatus').style.background = "#00a65a";
+            document.getElementById('status_list').style.background = "#00a65a";
+            document.getElementById('status_list').style.color = "white";
+        }else{
+            document.getElementById('txtstatus').style.background = "#f39c12";
+            document.getElementById('status_list').style.background = "#f39c12";
+            document.getElementById('status_list').style.color = "white";
+        }
+    }
+    function changeSelected(){
+        var cstatus_changed=document.getElementById('status_list').value;
+    }
+    function paymentType(){
         var dp1=document.getElementById('p1').value;
         var dp2=document.getElementById('p2').value;
         if(dp1 == "Full DownPayment" && dp2 == "Monthly Amortization"){
@@ -625,5 +685,10 @@ table{
                 $('#fdp').hide();
                 return;
         }
-}
+    }
+
+    function loadAll(){
+        paymentType();
+        statusColor();
+    }
 </script>
