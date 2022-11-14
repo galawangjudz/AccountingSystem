@@ -29,6 +29,17 @@ $(document).ready(function() {
 	    actionAddLot();
 	});
 
+
+	$("#action_add_comment").click(function(e) {
+		e.preventDefault();
+	    actionAddComment();
+	});
+
+	$("#action_add_reply").click(function(e) {
+		e.preventDefault();
+	    actionAddReply();
+	});
+
 	// password strength 
 	var options = {
         onLoad: function () {
@@ -2029,6 +2040,7 @@ function updateAgent(){
 		 data: csrId,
 		 dataType: 'json', 
 		 success: function(data){
+
 				 $("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
 				 $("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 				 $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
@@ -2036,14 +2048,101 @@ function updateAgent(){
 			
 		 },
 		 error: function(data){
-			 $("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-			 $("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-			 $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-			  setInterval('location.reload()', 500);
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				setInterval('location.reload()', 500);
 		 } 
 	 });
 
 	}
+
+	function actionAddComment() {
+		
+		var errorCounter = validateForm();
+
+		if (errorCounter > 0) {
+		    $("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+		    $("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
+		    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+		} else {
+
+			var $btn = $("#action_add_comment").button("loading");
+			
+			$(".required").parent().removeClass("has-error");
+
+			$.ajax({
+
+				url: 'response.php',
+				type: 'POST',
+				data: $("#add_comment").serialize(),
+				dataType: 'json',
+				success: function(data){
+					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+			
+					$btn.button("reset");
+					
+				},
+				error: function(data){
+					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+					$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+					$btn.button("reset");
+				} 
+
+			});
+		}
+
+	
+
+	}
+
+
+	function actionAddReply() {
+		
+		var errorCounter = validateForm();
+
+		if (errorCounter > 0) {
+		    $("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+		    $("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
+		    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+		} else {
+
+			var $btn = $("#action_add_reply").button("loading");
+			
+			$(".required").parent().removeClass("has-error");
+
+			$.ajax({
+
+				url: 'response.php',
+				type: 'POST',
+				data: $("#add_reply").serialize(),
+				dataType: 'json',
+				success: function(data){
+					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+			
+					$btn.button("reset");
+					
+				},
+				error: function(data){
+					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+					$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+					$btn.button("reset");
+				} 
+
+			});
+		}
+
+	
+
+	}
+
+
 
 
 	//tab
