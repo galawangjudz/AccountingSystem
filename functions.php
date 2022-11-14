@@ -1066,7 +1066,7 @@ function popRAsList() {
         ON x.c_lid = c.c_lot_lid
         LEFT JOIN t_projects y 
         ON y.c_code = x.c_site
-		WHERE c_reserve_status = ''
+		WHERE c_reserve_status = '' AND c_csr_status = 'Approved'
 		ORDER BY c_csr_no";
 	
 		//echo $query;
@@ -1120,6 +1120,11 @@ function popRAsList() {
 		$mysqli->close();
 	
 	}
+
+
+
+
+
 	 
 ?>
 <script>

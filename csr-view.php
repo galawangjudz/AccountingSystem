@@ -575,8 +575,103 @@ table{
                                 </div>
                             </div>
                     </form>
-                </div>   
+                </div>  
+                    
+              <!--     add comment form here  -->
+              
+
+              <hr>
+                <br>
+                <br>
+                <form  method="POST" id="add_comment">
+                    <input type="hidden" name="action" value="add_comment">
+                    <input type="hidden" class="form-control required" name="csr_id" value="<?php echo $getID; ?>">
+                    <input type="hidden" class="form-control required" name="name" value= "<?php echo $username; ?>">
+               
+                    <p>
+                        <label>Comment</label>
+                        <textarea class="form-control required" name="comment" ></textarea>
+                    </p>
+                
+                    <p>
+                        <input type="submit" id="action_add_comment" value="Add Comment" >
+                    </p>
+                </form>
+                
+
+                <?php
+ 
+                // Connect to the database
+                $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+
+                // output any connection error
+                if ($mysqli->connect_error) {
+                    die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
+                }
+
+                // the query
+                $query = "SELECT * FROM t_csr_comments WHERE c_csr_no = '" . $mysqli->real_escape_string($getID) . "'";
+                //print $query;
+                $result = mysqli_query($mysqli, $query);
+                
+                $comments = array();
+                while ($row = mysqli_fetch_object($result))
+                {
+                    array_push($comments, $row);
+                }
+                
+                // loop through each comment
+                foreach ($comments as $comment_key => $comment)
+                {
+                    // initialize replies array for each comment
+                    $replies = array();
+                
+                    // check if it is a comment to csr, not a reply to comment
+                    if ($comment->reply_of == 0)
+                    {
+                        // loop through all comments again
+                        foreach ($comments as $reply_key => $reply)
+                        {
+                            // check if comment is a reply
+                            if ($reply->reply_of == $comment->comment_id)
+                            {
+                                // add in replies array
+                                array_push($replies, $reply);
+                
+                                // remove from comments array
+                                unset($comments[$reply_key]);
+                            }
+                        }
+                    }
+                
+                    // assign replies to comments object
+                    $comment->replies = $replies;
+                }
+            
+                ?>
+                
+                <ul class="comments">
+                    <?php foreach ($comments as $comment): ?>
+                        <li>
+                            <p>
+                                <?php echo $comment->name; ?>
+                            </p>
+                
+                            <p>
+                                <?php echo $comment->comment; ?>
+                            </p>
+                
+                            <p>
+                                <?php echo date("F d, Y h:i a", strtotime($comment->created_at)); ?>
+                            </p>
+        
+                                        
+                        </li>
+                    <?php endforeach; ?>
+                </ul>    
+                
             </div> 
+            
         </div>
     </div>
 </div>
@@ -603,6 +698,31 @@ table{
 </body>
 
 <script>
+
+ 
+    function showReplyForm(self) {
+        var commentId = self.getAttribute("data-id");
+        if (document.getElementById("form-" + commentId).style.display == "") {
+            document.getElementById("form-" + commentId).style.display = "none";
+        } else {
+            document.getElementById("form-" + commentId).style.display = "";
+        }
+    }
+    
+
+    function showReplyForReplyForm(self) {
+    var commentId = self.getAttribute("data-id");
+    var name = self.getAttribute("data-name");
+ 
+    if (document.getElementById("form-" + commentId).style.display == "") {
+        document.getElementById("form-" + commentId).style.display = "none";
+    } else {
+        document.getElementById("form-" + commentId).style.display = "";
+    }
+ 
+    document.querySelector("#form-" + commentId + " textarea[name=comment]").value = "@" + name;
+    document.getElementById("form-" + commentId).scrollIntoView();
+    }
 
 
 

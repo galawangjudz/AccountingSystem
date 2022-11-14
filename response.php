@@ -1976,5 +1976,87 @@ if ($action == 'add_agent'){
 	//close database connection
 	$mysqli->close();
 }
+
+
+if ($action == 'add_comment'){
+
+	date_default_timezone_set("Asia/Manila");
+	$mysqldate = date("Y-m-d H:i:s"); 
+
+
+	$name = $_POST["name"];
+	$comment = $_POST["comment"];
+	$csr_no = $_POST["csr_id"];
+	$reply_of = 0;
+
+	
+
+
+	/* $query  = "SELECT * FROM t_csr_comments ;"; */
+	$query = "INSERT INTO t_csr_comments(name, comment, c_csr_no, created_at, reply_of) 
+			VALUES ('" . $name . "', '" . $comment . "', '" . $csr_no . "', '" . $mysqldate . "', '" . $reply_of . "');
+	";
+		
+	
+	
+	header('Content-Type: application/json');
+	// execute the query
+	if($mysqli -> multi_query($query)){
+		//if saving success
+		$arr = array(
+			'status' => 'Success',
+			'message'=> 'Comment has been posted!'
+		);
+		echo json_encode($arr);
+		
+	} else {
+		$arr = array(
+			'status' => 'Error',
+			'message'=> 'There has been an error, please try again.');
+			// 'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>');
+		echo json_encode($arr); 
+			}
+	//close database connection
+	$mysqli->close();
+
+}
+
+
+if ($action == 'add_reply'){
+
+
+ 
+	$username = $_POST["name"];
+	$comment = $_POST["comment"];	
+	$csr_no = $_POST["csr_id"];
+	$reply_of = $_POST["reply_of"];
+
+
+	$query = "INSERT INTO t_csr_comments(name, comment, c_csr_no, created_at, reply_of) VALUES ('" . $username . "', '" . $comment . "', '" . $csr_no . "', '" . $mysqldate . "' , '" . $reply_of . "')";
+
+
+	header('Content-Type: application/json');
+	// execute the query
+	if($mysqli -> multi_query($query)){
+		//if saving success
+		$arr = array(
+			'status' => 'Success',
+			'message'=> 'Reply has been posted!'
+		);
+		echo json_encode($arr);
+		
+	} else {
+		$arr = array(
+			'status' => 'Error',
+			'message'=> 'There has been an error, please try again.');
+			// 'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>');
+		echo json_encode($arr); 
+			}
+	//close database connection
+	$mysqli->close();
+
+
+
+}
 ?>
 
