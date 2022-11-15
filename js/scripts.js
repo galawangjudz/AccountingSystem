@@ -29,6 +29,17 @@ $(document).ready(function() {
 	    actionAddLot();
 	});
 
+
+	$("#action_add_comment").click(function(e) {
+		e.preventDefault();
+	    actionAddComment();
+	});
+
+	$("#action_add_reply").click(function(e) {
+		e.preventDefault();
+	    actionAddReply();
+	});
+
 	// password strength 
 	var options = {
         onLoad: function () {
@@ -520,6 +531,10 @@ $(document).ready(function() {
 		var ra_block = $(this).attr('data-ra-block');
 		var ra_lot = $(this).attr('data-ra-lot');
 
+		var reserve_or_no = $(this).attr('data-or-no');
+		var reserve_date = $(this).attr('data-reserve-date');
+		var reserve_amt = $(this).attr('data-amt-paid');
+
 
 		$('#reserve_no').val(ra_no);
 		$('#lot_lid').val(lot_lid);
@@ -527,6 +542,10 @@ $(document).ready(function() {
 		$('#reserve_site').val(ra_site);
 		$('#reserve_block').val(ra_block);
 		$('#reserve_lot').val(ra_lot);
+
+		$('#or_no').val(reserve_or_no);
+		$('#pay_date').val(reserve_date);
+		$('#amount_paid').val(reserve_amt);
 
 		
 
@@ -617,6 +636,11 @@ function updateTotals(elem) {
 	});
 	
 	$('#dos').datetimepicker({
+		showClose: false,
+		format: "YYYY-MM-DD"
+	});
+
+	$('#reserve_date').datetimepicker({
 		showClose: false,
 		format: "YYYY-MM-DD"
 	});
@@ -2016,6 +2040,7 @@ function updateAgent(){
 		 data: csrId,
 		 dataType: 'json', 
 		 success: function(data){
+
 				 $("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
 				 $("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 				 $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
@@ -2023,14 +2048,101 @@ function updateAgent(){
 			
 		 },
 		 error: function(data){
-			 $("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-			 $("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-			 $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-			  setInterval('location.reload()', 500);
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				setInterval('location.reload()', 500);
 		 } 
 	 });
 
 	}
+
+	function actionAddComment() {
+		
+		var errorCounter = validateForm();
+
+		if (errorCounter > 0) {
+		    $("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+		    $("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
+		    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+		} else {
+
+			var $btn = $("#action_add_comment").button("loading");
+			
+			$(".required").parent().removeClass("has-error");
+
+			$.ajax({
+
+				url: 'response.php',
+				type: 'POST',
+				data: $("#add_comment").serialize(),
+				dataType: 'json',
+				success: function(data){
+					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+			
+					$btn.button("reset");
+					
+				},
+				error: function(data){
+					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+					$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+					$btn.button("reset");
+				} 
+
+			});
+		}
+
+	
+
+	}
+
+
+	function actionAddReply() {
+		
+		var errorCounter = validateForm();
+
+		if (errorCounter > 0) {
+		    $("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+		    $("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
+		    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+		} else {
+
+			var $btn = $("#action_add_reply").button("loading");
+			
+			$(".required").parent().removeClass("has-error");
+
+			$.ajax({
+
+				url: 'response.php',
+				type: 'POST',
+				data: $("#add_reply").serialize(),
+				dataType: 'json',
+				success: function(data){
+					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+			
+					$btn.button("reset");
+					
+				},
+				error: function(data){
+					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+					$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+					$btn.button("reset");
+				} 
+
+			});
+		}
+
+	
+
+	}
+
+
 
 
 	//tab

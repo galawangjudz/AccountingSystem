@@ -281,7 +281,9 @@ function getCSRs() {
 				<th>Full Name</th>
 				<th>Net TCP</th>
 				<th>Date of Sale</th>
-				<th>Status</th>
+				<th>Approval Status</th>
+				<th>Reserve Status</th>
+				<th>CA Status</th>
 				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
@@ -308,6 +310,27 @@ function getCSRs() {
 				else{
 					print '<td><span class="label label-danger">No status</span></td>';
 				}
+
+				if($row['c_reserve_status'] == "Paid"){
+					print '<td><span class="label label-success">'.$row['c_reserve_status'].'</span></td>';
+			
+				}else{
+					print '<td><span class="label label-danger">Not Paid</span></td>';
+				}
+
+
+
+				if($row['c_ra_status'] == "Approved"){
+					print '<td><span class="label label-success">'.$row['c_ra_status'].'</span></td>';
+				} elseif ($row['c_ra_status'] == "Pending"){
+					print '<td><span class="label label-warning">'.$row['c_ra_status'].'</span></td>';
+				} elseif ($row['c_ra_status'] == "Disapproved"){
+					print '<td><span class="label label-danger">'.$row['c_ra_status'].'</span></td>';}
+
+				else{
+					print '<td><span class="label label-danger">Not Yet</span></td>';
+				}
+
 			
 				print '
 				<td class="actions"><a href="csr-view.php?id='.$row["c_csr_no"].'" class="btn btn-success btn-xs">
@@ -948,10 +971,8 @@ function getRAs() {
 
 	// the query
     $query = "SELECT *
-		FROM t_ra i
-		JOIN t_csr x 
-		ON i.c_csr_no = x.c_csr_no
-		ORDER BY c_date_approved";
+		FROM t_reservation
+		ORDER BY c_reserve_date";
 
 	// mysqli select query
 	$results = $mysqli->query($query);
@@ -961,13 +982,10 @@ function getRAs() {
 
 		print '<table class="table table-striped table-hover table-bordered" id="data-table" cellspacing="0"><thead><tr>
 
-				<th>Ra No. #</th>
-				<th>Contract No. #</th>
-				<th>Full Name</th>
-				<th>Net TCP</th>
-				<th>Date of Sale</th>
-				<th>Status</th>
-				<th>Approval</th>
+				<th>CSR No. #</th>
+				<th> Reserved Date </th>
+				<th> OR No. </th>
+				<th> Reservation Fee</th>
 				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
@@ -977,8 +995,8 @@ function getRAs() {
 			
 			print '
 				<tr>
-					<td>'.$row["ra_id"].'</td>
 					<td>'.$row["c_csr_no"].'</td>
+
 					<td>'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].' </td>
 					<td>'.number_format($row["c_net_tcp"], 2).'</td>
 				    <td>'.$row["c_date_of_sale"].'</td>
@@ -1005,6 +1023,16 @@ function getRAs() {
 
 			 print '
 				    <td class="actions"><a data-ra-id="'.$row['ra_id'].'" class="btn btn-danger btn-xs delete-ra"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+
+					
+					<td>'.$row["c_reserve_date"].'</td>
+					<td>'.$row["c_or_no"].'</td>
+					<td>'.$row["c_amount_paid"].'</td>
+					<td class="actions"><a href="ra-edit.php?id='.$row["c_csr_no"].'" class="btn btn-primary btn-xs">
+					<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+				  	<a data-ra-id="'.$row['c_csr_no'].'" class="btn btn-danger btn-xs delete-ra">
+					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+
 			    </tr>
 			'; 
 
@@ -1039,8 +1067,8 @@ function popRAsList() {
 		}
 		
 	
-		// the query
-		$query = "SELECT ra_id, i.c_csr_no, c_acronym, c_block, c_lot, x.c_lid
+		/* // the query
+		$query = "SELECT i.ra_id, i.c_csr_no, c_acronym, c_block, c_lot, x.c_lid, c_or_no, c_reserve_date, c_amount_paid
 		FROM t_ra i
 		LEFT JOIN t_csr c 
 		ON i.c_csr_no = c.c_csr_no 
@@ -1048,7 +1076,18 @@ function popRAsList() {
         ON x.c_lid = c.c_lot_lid
         LEFT JOIN t_projects y 
         ON y.c_code = x.c_site
-		ORDER BY ra_id";
+		LEFT JOIN t_reservation z
+		ON z.c_csr_no = i.c_csr_no
+		ORDER BY i.ra_id"; */
+
+		$query = "SELECT c_csr_no, c_acronym, c_block, c_lot, x.c_lid
+		FROM  t_csr c 
+        LEFT JOIN t_lots x 
+        ON x.c_lid = c.c_lot_lid
+        LEFT JOIN t_projects y 
+        ON y.c_code = x.c_site
+		WHERE c_reserve_status = '' AND c_csr_status = 'Approved'
+		ORDER BY c_csr_no";
 	
 		//echo $query;
 		// mysqli select query
@@ -1059,7 +1098,6 @@ function popRAsList() {
 	
 			print '<table class="table table-striped table-hover table-bordered" id= "data-table" cellspacing="0"><thead><tr>
 	
-				<th>Ra No.</th>
 				<th>Lot Lid.</th>
 				<th>CSR No.</th>
 				<th>Phase</th>
@@ -1074,14 +1112,14 @@ function popRAsList() {
 	
 				print '
 					<tr>
-						<td>'.$row["ra_id"].'</td>
 						<td>'.$row["c_lid"].'</td>
 						<td>'.$row["c_csr_no"].'</td>
 						<td>'.$row["c_acronym"].'</td>
 						<td>'.$row["c_block"].'</td>
 						<td>'.$row["c_lot"].'</td>
+					
 						
-						<td><a href="#" class="btn btn-primary btn-xs ra-select" data-ra-no="'.$row['ra_id'].'" data-ra-lot-lid="'.$row['c_lid'].'" data-csr-no="'.$row['c_csr_no'].'" data-ra-site="'.$row['c_acronym'].'" data-ra-block="'.$row['c_block'].'" data-ra-lot="'.$row['c_lot'].'">Select</a></td>
+						<td><a href="#" class="btn btn-primary btn-xs ra-select" data-ra-lot-lid="'.$row['c_lid'].'" data-csr-no="'.$row['c_csr_no'].'" data-ra-site="'.$row['c_acronym'].'" data-ra-block="'.$row['c_block'].'" data-ra-lot="'.$row['c_lot'].'">Select</a></td>
 				   
 						</tr>
 				';
@@ -1102,6 +1140,11 @@ function popRAsList() {
 		$mysqli->close();
 	
 	}
+
+
+
+
+
 	 
 ?>
 <script>
