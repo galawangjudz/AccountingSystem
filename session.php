@@ -9,6 +9,9 @@
 
 	$username = $_SESSION['login_username'];
 	$usertype = $_SESSION['login_usertype'];
+	$userlast = $_SESSION['login_lastname'];
+	$userfirst = $_SESSION['login_firstname'];
+	$usermiddle = $_SESSION['login_middlename'];
 
 	//if(!isset($username)) {
 	   // header("Location:index.php");

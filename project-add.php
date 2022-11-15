@@ -3,6 +3,7 @@ include('header.php');
 include('functions.php');
 
 ?>
+<body onload="resFormat()">
 <h2>Add Project Site</h2>
 <hr>
 
@@ -18,7 +19,7 @@ include('functions.php');
 			<div class="col-xs-12">		
 				<div class="form-group">
 					<label class="control-label">Code: </label>
-					<input type="text" class="form-control required" name="c_code" id="c_code">
+					<input type="number" class="form-control required" name="c_code" id="c_code">
 				</div>
 			</div>
 		</div>
@@ -58,7 +59,7 @@ include('functions.php');
 			<div class="col-xs-12">		
 				<div class="form-group">
 					<label class="control-label">Zip Code: </label>
-					<input type="text" class="form-control required" name="c_zip" id="c_zip">
+					<input type="number" class="form-control required" name="c_zip" id="c_zip">
 				</div>
 			</div>
 		</div>
@@ -66,7 +67,7 @@ include('functions.php');
 			<div class="col-xs-12">		
 				<div class="form-group">
 					<label class="control-label">Rate: </label>
-					<input type="text" class="form-control required" name="c_rate" id="c_rate">
+					<input type="number" class="form-control required" name="c_rate" id="c_rate">
 				</div>
 			</div>
 		</div>
@@ -74,7 +75,7 @@ include('functions.php');
 			<div class="col-xs-12">		
 				<div class="form-group">
 					<label class="control-label">Reservation: </label>
-					<input type="text" class="form-control required" name="c_reservation" id="c_reservation">
+					<input type="number" class="form-control required" name="c_reservation" id="c_reservation" onchange="resFormat()">
 				</div>
 			</div>
 		</div>
@@ -102,6 +103,7 @@ include('functions.php');
 </div>
 <div class="row">
 </div>
+</body>
 <?php
 	include('footer.php');
 ?>

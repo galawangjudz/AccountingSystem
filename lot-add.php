@@ -88,7 +88,7 @@ include('functions.php');
 				<div class="form-group">
 					<label class="control-label">Remarks: </label>
 					<div class="input-group form-group-sm textarea no-margin-bottom">
-						<textarea class="textarea" name="prod_remarks" rows="3"></textarea>
+						<textarea class="form-control required textarea" name="prod_remarks" rows="3"></textarea>
 					</div>
 				</div>
 			</div>
