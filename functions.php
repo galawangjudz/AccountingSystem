@@ -164,7 +164,7 @@ function getProjectSite() {
 				    <td>'.$row["c_province"].'</td>
 				    <td>'.$row["c_zip"].'</td>
 					<td>'.$row["c_rate"].'</td>
-				    <td>'.$row["c_reservation"].'</td>
+				    <td>'.number_format($row["c_reservation"],2).'</td>
 				    <td class="actions"><a href="project-edit.php?id='.$row["c_code"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-project-id="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-project"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
@@ -294,7 +294,7 @@ function getCSRs() {
 					<td>'.$row["c_csr_no"].'</td>
 					<td>'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].' </td>
 				    
-					<td>'.$row["c_net_tcp"].'</td>
+					<td>'.number_format($row["c_net_tcp"], 2).'</td>
 				    <td>'.$row["c_date_of_sale"].'</td>
 				';
 			
@@ -313,15 +313,6 @@ function getCSRs() {
 				<td class="actions"><a href="csr-view.php?id='.$row["c_csr_no"].'" class="btn btn-success btn-xs">
 				<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
 
-				<a href="csr-edit.php?id='.$row["c_csr_no"].'" class="btn btn-primary btn-xs">
-				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
-
-				<a href="#" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-success btn-xs email-invoice" onclick="redirectToMail()">
-				<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a> 
-
-				<a href="print.php?id='.$row["c_csr_no"].'" class="btn btn-info btn-xs" target="_blank">
-				<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a> 
-				
 				<a data-csr-id="'.$row['c_csr_no'].'" class="btn btn-danger btn-xs delete-csr">
 				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 				
@@ -703,7 +694,7 @@ function getLots() {
 				    <td>'.$row["c_block"].'</td>
 					<td>'.$row["c_lot"].'</td>
 					<td>'.$row["c_lot_area"].'</td>
-					<td>P'.$row["c_price_sqm"].'</td>
+					<td>'.number_format($row["c_price_sqm"],2).'</td>
 					<td>'.$row["c_status"].'</td>
 				    <td class="actions"><a href="lot-edit.php?id='.$row["c_lid"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-lot-id="'.$row['c_lid'].'" class="btn btn-danger btn-xs delete-lot"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
@@ -989,7 +980,7 @@ function getRAs() {
 					<td>'.$row["ra_id"].'</td>
 					<td>'.$row["c_csr_no"].'</td>
 					<td>'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].' </td>
-					<td>'.$row["c_net_tcp"].'</td>
+					<td>'.number_format($row["c_net_tcp"], 2).'</td>
 				    <td>'.$row["c_date_of_sale"].'</td>
 				';
 			
@@ -1132,10 +1123,6 @@ window.onclick = function(event) {
       }
     }
   }
-}
-
-function redirectToMail() {
-	window.location.href = "./mail.php";
 }
 </script>
 <script type="text/javascript">

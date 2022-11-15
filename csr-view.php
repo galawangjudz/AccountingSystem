@@ -118,7 +118,7 @@ $mysqli->close();
     width:100%;
     background-color:white;
     border-radius:5px;
-   /**box-shadow: 5px 5px #E2DFD2; */ 
+   box-shadow: 5px 5px #E2DFD2; 
     float:left;
 }
 .view_lot{
@@ -128,7 +128,7 @@ $mysqli->close();
     margin-right:1%;
     background-color:white;
     border-radius:5px;
-    /**box-shadow: 5px 5px #E2DFD2;*/
+    box-shadow: 5px 5px #E2DFD2;
     float:left;
 }
 .view_house{
@@ -138,7 +138,7 @@ $mysqli->close();
     margin-left:1%;
     background-color:white;
     border-radius:5px;
-    /**box-shadow: 5px 5px #E2DFD2;*/
+    box-shadow: 5px 5px #E2DFD2;
     float:left;
 }
 .sc{
@@ -147,7 +147,7 @@ $mysqli->close();
     width:100%;
     background-color:white;
     border-radius:5px;
-    /**box-shadow: 5px 5px #E2DFD2;*/
+    box-shadow: 5px 5px #E2DFD2;
     float:left;
 }
 .pd{
@@ -156,7 +156,7 @@ $mysqli->close();
     width:100%;
     background-color:white;
     border-radius:5px;
-   /** box-shadow: 5px 5px #E2DFD2;*/
+   box-shadow: 5px 5px #E2DFD2;
     float:left;
 }
 .ma{
@@ -165,7 +165,7 @@ $mysqli->close();
     width:100%;
     background-color:white;
     border-radius:5px;
-   /** box-shadow: 5px 5px #E2DFD2;*/
+    box-shadow: 5px 5px #E2DFD2;
     float:left;
 }
 .dfc{
@@ -174,7 +174,7 @@ $mysqli->close();
     width:100%;
     background-color:white;
     border-radius:5px;
-   /** box-shadow: 5px 5px #E2DFD2;*/
+    box-shadow: 5px 5px #E2DFD2;
     float:left;
 }
 .fdp{
@@ -183,7 +183,7 @@ $mysqli->close();
     width:100%;
     background-color:white;
     border-radius:5px;
-    /**box-shadow: 5px 5px #E2DFD2;*/
+    box-shadow: 5px 5px #E2DFD2;
     float:left;
 }
 table{
@@ -192,23 +192,22 @@ table{
 #status_list{
     width:175px;
     float: right;
-    height:30px!important;
-    margin-top:-5px;
+    height:25px!important;
+
     border-radius:5px;
     font-weight:bold;
+    border:none;
 }
-#update_status{
+.update_status_box{
     width:100%;
     height:42px;
     border-radius:10px;
-    margin-bottom:-25px;
+    margin-bottom:-30px;
 }
-#updatestatus{
-    height:auto;
+#lblupdatestatus{
     width:125px;
-    float: left;
-    margin-left:750px;
-    margin-top:2px;
+    margin-left:505px;
+    margin-top:3px;
 }
 #upstat{
     border:none;
@@ -229,14 +228,20 @@ table{
     background-color:white!important;
     color:black;
 }
+.lbl_box{
+    width:auto;
+    height:30px;
+    float:right;
+}
+.btn1{
+    background-color:blue!important;
+}
 </style>
 <body onload="loadAll()">
 <div id="response" class="alert alert-success" style="display:none;">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
     <div class="message"></div>
 </div>
-
-
 <div class="row">
     <div class="col-xs-12">
         <div class="panel panel-default">
@@ -250,13 +255,26 @@ table{
                 <div class="row">
                     <div class="titles">Buyer's Profile</div>
                     <form method="POST">
-                        <div id="update_status">
-                        <label id="updatestatus">Update Status: </label>
-                            <select class= "status-list" name= "status_list" id ="status_list" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?>>
-                                <option class="options1" id="pendingselected" value="Pending" <?php if($csr_status === 'Pending'){?>selected<?php }?>>Pending</option>
-                                <option class="options1" id="approvedselected" value="Approved" <?php if($csr_status === 'Approved'){?>selected<?php }?>>Approved</option>
-                                <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($csr_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
-                            </select>
+                        <div class="three_buttons">
+                            <a href="csr-edit.php?id=<?php echo $getID; ?>" class="btn1 btn-primary btn-xs">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
+
+                            <a href="mail.php?id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn1 btn-success btn-xs email-invoice">
+                            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a> 
+
+                            <a href="print.php?id=<?php echo $getID; ?>" class="btn1 btn-info btn-xs" target="_blank">
+                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a> 
+                        </div>
+                        <div class="update_status_box">
+                            <div class="lbl_box">
+                            <label id="lblupdatestatus">Update Status: </label>
+                                <select class= "status-list" name= "status_list" id ="status_list" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?>>
+                                    <option class="options1" id="pendingselected" value="Pending" <?php if($csr_status === 'Pending'){?>selected<?php }?>>Pending</option>
+                                    <option class="options1" id="approvedselected" value="Approved" <?php if($csr_status === 'Approved'){?>selected<?php }?>>Approved</option>
+                                    <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($csr_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
+                                </select>
+                            </div>
+                            
                             <!--  <button type="submit" class="btn btn-sm btn-success" name = "approved_csr" id="approve_csr">Approved<i class="fa fa-check"></i></button>'
                                 <button type="submit" class="btn btn-sm btn-danger ml-2" name = "reject_csr" id="reject_csr">Reject<i class="fa fa-times"></i></button></td></tr></tbody>';
                                 -->
@@ -354,23 +372,23 @@ table{
                                         </tr>
                                         <tr>
                                             <td><b>Lot Area:</b></td>
-                                            <td><?php echo $lot_area ?></td>
+                                            <td><?php echo $lot_area ?> SQM</td>
                                         </tr>
                                         <tr>
                                             <td><b>Price/SQM:</b></td>
-                                            <td><?php echo $price_sqm ?></td>
+                                            <td><?php echo number_format($price_sqm,2) ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Discount (%):</b></td>
-                                            <td><?php echo $lot_disc ?></td>
+                                            <td><?php echo $lot_disc ?> %</td>
                                         </tr>
                                         <tr>
                                             <td><b>Discount Amount:</b></td>
-                                            <td><?php echo $lot_disc_amt ?></td>
+                                            <td><?php echo number_format($lot_disc_amt,2) ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Lot Contract Price:</b></td>
-                                            <td><?php echo $lcp ?></td>
+                                            <td><?php echo number_format($lcp,2) ?></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -385,23 +403,23 @@ table{
                                         </tr>
                                         <tr>
                                             <td><b>Floor Area:</b></td>
-                                            <td><?php echo $floor_area ?></td>
+                                            <td><?php echo $floor_area ?> SQM</td>
                                         </tr>
                                         <tr>
                                             <td><b>House Price/SQM:</b></td>
-                                            <td><?php echo $house_price_sqm ?></td>
+                                            <td><?php echo number_format($house_price_sqm,2) ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Discount (%):</b></td>
-                                            <td><?php echo $house_disc ?></td>
+                                            <td><?php echo $house_disc ?>  %</td>
                                         </tr>
                                         <tr>
                                             <td><b>Discount Amount:</b></td>
-                                            <td><?php echo $house_disc_amt ?></td>
+                                            <td><?php echo number_format($house_disc_amt,2) ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>House Contract Price:</b></td>
-                                            <td><?php echo $hcp ?></td>
+                                            <td><?php echo number_format($hcp,2) ?></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -414,27 +432,27 @@ table{
                                     <table class="table table-striped">
                                         <tr>
                                             <td><b>TCP Discount: </b></td>
-                                            <td><?php echo $tcp_discount ?></td>
+                                            <td><?php echo $tcp_discount ?>  %</td>
                                         </tr>
                                         <tr>
                                             <td><b>TCP Discount Amount: </b></td>
-                                            <td><?php echo $tcp_discount_amt ?></td>
+                                            <td><?php echo number_format($tcp_discount_amt,2) ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Total Contract Price: </b></td>
-                                            <td><?php echo $tcp ?></td>
+                                            <td><?php echo number_format($tcp,2) ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>VAT: </b></td>
-                                            <td><?php echo $vat ?></td>
+                                            <td><?php echo number_format($vat,2) ?></td>
                                         </tr>
-                                        <tr>
+                                        <!---<tr>
                                             <td><b>VAT Amount: </b></td>
-                                            <td><?php echo $vat_amt ?></td>
-                                        </tr>
+                                            <td><?php echo number_format($vat_amt,2) ?></td>
+                                        </tr>!-->
                                         <tr>
                                             <td><b>Net TCP: </b></td>
-                                            <td><?php echo $net_tcp ?></td>
+                                            <td><?php echo number_format($net_tcp,2) ?></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -446,7 +464,7 @@ table{
                                     <table class="table table-striped">
                                         <tr>
                                             <td><b>Reservation: </b></td>
-                                            <td><?php echo $reservation ?></td>
+                                            <td><?php echo number_format($reservation,2) ?></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -459,11 +477,11 @@ table{
                                     <table class="table table-striped">
                                         <tr>
                                             <td><b>Down %:</b></td>
-                                            <td><?php echo $down_percent ?></td>
+                                            <td><?php echo $down_percent ?>  %</td>
                                         </tr>
                                         <tr>
                                             <td><b>Net DP:</b></td>
-                                            <td><?php echo $down_percent ?></td>
+                                            <td><?php echo number_format($net_dp,2) ?></td>
                                         </tr>
                                         <tr>
                                             <td><b># of Payments:</b></td>
@@ -471,7 +489,7 @@ table{
                                         </tr>
                                         <tr>
                                             <td><b>Monthly Down:</b></td>
-                                            <td><?php echo $monthly_down ?></td>
+                                            <td><?php echo number_format($monthly_down,2) ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>First DP:</b></td>
@@ -494,7 +512,7 @@ table{
                                         </tr>
                                         <tr>
                                             <td><b>Net DP:</b></td>
-                                            <td><?php echo $net_dp ?></td>
+                                            <td><?php echo number_format($net_dp,2) ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Full Down:</b></td>
@@ -510,7 +528,7 @@ table{
                                     <table class="table table-striped">
                                         <tr>
                                             <td><b>Amount to be Financed:</b></td>
-                                            <td><?php echo $amt_fnanced ?></td>
+                                            <td><?php echo number_format($amt_fnanced,2) ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Terms:</b></td>
@@ -526,7 +544,7 @@ table{
                                         </tr>
                                         <tr>
                                             <td><b>Monthly Payment:</b></td>
-                                            <td><?php echo $monthly_payment ?></td>
+                                            <td><?php echo number_format($monthly_payment,2) ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Start Date:</b></td>
@@ -542,7 +560,7 @@ table{
                                     <table class="table table-striped">
                                         <tr>
                                             <td><b>Deferred Amount:</b></td>
-                                            <td><?php echo $amt_fnanced ?></td>
+                                            <td><?php echo number_format($amt_fnanced,2) ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Terms:</b></td>
@@ -550,7 +568,7 @@ table{
                                         </tr>
                                         <tr>
                                             <td><b>Monthly Payment:</b></td>
-                                            <td><?php echo $monthly_payment ?></td>
+                                            <td><?php echo number_format($monthly_payment,2) ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Start Date:</b></td>
@@ -565,11 +583,11 @@ table{
                                     <table class="table table-striped">
                                         <tr>
                                             <td><b>Amount:</b></td>
-                                            <td><?php echo $house_model ?></td>
+                                            <td><?php echo number_format($amt_fnanced,2) ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Pay Date:</b></td>
-                                            <td><?php echo $floor_area ?></td>
+                                            <td><?php echo $start_date ?></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -603,9 +621,6 @@ table{
 </body>
 
 <script>
-
-
-
     function statusColor(){
         var cstatus=document.getElementById('txtstatus').value;
         if (cstatus=='Disapproved'){
@@ -690,5 +705,9 @@ table{
     function loadAll(){
         paymentType();
         statusColor();
+        resFormat();
     }
+	function resFormat(){
+
+	}
 </script>
