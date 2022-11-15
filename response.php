@@ -1492,6 +1492,11 @@ if($action == 'login') {
 		$_SESSION['login_username'] = $row['username'];
 		$_SESSION['login_usertype'] = $row['user_type'];
 
+		$_SESSION['login_lastname'] = $row['last_name'];
+		$_SESSION['login_firstname']= $row['first_name'];
+		$_SESSION['login_middlename'] = $row['middle_name'];
+
+
 		// processing remember me option and setting cookie with long expiry date
 		if (isset($_POST['remember'])) {	
 			session_set_cookie_params([604800]); //one week (value in seconds)

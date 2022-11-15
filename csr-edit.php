@@ -272,7 +272,7 @@ $mysqli->close();
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<div class="titles">Buyer's Information Details</div>
-							<a href="#" class="float-right select-customer"><b>OR</b> Select Existing Customer</a>
+							
 							<div class="clear"></div>
 						</div>
 						<div class="panel-body form-group form-group-sm">
@@ -432,7 +432,7 @@ $mysqli->close();
 									<select name="employment_status" id="employment_status" class="form-control required" tabindex = "20" required >
 										<option value="Employed" <?php if($employment_status === 'Employed'){?>selected<?php }?>>Employed</option>
 										<option value="Self-mployed" <?php if($employment_status === 'Self-Employed'){?>selected<?php }?>>Self Employed</option>
-										<option value="OCW" <?php if($employment_status === 'OCW'){?>selected<?php }?>>OCSW</option>
+										<option value="OCW" <?php if($employment_status === 'OCW'){?>selected<?php }?>>OCW</option>
 										<option value="Retired" <?php if($employment_status === 'Retired'){?>selected<?php }?>>Retired</option>
 										<option value="Others" <?php if($employment_status === 'Others'){?>selected<?php }?>>Others</option>
 										
@@ -940,10 +940,6 @@ $mysqli->close();
 		<div id="insert_customer" class="modal fade">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Select An Existing Customer</h4>
-				</div>
 				<div class="modal-body">
 					
 					<?php popCustomersList(); ?>
