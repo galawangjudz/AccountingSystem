@@ -259,6 +259,9 @@ function getCSRs() {
 		$query = "SELECT *
 		FROM t_csr
 		ORDER BY c_date_of_sale";
+	}else if(($usertype) == ('COO')){
+		$query = "SELECT * FROM t_csr where c_csr_status != 'Pending'";
+	
 	}else{
 		$query = "SELECT *
 		FROM t_csr 
@@ -496,11 +499,11 @@ function popLotsList() {
 
 
 	// the query
-	$query = "SELECT * 
+	$query = "SELECT c_lid, c.c_acronym, i.c_block, i.c_lot, i.c_status, i.c_lot_area, i.c_price_sqm 
 	FROM t_lots i 
 	JOIN t_projects c 
 	ON i.c_site = c.c_code
-	WHERE i.c_site = c.c_code  
+	WHERE i.c_site = c.c_code  and  (i.c_status = 'Available' or i.c_status  = 'Pre-Reserved')
 	ORDER BY c.c_acronym, i.c_block, i.c_lot";
 
 	//echo $query;
@@ -515,6 +518,7 @@ function popLotsList() {
 				<th>Project</th>
 				<th>Block</th>
 				<th>Lot</th>
+				<th>Status </th>
 				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
@@ -527,6 +531,7 @@ function popLotsList() {
 					<td>'.$row["c_acronym"].'</td>
 				    <td>'.$row["c_block"].'</td>
 				    <td>'.$row["c_lot"].'</td>
+					<td>'.$row["c_status"].'</td>
 				    <td class="actions"><a href="#" class="btn btn-primary btn-xs lot-select" data-lot-lid="'.$row['c_lid'].'" data-lot-site="'.$row['c_acronym'].'" data-lot-block="'.$row['c_block'].'" data-lot-lot="'.$row['c_lot'].'" data-lot-lot-area="'.$row['c_lot_area'].'" data-lot-per-sqm="'.$row['c_price_sqm'].'">Select</a></td>
 			   
 				</tr>
