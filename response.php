@@ -565,13 +565,13 @@ if($action == 'update_stat') {
 	
 
 	// the query
-	if ($stat == "Approved"){
+	/* if ($stat == "Approved"){
 		$query = "UPDATE t_lots SET c_status = 'Pre-Reserved' where c_lid = '.$lot_id.'";
 
-	}else if($stat == "Disapproved" {
+	}else if($stat == "Disapproved") {
 		$query = "UPDATE t_lots SET c_status = 'Pre-Reserved' where c_lid = '.$lot_id.'";
-	}
-	$query .= "UPDATE t_csr SET c_csr_status = ".$stat." where c_csr_no = ".$id.";";
+	} */
+	$query = "UPDATE t_csr SET c_csr_status = ".$stat." where c_csr_no = ".$id.";";
 
 
 
