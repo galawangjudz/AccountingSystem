@@ -997,35 +997,6 @@ function getRAs() {
 			print '
 				<tr>
 					<td>'.$row["c_csr_no"].'</td>
-
-					<td>'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].' </td>
-					<td>'.number_format($row["c_net_tcp"], 2).'</td>
-				    <td>'.$row["c_date_of_sale"].'</td>
-				';
-			
-				if($row['c_ra_status'] == "Approved"){
-					print '<td><span class="label label-success">'.$row['c_ra_status'].'</span></td>';
-				} elseif ($row['c_ra_status'] == "Pending"){
-					print '<td><span class="label label-warning">'.$row['c_ra_status'].'</span></td>';
-				} elseif ($row['c_ra_status'] == "Disapproved"){
-					print '<td><span class="label label-danger">'.$row['c_ra_status'].'</span></td>';}
-
-				else{
-					print '<td><span class="label label-danger">No status</span></td>';
-				}
-				
-				print '<td>
-				<select id= "ra_stat" onchange=status_change(this.option[this.selectedIndex].value,'.$row["ra_id"].')>
-					<option value="No Status">Update Status</option>  
-					<option value="Pending">Pending</option>  
-					<option value="Approved">Approved</option>  
-					<option value="Disapproved">Disapproved</option>  
-				</select>';
-
-			 print '
-				    <td class="actions"><a data-ra-id="'.$row['ra_id'].'" class="btn btn-danger btn-xs delete-ra"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
-
-					
 					<td>'.$row["c_reserve_date"].'</td>
 					<td>'.$row["c_or_no"].'</td>
 					<td>'.$row["c_amount_paid"].'</td>
