@@ -13,9 +13,9 @@
 	$userfirst = $_SESSION['login_firstname'];
 	$usermiddle = $_SESSION['login_middlename'];
 
-	//if(!isset($username)) {
-	   // header("Location:index.php");
-	//}
+	if(!isset($username)) {
+	    header("Location:index.php");
+	}
 
 
 ?>

@@ -255,17 +255,17 @@ function getCSRs() {
 	$usertype = $_SESSION['login_usertype'];
 	$username = $_SESSION['login_username'];
 	
-/* 	if(($usertype) == ('IT Admin')){
+	if(($usertype) == ('IT Admin')){
 		$query = "SELECT *
 		FROM t_csr
 		ORDER BY c_date_of_sale";
-	}else{ */
+	}else{
 	$query = "SELECT *
 	FROM t_csr 
 	WHERE c_created_by = '$username'
 	ORDER BY c_date_of_sale";
-/* 	}
- */
+ 	}
+
     
 
 	// mysqli select query
