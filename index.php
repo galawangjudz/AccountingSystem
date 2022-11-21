@@ -182,7 +182,7 @@ body{
         document.getElementById('samp_txt').value=msg_res;
         var samp = document.getElementById('samp_txt').value;
         var box = document.getElementsByClassName('toast');
-        if(samp == "Logged in successfully!                "){
+        if(samp == "Logged in successfully!            "){
             for(var i = 0; i < box.length; i++){
                 box[i].style.backgroundColor = "green";
                 setInterval(redirectToDashboard,3000);

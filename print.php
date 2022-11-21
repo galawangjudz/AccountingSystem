@@ -1,7 +1,8 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<?php include "includes/header.php" ?>
+<?php include "includes/header.php" ;
+      include('functions.php');?>
   <?php
     $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
     $query = "SELECT * from `t_csr` where c_csr_no = '{$_GET['id']}' ";
