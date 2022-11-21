@@ -219,8 +219,7 @@ $(document).ready(function() {
 	// delete ra
 	$(document).on('click', ".delete-ra", function(e) {
 		e.preventDefault();
-
-		var raId = 'action=delete_ra&delete='+ $(this).attr('data-ra-id'); //build a post data structure
+		var raId = 'action=delete_ra&delete='+ $(this).attr('data-ra-id')+'&csr_no=' + $(this).attr('data-csr-no');
 		var ra = $(this);
 		
 		$('#delete_ra').modal({ backdrop: 'static', keyboard: false }).one('click', '#delete', function() {
@@ -616,6 +615,11 @@ function updateTotals(elem) {
 	$(document).on('click', "#action_update_csr", function(e) {
 		e.preventDefault();
 		updateCSR();
+	});
+
+	$(document).on('click', "#action_update_reservation", function(e) {
+		e.preventDefault();
+		updateRes();
 	});
 
 	
@@ -1815,6 +1819,40 @@ function updateTotals(elem) {
 	});
 		}
 }
+
+	function updateRes() {
+
+	
+		var $btn = $("#action_update_reservation").button("loading");
+   		$("#update_reservation").find(':input:disabled').removeAttr('disabled');
+		//setTimeout(function() {
+        jQuery.ajax({
+
+        	url: 'response.php',
+            type: 'POST', 
+            data: $("#update_reservation").serialize(),
+            dataType: 'json', 
+            success: function(data){
+				//setInterval(function() {
+					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+					$btn.button("reset");
+					setInterval('location.reload()', 4000);
+					//},500);
+			},
+			error: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				$btn.button("reset");
+			} 
+    	});
+		//}, 1000); //interval
+
+   	}
+
+
 
    	function updateUser() {
 

@@ -45,6 +45,7 @@
                 $_SESSION['middlename'] = $row['middle_name'];
                 //$_SESSION['id'] = $row['id'];
 
+
                 echo "Logged in successfully!"; 
                 
                 ?>

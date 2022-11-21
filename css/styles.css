@@ -54,6 +54,15 @@ body {
   border-color: #f44336;
 }
 
+.btn-success {
+  background-color: #03b9f0;
+  border-color: #03b9f0;
+}
+
+.btn-success:hover {
+  background-color: #1188e9;
+  border-color: #1188e9;
+}
 .btn-danger:hover {
   background-color: #f72a1b;
   border-color: #f72a1b;
@@ -647,7 +656,7 @@ input{
 }
 .three_buttons{
   margin-top:5px;
-  width:250px;
+  width:550px;
   height:30px;
   float:left;
 }
