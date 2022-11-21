@@ -236,6 +236,10 @@ table{
 .btn1{
     background-color:blue!important;
 }
+
+
+
+
 </style>
 <body onload="loadAll()">
 <div id="response" class="alert alert-success" style="display:none;">
@@ -244,27 +248,60 @@ table{
 </div>
 <div class="row">
     <div class="col-xs-12">
+    
         <div class="panel panel-default">
             <div class="panel-heading">
                 <input type="hidden" value="<?php echo $p1; ?>" id="p1">
                 <input type="hidden" value="<?php echo $p2; ?>" id="p2">
-                <h2 class="float-left">CSR #<?php echo $getID; ?></h2>
+                <h2 class="float-left">Buyer's Profile</h2>
                 <div class="clear"></div>
             </div>
             <div class="panel-body form-group form-group-sm">
                 <div class="row">
-                    <div class="titles">Buyer's Profile</div>
-                    <form method="POST">
-                        <div class="three_buttons">
-                            <a href="csr-edit.php?id=<?php echo $getID; ?>" class="btn1 btn-primary btn-xs">
+                     <div class="buttons">
+                        <!--     <a href="csr-edit.php?id=<?php echo $getID; ?>" class="btn1 btn-primary btn-xs">
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
-
                             <a href="mail.php?id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn1 btn-success btn-xs email-invoice">
                             <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a> 
 
                             <a href="print.php?id=<?php echo $getID; ?>" class="btn1 btn-info btn-xs" target="_blank">
                             <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a> 
-                        </div>
+                        -->
+
+                            <?php if($usertype == "IT Admin"){?>
+                            
+                                <a href="csr-edit.php?id=<?php echo $getID; ?>" class="btn btn-primary">Edit <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
+                                <a href="mail.php?id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
+                                <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                <hr>
+                                <?php if($csr_status == "Pending"){?>                    
+                                <button type="button" id= "verify_btn" csr-id =<?php echo $getID; ?> value="Verified" class="btn btn-success btn-lg btn-block">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                <button type="button" id= "void_btn" csr-id =<?php echo $getID; ?> value="Cancelled" class="btn btn-danger btn-lg btn-block">Cancelled <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
+                                <?php } ?>
+
+                            <?php }else if($usertype == "COO"){?>
+                                <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                <hr>
+                
+               
+                             <?php } else if ($usertype == "SOS"){?>
+                                <a href="mail.php?id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
+                                <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                <hr>
+                
+                                <button type="button" id= "verify_btn" csr-id =<?php echo $getID; ?> value="Verified" class="btn btn-success btn-lg btn-block">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                <button type="button" id= "void_btn" csr-id =<?php echo $getID; ?> value="Cancelled" class="btn btn-danger btn-lg btn-block">Cancelled <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
+                               
+                             <?php } ?>
+
+                         
+                    </div>
+                
+                    <div class="titles"> CSR #<?php echo $getID; ?></div>
+               
+                 
+                    <?php if($usertype == "COO" || $usertype == "IT Admin"){?>            
+                        
                         <div class="update_status_box">
                             <div class="lbl_box">
                             <label id="lblupdatestatus">Update Status: </label>
@@ -285,6 +322,9 @@ table{
                                     --> <!-- <input type="submit" id="" class="btn btn-success float-right" value="Aprroved" data-loading-text="Creating..."> -->
                                 
                         </div>
+                        
+                        <?php } ?>
+                         
                 
                         <br>
                         <div class="view_box">
@@ -687,13 +727,15 @@ table{
                         </li>
                     <?php endforeach; ?>
                 </ul>    
-                
+              
             </div> 
-            
+
         </div>
     </div>
 </div>
    
+
+
 
 <div id="update_stat" class="modal fade">
   <div class="modal-dialog">
@@ -707,6 +749,25 @@ table{
       </div>
       <div class="modal-footer">
         <button type="button" data-dismiss="modal" class="btn btn-primary" id="confirm">Confirm</button>
+		<button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="verify_stat" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Verify Status</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to verify CSR?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-primary" id="verify">Confirm</button>
 		<button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
       </div>
     </div><!-- /.modal-content -->

@@ -255,17 +255,26 @@ function getCSRs() {
 	$usertype = $_SESSION['login_usertype'];
 	$username = $_SESSION['login_username'];
 	
-/* 	if(($usertype) == ('IT Admin')){
+	if(($usertype) == ('IT Admin')){
 		$query = "SELECT *
 		FROM t_csr
 		ORDER BY c_date_of_sale";
-	}else{ */
+	}else if ($usertype ==  'COO'){
+		$query = "SELECT *
+		FROM t_csr WHERE c_csr_status = 'Verified'
+		ORDER BY c_date_of_sale";
+	}else if ($usertype ==  'SOS') {
+		$query = "SELECT *
+		FROM t_csr WHERE c_csr_status = 'Pending'
+		ORDER BY c_date_of_sale";
+		
+	}else {
 	$query = "SELECT *
 	FROM t_csr 
 	WHERE c_created_by = '$username'
 	ORDER BY c_date_of_sale";
-/* 	}
- */
+ 	}
+
     
 
 	// mysqli select query
@@ -304,7 +313,10 @@ function getCSRs() {
 				} elseif ($row['c_csr_status'] == "Pending"){
 					print '<td><span class="label label-warning">'.$row['c_csr_status'].'</span></td>';
 				} elseif ($row['c_csr_status'] == "Disapproved"){
-					print '<td><span class="label label-danger">'.$row['c_csr_status'].'</span></td>';}
+					print '<td><span class="label label-danger">'.$row['c_csr_status'].'</span></td>';
+				} elseif ($row['c_csr_status'] == "Verified"){
+					print '<td><span class="label label-info">'.$row['c_csr_status'].'</span></td>';
+				}
 
 				else{
 					print '<td><span class="label label-danger">No status</span></td>';
@@ -314,7 +326,7 @@ function getCSRs() {
 					print '<td><span class="label label-success">'.$row['c_reserve_status'].'</span></td>';
 			
 				}else{
-					print '<td><span class="label label-danger">Not Paid</span></td>';
+					print '<td><span class="label label-warning">Unpaid</span></td>';
 				}
 
 
@@ -327,7 +339,7 @@ function getCSRs() {
 					print '<td><span class="label label-danger">'.$row['c_ra_status'].'</span></td>';}
 
 				else{
-					print '<td><span class="label label-danger">Not Yet</span></td>';
+					print '<td><span class="label label-danger"> --- </span></td>';
 				}
 
 			
@@ -1000,9 +1012,9 @@ function getRAs() {
 					<td>'.$row["c_reserve_date"].'</td>
 					<td>'.$row["c_or_no"].'</td>
 					<td>'.$row["c_amount_paid"].'</td>
-					<td class="actions"><a href="ra-edit.php?id='.$row["c_csr_no"].'" class="btn btn-primary btn-xs">
+					<td class="actions"><a href="ra-edit.php?id='.$row["id"].'" class="btn btn-primary btn-xs">
 					<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-				  	<a data-ra-id="'.$row['c_csr_no'].'" class="btn btn-danger btn-xs delete-ra">
+				  	<a data-ra-id="'.$row['id'].'" data-csr-no="'.$row['c_csr_no'].'" class="btn btn-danger btn-xs delete-ra">
 					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 
 			    </tr>
@@ -1052,7 +1064,7 @@ function popRAsList() {
 		ON z.c_csr_no = i.c_csr_no
 		ORDER BY i.ra_id"; */
 
-		$query = "SELECT c_csr_no, c_acronym, c_block, c_lot, x.c_lid
+		$query = "SELECT c.c_reservation,c_csr_no, c_acronym, c_block, c_lot, x.c_lid
 		FROM  t_csr c 
         LEFT JOIN t_lots x 
         ON x.c_lid = c.c_lot_lid
@@ -1091,7 +1103,7 @@ function popRAsList() {
 						<td>'.$row["c_lot"].'</td>
 					
 						
-						<td><a href="#" class="btn btn-primary btn-xs ra-select" data-ra-lot-lid="'.$row['c_lid'].'" data-csr-no="'.$row['c_csr_no'].'" data-ra-site="'.$row['c_acronym'].'" data-ra-block="'.$row['c_block'].'" data-ra-lot="'.$row['c_lot'].'">Select</a></td>
+						<td><a href="#" class="btn btn-primary btn-xs ra-select" data-ra-lot-lid="'.$row['c_lid'].'" data-csr-no="'.$row['c_csr_no'].'" data-ra-site="'.$row['c_acronym'].'" data-ra-block="'.$row['c_block'].'" data-ra-lot="'.$row['c_lot'].'" data-ra-res="'.$row['c_reservation'].'">Select</a></td>
 				   
 						</tr>
 				';
