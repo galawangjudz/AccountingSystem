@@ -6,7 +6,7 @@ ini_set('error_reporting', E_ALL);
 define('DATABASE_HOST', getenv('IP'));
 define('DATABASE_NAME', 'alscdb');
 define('DATABASE_USER', 'root');
-define('DATABASE_PASS', '');
+define('DATABASE_PASS', '12345');
 
 // COMPANY INFORMATION
 define('COMPANY_LOGO', 'images/logo.png');
