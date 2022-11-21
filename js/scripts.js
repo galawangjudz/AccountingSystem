@@ -42,6 +42,9 @@ $(document).ready(function() {
 	    actionAddReply();
 	});
 
+	
+
+
 	// password strength 
 	var options = {
         onLoad: function () {
@@ -94,6 +97,19 @@ $(document).ready(function() {
 		e.preventDefault();
 		updateUser();
 	});
+
+
+	// verify csr
+	$(document).on('click', "#verify_btn", function(e) {
+        e.preventDefault();
+        var csrId = 'action=verify_csr&id='+ $(this).attr('csr-id'); //build a post data structure
+		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
+			verify_btn(csrId);
+
+		});
+   	});
+
+
 
 	// delete user
 	$(document).on('click', ".delete-user", function(e) {
@@ -1550,6 +1566,30 @@ function updateTotals(elem) {
 
    	}
 
+
+	function verify_btn(csrId) {
+
+        jQuery.ajax({
+
+        	url: 'response.php',
+            type: 'POST', 
+            data: csrId,
+            dataType: 'json', 
+            success: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				$btn.button("reset");
+			},
+			error: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				$btn.button("reset");
+			} 
+    	});
+
+   	}
 	   function deleteRA(raId) {
 
         jQuery.ajax({

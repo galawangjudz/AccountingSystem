@@ -45,26 +45,12 @@
             $_SESSION['middlename'] = $row['middle_name'];
 
 
-<<<<<<< HEAD
 
-            //$_SESSION['id'] = $row['id'];
-
-
+           
             echo "Logged in successfully!"; 
-            
-
-            ?>
-            <?php
-
-=======
-                echo "Logged in successfully!"; 
                 
      
-            }else{
-            echo "Incorrect credentials!"; 
-                exit();
-            }
->>>>>>> cc7dba8f7da664d5bed2e77067832022654d7d31
+           
 
         }else{
         echo "Incorrect credentials!"; 
@@ -74,8 +60,9 @@
     }else{
     echo "Incorrect credentials!"; 
         exit();
+    
+        }
     }
-}
     
    // if ($conn->query($sql)===TRUE) {
       //echo "message sent successfully";     
