@@ -58,6 +58,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 	$civil_status = $row['c_civil_status']; // customer civil status
 	$employment_status = $row['c_employment_status']; // customer civil status
     $csr_status = $row['c_csr_status'];// status
+    $reserv_status = $row['c_reserve_status'];// status
+    $ra_status = $row['c_ra_status'];// status
 
     ///LOT
     $lot_area = $row['c_lot_area'];
@@ -191,13 +193,20 @@ table{
 }
 #status_list{
     width:175px;
-    float: right;
     height:25px!important;
 
     border-radius:5px;
     font-weight:bold;
     border:none;
-}
+} 
+#ca_approval{
+    width:175px;
+    height:25px!important;
+
+    border-radius:5px;
+    font-weight:bold;
+    border:none;
+} 
 .update_status_box{
     width:100%;
     height:42px;
@@ -229,6 +238,11 @@ table{
     color:black;
 }
 .lbl_box{
+    width:auto;
+    height:30px;
+    float:right;
+}
+.lbl_box2{
     width:auto;
     height:30px;
     float:right;
@@ -300,31 +314,7 @@ table{
                     <div class="titles"> CSR #<?php echo $getID; ?></div>
                
                  
-                    <?php if($usertype == "COO" || $usertype == "IT Admin"){?>            
-                        
-                        <div class="update_status_box">
-                            <div class="lbl_box">
-                            <label id="lblupdatestatus">Update Status: </label>
-                                <select class= "status-list" name= "status_list" id ="status_list" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?>>
-                                    <option class="options1" id="pendingselected" value="Pending" <?php if($csr_status === 'Pending'){?>selected<?php }?>>Pending</option>
-                                    <option class="options1" id="approvedselected" value="Approved" <?php if($csr_status === 'Approved'){?>selected<?php }?>>Approved</option>
-                                    <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($csr_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
-                                </select>
-                            </div>
-                            
-                            <!--  <button type="submit" class="btn btn-sm btn-success" name = "approved_csr" id="approve_csr">Approved<i class="fa fa-check"></i></button>'
-                                <button type="submit" class="btn btn-sm btn-danger ml-2" name = "reject_csr" id="reject_csr">Reject<i class="fa fa-times"></i></button></td></tr></tbody>';
-                                -->
-                                
-                                <!--   <button type="sumbit" class="btn btn-success waves-effect waves-light csr-status" id="csr_status" name="csr_approved" ><i class="fa fa-check"></i>  Aprroved</button> </a>
-                                    <button type="sumbit" class="btn btn-primary waves-effect waves-light csr-status" id="csr_status" name="csr_pending"><i class="fa fa-clock-o"></i>  Pending </button></a>
-                                    <button type="sumbit" class="btn btn-warning waves-effect waves-light csr-status" id="csr_status" name="csr_disapproved"><i class="fa fa-times"></i>  Disapproved </button></a>
-                                    --> <!-- <input type="submit" id="" class="btn btn-success float-right" value="Aprroved" data-loading-text="Creating..."> -->
-                                
-                        </div>
-                        
-                        <?php } ?>
-                         
+                    
                 
                         <br>
                         <div class="view_box">
@@ -390,10 +380,52 @@ table{
                                         <td><b>Employment Status:</b></td>
                                         <td><?php echo $employment_status ?></td>
                                     </tr>
-                                    <tr>
+                                  <!--   <tr>
                                         <td><b>Status: </b></td>
                                         <td><input type="text" id="txtstatus" value="<?php echo $csr_status?>"></td>
-                                    </tr>
+                                    </tr> -->
+                                   
+                                    <?php if($usertype == "COO" || $usertype == "IT Admin"){?>       
+                                        <tr>  <div class="lbl_box">       
+                                            <td><label id="lblupdatestatus3">COO Approval: </label></td>
+                                            <td> <select class= "status-list" name= "status_list" id ="status_list" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?>>
+                                                    <option class="options1" id="pendingselected" value="Pending" <?php if($csr_status === 'Pending'){?>selected<?php }?>>Pending</option>
+                                                    <option class="options1" id="approvedselected" value="Approved" <?php if($csr_status === 'Approved'){?>selected<?php }?>>Approved</option>
+                                                    <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($csr_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
+                                                </select>
+                                                </td>
+                                                </div>
+                                        </tr>
+                                    <?php } ?>
+                                        <tr> 
+                                            <td><b>Reservation Status:</b></td>
+                                            <td><?php echo $reserv_status ?></td>
+                                        </tr>
+
+                                        <tr>
+                                    <?php if($usertype == "CA" || $usertype == "IT Admin"){?>       
+                                        <div class="lbl_box2">
+                                        <td><label id="lblupdatestatus2">CA Approval: </label></td>
+                                            <td><select class= "ca-approval" name= "ca_approval" id ="ca_approval" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?>>
+                                                <option class="options1" id="pendingselected" value="Pending" <?php if($ra_status === 'Pending'){?>selected<?php }?>>Pending</option>
+                                                <option class="options1" id="approvedselected" value="Approved" <?php if($ra_status === 'Approved'){?>selected<?php }?>>Approved</option>
+                                                <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($ra_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
+                                            </select></td>
+                                        </div>
+                                        </tr>
+                                        <!--  <button type="submit" class="btn btn-sm btn-success" name = "approved_csr" id="approve_csr">Approved<i class="fa fa-check"></i></button>'
+                                            <button type="submit" class="btn btn-sm btn-danger ml-2" name = "reject_csr" id="reject_csr">Reject<i class="fa fa-times"></i></button></td></tr></tbody>';
+                                            -->
+                                            
+                                            <!--   <button type="sumbit" class="btn btn-success waves-effect waves-light csr-status" id="csr_status" name="csr_approved" ><i class="fa fa-check"></i>  Aprroved</button> </a>
+                                                <button type="sumbit" class="btn btn-primary waves-effect waves-light csr-status" id="csr_status" name="csr_pending"><i class="fa fa-clock-o"></i>  Pending </button></a>
+                                                <button type="sumbit" class="btn btn-warning waves-effect waves-light csr-status" id="csr_status" name="csr_disapproved"><i class="fa fa-times"></i>  Disapproved </button></a>
+                                                --> <!-- <input type="submit" id="" class="btn btn-success float-right" value="Aprroved" data-loading-text="Creating..."> -->
+                                            
+                                    </div>
+                                    
+                                    <?php } ?>
+                         
                                 </table> 
                             </div>       
                         </div>

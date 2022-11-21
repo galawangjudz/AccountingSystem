@@ -315,6 +315,26 @@ $(document).ready(function() {
    	});
 
 
+	//change approval
+	$(document).on('change', ".ca-approval", function(e) {
+		e.preventDefault();
+
+		var stat = $("#ca_approval").val();
+		//alert(stat);
+		var csrId = 'action=ca_stat&stat="'+ stat + '"&id='+ $(this).attr('csr-id')+'&lot_lid=' + $(this).attr('csr-lot-lid'); //build a post data structure
+		//var csrId = 'action=update_stat&stat="'+ stat + '"&id='+ $(this).attr('csr-id')
+		//alert(csrId);
+	
+		$(".modal-body #upstat").val(stat);
+		$('#update_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#confirm', function() {
+			UpdateCAStat(csrId);
+			//$(csr).closest('tr').remove();
+		
+		});
+	});
+	
+
+
 	
 	// create customer
 	$("#action_create_customer").click(function(e) {
@@ -2094,6 +2114,34 @@ function updateAgent(){
 	 });
 
 	}
+
+	function UpdateCAStat(csrId) {
+
+
+		jQuery.ajax({
+
+			url: 'response.php',
+			type: 'POST', 
+			data: csrId,
+			dataType: 'json', 
+			success: function(data){
+
+					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+					setInterval('location.reload()', 500);
+			
+			},
+			error: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				setInterval('location.reload()', 500);
+			} 
+		});
+
+	}
+   
 
 	function actionAddComment() {
 		

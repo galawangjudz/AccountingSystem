@@ -696,43 +696,31 @@ if($action == 'update_stat') {
 }
 
 
-if($action == 'ra_stat') {
-	
+if($action == 'ca_stat') {
 
-	// output any connection error
 	if ($mysqli->connect_error) {
 	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
 	}
 
 	$id = $_POST["id"];
 	$stat = $_POST["stat"];
+	$lot_lid = $_POST["lot_lid"];
 	date_default_timezone_set("Asia/Manila");
-	$ra_date_approved = date("Y-m-d H:i:s"); 
+	$ca_approved_date = date("Y-m-d H:i:s"); 
 
 	
 
 	// the query
-	$query = "UPDATE t_ra SET c_ra_status = ".$stat.", c_date_approved = ".$ra_date_approved." where ra_id = ".$id.";";
+	/* if ($stat == "Approved"){
+		$query = "UPDATE t_lots SET c_status = 'Pre-Reserved' where c_lid = '.$lot_id.'";
+
+	}else if($stat == "Disapproved") {
+		$query = "UPDATE t_lots SET c_status = 'Pre-Reserved' where c_lid = '.$lot_id.'";
+	} */
+	$query = "UPDATE t_csr SET c_ra_status = ".$stat." where c_csr_no = ".$id.";";
 
 
-	if ($stat == '"Approved"'){
-		
-				/* 	$query .= "INSERT INTO t_buyers_account (
-				c_csr_no,
-				c_lot_lid,
-				c_ra_status,
-				c_date_created
-				) VALUES (
-				'".$id."',
-				'".$lot_lid."',
-				'".$ra_stat."',
-				'".$ra_date_create."'
-				)
-				";}
 
-				*/
-				}
-		
 
 	if($mysqli -> multi_query($query)) {
 	    //if saving success
@@ -754,6 +742,10 @@ if($action == 'ra_stat') {
 	$mysqli->close();
 
 }
+
+
+
+
 if($action == 'delete_ra') {
 
 	// output any connection error
