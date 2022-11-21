@@ -1,6 +1,5 @@
 
 <?php 
-
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -46,6 +45,7 @@
             $_SESSION['middlename'] = $row['middle_name'];
 
 
+<<<<<<< HEAD
 
             //$_SESSION['id'] = $row['id'];
 
@@ -56,6 +56,15 @@
             ?>
             <?php
 
+=======
+                echo "Logged in successfully!"; 
+                
+     
+            }else{
+            echo "Incorrect credentials!"; 
+                exit();
+            }
+>>>>>>> cc7dba8f7da664d5bed2e77067832022654d7d31
 
         }else{
         echo "Incorrect credentials!"; 
