@@ -48,8 +48,7 @@
 
                 echo "Logged in successfully!"; 
                 
-                ?>
-                <?php
+     
             }else{
             echo "Incorrect credentials!"; 
                 exit();
