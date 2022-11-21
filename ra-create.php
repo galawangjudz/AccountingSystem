@@ -94,7 +94,7 @@ include('functions.php');
             <div class="col-xs-12">   
                 <div class="form-group">
                     <label>Reservation Fee: </label>
-                    <input type="text" class="form-control margin-bottom required" name="amount_paid" id="amount_paid" tabindex="3" readonly>	
+                    <input type="text" class="form-control margin-bottom required" name="amount_paid" id="amount_paid" tabindex="3">	
                 </div>
             </div>
         </div>      
