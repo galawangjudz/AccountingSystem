@@ -93,6 +93,7 @@ body {
   height:auto;
   width:auto;
   margin-bottom: 30px;
+
 }
 .addbtn{
   float:right;
@@ -653,4 +654,10 @@ input{
 #inside_txtbox{
   border:none;
   position:absolute;
+}
+.main_panel{
+  height:250px;
+  width:27%;
+  margin-left:auto;
+  margin-right:auto;
 }

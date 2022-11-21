@@ -1495,12 +1495,13 @@ if($action == 'login') {
     if($count!="") {
 		$row = $results->fetch_assoc();
 
-		$_SESSION['login_username'] = $row['username'];
-		$_SESSION['login_usertype'] = $row['user_type'];
+		$_SESSION['username'] = $row['username'];
+		$_SESSION['user_type'] = $row['user_type'];
+		$_SESSION['password'] = $row['password'];
 
-		$_SESSION['login_lastname'] = $row['last_name'];
-		$_SESSION['login_firstname']= $row['first_name'];
-		$_SESSION['login_middlename'] = $row['middle_name'];
+		$_SESSION['lastname'] = $row['last_name'];
+		$_SESSION['firstname']= $row['first_name'];
+		$_SESSION['middlename'] = $row['middle_name'];
 
 
 		// processing remember me option and setting cookie with long expiry date
@@ -1519,6 +1520,7 @@ if($action == 'login') {
 	    	//'message'=> 'There has been an error, please try again.'
 	    	'message' => 'Login incorrect, does not exist or simply a problem! Try again!'
 	    ));
+
     }
 }
 

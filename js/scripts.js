@@ -1,3 +1,5 @@
+
+
 $(document).ready(function() {
 
 
@@ -1438,8 +1440,9 @@ function updateTotals(elem) {
 					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
 					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+					$("#save_reservation").remove();
+					setInterval(redirectToRaList,2000);
 					$btn.button("reset");
-					setInterval('location.reload()', 4000);
 					
 				},
 				error: function(data){
@@ -1970,16 +1973,15 @@ function updateAgent(){
 
    
 
+
    	// login function
-	function actionLogin() {
+	/**function actionLogin() {
 
 		var errorCounter = validateForm();
 
 		if (errorCounter > 0) {
+			toastr["error"]('Missing something are we? check and try again!');
 
-		    $("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-		    $("#response .message").html("<strong>Error</strong>: Missing something are we? check and try again!");
-		    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 
 		} else {
 
@@ -1991,25 +1993,20 @@ function updateAgent(){
 				data: $("#login_form").serialize(), // serializes the form's elements.
 				dataType: 'json',
 				success: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$btn.button("reset");
+					toastr["success"]('Login was a success! Transfering you to the system now, hold tight!');
+
+					setTimeout(function(){location.href="dashboard.php"} , 3000);   
 					
-					window.location = "dashboard.php";
 				},
 				error: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 2000);
-					$btn.button("reset");
+					toastr["error"].html(data.status);
 				}
 
 			});
 
 		}
 		
-	}
+	}*/
 
    	function validateForm() {
 	    // error handling
@@ -2190,4 +2187,8 @@ function redirectToAgentList(){
 
 function redirectToUserList(){
 	window.location.href = "./user-list.php";
+}
+
+function redirectToRaList(){
+	window.location.href = "./ra-list.php";
 }
