@@ -252,8 +252,8 @@ function getCSRs() {
 
 	// the query
 
-	$usertype = $_SESSION['login_usertype'];
-	$username = $_SESSION['login_username'];
+	$usertype = $_SESSION['user_type'];
+	$username = $_SESSION['username'];
 	
 	if(($usertype) == ('IT Admin')){
 		$query = "SELECT *

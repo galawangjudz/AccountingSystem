@@ -127,7 +127,6 @@ include_once("includes/config.php");
               
             </div>
           </div>
-
           <div class="col-lg-4 col-xs-6">
             <!-- small box -->
             <div class="small-box">
@@ -154,7 +153,6 @@ include_once("includes/config.php");
 
     </section>
     <!-- /.content -->
-
 
 
 <?php

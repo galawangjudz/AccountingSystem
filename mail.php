@@ -117,8 +117,8 @@ $mysqli->close();
                             <textarea class="form-control required textarea" id='makeMeSummernote' name="message" rows="3">
                             <br><br><br><br><br><br>
                             <input type="text" id="inside_txtbox" disabled style="border:none" value="----------"><br>
-                            <input type="text" id="inside_txtbox" disabled style="border:none" value="<?php echo $_SESSION['login_lastname'];?>, <?php echo $_SESSION['login_firstname'];?> <?php echo $_SESSION['login_middlename'];?>"><br>
-                            <input type="text" id="inside_txtbox" disabled style="border:none" value="<?php echo $_SESSION['login_usertype'];?>">
+                            <input type="text" id="inside_txtbox" disabled style="border:none" value="<?php echo $_SESSION['lastname'];?>, <?php echo $_SESSION['firstname'];?> <?php echo $_SESSION['middlename'];?>"><br>
+                            <input type="text" id="inside_txtbox" disabled style="border:none" value="<?php echo $_SESSION['user_type'];?>">
 
                             </textarea>
                         </div>

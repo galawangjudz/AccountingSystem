@@ -3,6 +3,7 @@
 	include("session.php");
 ?>
 
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -78,5 +79,5 @@
 		</div>
 
 		<div class="top-buttons btn-group float-right">
-			<p class="user">Hey, <?php echo $_SESSION['login_username']; ?></p>
+			<p class="user">Hey, <?php echo $_SESSION['username']; ?></p>
 		</div>

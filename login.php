@@ -11,7 +11,7 @@ if ($mysqli->connect_error) {
 }
 
 session_start();
-if($_POST['username'] != "" && $_POST['password'] != "") {
+/*if($_POST['username'] != "" && $_POST['password'] != "") {
     extract($_POST);
 
     $username = mysqli_real_escape_string($mysqli,$_POST['username']);
@@ -32,7 +32,7 @@ if($_POST['username'] != "" && $_POST['password'] != "") {
 
     header("Location:index.php");
 
-}
+}**/
 ?>
 
 <?php include('footer.php'); ?>
