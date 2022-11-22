@@ -261,13 +261,17 @@ function getCSRs() {
 		ORDER BY c_date_of_sale";
 	}else if ($usertype ==  'COO'){
 		$query = "SELECT *
-		FROM t_csr WHERE c_csr_status = 'Verified'
+		FROM t_csr WHERE (c_csr_status = 'Verified' or c_csr_status = 'Approved' or c_csr_status = 'Disapproved')
 		ORDER BY c_date_of_sale";
 	}else if ($usertype ==  'SOS') {
 		$query = "SELECT *
-		FROM t_csr WHERE c_csr_status = 'Pending'
+		FROM t_csr WHERE (c_csr_status = 'Pending' or c_csr_status ='Verified' or c_csr_status = 'Cancelled')
 		ORDER BY c_date_of_sale";
-		
+	}else if ($usertype ==  'CA') {
+		$query = "SELECT *
+		FROM t_csr WHERE (c_ca_status = 'Pending' or c_ca_status ='Approved' or c_ca_status = 'Disapproved')
+		ORDER BY c_date_of_sale";
+	
 	}else {
 	$query = "SELECT *
 	FROM t_csr 
@@ -316,6 +320,8 @@ function getCSRs() {
 					print '<td><span class="label label-danger">COO '.$row['c_csr_status'].'</span></td>';
 				} elseif ($row['c_csr_status'] == "Verified"){
 					print '<td><span class="label label-info"> SOS '.$row['c_csr_status'].'</span></td>';
+				} elseif ($row['c_csr_status'] == "Cancelled"){
+					print '<td><span class="label label-danger"> SOS '.$row['c_csr_status'].'</span></td>';
 				}
 
 				else{
