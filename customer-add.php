@@ -2,6 +2,7 @@
 
 include('header.php');
 include('functions.php');
+
 ?>
 <h2>Add Client</h2>
 <hr>
