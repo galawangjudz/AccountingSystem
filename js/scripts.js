@@ -1511,7 +1511,6 @@ function updateTotals(elem) {
 			var $btn = $("#action_create_csr").button("loading");
 
 			$(".required").parent().removeClass("has-error");
-			//$("#create_csr").find(':input:disabled').removeAttr('disabled');
 
 			$.ajax({
 
@@ -1524,10 +1523,10 @@ function updateTotals(elem) {
 					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 					$("#create_csr").before().html("<a href='./csr-create.php' class='btn btn-primary'>Add New CSR</a>");
+					$("#create_csr").remove();
 					setInterval(redirectToCSRList,2000);
-					//$("#create_csr").remove();
 					$btn.button("reset");
-
+					
 				},
 				error: function(data){
 					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
@@ -1538,8 +1537,6 @@ function updateTotals(elem) {
 
 			});
 		}
-
-
 	}
 
 	function deleteHouse(houseId) {

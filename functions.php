@@ -332,6 +332,7 @@ function getCSRs() {
 
 
 				if($row['c_ca_status'] == "Approved"){
+
 					print '<td><span class="label label-success">CA '.$row['c_ca_status'].'</span></td>';
 				} elseif ($row['c_ca_status'] == "Pending"){
 					print '<td><span class="label label-warning">'.$row['c_ca_status'].'</span></td>';

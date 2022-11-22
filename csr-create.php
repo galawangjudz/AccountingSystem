@@ -643,9 +643,9 @@ include('functions.php');
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class="col-xs-12 margin-top btn-group">
-									<input type="submit" id="action_create_csr" class="btn btn-success float-right btn-l" value="Create CSR" data-loading-text="Creating...">
+									<div class="col-xs-12 margin-top btn-group">
+										<input type="submit" id="action_create_csr" class="btn btn-success float-right btn-l" value="Create CSR" data-loading-text="Creating...">
+									</div>
 								</div>
 							</div>
 						</div>
