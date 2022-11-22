@@ -282,7 +282,7 @@ table{
                                     <option class="options1" id="approvedselected" value="Approved" <?php if($csr_status === 'Approved'){?>selected<?php }?>>Approved</option>
                                     <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($csr_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
                             </select>
-
+                            </div>
                             <div class="lbl_box2">
                                         <label id="lblupdatestatus2">CA Approval: </label>
                                             <select class= "ca-approval" name= "ca_approval" id ="ca_approval" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?>>
@@ -290,7 +290,7 @@ table{
                                                 <option class="options1" id="approvedselected" value="Approved" <?php if($ca_status === 'Approved'){?>selected<?php }?>>Approved</option>
                                                 <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($ca_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
                                             </select>
-                                </div>
+                               
                             </div>
 
                         
