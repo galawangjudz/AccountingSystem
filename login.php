@@ -1,15 +1,12 @@
 <?php
 
 include('header.php');
-
 // Connect to the database
 $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
-
 // output any connection error
 if ($mysqli->connect_error) {
 	die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
 }
-
 session_start();
 /*if($_POST['username'] != "" && $_POST['password'] != "") {
     extract($_POST);
@@ -27,12 +24,10 @@ session_start();
     } else {
         echo 0;
     }
-
 } else {
 
     header("Location:index.php");
 
 }**/
 ?>
-
 <?php include('footer.php'); ?>

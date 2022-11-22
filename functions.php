@@ -1,47 +1,3 @@
-<style>
-.actions{
-	text-align:center !important;
-}
-.dropbtn {
-  background-color: #3498DB;
-  color: white;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 15px;
-  padding-right: 15px;
-  font-size: 12px;
-  border: none;
-  cursor: pointer;
-  border-radius:2px;
-  font-weight:bold;
-
-}
-.dropbtn:hover, .dropbtn:focus {
-  background-color: #2980B9;
-}
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  overflow: auto;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  text-align:center;
-}
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-.dropdown a:hover {background-color: #ddd;}
-.show {display: block;}
-</style>
 <?php
 include_once("includes/config.php");
 function getProject() {
@@ -1056,8 +1012,6 @@ function popRAsList() {
 		if ($mysqli->connect_error) {
 			die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
 		}
-		
-	
 		/* // the query
 		$query = "SELECT i.ra_id, i.c_csr_no, c_acronym, c_block, c_lot, x.c_lid, c_or_no, c_reserve_date, c_amount_paid
 		FROM t_ra i
@@ -1131,12 +1085,6 @@ function popRAsList() {
 		$mysqli->close();
 	
 	}
-
-
-
-
-
-	 
 ?>
 <script>
 /* When the user clicks on the button, 

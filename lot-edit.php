@@ -1,11 +1,7 @@
 <?php
-
-
-include('header.php');
-include('functions.php');
-
-$getID = $_GET['id'];
-
+	include('header.php');
+	include('functions.php');
+	$getID = $_GET['id'];
 // Connect to the database
 $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
 
@@ -13,7 +9,6 @@ $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME)
 if ($mysqli->connect_error) {
 	die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
 }
-
 // the query
 $query = "SELECT c_lid, c_acronym, c_block, c_lot, c_lot_area, c_price_sqm, c_remarks, i.c_status
 FROM t_lots i 
@@ -22,7 +17,6 @@ ON i.c_site = c.c_code
 WHERE i.c_site = c.c_code  and c_lid = '" . $mysqli->real_escape_string($getID) . "'";
 
 $result = mysqli_query($mysqli, $query);
-
 // mysqli select query
 if($result) {
 	while ($row = mysqli_fetch_assoc($result)) {
@@ -37,15 +31,12 @@ if($result) {
 		$c_status = $row['c_status'];
 	}
 }
-
 /* close connection */
 $mysqli->close();
-
 ?>
 <body onload="lcp()">
 <h2>Update Lot</h2>
 <hr>
-
 <div id="response" class="alert alert-success" style="display:none;">
 	<a href="#" class="close" data-dismiss="alert">&times;</a>
 	<div class="message"></div>
@@ -147,9 +138,7 @@ $mysqli->close();
 	function lcp(){
 		var lot_area = document.getElementById('prod_lot_area').value;
 		var lot_price = document.getElementById('prod_lot_price').value;
-
 		var res = lot_area * lot_price;
-
 		document.getElementById('prod_lcp').value=res;
 	}
 </script>

@@ -2,10 +2,7 @@
 	//check login
 	include("session.php");
 ?>
-
-
 <!DOCTYPE html>
-
 <html>
 <head>
   <meta charset="utf-8">
@@ -13,16 +10,13 @@
   <title>Accounting Management System</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
- 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="css/AdminLTE.css">
- 
   <link rel="stylesheet" href="css/skin-green.css">
-  
   	<!-- JS -->
   <script src="https://kit.fontawesome.com/5107b89571.js" crossorigin="anonymous"></script>
 	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -36,10 +30,8 @@
 	<script src="js/scripts.js"></script>
   <script src="temp/jquery-3-3.1.min.js"></script>
   <script src="temp/toastr.min.js"></script>
-	
 	<!-- AdminLTE App -->
 	<script src="js/app.min.js"></script>
-
 	<!-- CSS -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/bootstrap.datetimepicker.css">
@@ -52,16 +44,13 @@
 <div class="header"></div>
 <body class="hold-transition skin-green sidebar-mini">
 <div class="wrapper">
-
   <!-- Main Header -->
   <header class="main-header">
-    
      <!--Logo -->
     <div class="logo">
     <div class="alsc"><img src="images/smallest.png"></div>
     <div class="small">ALSC Web Application</div>
     </div>
-
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
       <!-- Sidebar toggle button-->
@@ -79,11 +68,7 @@
               <img src="https://pcrt.crab.org/images/default-user.png" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">
-                
-                
-                
-              <?php echo $_SESSION['user_type'];?> - <?php echo $_SESSION['username'];?></span>
-              
+              <?php echo $_SESSION['user_type'];?> - <?php echo $_SESSION['username'];?></span>   
             </a>
             <ul class="dropdown-menu">
              <!-- Drop down list-->
@@ -94,15 +79,10 @@
       </div>
     </nav>
   </header>
-  
-  
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
-
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-
-
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
         <br>
@@ -156,14 +136,10 @@
     </section>
     <!-- /.sidebar -->
   </aside>
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-   
-
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
     <!-- Main content -->
-    <section class="content">
-
-      <!-- Your Page Content Here -->
+<section class="content">
+    <!-- Your Page Content Here -->
 
 

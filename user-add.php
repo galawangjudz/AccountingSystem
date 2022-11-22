@@ -1,15 +1,9 @@
 <?php
-
-include('header.php');
-include('functions.php');
-
-
-
+	include('header.php');
+	include('functions.php');
 ?>
-
 <h2>Add User</h2>
 <hr>
-
 <div id="response" class="alert alert-success" style="display:none;">
 	<a href="#" class="close" data-dismiss="alert">&times;</a>
 	<div class="message"></div>
@@ -80,6 +74,8 @@ include('functions.php');
 						<option name="user_type" value="COO">COO</option>
 						<option name="user_type" value="IT Admin">IT Admin</option>
 						<option name="user_type" value="Agent">Agent</option>
+						<option name="user_type" value="CA">CA Supervisor</option>
+						<option name="user_type" value="Cashier">Cashier</option>
 					</select>
 				</div>
 			</div>

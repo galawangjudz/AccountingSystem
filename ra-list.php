@@ -1,24 +1,15 @@
 <?php
-
-
-include('header.php');
-include('functions.php');
-
+  include('header.php');
+  include('functions.php');
 ?>
-
-
 <h2>Reservation List</h2><div class="addbtn"><a href="ra-create.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
 <hr>
-
 <div class="row">
-
 	<div class="col-xs-12">
-
 		<div id="response" class="alert alert-success" style="display:none;">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
 			<div class="message"></div>
 		</div>
-	
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4>RA list</h4>
@@ -29,7 +20,6 @@ include('functions.php');
 		</div>
 	</div>
 <div>
-
 <div id="delete_ra" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -47,8 +37,6 @@ include('functions.php');
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-
 <div id="update_stat" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -67,8 +55,6 @@ include('functions.php');
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-
 <?php
 	include('footer.php');
 ?>

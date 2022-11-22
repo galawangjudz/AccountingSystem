@@ -1,22 +1,9 @@
 <?php
-
-include('header.php');
-include('functions.php');
-
-
-
+    include('header.php');
+    include('functions.php');
 ?>
-
-
-<style>
-	.select-ra{
-		margin-top:5px!important;
-		padding-top:0px;
-	}
-</style>
 <body>
     <h2><span class="ra_type">Reservation</span></h2>
-
     <div class="addbtn"><a href="#" class="btn select-ra" id="btntop"><span class="fas fa-mouse-pointer"></span>	Select An Existing RA</a></div>
     <hr>
     <div id="response" class="alert alert-success" style="display:none;">
@@ -114,9 +101,7 @@ include('functions.php');
             <h4 class="modal-title">Select Reservation Application</h4>
             </div>
             <div class="modal-body">
-           
                 <?php popRAsList(); ?>
-
             </div>
             <div class="modal-footer">
             <button type="button" data-dismiss="modal" class="btn">Cancel</button>
@@ -124,12 +109,10 @@ include('functions.php');
         </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    
 </div>
 <div class="row">
 </div>
 </body>
 <?php
-	
 	include('footer.php');
 ?>
