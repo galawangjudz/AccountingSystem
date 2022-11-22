@@ -621,15 +621,83 @@ if($action == 'verify_csr') {
 	}
 
 	$id = $_POST["id"];
+	$val = $_POST["value"];
 
-	$query = "UPDATE t_csr SET c_csr_status = 'Verified' where c_csr_no = ".$id.";";
+	$query = "UPDATE t_csr SET c_csr_status = ".$val." where c_csr_no = ".$id.";";
 
 
 	if($mysqli -> multi_query($query)) {
 	    //if saving success
 		echo json_encode(array(
 			'status' => 'Success',
-			'message'=> 'CSR has been verified successfully!'
+			'message'=> 'CSR has been '.$val.' successfully!'
+		));
+
+	} else {
+	    //if unable to create new record
+	    echo json_encode(array(
+	    	'status' => 'Error',
+	    	//'message'=> 'There has been an error, please try again.'
+	    	'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>'
+	    ));
+	}
+
+	// close connection 
+	$mysqli->close();
+
+}
+
+if($action == 'coo_approval_csr') {
+
+	if ($mysqli->connect_error) {
+	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+	}
+
+	$id = $_POST["id"];
+	$val = $_POST["value"];
+
+	$query = "UPDATE t_csr SET c_csr_status = ".$val." where c_csr_no = ".$id.";";
+
+
+	if($mysqli -> multi_query($query)) {
+	    //if saving success
+		echo json_encode(array(
+			'status' => 'Success',
+			'message'=> 'CSR has been COO '.$val.' successfully!'
+		));
+
+	} else {
+	    //if unable to create new record
+	    echo json_encode(array(
+	    	'status' => 'Error',
+	    	//'message'=> 'There has been an error, please try again.'
+	    	'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>'
+	    ));
+	}
+
+	// close connection 
+	$mysqli->close();
+
+}
+
+
+if($action == 'ca_approval_csr') {
+
+	if ($mysqli->connect_error) {
+	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+	}
+
+	$id = $_POST["id"];
+	$val = $_POST["value"];
+
+	$query = "UPDATE t_csr SET c_ca_status = ".$val." where c_csr_no = ".$id.";";
+
+
+	if($mysqli -> multi_query($query)) {
+	    //if saving success
+		echo json_encode(array(
+			'status' => 'Success',
+			'message'=> 'CSR has been CA '.$val. ' successfully!'
 		));
 
 	} else {

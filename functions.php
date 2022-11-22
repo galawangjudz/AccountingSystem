@@ -217,13 +217,17 @@ function getCSRs() {
 		ORDER BY c_date_of_sale";
 	}else if ($usertype ==  'COO'){
 		$query = "SELECT *
-		FROM t_csr WHERE c_csr_status = 'Verified'
+		FROM t_csr WHERE (c_csr_status = 'Verified' or c_csr_status = 'Approved' or c_csr_status = 'Disapproved')
 		ORDER BY c_date_of_sale";
 	}else if ($usertype ==  'SOS') {
 		$query = "SELECT *
-		FROM t_csr WHERE c_csr_status = 'Pending'
+		FROM t_csr WHERE (c_csr_status = 'Pending' or c_csr_status ='Verified' or c_csr_status = 'Cancelled')
 		ORDER BY c_date_of_sale";
-		
+	}else if ($usertype ==  'CA') {
+		$query = "SELECT *
+		FROM t_csr WHERE (c_ca_status = 'Pending' or c_ca_status ='Approved' or c_ca_status = 'Disapproved')
+		ORDER BY c_date_of_sale";
+	
 	}else {
 	$query = "SELECT *
 	FROM t_csr 
@@ -265,13 +269,15 @@ function getCSRs() {
 				';
 			
 				if($row['c_csr_status'] == "Approved"){
-					print '<td><span class="label label-success">'.$row['c_csr_status'].'</span></td>';
+					print '<td><span class="label label-success"> COO '.$row['c_csr_status'].'</span></td>';
 				} elseif ($row['c_csr_status'] == "Pending"){
 					print '<td><span class="label label-warning">'.$row['c_csr_status'].'</span></td>';
 				} elseif ($row['c_csr_status'] == "Disapproved"){
-					print '<td><span class="label label-danger">'.$row['c_csr_status'].'</span></td>';
+					print '<td><span class="label label-danger">COO '.$row['c_csr_status'].'</span></td>';
 				} elseif ($row['c_csr_status'] == "Verified"){
-					print '<td><span class="label label-info">'.$row['c_csr_status'].'</span></td>';
+					print '<td><span class="label label-info"> SOS '.$row['c_csr_status'].'</span></td>';
+				} elseif ($row['c_csr_status'] == "Cancelled"){
+					print '<td><span class="label label-danger"> SOS '.$row['c_csr_status'].'</span></td>';
 				}
 
 				else{
@@ -288,11 +294,12 @@ function getCSRs() {
 
 
 				if($row['c_ca_status'] == "Approved"){
-					print '<td><span class="label label-success">'.$row['c_ca_status'].'</span></td>';
+
+					print '<td><span class="label label-success">CA '.$row['c_ca_status'].'</span></td>';
 				} elseif ($row['c_ca_status'] == "Pending"){
 					print '<td><span class="label label-warning">'.$row['c_ca_status'].'</span></td>';
 				} elseif ($row['c_ca_status'] == "Disapproved"){
-					print '<td><span class="label label-danger">'.$row['c_ca_status'].'</span></td>';}
+					print '<td><span class="label label-danger">CA '.$row['c_ca_status'].'</span></td>';}
 
 				else{
 					print '<td><span class="label label-danger"> --- </span></td>';

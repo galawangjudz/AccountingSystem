@@ -42,6 +42,9 @@ $(document).ready(function() {
 	    actionAddReply();
 	});
 
+	
+
+
 	// password strength 
 	var options = {
         onLoad: function () {
@@ -94,6 +97,78 @@ $(document).ready(function() {
 		e.preventDefault();
 		updateUser();
 	});
+
+
+	// verify csr
+	$(document).on('click', "#verify_btn", function(e) {
+        e.preventDefault();
+		var btn_val = $("#verify_btn").val();
+        var csrId = 'action=verify_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"'; //build a post data structure
+		alert(csrId);
+		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
+			verify_btn(csrId);
+
+		});
+   	});
+
+	// cancel csr
+	$(document).on('click', "#cancel_btn", function(e) {
+        e.preventDefault();
+		var btn_val = $("#cancel_btn").val();
+        var csrId = 'action=verify_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"'; //build a post data structure
+		alert(csrId);
+		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
+			verify_btn(csrId);
+
+		});
+   	});
+
+
+	// coo approved csr
+	$(document).on('click', "#coo_approval_btn", function(e) {
+        e.preventDefault();
+		var btn_val = $("#coo_approval_btn").val();
+		var csrId = 'action=coo_approval_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"';
+	 	$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() { 
+			CooApproval(csrId);
+
+		}); 
+   	});
+
+	// dis coo approved csr
+	$(document).on('click', "#dis_coo_approval_btn", function(e) {
+        e.preventDefault();
+		var btn_val = $("#dis_coo_approval_btn").val();
+		var csrId = 'action=coo_approval_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"';
+	 	$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() { 
+			CooApproval(csrId);
+
+		}); 
+   	});
+
+	// ca approved csr
+	$(document).on('click', "#ca_approval_btn", function(e) {
+        e.preventDefault();
+		var btn_val = $("#ca_approval_btn").val();
+		var csrId = 'action=ca_approval_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"';
+		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
+			CaApproval(csrId);
+
+		});
+   	});
+
+	// ca approved csr
+	$(document).on('click', "#dis_ca_approval_btn", function(e) {
+        e.preventDefault();
+		var btn_val = $("#dis_ca_approval_btn").val();
+		var csrId = 'action=ca_approval_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"';
+		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
+			CaApproval(csrId);
+
+		});
+   	});
+
+
 
 	// delete user
 	$(document).on('click', ".delete-user", function(e) {
@@ -1547,6 +1622,78 @@ function updateTotals(elem) {
 
    	}
 
+
+	function verify_btn(csrId) {
+
+        jQuery.ajax({
+
+        	url: 'response.php',
+            type: 'POST', 
+            data: csrId,
+            dataType: 'json', 
+            success: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				
+			},
+			error: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				
+			} 
+    	});
+
+   	}
+
+	function CooApproval(csrId) {
+
+        jQuery.ajax({
+
+        	url: 'response.php',
+            type: 'POST', 
+            data: csrId,
+            dataType: 'json', 
+            success: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				
+			},
+			error: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				
+			} 
+    	});
+
+   	}
+
+	function CaApproval(csrId) {
+
+        jQuery.ajax({
+
+        	url: 'response.php',
+            type: 'POST', 
+            data: csrId,
+            dataType: 'json', 
+            success: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				
+			},
+			error: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				
+			} 
+    	});
+
+   	}
 	   function deleteRA(raId) {
 
         jQuery.ajax({

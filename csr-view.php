@@ -1,9 +1,11 @@
 <?php
-    include('header.php');
-    include('functions.php');
+include('header.php');
+include('functions.php');
 
-    $getID = $_GET['id'];
-    $usertype = $_SESSION['user_type'];
+
+$getID = $_GET['id'];
+$usertype = $_SESSION['user_type'];
+
 // Connect to the database
 $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
 // output any connection error
@@ -91,6 +93,7 @@ if($result) {
         $down_percent = $row['c_down_percent'];
         $start_date = $row['c_start_date'];
         }
+
 }
 /* close connection */
 $mysqli->close();
@@ -113,14 +116,25 @@ $mysqli->close();
             <div class="panel-body form-group form-group-sm">
                 <div class="row">
                      <div class="buttons">
-                        <!--     <a href="csr-edit.php?id=<?php echo $getID; ?>" class="btn1 btn-primary btn-xs">
-                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
-                            <a href="mail.php?id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn1 btn-success btn-xs email-invoice">
-                            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a> 
+                            <div class="lbl_box"> 
+                            <label id="lblupdatestatus3">COO Approval: </label>
+                            <select class= "status-list" name= "status_list" id ="status_list" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?>>
+                                    <option class="options1" id="pendingselected" value="Pending" <?php if($csr_status === 'Pending'){?>selected<?php }?>>Pending</option>
+                                    <option class="options1" id="approvedselected" value="Approved" <?php if($csr_status === 'Approved'){?>selected<?php }?>>Approved</option>
+                                    <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($csr_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
+                            </select>
+                            </div>
+                            <div class="lbl_box2">
+                                        <label id="lblupdatestatus2">CA Approval: </label>
+                                            <select class= "ca-approval" name= "ca_approval" id ="ca_approval" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?>>
+                                                <option class="options1" id="pendingselected" value="Pending" <?php if($ca_status === 'Pending'){?>selected<?php }?>>Pending</option>
+                                                <option class="options1" id="approvedselected" value="Approved" <?php if($ca_status === 'Approved'){?>selected<?php }?>>Approved</option>
+                                                <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($ca_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
+                                            </select>
+                               
+                            </div>
 
-                            <a href="print.php?id=<?php echo $getID; ?>" class="btn1 btn-info btn-xs" target="_blank">
-                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a> 
-                        -->
+                        
 
                             <?php if($usertype == "IT Admin"){?>
                             
@@ -128,25 +142,59 @@ $mysqli->close();
                                 <a href="mail.php?id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
                                 <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
                                 <hr>
-                                <?php if($csr_status == "Pending"){?>                    
-                                <button type="button" id= "verify_btn" csr-id =<?php echo $getID; ?> value="Verified" class="btn btn-success btn-lg btn-block">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
-                                <button type="button" id= "void_btn" csr-id =<?php echo $getID; ?> value="Cancelled" class="btn btn-danger btn-lg btn-block">Cancelled <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
+                                <?php if($csr_status == "Pending"){?>  
+                                    <button type="button" id= "verify_btn" csr-id =<?php echo $getID; ?> value="Verified" class="btn btn-success btn-lg btn-block">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                    <button type="button" id= "cancel_btn" csr-id =<?php echo $getID; ?> value="Cancelled" class="btn btn-danger btn-lg btn-block">Cancelled <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
                                 <?php } ?>
 
+                                <?php if($csr_status == "Verified"){ ?>
+                                    
+                                    <button type="button" id= "coo_approval_btn" csr-id =<?php echo $getID; ?> value="Approved" class="btn btn-success btn-lg btn-block">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                    <button type="button" id= "dis_coo_approval_btn" csr-id =<?php echo $getID; ?> value="Disapproved" class="btn btn-danger btn-lg btn-block">COO Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
+                                
+                                <?php } ?>
+
+                                <?php if($csr_status == "Approved" && $reserv_status == "Paid" && $ca_status == ""){ ?>
+                                    
+                                    <button type="button" id= "ca_approval_btn" csr-id =<?php echo $getID; ?> value="Approved" class="btn btn-success btn-lg btn-block">CA Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                    <button type="button" id= "dis_ca_approval_btn" csr-id =<?php echo $getID; ?> value="Disapproved" class="btn btn-danger btn-lg btn-block">CA Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
+                                
+                                <?php } ?>    
+
                             <?php }else if($usertype == "COO"){?>
-                                <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
-                                <hr>
-                
+                                    <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                    <hr>
+                                    <?php if($csr_status == "Verified"){ ?>
+                                    
+                                        <button type="button" id= "coo_approved_btn" csr-id =<?php echo $getID; ?> value="Approved" class="btn btn-success btn-lg btn-block">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                        <button type="button" id= "dis_coo_disapproved_btn" csr-id =<?php echo $getID; ?> value="Disapproved" class="btn btn-danger btn-lg btn-block">COO Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
+                                
+                                    <?php } ?>       
+
                
                              <?php } else if ($usertype == "SOS"){?>
                                 <a href="mail.php?id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
                                 <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
                                 <hr>
                 
-                                <button type="button" id= "verify_btn" csr-id =<?php echo $getID; ?> value="Verified" class="btn btn-success btn-lg btn-block">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
-                                <button type="button" id= "void_btn" csr-id =<?php echo $getID; ?> value="Cancelled" class="btn btn-danger btn-lg btn-block">Cancelled <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
-                               
-                             <?php } ?>
+                                <?php if($csr_status == "" || $csr_status == "Pending"){ ?>
+                                    
+                                    <button type="button" id= "verify_btn" csr-id =<?php echo $getID; ?> value="Verified" class="btn btn-success btn-lg btn-block">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                    <button type="button" id= "cancel_btn" csr-id =<?php echo $getID; ?> value="Cancelled" class="btn btn-danger btn-lg btn-block">Cancelled <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
+                                
+                                <?php } ?>
+
+                            <?php }else if($usertype == "CA"){?>
+                                <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                <hr>
+                                <?php if($csr_status == "Approved" && $reserv_status == "Paid" && $ca_status == ""){ ?>
+                                    
+                                    <button type="button" id= "ca_approval_btn" csr-id =<?php echo $getID; ?> value="Approved" class="btn btn-success btn-lg btn-block">CA Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                    <button type="button" id= "dis_ca_approval_btn" csr-id =<?php echo $getID; ?> value="Disapproved" class="btn btn-danger btn-lg btn-block">CA Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
+                                
+                                <?php } ?>        
+
+                            <?php } ?>
 
                          
                     </div>
@@ -220,51 +268,31 @@ $mysqli->close();
                                         <td><b>Employment Status:</b></td>
                                         <td><?php echo $employment_status ?></td>
                                     </tr>
-                                  <!--   <tr>
-                                        <td><b>Status: </b></td>
-                                        <td><input type="text" id="txtstatus" value="<?php echo $csr_status?>"></td>
-                                    </tr> -->
+                           
                                    
-                                    <?php if($usertype == "COO" || $usertype == "IT Admin"){?>       
-                                        <tr>  <div class="lbl_box">       
-                                            <td><label id="lblupdatestatus3">COO Approval: </label></td>
-                                            <td> <select class= "status-list" name= "status_list" id ="status_list" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?>>
-                                                    <option class="options1" id="pendingselected" value="Pending" <?php if($csr_status === 'Pending'){?>selected<?php }?>>Pending</option>
-                                                    <option class="options1" id="approvedselected" value="Approved" <?php if($csr_status === 'Approved'){?>selected<?php }?>>Approved</option>
-                                                    <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($csr_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
-                                                </select>
-                                                </td>
-                                                </div>
-                                        </tr>
-                                    <?php } ?>
-                                        <tr> 
-                                            <td><b>Reservation Status:</b></td>
-                                            <td><?php echo $reserv_status ?></td>
-                                        </tr>
 
-                                        <tr>
-                                    <?php if($usertype == "CA" || $usertype == "IT Admin"){?>       
-                                        <div class="lbl_box2">
-                                        <td><label id="lblupdatestatus2">CA Approval: </label></td>
-                                            <td><select class= "ca-approval" name= "ca_approval" id ="ca_approval" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?>>
-                                                <option class="options1" id="pendingselected" value="Pending" <?php if($ra_status === 'Pending'){?>selected<?php }?>>Pending</option>
-                                                <option class="options1" id="approvedselected" value="Approved" <?php if($ra_status === 'Approved'){?>selected<?php }?>>Approved</option>
-                                                <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($ra_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
-                                            </select></td>
-                                        </div>
-                                        </tr>
-                                        <!--  <button type="submit" class="btn btn-sm btn-success" name = "approved_csr" id="approve_csr">Approved<i class="fa fa-check"></i></button>'
-                                            <button type="submit" class="btn btn-sm btn-danger ml-2" name = "reject_csr" id="reject_csr">Reject<i class="fa fa-times"></i></button></td></tr></tbody>';
-                                            -->
-                                            
-                                            <!--   <button type="sumbit" class="btn btn-success waves-effect waves-light csr-status" id="csr_status" name="csr_approved" ><i class="fa fa-check"></i>  Aprroved</button> </a>
-                                                <button type="sumbit" class="btn btn-primary waves-effect waves-light csr-status" id="csr_status" name="csr_pending"><i class="fa fa-clock-o"></i>  Pending </button></a>
-                                                <button type="sumbit" class="btn btn-warning waves-effect waves-light csr-status" id="csr_status" name="csr_disapproved"><i class="fa fa-times"></i>  Disapproved </button></a>
-                                                --> <!-- <input type="submit" id="" class="btn btn-success float-right" value="Aprroved" data-loading-text="Creating..."> -->
-                                            
-                                    </div>
+                                    <tr>
+                                        <td> <label id="lblupdatestatus3">COO Approval: </label> </td>
+                                        <td> <?php echo $csr_status ?> </span>
                                     
-                                    <?php } ?>
+                                    </tr>
+                    
+                                    <tr> 
+                                        <td><b>Reservation Status:</b></td>
+                                        <td><?php echo $reserv_status ?></td>
+                                    </tr>
+
+                                    
+                            
+                                    <tr>
+                                        <div class="lbl_box2">
+                                        <td> <label id="lblupdatestatus3">CA Approval: </label> </td>
+                                        <td> <?php echo $ca_status ?>
+                                        </div>
+                                    
+                                    </tr>
+                                 
+                                      
                          
                                 </table> 
                             </div>       
