@@ -629,7 +629,8 @@ $(document).ready(function() {
 
 		var reserve_or_no = $(this).attr('data-or-no');
 		var reserve_date = $(this).attr('data-reserve-date');
-		var reserve_amt = $(this).attr('data-amt-paid');
+		/* var reserve_amt = $(this).attr('data-amt-paid'); */
+		var reserve_amt = $(this).attr('data-ra-res');
 
 
 		$('#reserve_no').val(ra_no);
