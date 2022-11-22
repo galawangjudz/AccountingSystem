@@ -8,6 +8,7 @@ include('header.php');
 include('functions.php');
 
 $getID = $_GET['id'];
+$usertype = $_SESSION['user_type'];
 
 
 // Connect to the database
@@ -59,7 +60,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 	$employment_status = $row['c_employment_status']; // customer civil status
     $csr_status = $row['c_csr_status'];// status
     $reserv_status = $row['c_reserve_status'];// status
-    $ra_status = $row['c_ra_status'];// status
+    $ra_status = $row['c_ca_status'];// status
 
     ///LOT
     $lot_area = $row['c_lot_area'];

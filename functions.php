@@ -331,12 +331,12 @@ function getCSRs() {
 
 
 
-				if($row['c_ra_status'] == "Approved"){
-					print '<td><span class="label label-success">'.$row['c_ra_status'].'</span></td>';
-				} elseif ($row['c_ra_status'] == "Pending"){
-					print '<td><span class="label label-warning">'.$row['c_ra_status'].'</span></td>';
-				} elseif ($row['c_ra_status'] == "Disapproved"){
-					print '<td><span class="label label-danger">'.$row['c_ra_status'].'</span></td>';}
+				if($row['c_ca_status'] == "Approved"){
+					print '<td><span class="label label-success">'.$row['c_ca_status'].'</span></td>';
+				} elseif ($row['c_ca_status'] == "Pending"){
+					print '<td><span class="label label-warning">'.$row['c_ca_status'].'</span></td>';
+				} elseif ($row['c_ca_status'] == "Disapproved"){
+					print '<td><span class="label label-danger">'.$row['c_ca_status'].'</span></td>';}
 
 				else{
 					print '<td><span class="label label-danger"> --- </span></td>';
