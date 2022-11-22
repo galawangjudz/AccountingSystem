@@ -49,7 +49,7 @@ if($result) {
         $employment_status = $row['c_employment_status']; // customer civil status
         $csr_status = $row['c_csr_status'];// status
         $reserv_status = $row['c_reserve_status'];// status
-        $ra_status = $row['c_ca_status'];// status
+        $ca_status = $row['c_ca_status'];// status
 
         ///LOT
         $lot_area = $row['c_lot_area'];
@@ -117,22 +117,22 @@ $mysqli->close();
                 <div class="row">
                      <div class="buttons">
                             <div class="lbl_box"> 
-                            <label id="lblupdatestatus3">COO Approval: </label>
+                            <label id="lblupdatestatus">COO Approval: </label>
                             <select class= "status-list" name= "status_list" id ="status_list" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?>>
                                     <option class="options1" id="pendingselected" value="Pending" <?php if($csr_status === 'Pending'){?>selected<?php }?>>Pending</option>
                                     <option class="options1" id="approvedselected" value="Approved" <?php if($csr_status === 'Approved'){?>selected<?php }?>>Approved</option>
                                     <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($csr_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
                             </select>
+                           
+                           
+                            <label id="lblupdatestatus">CA Approval: </label>
+                                <select class= "ca-approval" name= "ca_approval" id ="ca_approval" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?>>
+                                    <option class="options1" id="pendingselected" value="Pending" <?php if($ca_status === 'Pending'){?>selected<?php }?>>Pending</option>
+                                    <option class="options1" id="approvedselected" value="Approved" <?php if($ca_status === 'Approved'){?>selected<?php }?>>Approved</option>
+                                    <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($ca_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
+                                </select>
                             </div>
-                            <div class="lbl_box2">
-                                        <label id="lblupdatestatus2">CA Approval: </label>
-                                            <select class= "ca-approval" name= "ca_approval" id ="ca_approval" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?>>
-                                                <option class="options1" id="pendingselected" value="Pending" <?php if($ca_status === 'Pending'){?>selected<?php }?>>Pending</option>
-                                                <option class="options1" id="approvedselected" value="Approved" <?php if($ca_status === 'Approved'){?>selected<?php }?>>Approved</option>
-                                                <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($ca_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
-                                            </select>
-                               
-                            </div>
+                
 
                         
 
