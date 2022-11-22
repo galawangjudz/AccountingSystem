@@ -275,14 +275,25 @@ table{
             <div class="panel-body form-group form-group-sm">
                 <div class="row">
                      <div class="buttons">
-                        <!--     <a href="csr-edit.php?id=<?php echo $getID; ?>" class="btn1 btn-primary btn-xs">
-                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
-                            <a href="mail.php?id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn1 btn-success btn-xs email-invoice">
-                            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a> 
+                            <div class="lbl_box"> 
+                            <label id="lblupdatestatus3">COO Approval: </label>
+                            <select class= "status-list" name= "status_list" id ="status_list" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?>>
+                                    <option class="options1" id="pendingselected" value="Pending" <?php if($csr_status === 'Pending'){?>selected<?php }?>>Pending</option>
+                                    <option class="options1" id="approvedselected" value="Approved" <?php if($csr_status === 'Approved'){?>selected<?php }?>>Approved</option>
+                                    <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($csr_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
+                            </select>
 
-                            <a href="print.php?id=<?php echo $getID; ?>" class="btn1 btn-info btn-xs" target="_blank">
-                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a> 
-                        -->
+                            <div class="lbl_box2">
+                                        <label id="lblupdatestatus2">CA Approval: </label>
+                                            <select class= "ca-approval" name= "ca_approval" id ="ca_approval" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?>>
+                                                <option class="options1" id="pendingselected" value="Pending" <?php if($ca_status === 'Pending'){?>selected<?php }?>>Pending</option>
+                                                <option class="options1" id="approvedselected" value="Approved" <?php if($ca_status === 'Approved'){?>selected<?php }?>>Approved</option>
+                                                <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($ca_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
+                                            </select>
+                                </div>
+                            </div>
+
+                        
 
                             <?php if($usertype == "IT Admin"){?>
                             
