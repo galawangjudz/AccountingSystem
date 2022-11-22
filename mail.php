@@ -1,35 +1,26 @@
 <?php
 include('header.php');
 include('functions.php');
-
 $getID = $_GET['id'];
 $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
-
 // output any connection error
 if ($mysqli->connect_error) {
 	die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
 }
-
 // the query
 $query = "SELECT * FROM t_csr WHERE c_csr_no = '" . $mysqli->real_escape_string($getID) . "'";
-
 $result = mysqli_query($mysqli, $query);
-
 // mysqli select query
 if($result) {
 	while ($row = mysqli_fetch_assoc($result)) {
-
 		$csr_no = $row['c_csr_no']; // customer last name
     }
 }
 $mysqli->close();
 ?>
-
-
 <head>
     <!-- include summernote css-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" />
-    <link rel="stylesheet" href="css/styles.css" />
     <!-- include summernote js-->
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </head>
@@ -86,10 +77,8 @@ $mysqli->close();
     $mail->smtpClose();
 }
     ?>
-
 <h2>Compose Email</h2>
 <hr>
-
 <body>
     <form class="" method="post" enctype="multipart/form-data">
         <div class="box_big1">

@@ -1,12 +1,9 @@
 <?php
-include('header.php');
-include('functions.php');
-
+	include('header.php');
+	include('functions.php');
 ?>
-
 <h2>Add Lot</h2>
 <hr>
-
 <div id="response" class="alert alert-success" style="display:none;">
 	<a href="#" class="close" data-dismiss="alert">&times;</a>
 	<div class="message"></div>
@@ -107,9 +104,7 @@ include('functions.php');
 	function lcp(){
 		var lot_area = document.getElementById('prod_lot_area').value;
 		var lot_price = document.getElementById('prod_lot_price').value;
-
 		var res = lot_area * lot_price;
-
 		document.getElementById('prod_lcp').value=res;
 	}
 </script>

@@ -1,22 +1,15 @@
 <?php
-
-
-include('header.php');
-include('functions.php');
-
-$getID = $_GET['id'];
-
+	include('header.php');
+	include('functions.php');
+	$getID = $_GET['id'];
 // Connect to the database
 $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
-
 // output any connection error
 if ($mysqli->connect_error) {
 	die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
 }
-
 // the query
 $query = "SELECT * FROM t_model_house WHERE c_code = '" . $mysqli->real_escape_string($getID) . "'";
-
 $result = mysqli_query($mysqli, $query);
 
 // mysqli select query
@@ -27,15 +20,11 @@ if($result) {
 		$c_acronym = $row['c_acronym'];
 	}
 }
-
 /* close connection */
 $mysqli->close();
-
 ?>
-
 <h2>Update House Model</h2>
 <hr>
-
 <div id="response" class="alert alert-success" style="display:none;">
 	<a href="#" class="close" data-dismiss="alert">&times;</a>
 	<div class="message"></div>

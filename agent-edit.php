@@ -1,28 +1,19 @@
 <?php
-
-
-include('header.php');
-include('functions.php');
-
-$getID = $_GET['id'];
-
+    include('header.php');
+    include('functions.php');
+    $getID = $_GET['id'];
 // Connect to the database
 $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
-
 // output any connection error
 if ($mysqli->connect_error) {
 	die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
 }
-
 // the query
 $query = "SELECT * FROM t_agents WHERE c_code = '" . $mysqli->real_escape_string($getID) . "'";
-
 $result = mysqli_query($mysqli, $query);
-
 // mysqli select query
 if($result) {
 	while ($row = mysqli_fetch_assoc($result)) {
-        
         $c_last_name = $row['c_last_name']; 
         $c_first_name = $row['c_first_name']; 
         $c_middle_initial = $row['c_middle_initial']; 
@@ -44,14 +35,11 @@ if($result) {
         $c_division = $row['c_division']; 		
 	}
 }
-
 /* close connection */
 $mysqli->close();
-
 ?>
 <h2>Update Agent</h2>
 <hr>
-
 <div id="response" class="alert alert-success" style="display:none;">
 	<a href="#" class="close" data-dismiss="alert">&times;</a>
 	<div class="message"></div>
@@ -285,7 +273,6 @@ $mysqli->close();
                                 </div>
                             </div>
                         </div> 
-
                     <div class="row">
                         <div class="col-xs-12 margin-top btn-group">
                             <input type="submit" id="action_update_agent" class="btn btn-success float-right" value="Update Agent" data-loading-text="Updating...">

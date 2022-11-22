@@ -1,12 +1,9 @@
 <?php
-include('header.php');
-include('functions.php');
-
+	include('header.php');
+	include('functions.php');
 ?>
-
 <h2>Add House Model</h2>
 <hr>
-
 <div id="response" class="alert alert-success" style="display:none;">
 	<a href="#" class="close" data-dismiss="alert">&times;</a>
 	<div class="message"></div>

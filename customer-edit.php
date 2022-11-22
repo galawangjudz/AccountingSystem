@@ -1,24 +1,16 @@
 <?php
-
-
-include('header.php');
-include('functions.php');
-
-$getID = $_GET['id'];
-
+	include('header.php');
+	include('functions.php');
+	$getID = $_GET['id'];
 // Connect to the database
 $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
-
 // output any connection error
 if ($mysqli->connect_error) {
 	die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
 }
-
 // the query
 $query = "SELECT * FROM store_customers WHERE id = '" . $mysqli->real_escape_string($getID) . "'";
-
 $result = mysqli_query($mysqli, $query);
-
 // mysqli select query
 if($result) {
 	while ($row = mysqli_fetch_assoc($result)) {
@@ -47,20 +39,15 @@ if($result) {
 			
 	}
 }
-
 /* close connection */
 $mysqli->close();
-
 ?>
-
 <h2>Update Client</h2>
 <hr>
-
 <div id="response" class="alert alert-success" style="display:none;">
 	<a href="#" class="close" data-dismiss="alert">&times;</a>
 	<div class="message"></div>
 </div>
-
 <form method="post" id="update_customer">
 	<input type="hidden" name="action" value="update_customer">
 	<input type="hidden" name="id" value="<?php echo $getID; ?>">
@@ -226,7 +213,6 @@ $mysqli->close();
 	</div>
 	</div>
 </form>
-
 <?php
 	include('footer.php');
 ?>

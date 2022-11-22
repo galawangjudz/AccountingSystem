@@ -267,7 +267,7 @@ if ($action == 'save_reservation'){
 
 	$query ="UPDATE t_csr 
 	SET c_reserve_status = '".$reserved."' ,
-	c_ra_status = '".$ca."'
+	c_ca_status = '".$ca."'
 	where c_csr_no = '$csr_no'
 	;";
 
@@ -717,7 +717,7 @@ if($action == 'ca_stat') {
 	}else if($stat == "Disapproved") {
 		$query = "UPDATE t_lots SET c_status = 'Pre-Reserved' where c_lid = '.$lot_id.'";
 	} */
-	$query = "UPDATE t_csr SET c_ra_status = ".$stat." where c_csr_no = ".$id.";";
+	$query = "UPDATE t_csr SET c_ca_status = ".$stat." where c_csr_no = ".$id.";";
 
 
 
@@ -2164,4 +2164,3 @@ if ($action == 'add_reply'){
 
 }
 ?>
-

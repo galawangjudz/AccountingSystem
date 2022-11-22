@@ -1,10 +1,7 @@
 <?php
-
-
-include('header.php');
-include('functions.php');
-
-$getID = $_GET['id'];
+	include('header.php');
+	include('functions.php');
+	$getID = $_GET['id'];
 
 // Connect to the database
 $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
@@ -36,12 +33,9 @@ if($result) {
 
 /* close connection */
 $mysqli->close();
-
 ?>
-
 <h2>Update Project Site</h2>
 <hr>
-
 <div id="response" class="alert alert-success" style="display:none;">
 	<a href="#" class="close" data-dismiss="alert">&times;</a>
 	<div class="message"></div>

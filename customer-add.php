@@ -1,11 +1,9 @@
 <?php
-
-include('header.php');
-include('functions.php');
+	include('header.php');
+	include('functions.php');
 ?>
 <h2>Add Client</h2>
 <hr>
-
 <div id="response" class="alert alert-success" style="display:none;">
 	<a href="#" class="close" data-dismiss="alert">&times;</a>
 	<div class="message"></div>
@@ -157,16 +155,15 @@ include('functions.php');
 						</select>
 					</div>
 				</div>
-			<div class="row">
-				<div class="col-xs-12 margin-top btn-group">
-					<input type="submit" id="action_create_customer" class="btn btn-success float-right" value="Create Client" data-loading-text="Creating...">
+				<div class="row">
+					<div class="col-xs-12 margin-top btn-group">
+						<input type="submit" id="action_create_customer" class="btn btn-success float-right" value="Create Client" data-loading-text="Creating...">
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </form>
-
-
 <?php
 	include('footer.php');
 ?>

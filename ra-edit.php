@@ -1,9 +1,7 @@
 <?php
-
-include('header.php');
-include('functions.php');
-
-$getID = $_GET['id'];
+    include('header.php');
+    include('functions.php');
+    $getID = $_GET['id'];
 
 // Connect to the database
 $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
@@ -21,9 +19,7 @@ $query = "SELECT *
         LEFT JOIN t_projects z 
         ON z.c_code = y.c_site
 		WHERE id = '" . $mysqli->real_escape_string($getID) . "'";
-
 $result = mysqli_query($mysqli, $query);
-
 // mysqli select query
 if($result) {
 	while ($row = mysqli_fetch_assoc($result)) {
@@ -40,23 +36,11 @@ if($result) {
 
 	}
 }
-
 /* close connection */
 $mysqli->close();
-
 ?>
-
-
-<style>
-	.select-ra{
-		margin-top:5px!important;
-		padding-top:0px;
-	}
-</style>
-
 <body>
     <h2><span class="ra_type">Update Reservation</span></h2>
-
     <div class="addbtn"><a href="#" class="btn select-ra" id="btntop"><span class="fas fa-mouse-pointer"></span>	Select An Existing RA</a></div>
     <hr>
     <div id="response" class="alert alert-success" style="display:none;">
@@ -154,9 +138,7 @@ $mysqli->close();
             <h4 class="modal-title">Select Reservation Application</h4>
             </div>
             <div class="modal-body">
-           
                 <?php popRAsList(); ?>
-
             </div>
             <div class="modal-footer">
             <button type="button" data-dismiss="modal" class="btn">Cancel</button>
@@ -170,6 +152,5 @@ $mysqli->close();
 </div>
 </body>
 <?php
-	
 	include('footer.php');
 ?>
