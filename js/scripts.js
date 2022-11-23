@@ -104,7 +104,6 @@ $(document).ready(function() {
         e.preventDefault();
 		var btn_val = $("#verify_btn").val();
         var csrId = 'action=verify_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"'; //build a post data structure
-		alert(csrId);
 		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
 			verify_btn(csrId);
 
@@ -128,7 +127,8 @@ $(document).ready(function() {
 	$(document).on('click', "#coo_approval_btn", function(e) {
         e.preventDefault();
 		var btn_val = $("#coo_approval_btn").val();
-		var csrId = 'action=coo_approval_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"';
+		var csrId = 'action=coo_approval_csr&id='+ $(this).attr('csr-id')+ '&lot_lid=' + $(this).attr('csr-lot-lid') + '&value=' + btn_val ;
+		alert(csrId);
 	 	$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() { 
 			CooApproval(csrId);
 
@@ -139,7 +139,7 @@ $(document).ready(function() {
 	$(document).on('click', "#dis_coo_approval_btn", function(e) {
         e.preventDefault();
 		var btn_val = $("#dis_coo_approval_btn").val();
-		var csrId = 'action=coo_approval_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"';
+		var csrId = 'action=coo_approval_csr&id='+ $(this).attr('csr-id')+ '&lot_lid=' + $(this).attr('csr-lot-lid') + '&value=' + btn_val ;
 	 	$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() { 
 			CooApproval(csrId);
 
@@ -2421,5 +2421,5 @@ function redirectToUserList(){
 }
 
 function redirectToRaList(){
-	window.location.href = "./ra-list.php";
+	window.location.href = "./reservation-list.php";
 }

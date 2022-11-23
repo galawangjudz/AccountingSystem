@@ -110,7 +110,7 @@ $mysqli->close();
             <div class="panel-heading">
                 <input type="hidden" value="<?php echo $p1; ?>" id="p1">
                 <input type="hidden" value="<?php echo $p2; ?>" id="p2">
-                <h2 class="float-left">Buyer's Profile</h2>
+                <h2 class="float-left">CSR #<?php echo $getID; ?></h2>
                 <div class="clear"></div>
             </div>
             <div class="panel-body form-group form-group-sm">
@@ -124,7 +124,8 @@ $mysqli->close();
                                     <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($csr_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
                             </select>
                            
-                           
+                            </div>
+                            <div class="lbl_box">
                             <label id="lblupdatestatus">CA Approval: </label>
                                 <select class= "ca-approval" name= "ca_approval" id ="ca_approval" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?>>
                                     <option class="options1" id="pendingselected" value="Pending" <?php if($ca_status === 'Pending'){?>selected<?php }?>>Pending</option>
@@ -149,8 +150,8 @@ $mysqli->close();
 
                                 <?php if($csr_status == "Verified"){ ?>
                                     
-                                    <button type="button" id= "coo_approval_btn" csr-id =<?php echo $getID; ?> value="Approved" class="btn btn-success btn-lg btn-block">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
-                                    <button type="button" id= "dis_coo_approval_btn" csr-id =<?php echo $getID; ?> value="Disapproved" class="btn btn-danger btn-lg btn-block">COO Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
+                                    <button type="button" id= "coo_approval_btn" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="Approved" class="btn btn-success btn-lg btn-block">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                    <button type="button" id= "dis_coo_approval_btn" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="Disapproved" class="btn btn-danger btn-lg btn-block">COO Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
                                 
                                 <?php } ?>
 
@@ -187,7 +188,7 @@ $mysqli->close();
                             <?php }else if($usertype == "CA"){?>
                                 <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
                                 <hr>
-                                <?php if($csr_status == "Approved" && $reserv_status == "Paid" && $ca_status == ""){ ?>
+                                <?php if($csr_status == "Approved" && $reserv_status == "Paid" && $ca_status == "" && $ca_status == "Pending"){ ?>
                                     
                                     <button type="button" id= "ca_approval_btn" csr-id =<?php echo $getID; ?> value="Approved" class="btn btn-success btn-lg btn-block">CA Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
                                     <button type="button" id= "dis_ca_approval_btn" csr-id =<?php echo $getID; ?> value="Disapproved" class="btn btn-danger btn-lg btn-block">CA Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
@@ -199,7 +200,7 @@ $mysqli->close();
                          
                     </div>
                 
-                    <div class="titles"> CSR #<?php echo $getID; ?></div>
+                    <div class="titles"> Buyer's Profile</div>
                
                  
                     
