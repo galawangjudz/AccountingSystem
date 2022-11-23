@@ -273,6 +273,13 @@ if ($action == 'save_reservation'){
 	where c_csr_no = '$csr_no'
 	;";
 
+
+	$query .="UPDATE t_apporval_csr 
+	SET c_reservation_status = '".$reserved."' ,
+	c_ca_status = '".$ca."'
+	where c_csr_no = '$csr_no'
+	;";
+
 	$query .= "INSERT INTO t_reservation (
 					c_csr_no,
 					c_or_no,
@@ -735,6 +742,14 @@ if($action == 'ca_approval_csr') {
 	$query = "UPDATE t_csr SET c_ca_status = ".$val." where c_csr_no = ".$id.";";
 
 
+	$query .= "UPDATE t_approval_csr SET c_ca_status = ".$val." where c_csr_no = ".$id.";";
+
+
+
+
+
+
+
 	if($mysqli -> multi_query($query)) {
 	    //if saving success
 		echo json_encode(array(
@@ -780,7 +795,7 @@ if($action == 'update_stat') {
 		$query = "UPDATE t_lots SET c_status = 'Pre-Reserved' where c_lid = '.$lot_id.'";
 	} */
 	$query = "UPDATE t_csr SET c_csr_status = ".$stat." where c_csr_no = ".$id.";";
-
+	
 
 
 

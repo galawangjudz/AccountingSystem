@@ -1005,7 +1005,7 @@ function getRAs() {
 
 			
 				print '
-				<td class="actions"><a href="csr-view.php?id='.$row["c_csr_no"].'" class="btn btn-success btn-xs">
+				<td class="actions"><a href="ra-view.php?id='.$row["c_csr_no"].'" data-ra-id="'.$row['ra_id'].'" class="btn btn-success btn-xs">
 				<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
 
 				<a data-csr-id="'.$row['c_csr_no'].'" class="btn btn-danger btn-xs delete-csr">

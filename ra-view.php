@@ -4,6 +4,7 @@ include('functions.php');
 
 
 $getID = $_GET['id'];
+$RaId = $_GET['data-ra-id'];
 $usertype = $_SESSION['user_type'];
 
 // Connect to the database
@@ -110,7 +111,7 @@ $mysqli->close();
             <div class="panel-heading">
                 <input type="hidden" value="<?php echo $p1; ?>" id="p1">
                 <input type="hidden" value="<?php echo $p2; ?>" id="p2">
-                <h2 class="float-left">RA #<?php echo $getID; ?></h2>
+                <h2 class="float-left">RA #<?php echo $RaId; ?></h2>
                 <div class="clear"></div>
             </div>
             <div class="panel-body form-group form-group-sm">
