@@ -19,16 +19,16 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="form-group">
-                    <label>CSR #:</label>
-                    <input type="text" class="form-control margin-bottom required" name="csr_no" id="csr_no" readonly >
+                    <label>Ra No:</label>
+                    <input type="text" class="form-control margin-bottom required" name="ra_no" id="ra_no" readonly >
+                    <input type="hidden" class="form-control margin-bottom required" name="csr_no" id="csr_no" readonly >
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="form-group">
-                    <label>LID: </label>
-                    <input type="text" class="form-control margin-bottom required" name="lot_lid" id="lot_lid" readonly >
+                    <input type="hidden" class="form-control margin-bottom required" name="lot_lid" id="lot_lid" readonly >
                 </div>
             </div>
         </div>

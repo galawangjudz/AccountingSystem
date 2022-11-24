@@ -258,6 +258,7 @@ if ($action == 'save_reservation'){
 
 	$reserved = "Paid";
 	$ca = "Pending";
+	$ra_no = $_POST['ra_no'];
 	$csr_no = $_POST['csr_no'];
 	$c_or_no = $_POST['or_no'];
 	/* $c_acronym = $_POST['reserve_site'];
@@ -273,20 +274,20 @@ if ($action == 'save_reservation'){
 	where c_csr_no = '$csr_no'
 	;";
 
-
-	$query .="UPDATE t_apporval_csr 
+	$query .="UPDATE t_approval_csr 
 	SET c_reservation_status = '".$reserved."' ,
 	c_ca_status = '".$ca."'
-	where c_csr_no = '$csr_no'
-	;";
+	where ra_id = '$ra_no';";
 
 	$query .= "INSERT INTO t_reservation (
+					ra_no,
 					c_csr_no,
 					c_or_no,
 					c_reserve_date,
 					c_amount_paid,
 					c_lot_id
 				) VALUES (
+					'".$ra_no."',
 					'".$csr_no."',
 					'".$c_or_no."',
 					'".$c_reserve_date."',

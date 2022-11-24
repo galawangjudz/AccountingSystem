@@ -633,7 +633,7 @@ $(document).ready(function() {
 		var reserve_amt = $(this).attr('data-ra-res');
 
 
-		$('#reserve_no').val(ra_no);
+		$('#ra_no').val(ra_no);
 		$('#lot_lid').val(lot_lid);
 		$('#csr_no').val(csr_no);
 		$('#reserve_site').val(ra_site);

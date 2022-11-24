@@ -92,7 +92,7 @@
         </li>
 
 
-        <li class="treeview">
+       <!--  <li class="treeview">
           <a href="#"><i class="fa fa fa-file-invoice"></i><span>CSR List</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -105,7 +105,7 @@
             <li><a href="csr-list.php"><i class="fa fa-house"></i>DisApproved</a></li>
             <li><a href="csr-list.php"><i class="fa fa-house"></i>Cancelled</a></li>
           </ul>
-        </li>
+        </li> -->
              <!-- Menu 1.1 -->
              <li class="treeview">
           <a href="csr-list.php"><i class="fa fa-file-invoice"></i><span>CSR List</span></a>

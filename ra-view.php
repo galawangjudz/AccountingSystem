@@ -4,7 +4,6 @@ include('functions.php');
 
 
 $getID = $_GET['id'];
-$RaId = $_GET['data-ra-id'];
 $usertype = $_SESSION['user_type'];
 
 // Connect to the database
@@ -14,11 +13,12 @@ if ($mysqli->connect_error) {
 	die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
 }
 // the query
-$query = "SELECT * FROM t_csr WHERE c_csr_no = '" . $mysqli->real_escape_string($getID) . "'";
+$query = "SELECT x.*, y.ra_id, y.c_csr_no as csr_num FROM t_csr x left join t_approval_csr y on x.c_csr_no = y.c_csr_no WHERE y.c_csr_no = '" . $mysqli->real_escape_string($getID) . "'";
 $result = mysqli_query($mysqli, $query);
 // mysqli select query
 if($result) {
     while ($row = mysqli_fetch_assoc($result)) {
+        $ra_id = $row['ra_id'];
         $csr_no = $row['c_csr_no'];
         $lot_id = $row['c_lot_lid'];
         $customer_date_of_sale = $row['c_date_of_sale'];
@@ -111,7 +111,7 @@ $mysqli->close();
             <div class="panel-heading">
                 <input type="hidden" value="<?php echo $p1; ?>" id="p1">
                 <input type="hidden" value="<?php echo $p2; ?>" id="p2">
-                <h2 class="float-left">RA #<?php echo $RaId; ?></h2>
+                <h2 class="float-left">RA #<?php echo $ra_id; ?></h2>
                 <div class="clear"></div>
             </div>
             <div class="panel-body form-group form-group-sm">
