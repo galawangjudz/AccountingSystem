@@ -41,7 +41,7 @@
 		</div>
 		<form method="post" id="create_csr">
 			<input type="hidden" name="action" value="create_csr">
-			<input type="hidden" name="login_username" value="<?php echo $username ?>">
+			<input type="hidden" name="login_username" value="<?php echo  $_SESSION['username'] ?>">
 			<div id="Buyer" class="tabcontent">
 			<div class="row">
 				<div class="col-xs-12">
@@ -62,13 +62,13 @@
 									</span>
 								</div>
 							</div>
-							<div class="col-xs-6">
-								<label class="control-label">CSR No: <label>
+							<!-- <div class="col-xs-6">
+								<label class="control-label">Ctrl No: <label>
 								<div class="input-group col-xs-12">
 									<span class="input-group-addon">#<?php echo CSR_PREFIX ?></span>
-									<input type="text" name="csr_id" id="csr_id" class="form-control required" aria-describedby="sizing-addon1" tabindex =2 value="<?php getCSRId(); ?>">
+									<input type="text" name="csr_id" id="csr_id" class="form-control required" aria-describedby="sizing-addon1" tabindex =2 value="<?php getCSRId(); ?> " readonly>
 								</div>
-							</div>
+							</div> -->
 						</div>
 						<hr>
 						<div class="row">

@@ -1,11 +1,8 @@
 
 <?php 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "alscdb";
+    include_once("includes/config.php");
 
-    $conn = new mysqli($servername,$username,$password,$dbname);
+    $conn = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
 
     if($conn->connect_error){
       die ('connection faild:'.$conn->connect_error);
