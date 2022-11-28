@@ -11,7 +11,7 @@
 			<div class="message"></div>
 		</div>
 		<div class="panel panel-default">
-			<div class="panel-body form-group form-group-sm">
+    <div class="form-group">
         <form action= "" method="POST">
         <select name="filtercsr">
           <option selected="selected" value="Pending">Pending</option>
@@ -22,7 +22,10 @@
         </select>
         <br />
         <input type="submit" value ='Filter'>
-        </form>
+        </form> 
+    </div>
+			<div class="panel-body form-group form-group-sm">
+      
 				<?php getCSRs(); ?>
 			</div>
 		</div>
