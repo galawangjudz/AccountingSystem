@@ -1,10 +1,9 @@
 
-
 $(document).ready(function() {
 
 
 	let dt = new Date().toISOString().slice(0, 10);
-
+	
 
 /* 	$(document).on('blur', ".date_of_sale", function(e) {
 		var today = new Date();
@@ -98,7 +97,6 @@ $(document).ready(function() {
 		updateUser();
 	});
 
-
 	// verify csr
 	$(document).on('click', "#verify_btn", function(e) {
         e.preventDefault();
@@ -106,6 +104,7 @@ $(document).ready(function() {
         var csrId = 'action=verify_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"'; //build a post data structure
 		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
 			verify_btn(csrId);
+			setInterval('location.reload()', 3000);
 
 		});
    	});
@@ -130,6 +129,7 @@ $(document).ready(function() {
 		var csrId = 'action=coo_approval_csr&id='+ $(this).attr('csr-id')+ '&lot_lid=' + $(this).attr('csr-lot-lid') + '&value=' + btn_val ;
 	 	$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() { 
 			CooApproval(csrId);
+			setInterval('location.reload()', 3000);
 
 		}); 
    	});
@@ -141,7 +141,7 @@ $(document).ready(function() {
 		var csrId = 'action=coo_approval_csr&id='+ $(this).attr('csr-id')+ '&lot_lid=' + $(this).attr('csr-lot-lid') + '&value=' + btn_val ;
 	 	$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() { 
 			CooApproval(csrId);
-
+			setInterval('location.reload()', 3000);
 		}); 
    	});
 
@@ -152,6 +152,7 @@ $(document).ready(function() {
 		var csrId = 'action=ca_approval_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"';
 		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
 			CaApproval(csrId);
+			setInterval('location.reload()', 3000);
 
 		});
    	});
@@ -163,11 +164,9 @@ $(document).ready(function() {
 		var csrId = 'action=ca_approval_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"';
 		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
 			CaApproval(csrId);
-
+			setInterval('location.reload()', 3000);
 		});
    	});
-
-
 
 	// delete user
 	$(document).on('click', ".delete-user", function(e) {
@@ -370,7 +369,6 @@ $(document).ready(function() {
 		});
 	
 	});
-
 
 	//change approval
 	$(document).on('change', ".status-list", function(e) {
@@ -1648,6 +1646,30 @@ function updateTotals(elem) {
 
    	}
 
+	   function csrReopen(csrId) {
+
+        jQuery.ajax({
+
+        	url: 'response.php',
+            type: 'POST', 
+            data: csrId,
+            dataType: 'json', 
+            success: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				
+			},
+			error: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				
+			} 
+    	});
+
+   	}
+
 	function CooApproval(csrId) {
 
         jQuery.ajax({
@@ -2162,7 +2184,8 @@ function updateAgent(){
 					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 					$btn.button("reset");
-					setInterval('location.reload()', 4000);
+					$("#update_csr").remove();
+					setInterval('location.reload()', 2000);
 					//},500);
 			},
 			error: function(data){
@@ -2425,3 +2448,31 @@ function redirectToUserList(){
 function redirectToRaList(){
 	window.location.href = "./reservation-list.php";
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

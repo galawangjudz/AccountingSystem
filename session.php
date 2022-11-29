@@ -1,13 +1,15 @@
-
 <?php 
+
     include_once("includes/config.php");
 
     $conn = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+
 
     if($conn->connect_error){
       die ('connection faild:'.$conn->connect_error);
     }
     session_start();
+
     extract($_POST);
 
     $username = mysqli_real_escape_string($mysqli,$_POST['username']);
@@ -29,10 +31,12 @@
         echo "Logged in successfully!"; 
     }else{
     echo "Incorrect credentials!"; 
-    exit();
-
-    }
+        exit();
+    
+        }
+    
 
 
     $mysqli->close();
+
 ?>

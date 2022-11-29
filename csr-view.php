@@ -92,20 +92,41 @@ if($result) {
         $net_dp = $row['c_net_dp'];
         $down_percent = $row['c_down_percent'];
         $start_date = $row['c_start_date'];
+        $duration = $row['c_duration'];
         }
 
 }
 /* close connection */
 $mysqli->close();
 ?>
+<head>
+    <link rel="stylesheet" href="css/TimeCircles.css"></script>
+    <script src="js/TimeCircles.js"></script>
+</head>
+<style>
+    h4{
+        font-size:12px!important;
+        font-weight:bold;
+    }
+    h3{
+        text-align:center;
+        font-weight:bold;
+    }
+</style>
 <body onload="loadAll()">
+
 <div id="response" class="alert alert-success" style="display:none;">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
     <div class="message"></div>
 </div>
+
 <div class="row">
     <div class="col-xs-12">
-    
+        <div class="timer_box">
+            <div id="CountDown" data-date="<?php echo $duration; ?>"></div>
+            <br>
+
+        </div>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <input type="hidden" value="<?php echo $p1; ?>" id="p1">
@@ -155,7 +176,7 @@ $mysqli->close();
                                 
                                 <?php } ?>
 
-                                <?php if($csr_status == "Approved" && $reserv_status == "Paid" && $ca_status == ""){ ?>
+                                <?php if($csr_status == "Approved" && $reserv_status == "Paid" && $ca_status == "Pending"){ ?>
                                     
                                     <button type="button" id= "ca_approval_btn" csr-id =<?php echo $getID; ?> value="Approved" class="btn btn-success btn-lg btn-block">CA Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
                                     <button type="button" id= "dis_ca_approval_btn" csr-id =<?php echo $getID; ?> value="Disapproved" class="btn btn-danger btn-lg btn-block">CA Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
@@ -675,6 +696,29 @@ $mysqli->close();
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 </div>
+
+<div id="reopen_csr" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Reopen CSR</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to reopen CSR?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-primary" id="reopen">Confirm</button>
+		<button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div> /.modal -->
+</div>
+
+<form id="statform" action="update_duration.php?c_csr_no=<?php echo $getID ?>" method="post">
+    <input type="hidden" name="samp_txt" id="samp_txt">
+</form>
 </body>
 
 <script>
@@ -688,7 +732,6 @@ $mysqli->close();
             document.getElementById("form-" + commentId).style.display = "";
         }
     }
-    
 
     function showReplyForReplyForm(self) {
     var commentId = self.getAttribute("data-id");
@@ -703,9 +746,6 @@ $mysqli->close();
     document.querySelector("#form-" + commentId + " textarea[name=comment]").value = "@" + name;
     document.getElementById("form-" + commentId).scrollIntoView();
     }
-
-
-
 
     function statusColor(){
         var cstatus=document.getElementById('txtstatus').value;
@@ -791,9 +831,29 @@ $mysqli->close();
     function loadAll(){
         paymentType();
         statusColor();
-        resFormat();
     }
-	function resFormat(){
-
-	}
 </script>
+<script>
+
+    $("#CountDown").TimeCircles();
+    $("#CountDown").TimeCircles({count_past_zero: false}).addListener(countdownComplete);
+	
+    function countdownComplete(unit, value, total){
+        if(total<=0){
+            //alert('RESERVATION ALREADY EXPIRED');
+            //$(this).fadeOut('slow').replaceWith("<h3>RESERVATION ALREADY EXPIRED</h3>");
+            document.getElementById("samp_txt").value="EXPIRED";
+            updateStat();
+
+        }
+    }
+</script>
+<script>
+        function updateStat(){
+           // document.getElementById("samp_txt").onchange = function() {
+            document.getElementById("statform").submit();
+        //}
+        }
+</script>
+
+

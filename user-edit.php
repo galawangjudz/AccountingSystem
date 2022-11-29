@@ -2,6 +2,7 @@
 	include('header.php');
 	include('functions.php');
 	$getID = $_GET['id'];
+
 // output any connection error
 if ($mysqli->connect_error) {
 	die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
@@ -20,6 +21,7 @@ if($result) {
 		$date_hired = $row['date_hired']; // username
 		$phone = $row['phone']; // username
 		$password = $row['password']; // password
+		$usertype = $row['user_type'];
 	}
 }
 /* close connection */
