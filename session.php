@@ -1,44 +1,42 @@
 <?php 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "alscdb";
-    $conn = new mysqli($servername,$username,$password,$dbname);
+
+    include_once("includes/config.php");
+
+    $conn = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+
+
     if($conn->connect_error){
       die ('connection faild:'.$conn->connect_error);
     }
     session_start();
-    if (isset($_POST['username']) && isset($_POST['password'])) {
-        function validate($data){
-           $data = trim($data);
-           $data = stripslashes($data);
-           $data = htmlspecialchars($data);
-           return $data;
-        }
-    $username = validate($_POST['username']);
-    $password = validate($_POST['password']);
-    //$password = md5(validate($_POST['password']));
 
-    $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) === 1) {
-        $row = mysqli_fetch_assoc($result);
-        if ($row['username'] === $username && $row['password'] === $password) {
-            $_SESSION['user_type'] = $row['user_type'];
-            $_SESSION['username'] = $row['username'];
-            $_SESSION['password'] = $row['password'];
-            $_SESSION['lastname'] = $row['last_name'];
-            $_SESSION['firstname'] = $row['first_name'];
-            $_SESSION['middlename'] = $row['middle_name'];
-            echo "Logged in successfully!"; 
-        }else{
-            echo "Incorrect credentials!"; 
-            exit();
-        }
+    extract($_POST);
+
+    $username = mysqli_real_escape_string($mysqli,$_POST['username']);
+    $pass_encrypt = md5(mysqli_real_escape_string($mysqli,$_POST['password']));
+
+    $query = "SELECT * FROM `users` WHERE username='$username' AND `password` = '$pass_encrypt'";
+
+    $results = mysqli_query($mysqli,$query) or die (mysqli_error());
+    $count = mysqli_num_rows($results);
+    if($results->num_rows > 0){
+		$row = $results->fetch_assoc();
+        $_SESSION['user_type'] = $row['user_type'];
+        $_SESSION['username'] = $row['username'];
+        $_SESSION['password'] = $row['password'];
+        $_SESSION['lastname'] = $row['last_name'];
+        $_SESSION['firstname'] = $row['first_name'];
+        $_SESSION['middlename'] = $row['middle_name'];
+       
+        echo "Logged in successfully!"; 
     }else{
-        echo "Incorrect credentials!"; 
+    echo "Incorrect credentials!"; 
         exit();
+    
         }
-    }
-    $conn->close();
+    
+
+
+    $mysqli->close();
+
 ?>

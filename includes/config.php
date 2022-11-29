@@ -31,7 +31,7 @@ define('EMAIL_BODY_QUOTE', 'Quote default body'); // Invoice email body
 define('EMAIL_BODY_RECEIPT', 'Receipt default body'); // Invoice email body
 
 // OTHER SETTINFS
-define('CSR_PREFIX', 'CSR'); // Prefix at start of invoice - leave empty '' for no prefix
+define('CSR_PREFIX', 'CTRL'); // Prefix at start of invoice - leave empty '' for no prefix
 define('INVOICE_INITIAL_VALUE', ''); // Prefix at start of invoice - leave empty '' for no prefix
 define('CSR_INITIAL_VALUE', '1'); // Initial invoice order number (start of increment)
 define('INVOICE_THEME', '#222222'); // Theme colour, this sets a colour theme for the PDF generate invoice

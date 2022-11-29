@@ -8,6 +8,8 @@ include_once('includes/config.php');
 // show PHP errors
 ini_set('display_errors', 1);
 
+//get session user
+session_start();
 
 
 // output any connection error
@@ -256,6 +258,7 @@ if ($action == 'save_reservation'){
 
 	$reserved = "Paid";
 	$ca = "Pending";
+	$ra_no = $_POST['ra_no'];
 	$csr_no = $_POST['csr_no'];
 	$c_or_no = $_POST['or_no'];
 	/* $c_acronym = $_POST['reserve_site'];
@@ -271,13 +274,20 @@ if ($action == 'save_reservation'){
 	where c_csr_no = '$csr_no'
 	;";
 
+	$query .="UPDATE t_approval_csr 
+	SET c_reservation_status = '".$reserved."' ,
+	c_ca_status = '".$ca."'
+	where ra_id = '$ra_no';";
+
 	$query .= "INSERT INTO t_reservation (
+					ra_no,
 					c_csr_no,
 					c_or_no,
 					c_reserve_date,
 					c_amount_paid,
 					c_lot_id
 				) VALUES (
+					'".$ra_no."',
 					'".$csr_no."',
 					'".$c_or_no."',
 					'".$c_reserve_date."',
@@ -386,7 +396,7 @@ if ($action == 'create_csr'){
 	$username =  $_POST['login_username'];
 
 
-	$csr_id = $_POST['csr_id'];
+/* 	$csr_id = $_POST['csr_id']; */
 	$lot_lid = $_POST['l_lid'];
 	$customer_date_of_sale = $_POST['date_of_sale'];
 	// buyer details
@@ -450,7 +460,6 @@ if ($action == 'create_csr'){
 
 	// insert csr into database
 	$query = "INSERT INTO t_csr (
-					c_csr_no,
 					c_lot_lid,
 					c_date_of_sale,
 					c_b1_last_name,
@@ -507,7 +516,6 @@ if ($action == 'create_csr'){
 					c_created_by
 			
 				) VALUES (
-					'".$csr_id."',
 					'".$lot_lid."',
 					'".$customer_date_of_sale."',
 				  	'".$customer_last_name_1."',
@@ -564,7 +572,23 @@ if ($action == 'create_csr'){
 					'".$username."'
 						);
 					"; 
+	$query2 = "SELECT AUTO_INCREMENT AS c_csr_no
+					FROM information_schema.TABLES
+					WHERE TABLE_SCHEMA = 'alscdb'
+					AND TABLE_NAME = 't_csr'";
 			
+			
+	if ($result = $mysqli->query($query2)) {
+
+		$row_cnt = $result->num_rows;
+
+		$row = mysqli_fetch_assoc($result);
+
+		$csr_id = $row['c_csr_no']; 
+				
+		}	
+		
+
 	foreach($_POST['agent_name'] as $key => $value) {
 
 
@@ -657,10 +681,37 @@ if($action == 'coo_approval_csr') {
 
 	$id = $_POST["id"];
 	$val = $_POST["value"];
+	$lot_id = $_POST["lot_lid"];
+	date_default_timezone_set("Asia/Manila");
+	$approved_date = date("Y-m-d H:i:s"); 
+	$approved_by  = $_SESSION['username'];
 	//$duration = new DateTime('now')->format('Y-m-d H:i:s');
 
-	$query = "UPDATE t_csr SET c_csr_status = ".$val.",c_duration= DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL 1 DAY) where c_csr_no = ".$id.";";
+	$query = "UPDATE t_csr SET c_csr_status = ".$val." where c_csr_no = ".$id.";";
 
+	$query = "UPDATE t_csr SET c_csr_status = '".$val."' where c_csr_no = ".$id.";";
+	
+	if($val == "Approved"){
+	
+		$query .= "INSERT INTO t_approval_csr(
+				c_csr_no,
+				c_lot_lid,
+				c_csr_status,
+				c_date_approved
+			)
+			VALUES (
+				'".$id."',
+				'".$lot_id."',
+				'".$val."',
+				'".$approved_date."'
+				);
+				";
+
+		$query .= "UPDATE t_csr SET c_csr_status = 'Cancelled' where c_lot_lid = ".$lot_id." and c_csr_no != ".$id.";";
+
+		header('Content-Type: application/json');
+		}
+	
 
 	if($mysqli -> multi_query($query)) {
 	    //if saving success
@@ -693,6 +744,14 @@ if($action == 'ca_approval_csr') {
 	$val = $_POST["value"];
 
 	$query = "UPDATE t_csr SET c_ca_status = ".$val." where c_csr_no = ".$id.";";
+
+
+	$query .= "UPDATE t_approval_csr SET c_ca_status = ".$val." where c_csr_no = ".$id.";";
+
+
+
+
+
 
 
 	if($mysqli -> multi_query($query)) {
@@ -740,7 +799,7 @@ if($action == 'update_stat') {
 		$query = "UPDATE t_lots SET c_status = 'Pre-Reserved' where c_lid = '.$lot_id.'";
 	} */
 	$query = "UPDATE t_csr SET c_csr_status = ".$stat." where c_csr_no = ".$id.";";
-
+	
 
 
 
@@ -817,6 +876,48 @@ if($action == 'ca_stat') {
 
 
 if($action == 'delete_ra') {
+
+	// output any connection error
+	if ($mysqli->connect_error) {
+	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+	}
+
+	$id = $_POST["delete"];
+	$csr_no = $_POST["csr_no"];
+
+	// the query
+	$query ="UPDATE t_csr 
+	SET c_reserve_status = ''
+	where c_csr_no = ".$csr_no."
+	;";
+
+	$query .= "DELETE FROM t_reservation WHERE id = ".$id.";";
+
+	
+
+
+	if($mysqli -> multi_query($query)) {
+	    //if saving success
+		echo json_encode(array(
+			'status' => 'Success',
+			'message'=> 'Reservation has been deleted successfully!'
+		));
+
+	} else {
+	    //if unable to create new record
+	    echo json_encode(array(
+	    	'status' => 'Error',
+	    	//'message'=> 'There has been an error, please try again.'
+	    	'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>'
+	    ));
+	}
+
+	// close connection 
+	$mysqli->close();
+
+}
+
+if($action == 'delete_reservation') {
 
 	// output any connection error
 	if ($mysqli->connect_error) {

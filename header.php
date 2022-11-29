@@ -1,6 +1,6 @@
 <?php
 	//check login
-	include("session.php");
+	include("auth.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -90,13 +90,34 @@
         <li class="treeview">
           <a href="dashboard.php"><i class="fa fa-th"></i><span>Dashboard</span></a>
         </li>
+
+
+       <!--  <li class="treeview">
+          <a href="#"><i class="fa fa fa-file-invoice"></i><span>CSR List</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="csr-list.php"><i class="fa fa-map-location-dot"></i>Pending</a></li>
+            <li><a href="csr-list.php"><i class="fa fa-square"></i>Verified</a></li>
+            <li><a href="csr-list.php"><i class="fa fa-house"></i>Approved</a></li>
+            <li><a href="csr-list.php"><i class="fa fa-house"></i>DisApproved</a></li>
+            <li><a href="csr-list.php"><i class="fa fa-house"></i>Cancelled</a></li>
+          </ul>
+        </li> -->
+             <!-- Menu 1.1 -->
+             <li class="treeview">
+          <a href="csr-list.php"><i class="fa fa-file-invoice"></i><span>CSR List</span></a>
+        </li>
         <!-- Menu 1 -->
          <li class="treeview">
-          <a href="csr-list.php"><i class="fa fa-file-invoice"></i><span>Contract</span></a>
+          <a href="ra-list.php"><i class="fa fa-file-invoice"></i><span>RA List</span></a>
         </li>
-          <!-- Menu 1.1 -->
+    
+          <!-- Menu 1.2 -->
         <li class="treeview">
-          <a href="ra-list.php"><i class="fa fa-calendar-check"></i><span>Reservation</span></a>
+          <a href="reservation-list.php"><i class="fa fa-calendar-check"></i><span>Reservation</span></a>
         </li>
         <!-- Menu 2 -->
          <li class="treeview">

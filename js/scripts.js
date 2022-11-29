@@ -102,7 +102,6 @@ $(document).ready(function() {
         e.preventDefault();
 		var btn_val = $("#verify_btn").val();
         var csrId = 'action=verify_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"'; //build a post data structure
-		alert(csrId);
 		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
 			verify_btn(csrId);
 			setInterval('location.reload()', 3000);
@@ -127,7 +126,7 @@ $(document).ready(function() {
 	$(document).on('click', "#coo_approval_btn", function(e) {
         e.preventDefault();
 		var btn_val = $("#coo_approval_btn").val();
-		var csrId = 'action=coo_approval_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"';
+		var csrId = 'action=coo_approval_csr&id='+ $(this).attr('csr-id')+ '&lot_lid=' + $(this).attr('csr-lot-lid') + '&value=' + btn_val ;
 	 	$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() { 
 			CooApproval(csrId);
 			setInterval('location.reload()', 3000);
@@ -139,7 +138,7 @@ $(document).ready(function() {
 	$(document).on('click', "#dis_coo_approval_btn", function(e) {
         e.preventDefault();
 		var btn_val = $("#dis_coo_approval_btn").val();
-		var csrId = 'action=coo_approval_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"';
+		var csrId = 'action=coo_approval_csr&id='+ $(this).attr('csr-id')+ '&lot_lid=' + $(this).attr('csr-lot-lid') + '&value=' + btn_val ;
 	 	$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() { 
 			CooApproval(csrId);
 			setInterval('location.reload()', 3000);
@@ -290,14 +289,14 @@ $(document).ready(function() {
 			$(project).closest('tr').remove();
 		});
 	});
-	// delete ra
-	$(document).on('click', ".delete-ra", function(e) {
+	// delete reservation
+	$(document).on('click', ".delete-reservation", function(e) {
 		e.preventDefault();
-		var raId = 'action=delete_ra&delete='+ $(this).attr('data-ra-id')+'&csr_no=' + $(this).attr('data-csr-no');
+		var raId = 'action=delete_reservation&delete='+ $(this).attr('data-ra-id')+'&csr_no=' + $(this).attr('data-csr-no');
 		var ra = $(this);
 		
 		$('#delete_ra').modal({ backdrop: 'static', keyboard: false }).one('click', '#delete', function() {
-			deleteRA(raId);
+			deleteReservation(raId);
 			$(ra).closest('tr').remove();
 		});
 		
@@ -631,7 +630,7 @@ $(document).ready(function() {
 		var reserve_amt = $(this).attr('data-ra-res');
 
 
-		$('#reserve_no').val(ra_no);
+		$('#ra_no').val(ra_no);
 		$('#lot_lid').val(lot_lid);
 		$('#csr_no').val(csr_no);
 		$('#reserve_site').val(ra_site);
@@ -1634,6 +1633,7 @@ function updateTotals(elem) {
 				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
 				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				setInterval('location.reload()', 500);
 				
 			},
 			error: function(data){
@@ -1682,6 +1682,7 @@ function updateTotals(elem) {
 				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
 				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				setInterval('location.reload()', 500);
 				
 			},
 			error: function(data){
@@ -1706,6 +1707,7 @@ function updateTotals(elem) {
 				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
 				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				setInterval('location.reload()', 500);
 				
 			},
 			error: function(data){
@@ -1717,7 +1719,7 @@ function updateTotals(elem) {
     	});
 
    	}
-	   function deleteRA(raId) {
+	   function deleteReservation(raId) {
 
         jQuery.ajax({
 
@@ -2444,7 +2446,7 @@ function redirectToUserList(){
 }
 
 function redirectToRaList(){
-	window.location.href = "./ra-list.php";
+	window.location.href = "./reservation-list.php";
 }
 
 
