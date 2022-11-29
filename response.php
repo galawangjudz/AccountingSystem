@@ -317,8 +317,8 @@ if ($action == 'update_reservation'){
 	if ($mysqli->connect_error) {
 	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
 	}
-
-	$reserved = "Paid";
+	$duration_stat = "Updated";
+	$duration = "";
 	$id = $_POST['res_id'];
 	$csr_no = $_POST['csr_no'];
 	$c_or_no = $_POST['or_no'];
@@ -330,11 +330,11 @@ if ($action == 'update_reservation'){
 	$query = "UPDATE t_reservation SET
 				c_or_no = ?,
 				c_reserve_date = ?,
-				c_amount_paid = ?
+				c_amount_paid = ?,
+				c_duration = ?,
+				c_duration_stat = ?
 				WHERE id = ?
 			";
-
-
 
 	/* Prepare statement */
 	$stmt = $mysqli->prepare($query);
@@ -344,10 +344,12 @@ if ($action == 'update_reservation'){
 
 	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
 	$stmt->bind_param(
-		'ssss',
+		'ssssss',
 		$c_or_no,
 		$c_reserve_date,
 		$c_amount_paid,
+		$duration,
+		$duration_stat,
 		$id);
 
 	//execute the query
@@ -655,8 +657,9 @@ if($action == 'coo_approval_csr') {
 
 	$id = $_POST["id"];
 	$val = $_POST["value"];
+	//$duration = new DateTime('now')->format('Y-m-d H:i:s');
 
-	$query = "UPDATE t_csr SET c_csr_status = ".$val." where c_csr_no = ".$id.";";
+	$query = "UPDATE t_csr SET c_csr_status = ".$val.",c_duration= DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL 1 DAY) where c_csr_no = ".$id.";";
 
 
 	if($mysqli -> multi_query($query)) {
@@ -679,7 +682,6 @@ if($action == 'coo_approval_csr') {
 	$mysqli->close();
 
 }
-
 
 if($action == 'ca_approval_csr') {
 
@@ -894,6 +896,7 @@ if($action == 'delete_csr') {
 
 }
 
+
 // Updating new customer
 if($action == 'update_customer') {
 
@@ -951,6 +954,8 @@ if($action == 'update_customer') {
 				WHERE id = ?
 
 			";
+
+			
 
 	/* Prepare statement */
 	$stmt = $mysqli->prepare($query);

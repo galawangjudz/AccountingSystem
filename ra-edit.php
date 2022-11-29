@@ -33,12 +33,12 @@ if($result) {
         $c_lot  = $row['c_lot'];
         $c_reserved_date =  $row['c_reserve_date']; 
         $c_amount_paid = $row['c_amount_paid']; 
-
 	}
 }
 /* close connection */
 $mysqli->close();
 ?>
+
 <body>
     <h2><span class="ra_type">Update Reservation</span></h2>
     <div class="addbtn"><a href="#" class="btn select-ra" id="btntop"><span class="fas fa-mouse-pointer"></span>	Select An Existing RA</a></div>
@@ -48,6 +48,7 @@ $mysqli->close();
         <div class="message"></div>
     </div>
     <div>
+    
     <form method="post" id="update_reservation">
     <div class="box_big">
 	    <div class="main_box">
@@ -121,9 +122,10 @@ $mysqli->close();
                     <input type="text" class="form-control margin-bottom required" name="amount_paid" id="amount_paid" tabindex="3" value="<?php echo $c_amount_paid; ?>">	
                 </div>
             </div>
-        </div>      
+        </div>   
 		<div class="row">
 			<div class="col-xs-12">		
+                <input type="hidden" name="samp_txt" id="samp_txt">	
                 <input type="submit" id="action_update_reservation" class="btn btn-success" value="Update Reservation" data-loading-text="Updating...">
             </div>
         </div>
@@ -151,6 +153,4 @@ $mysqli->close();
 <div class="row">
 </div>
 </body>
-<?php
-	include('footer.php');
-?>
+

@@ -103,7 +103,7 @@
         var box = document.getElementsByClassName('toast');
         if(samp == "Logged in successfully!"){
             for(var i = 0; i < box.length; i++){
-                box[i].style.backgroundColor = "green";
+                box[i].style.backgroundColor = "#00a65a";
                 setInterval(redirectToDashboard,1000);
             }
         }

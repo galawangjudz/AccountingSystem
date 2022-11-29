@@ -1,5 +1,8 @@
 <?php
 include_once("includes/config.php");
+//include_once("duration/timer.php");
+
+
 function getProject() {
  
    // Connect to the database
@@ -195,6 +198,22 @@ function getHouse() {
 	$mysqli->close();
 }
 
+
+//get duration
+//function getDuration(){
+
+	//$from_time1=date('Y-m-d H:i:s');
+	//$to_time1=$_SESSION["end_time"];
+
+	//$timefirst=strtotime($from_time1);
+	//$timesecond=strtotime($to_time1);
+
+	//$differenceinseconds=$timesecond-$timefirst;
+
+	//echo gmdate("H:i:s",$differenceinseconds);
+	//echo '<br>';
+//}
+
 // get csr list
 function getCSRs() {
 
@@ -266,6 +285,7 @@ function getCSRs() {
 				    
 					<td>'.number_format($row["c_net_tcp"], 2).'</td>
 				    <td>'.$row["c_date_of_sale"].'</td>
+
 				';
 			
 				if($row['c_csr_status'] == "Approved"){
@@ -448,6 +468,7 @@ function get_acronym($phase) {
 	$mysqli->close();
 
 }
+
 function popLotsList() {
 
 // Connect to the database
@@ -1123,5 +1144,3 @@ window.onclick = function(event) {
         });
     });
 </script>
-
-
