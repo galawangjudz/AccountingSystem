@@ -71,6 +71,14 @@
     </div>
 
 <script>  
+    $(document).bind('keypress', function(e) {
+		e.preventDefault;
+		
+        if(e.keyCode==13){
+            $('#submit').trigger('click');
+        }
+    });
+
     $(document).ready(function(){  
         $('#submit').click(function(){  
             var username = $('#username').val();  

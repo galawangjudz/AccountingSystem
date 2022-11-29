@@ -128,7 +128,6 @@ $(document).ready(function() {
         e.preventDefault();
 		var btn_val = $("#coo_approval_btn").val();
 		var csrId = 'action=coo_approval_csr&id='+ $(this).attr('csr-id')+ '&lot_lid=' + $(this).attr('csr-lot-lid') + '&value=' + btn_val ;
-		alert(csrId);
 	 	$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() { 
 			CooApproval(csrId);
 
@@ -291,14 +290,14 @@ $(document).ready(function() {
 			$(project).closest('tr').remove();
 		});
 	});
-	// delete ra
-	$(document).on('click', ".delete-ra", function(e) {
+	// delete reservation
+	$(document).on('click', ".delete-reservation", function(e) {
 		e.preventDefault();
-		var raId = 'action=delete_ra&delete='+ $(this).attr('data-ra-id')+'&csr_no=' + $(this).attr('data-csr-no');
+		var raId = 'action=delete_reservation&delete='+ $(this).attr('data-ra-id')+'&csr_no=' + $(this).attr('data-csr-no');
 		var ra = $(this);
 		
 		$('#delete_ra').modal({ backdrop: 'static', keyboard: false }).one('click', '#delete', function() {
-			deleteRA(raId);
+			deleteReservation(raId);
 			$(ra).closest('tr').remove();
 		});
 		
@@ -1636,6 +1635,7 @@ function updateTotals(elem) {
 				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
 				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				setInterval('location.reload()', 500);
 				
 			},
 			error: function(data){
@@ -1660,6 +1660,7 @@ function updateTotals(elem) {
 				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
 				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				setInterval('location.reload()', 500);
 				
 			},
 			error: function(data){
@@ -1684,6 +1685,7 @@ function updateTotals(elem) {
 				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
 				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				setInterval('location.reload()', 500);
 				
 			},
 			error: function(data){
@@ -1695,7 +1697,7 @@ function updateTotals(elem) {
     	});
 
    	}
-	   function deleteRA(raId) {
+	   function deleteReservation(raId) {
 
         jQuery.ajax({
 

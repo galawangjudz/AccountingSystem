@@ -1,6 +1,6 @@
 <?php
 	//check login
-	include("session.php");
+	include("auth.php");
 ?>
 
 
