@@ -58,7 +58,6 @@
 		</div>
 	</div>
 <div>
->>>>>>> master
 <div id="delete_csr" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">

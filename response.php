@@ -687,9 +687,7 @@ if($action == 'coo_approval_csr') {
 	$approved_by  = $_SESSION['username'];
 	//$duration = new DateTime('now')->format('Y-m-d H:i:s');
 
-	$query = "UPDATE t_csr SET c_csr_status = ".$val." where c_csr_no = ".$id.";";
-
-	$query = "UPDATE t_csr SET c_csr_status = '".$val."' where c_csr_no = ".$id.";";
+	$query = "UPDATE t_csr SET c_csr_status = ".$val." , c_duration=DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL 1 DAY) where c_csr_no = ".$id.";";
 	
 	if($val == "Approved"){
 	
