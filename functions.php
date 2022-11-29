@@ -1011,11 +1011,8 @@ function getRAs() {
 
 			
 				print '
-				<td class="actions"><a href="ra-view.php?id='.$row["c_csr_no"].'" data-ra-id="'.$row['ra_id'].'" class="btn btn-success btn-xs">
+				<td class="actions"><a href="ra-view.php?id='.$row["c_csr_no"].'" data-ra-id="'.$row['ra_id'].'" class="btn btn-primary btn-xs">View
 				<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
-
-				<a data-csr-id="'.$row['c_csr_no'].'" class="btn btn-danger btn-xs delete-csr">
-				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 				
 			    </tr>
 			'; 
@@ -1085,7 +1082,7 @@ function getReservations() {
 					<td>'.$row["c_amount_paid"].'</td>
 					<td class="actions"><a href="reservation-edit.php?id='.$row["id"].'" class="btn btn-primary btn-xs">
 					<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-				  	<a data-ra-id="'.$row['id'].'" data-csr-no="'.$row['c_csr_no'].'" class="btn btn-danger btn-xs delete-ra">
+				  	<a data-ra-id="'.$row['id'].'" data-csr-no="'.$row['c_csr_no'].'" class="btn btn-danger btn-xs delete-reservation">
 					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 
 			    </tr>

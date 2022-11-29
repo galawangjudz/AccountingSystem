@@ -914,6 +914,48 @@ if($action == 'delete_ra') {
 
 }
 
+if($action == 'delete_reservation') {
+
+	// output any connection error
+	if ($mysqli->connect_error) {
+	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+	}
+
+	$id = $_POST["delete"];
+	$csr_no = $_POST["csr_no"];
+
+	// the query
+	$query ="UPDATE t_csr 
+	SET c_reserve_status = ''
+	where c_csr_no = ".$csr_no."
+	;";
+
+	$query .= "DELETE FROM t_reservation WHERE id = ".$id.";";
+
+	
+
+
+	if($mysqli -> multi_query($query)) {
+	    //if saving success
+		echo json_encode(array(
+			'status' => 'Success',
+			'message'=> 'Reservation has been deleted successfully!'
+		));
+
+	} else {
+	    //if unable to create new record
+	    echo json_encode(array(
+	    	'status' => 'Error',
+	    	//'message'=> 'There has been an error, please try again.'
+	    	'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>'
+	    ));
+	}
+
+	// close connection 
+	$mysqli->close();
+
+}
+
 // delete csr
 if($action == 'delete_csr') {
 
