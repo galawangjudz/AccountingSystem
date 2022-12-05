@@ -623,6 +623,7 @@ $(document).ready(function() {
 		var ra_site = $(this).attr('data-ra-site');
 		var ra_block = $(this).attr('data-ra-block');
 		var ra_lot = $(this).attr('data-ra-lot');
+		var fullname = $(this).attr('data-ra-fname');
 
 		var reserve_or_no = $(this).attr('data-or-no');
 		var reserve_date = $(this).attr('data-reserve-date');
@@ -636,7 +637,7 @@ $(document).ready(function() {
 		$('#reserve_site').val(ra_site);
 		$('#reserve_block').val(ra_block);
 		$('#reserve_lot').val(ra_lot);
-
+		$('#fullname').val(fullname);
 		$('#or_no').val(reserve_or_no);
 		$('#pay_date').val(reserve_date);
 		$('#amount_paid').val(reserve_amt);
