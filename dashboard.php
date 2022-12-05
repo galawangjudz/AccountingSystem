@@ -83,7 +83,7 @@
                 <p>Reserved</p>
               </div>
               <div class="icon">
-                <i class="ion ion-social-dropbox"></i>
+                <i class="fa-solid fa-calendar-check"></i>
               </div>
             </div>
           </div>
@@ -100,7 +100,7 @@
                 <p>Pre-reserved</p>
               </div>
               <div class="icon">
-                <i class="ion ion-ios-people"></i>
+                <i class="fa-solid fa-calendar"></i>
               </div>  
             </div>
           </div>
@@ -117,7 +117,7 @@
                 <p>Available</p>
               </div>
               <div class="icon">
-                <i class="ion ion-ios-paper"></i>
+                <i class="fa-solid fa-circle-check"></i>
               </div>
             </div>
           </div>
