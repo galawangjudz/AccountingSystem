@@ -11,11 +11,11 @@
         </li>
         <!-- Menu 1.1 -->
         <li class="treeview">
-          <a href="index.php?page=csr-list"><i class="fa fa-file-invoice"></i><span>CSR List</span></a>
+          <a href="index.php?page=csr-list"><i class="fa fa-file-invoice"></i><span>Pending List</span></a>
         </li>
         <!-- Menu 1 -->
          <li class="treeview">
-          <a href="index.php?page=ra-list"><i class="fa-solid fa-book"></i><span>RA List</span></a>
+          <a href="index.php?page=ra-list"><i class="fa-solid fa-book"></i><span>  RA List</span></a>
         </li>
     
           <!-- Menu 1.2 -->
