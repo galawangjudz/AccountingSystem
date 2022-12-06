@@ -1,6 +1,6 @@
 <?php
-	//check login
 	include("auth.php");
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,6 +41,12 @@
 	<link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="temp/toastr.min.css">
 </head>
+<style>
+  #main_div1{
+    visibility: hidden;
+    position:absolute;
+  }
+</style>
 <div class="header"></div>
 <body class="hold-transition skin-green sidebar-mini">
 <div class="wrapper">
@@ -112,7 +118,7 @@
         </li>
         <!-- Menu 1 -->
          <li class="treeview">
-          <a href="ra-list.php"><i class="fa fa-file-invoice"></i><span>RA List</span></a>
+          <a href="ra-list.php"><i class="fa-solid fa-book">&nbsp&nbsp</i><span>RA List</span></a>
         </li>
     
           <!-- Menu 1.2 -->
@@ -161,6 +167,16 @@
 <div class="content-wrapper">
     <!-- Main content -->
 <section class="content">
+<div class="panel-body form-group form-group-sm" id="main_div1"></div>
+  
     <!-- Your Page Content Here -->
+<script>
+  $(document).ready(function(){
+    $('#main_div1').load("load.php");
+    setInterval(function(){
+      $('#main_div1').load("load.php");
+    }, 1000);
+  });
+</script>
 
 

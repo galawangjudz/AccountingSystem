@@ -1,60 +1,39 @@
 <?php
   include('header.php');
   include('functions.php');
-  //include('duration/timer.php');
 ?>
-
-
+<script>
+  $(document).ready(function(){
+    $('#main_div').load("load.php");
+    setInterval(function(){
+      $('#main_div').load("load.php");
+    }, 1000);
+  });
+</script>
+<body>
 <h2>Contract Sale List</h2><div class="addbtn"><a href="csr-create.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
 <hr>
-
-<div class="row">
-	<div class="col-xs-12">
-
-  <div class="container-fluid">
-	
-	<div class="col-lg-12">
-		<div class="row">
-			<!-- FORM Panel -->
-			<div class="col-md-4">
-			<form action="" id="filtercsr">
-				<div class="card">
-					<div class="card-body">
-          <div class="form-group col-md-12">
-								<label class="control-label">Filter by </label>
-								<select name="filtercsr">
-                <option selected="selected" value="Pending">Pending</option>
-                <option value="Approved">Approved</option>
-                <option value="Disapproved">Disapproved</option>
-                <option value="Verified">Verified</option>
-                <option value="Cancelled">Cancelled</option>
-              </select>
-              <br />
-                  <input type="submit" value ='Filter'>
-              </div>             
-               
-            </form> 
-          </div>
-					</div>
-
-				</div>
-			</form>
-			</div>
+<div id="response" class="alert alert-success" style="display:none;">
+  <a href="#" class="close" data-dismiss="alert">&times;</a>
+  <div class="message"></div>
 </div>
+<div class="filterDiv">
+  <form action="" id="filtercsr">
+    <div class="form-group col-md-12">
+        <label class="lblFilter">Filter by: </label>
+          <select name="filtercsr">
+            <option selected="selected" value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Disapproved">Disapproved</option>
+            <option value="Verified">Verified</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+          <input type="submit" class="filterBtn" value ='Filter'>
+    </div>             
+  </form>
 </div>
-</div>
-
-		<div id="response" class="alert alert-success" style="display:none;">
-			<a href="#" class="close" data-dismiss="alert">&times;</a>
-			<div class="message"></div>
-		</div>
 		<div class="panel panel-default">
-
-    
-			<div class="panel-body form-group form-group-sm">
-      
-				<?php getCSRs(); ?>
-			</div>
+			<div class="panel-body form-group form-group-sm" id="main_div"></div>
 		</div>
 	</div>
 <div>
@@ -75,3 +54,4 @@
     </div>
   </div>
 </div>
+</body>

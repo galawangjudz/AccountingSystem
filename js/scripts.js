@@ -2334,8 +2334,8 @@ function updateAgent(){
 					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
 					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-			
 					$btn.button("reset");
+					setInterval('location.reload()', 2000);
 					
 				},
 				error: function(data){
@@ -2343,6 +2343,7 @@ function updateAgent(){
 					$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
 					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 					$btn.button("reset");
+					setInterval('location.reload()', 2000);
 				} 
 
 			});
@@ -2377,8 +2378,8 @@ function updateAgent(){
 					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
 					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-			
 					$btn.button("reset");
+					setInterval('location.reload()', 2000);
 					
 				},
 				error: function(data){
@@ -2386,6 +2387,7 @@ function updateAgent(){
 					$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
 					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 					$btn.button("reset");
+					setInterval('location.reload()', 2000);
 				} 
 
 			});

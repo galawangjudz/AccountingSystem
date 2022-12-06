@@ -1,7 +1,6 @@
 <?php
 include_once("includes/config.php");
-//include_once("duration/timer.php");
-
+date_default_timezone_set('Asia/Manila');
 
 function getProject() {
  
@@ -198,22 +197,6 @@ function getHouse() {
 	$mysqli->close();
 }
 
-
-//get duration
-//function getDuration(){
-
-	//$from_time1=date('Y-m-d H:i:s');
-	//$to_time1=$_SESSION["end_time"];
-
-	//$timefirst=strtotime($from_time1);
-	//$timesecond=strtotime($to_time1);
-
-	//$differenceinseconds=$timesecond-$timefirst;
-
-	//echo gmdate("H:i:s",$differenceinseconds);
-	//echo '<br>';
-//}
-
 // get csr list
 function getCSRs() {
 
@@ -227,16 +210,17 @@ function getCSRs() {
 
 	// the query
 
-	if(isset($_POST["filtercsr"])){
-		$filter = $_POST["filtercsr"];
-		$query = "SELECT * FROM t_csr_view where c_csr_status = '$filter' order by c_csr_no";
-	}else{
-		$query = "SELECT * FROM t_csr_view";
-	}
+	//if(isset($_POST["filtercsr"])){
+		//$filter = $_POST["filtercsr"];
+		//$query = "SELECT * FROM t_csr_view where c_csr_status = '$filter' order by c_csr_no";
+	//}else{
+		//$query = "SELECT * FROM t_csr_view";
+	//}
 
+	$query = "SELECT * FROM t_csr";
 
-	$usertype = $_SESSION['user_type'];
-	$username = $_SESSION['username'];
+	//$usertype = $_SESSION['user_type'];
+	//$username = $_SESSION['username'];
 	
 	/* if(($usertype) == ('IT Admin')){
 		$query = "SELECT * FROM t_csr_view";
@@ -260,41 +244,80 @@ function getCSRs() {
 	ORDER BY c_date_of_sale";
  	} */
 
-
-
 	// mysqli select query
 	$results = $mysqli->query($query);
 	$no = 1;
-	// mysqli select query
 	if($results) {
 
+
+		//MGA NIREMOVE KO MUNA
+		//<th>Location</th>
+		//<td>'.$row["c_acronym"].' Block '.$row["c_block"].' Lot '.$row["c_lot"].' </td>
 
 
 
 		print '<table class="table table-striped table-hover table-bordered" id="data-table" cellspacing="0"><thead><tr>
 
 				<th> No.</th>
-				<th>Date of Sale</th>
-				<th>Location</th>
+
+				<th>COO Approval Date</th>
+				<th>Res. Status</th>
+
 				<th>Buyers Name</th>
 				<th>Net TCP</th>
 				<th>Aproval Status</th>
 				<th class="actions">Actions</th>
 
-				
-
 			  </tr></thead><tbody>';
 
 		while($row = $results->fetch_assoc()) {
-				
+			$status=$row["c_csr_status"];
+			$date_created=$row["c_date_created"];
+			$id=$row["c_csr_no"];
+
+
+			$exp_date=new DateTime($row["c_duration"]);
+			$exp_date_str=$row["c_duration"];
+			$exp_date_only=date("Y-m-d",strtotime($exp_date_str));
+			//echo $exp_date_only;
+
+			$today_date=date('Y/m/d H:i:s');
+			$today_date_only=date("Y-m-d",strtotime($today_date));
+			//echo $today_date_only;
+
+			$exp=strtotime($exp_date_str);
+			$td=strtotime($today_date);
 			
 			print '
 				<tr>
 					<td>'.$no++.'</td>
-					<td>'.$row["c_date_of_sale"].'</td>
-					<td>'.$row["c_acronym"].' Block '.$row["c_block"].' Lot '.$row["c_lot"].' </td>
+					<td>'.$row["c_duration"].'</td>
+					';
+					if(($td>$exp && $status!='Verified' && $status!='Pending')){ 
+						//$diff=$td-$exp;
+						$x=$exp_date->diff(new DateTime());
+
+						print '<td class="counter"><span class="label label-danger">'."Reopen".'</span></td>';
+						
+						$query1 = "UPDATE t_csr SET c_csr_status = 'Reopen' WHERE c_csr_no = '".$id."'";
+						$result1 = mysqli_query($mysqli,$query1);
+
+						if($result1){
+							//echo "goods";
+							}else{
+								//echo "not goods";
+							}
+						}
+					else if($today_date_only==$exp_date_only && $status!='Approved'){
+						print '<td class="counter"><span class="label label-danger">'."-".'</span></td>';
+					}
+					else{
+						//$diff=$td-$exp;
+						$x=$exp_date->diff(new DateTime());
+						print '<td class="counter"><span class="label label-info">'.$x->format('%h hr/s %i min/s %s sec/s remaining').'</span></td>';
+					}
+			print '
 					<td>'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].' </td>
-				    
 					<td>'.number_format($row["c_net_tcp"], 2).'</td>
 				';
 			
@@ -314,7 +337,6 @@ function getCSRs() {
 					print '<td><span class="label label-danger">No status</span></td>';
 				}
 
-			
 				print '
 				<td class="actions"><a href="csr-view.php?id='.$row["c_csr_no"].'" class="btn btn-info btn-xs">View
 				<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
@@ -324,8 +346,6 @@ function getCSRs() {
 				
 			    </tr>
 			'; 
-
-
 		}
 
 		print '</tr></tbody></table>';
