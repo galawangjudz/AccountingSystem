@@ -63,14 +63,14 @@ $mysqli->close();
     if($mail->send()){?>
         <script>
             alert("Email Sent!");
-            location.href="csr-list.php";
+            location.href="?page=csr-list";
         </script>
     <?php
     }else{
     ?>
         <script>
             alert("Error! Email not sent!");
-            location.href="csr-list.php";
+            location.href="?page=csr-list";
         </script>
     <?php
     }

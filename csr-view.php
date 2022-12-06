@@ -1,5 +1,4 @@
 <?php
-include('header.php');
 include('functions.php');
 
 $getID = $_GET['id'];
@@ -129,7 +128,7 @@ $mysqli->close();
             <div class="panel-heading">
                 <input type="hidden" value="<?php echo $p1; ?>" id="p1">
                 <input type="hidden" value="<?php echo $p2; ?>" id="p2">
-                <h2 class="float-left">CTRL #<?php echo $getID; ?></h2>
+                <!-- <h2 class="float-left">CTRL #<?php echo $getID; ?></h2> -->
                 <div class="clear"></div>
             </div>
             <div class="panel-body form-group form-group-sm">
@@ -152,8 +151,8 @@ $mysqli->close();
                             </select>
                         </div>
                             <?php if($usertype == "IT Admin"){?>
-                                <a href="csr-edit.php?id=<?php echo $getID; ?>" class="btn btn-primary">Edit <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
-                                <a href="mail.php?id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
+                                <a href="?page=csr-edit&id=<?php echo $getID; ?>" class="btn btn-primary">Edit <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
+                                <a href="?page=mail&id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
                                 <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
                                 <hr>
                                 <?php if($csr_status == "Pending"){?>  
@@ -184,7 +183,7 @@ $mysqli->close();
                                         <button type="button" id= "dis_coo_disapproved_btn" csr-id =<?php echo $getID; ?> value="Disapproved" class="btn btn-danger btn-lg btn-block">COO Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
                                     <?php } ?>       
                              <?php } else if ($usertype == "SOS"){?>
-                                <a href="mail.php?id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
+                                <a href="?page=mail&id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
                                 <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
                                 <hr>
                 

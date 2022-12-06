@@ -123,7 +123,7 @@ function getProjectSite() {
 				    <td>'.$row["c_zip"].'</td>
 					<td>'.$row["c_rate"].'</td>
 				    <td>'.number_format($row["c_reservation"],2).'</td>
-				    <td class="actions"><a href="project-edit.php?id='.$row["c_code"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-project-id="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-project"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+				    <td class="actions"><a href="?page=project-edit&id='.$row["c_code"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-project-id="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-project"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
 		}
@@ -177,7 +177,7 @@ function getHouse() {
 					<td>'.$row["c_code"].'</td>
 				    <td>'.$row["c_model"].'</td>
 				    <td>'.$row["c_acronym"].'</td>
-				    <td class="actions"><a href="house-edit.php?id='.$row["c_code"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-house-id="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-house"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+				    <td class="actions"><a href="?page=house-edit&id='.$row["c_code"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-house-id="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-house"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
 		}
@@ -209,6 +209,7 @@ function getCSRs() {
 	}
 
 	// the query
+	
 
 	if(isset($_POST["filtercsr"])){
 		$filter = $_POST["filtercsr"];
@@ -250,19 +251,13 @@ function getCSRs() {
 	if($results) {
 
 
-		//MGA NIREMOVE KO MUNA
-		//<th>Location</th>
-		//<td>'.$row["c_acronym"].' Block '.$row["c_block"].' Lot '.$row["c_lot"].' </td>
-
-
-
 		print '<table class="table table-striped table-hover table-bordered" id="data-table" cellspacing="0"><thead><tr>
 
 				<th> No.</th>
+				<th> Location </th>
 				<th>Buyers Name</th>
 				<th>Net TCP</th>
 				<th>Aproval Status</th>
-				<th>Res. Status</th>
 				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
@@ -271,6 +266,7 @@ function getCSRs() {
 			print '
 				<tr>
 					<td>'.$no++.'</td>
+					<td>'.$row["c_acronym"].' Block '.$row["c_block"].' Lot '.$row["c_lot"].' </td>
 					<td>'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].' </td>
 					<td>'.number_format($row["c_net_tcp"], 2).'</td>
 				';
@@ -285,39 +281,15 @@ function getCSRs() {
 					print '<td><span class="label label-info"> SOS '.$row['c_csr_status'].'</span></td>';
 				} elseif ($row['c_csr_status'] == "Cancelled"){
 					print '<td><span class="label label-danger"> COO '.$row['c_csr_status'].'</span></td>';
+				}elseif ($row['c_csr_status'] == "Reopen"){
+					print '<td><span class="label label-info"> For '.$row['c_csr_status'].'</span></td>';
 				}
 
 				else{
 					print '<td><span class="label label-danger">No status</span></td>';
 				}
-
-				if(($td>$exp && $status!='Verified' && $status!='Pending')){ 
-					//$diff=$td-$exp;
-					$x=$exp_date->diff(new DateTime());
-
-					print '<td class="counter"><span class="label label-danger">'."Reopen".'</span></td>';
-					
-					$query1 = "UPDATE t_csr SET c_csr_status = 'Reopen' WHERE c_csr_no = '".$id."'";
-					$result1 = mysqli_query($mysqli,$query1);
-
-					if($result1){
-						//echo "goods";
-						}else{
-							//echo "not goods";
-						}
-					}
-				else if($today_date_only==$exp_date_only && $status!='Approved'){
-					print '<td class="counter"><span class="label label-danger">'."-".'</span></td>';
-				}
-				else{
-					//$diff=$td-$exp;
-					$x=$exp_date->diff(new DateTime());
-					print '<td class="counter"><span class="label label-info">'.$x->format('%h hr/s %i min/s %s sec/s remaining').'</span></td>';
-				}
-
-
 				print '
-				<td class="actions"><a href="csr-view.php?id='.$row["c_csr_no"].'" class="btn btn-info btn-xs">View
+				<td class="actions"><a href="?page=csr-view&id='.$row["c_csr_no"].'" class="btn btn-info btn-xs">View
 				<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
 
 				<a data-csr-id="'.$row['c_csr_no'].'" class="btn btn-danger btn-xs delete-csr">Delete
@@ -704,7 +676,7 @@ function getLots() {
 					<td>'.$row["c_lot_area"].'</td>
 					<td>'.number_format($row["c_price_sqm"],2).'</td>
 					<td>'.$row["c_status"].'</td>
-				    <td class="actions"><a href="lot-edit.php?id='.$row["c_lid"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-lot-id="'.$row['c_lid'].'" class="btn btn-danger btn-xs delete-lot"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+				    <td class="actions"><a href="?page=lot-edit&id='.$row["c_lid"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-lot-id="'.$row['c_lid'].'" class="btn btn-danger btn-xs delete-lot"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
 		}
@@ -765,7 +737,7 @@ function getUsers() {
 				    <td>'.$row["middle_name"].'</td>
 					<td>'.$row["username"].'</td>
 					<td>'.$row["user_type"].'</td>
-				    <td class="actions"><a href="user-edit.php?id='.$row["user_id"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-user-id="'.$row['user_id'].'" class="btn btn-danger btn-xs delete-user"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+				    <td class="actions"><a href="?page=user-edit&id='.$row["user_id"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-user-id="'.$row['user_id'].'" class="btn btn-danger btn-xs delete-user"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
 		}
@@ -862,7 +834,7 @@ function getAgents() {
 				    <td>'.$row["c_position"].'</td>
 					<td>'.$row["c_status"].'</td>
 				    <td class="actions">
-					<a href="agent-edit.php?id='.$row["c_code"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
+					<a href="?page=agent-edit&id='.$row["c_code"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
 					<a data-agent-id="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-agent"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
@@ -919,7 +891,7 @@ function getCustomers() {
 					<td>'.$row["last_name"].', '.$row["first_name"].'</td>
 				    <td>'.$row["email"].'</td>
 				    <td>'.$row["phone"].'</td>
-				    <td class="actions"><a href="customer-edit.php?id='.$row["id"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
+				    <td class="actions"><a href="?page=customer-edit&id='.$row["id"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
 					<a data-customer-id="'.$row['id'].'" class="btn btn-danger btn-xs delete-customer">
 					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
@@ -985,12 +957,11 @@ function getRAs() {
 
 			$exp_date=new DateTime($row["c_duration"]);
 			$exp_date_str=$row["c_duration"];
-			//$exp_date_only=date("Y-m-d",strtotime($exp_date_str));
+			$exp_date_only=date("Y-m-d",strtotime($exp_date_str));
 			//echo $exp_date_only;
 
 			$today_date=date('Y/m/d H:i:s');
-			//$today_date_only=date("Y-m-d",strtotime($today_date));
-
+			$today_date_only=date("Y-m-d",strtotime($today_date));
 			//echo $today_date_only;
 
 			$exp=strtotime($exp_date_str);
@@ -1061,34 +1032,6 @@ function getRAs() {
 				else{
 					print '<td><span class="label label-danger">No status</span></td>';
 				}
-
-			
-				if(($td>$exp && $status!='Verified' && $status!='Pending')){ 
-					//$diff=$td-$exp;
-					$x=$exp_date->diff(new DateTime());
-
-					print '<td class="counter"><span class="label label-danger">'."Reopen".'</span></td>';
-					
-					$query1 = "UPDATE t_csr SET c_csr_status = 'Reopen' WHERE c_csr_no = '".$id."'";
-					$result1 = mysqli_query($mysqli,$query1);
-
-					if($result1){
-						//echo "goods";
-						}else{
-							//echo "not goods";
-						}
-					}
-				else if($today_date_only==$exp_date_only && $status!='Approved'){
-					print '<td class="counter"><span class="label label-danger">'."-".'</span></td>';
-				}
-				else{
-					//$diff=$td-$exp;
-					$x=$exp_date->diff(new DateTime());
-					print '<td class="counter"><span class="label label-info">'.$x->format('%h hr/s %i min/s %s sec/s remaining').'</span></td>';
-				}
-
-				
-			
 		
 
 				if($row['c_reserve_status'] == "Paid"){
@@ -1113,7 +1056,7 @@ function getRAs() {
 
 			
 				print '
-				<td class="actions"><a href="csr-view.php?id='.$row["c_csr_no"].'" data-ra-id="'.$row['ra_id'].'" class="btn btn-primary btn-xs">View
+				<td class="actions"><a href="?page=csr-view&id='.$row["c_csr_no"].'" data-ra-id="'.$row['ra_id'].'" class="btn btn-primary btn-xs">View
 				<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
 				
 			    </tr>
@@ -1180,7 +1123,7 @@ function getReservations() {
 					<td>'.$row["c_reserve_date"].'</td>
 					<td>'.$row["c_or_no"].'</td>
 					<td>'.$row["c_amount_paid"].'</td>
-					<td class="actions"><a href="reservation-edit.php?id='.$row["id"].'" class="btn btn-primary btn-xs">
+					<td class="actions"><a href="?page=reservation-edit&id='.$row["id"].'" class="btn btn-primary btn-xs">
 					<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
 				  	<a data-ra-id="'.$row['id'].'" data-csr-no="'.$row['c_csr_no'].'" class="btn btn-danger btn-xs delete-reservation">
 					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
@@ -1299,40 +1242,3 @@ function popRAsList() {
 	
 	}
 ?>
-<script>
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-<script type="text/javascript">
-    $(document).ready(function()
-    {
-        $(".c_network").change(function(){
-            var c_code=$(this).val();
-            $.ajax({
-                url:"division.php",
-                method:"POST",
-                data:{c_code:c_code},
-                success:function(data){
-                    $(".c_division").html(data);
-                }
-            });
-        });
-    });
-</script>

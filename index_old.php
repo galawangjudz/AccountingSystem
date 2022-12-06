@@ -1,41 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>ALSC Web App System</title>
- 	
-
-<?php include('functions.php'); ?>
-<?php 
-session_start();
-if(isset($_SESSION['username']))
-header("location:index.php?page=dashboard");
-  
+<?php
+    include('functions.php');
 ?>
+<!DOCTYPE html>  
+<html>  
+<head>  
+	<!--<link rel="stylesheet" href="css/bootstrap.min.css">!-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="css/bootstrap.datetimepicker.css">
+    <link rel="stylesheet" href="css/index_style.css">
+	<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
+	<link rel="stylesheet" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css"> 
+	<link rel="stylesheet" href="css/styles.css">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="js/moment.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.js"></script>
+	<script src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+	<script src="js/bootstrap.datetime.js"></script>
+	<script src="js/bootstrap.password.js"></script>
+	<script src="js/scripts.js"></script>
 
-
-<!--<link rel="stylesheet" href="css/bootstrap.min.css">!-->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-<link rel="stylesheet" href="css/bootstrap.datetimepicker.css">
-<link rel="stylesheet" href="css/index_style.css">
-<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
-<link rel="stylesheet" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css"> 
-<link rel="stylesheet" href="css/styles.css">
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="js/moment.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.js"></script>
-<script src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-<script src="js/bootstrap.datetime.js"></script>
-<script src="js/bootstrap.password.js"></script>
-<script src="js/scripts.js"></script>
-
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>  
 <body>  
     <div class="main_panel">
@@ -130,7 +117,7 @@ header("location:index.php?page=dashboard");
         }
     }
     function redirectToDashboard(){
-	window.location.href = "index.php?page=dashboard";
+	window.location.href = "./dashboard.php";
 }
 </script>  
 </body>  
