@@ -215,7 +215,7 @@ function getCSRs() {
 		$filter = $_POST["filtercsr"];
 		$query = "SELECT * FROM t_csr_view where c_csr_status = '$filter' order by c_csr_no";
 	}else{
-		$query = "SELECT * FROM t_csr_view";
+		$query = "SELECT * FROM t_csr_view where (c_csr_status != 'Approved' andgit c_csr_status != 'Reopen') ";
 	}
 
 	//$query = "SELECT * FROM t_csr_view";
@@ -992,7 +992,7 @@ function getRAs() {
 				';
 
 				if($row['c_csr_status'] == "Approved"){
-					if(($td>$exp)){ 
+					if(($td>$exp) && ($row['c_reserve_status'] == "")){ 
 						//$diff=$td-$exp;
 						$x=$exp_date->diff(new DateTime());
 
@@ -1002,19 +1002,17 @@ function getRAs() {
 						$query2 = "UPDATE t_approval_csr SET c_csr_status = 'Reopen' WHERE c_csr_no = '".$id."'";
 						$result1 = mysqli_query($mysqli,$query1);
 						$result2 = mysqli_query($mysqli,$query2);
-
-						//if($result1 && $result2){
-							//echo "goods";
-						//}
-						//else{
-							//echo "not goods";
-						//}
 						
-					}
-					else{
-					$x=$exp_date->diff(new DateTime());
-					print '<td><span class="label label-success"> COO '.$row['c_csr_status'].'<br></span>
-					<span class="label label-info">'.$x->format('%h hr/s %i min/s %s sec/s remaining').'</td></span>';
+					} else if (($td>$exp) && ($row['c_reserve_status'] == "Paid")){
+						print '<td><span class="label label-success"> COO '.$row['c_csr_status'].'<br></span>';
+						
+					}else if (($td<$exp) && ($row['c_reserve_status'] == "Paid")){
+							print '<td><span class="label label-success"> COO '.$row['c_csr_status'].'<br></span>';
+							
+					}else{
+						$x=$exp_date->diff(new DateTime());
+						print '<td><span class="label label-success"> COO '.$row['c_csr_status'].'<br></span>
+						<span class="label label-info">'.$x->format('%h hr/s %i min/s %s sec/s remaining').'</td></span>';
 					}
 
 				} elseif ($row['c_csr_status'] == "Pending"){
@@ -1025,8 +1023,8 @@ function getRAs() {
 					print '<td><span class="label label-info"> SOS '.$row['c_csr_status'].'</span></td>';
 				} elseif ($row['c_csr_status'] == "Cancelled"){
 					print '<td><span class="label label-danger"> SOS '.$row['c_csr_status'].'</span></td>';
-				} elseif ($row['c_csr_status'] == "For Reopen"){
-					print '<td><span class="label label-danger"> For '.$row['c_csr_status'].'</span></td>';
+				} elseif ($row['c_csr_status'] == "Reopen"){
+					print '<td><span class="label label-info"> For '.$row['c_csr_status'].'</span></td>';
 				}
 
 				else{
