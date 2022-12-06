@@ -209,6 +209,7 @@ function getCSRs() {
 	}
 
 	// the query
+	
 
 	if(isset($_POST["filtercsr"])){
 		$filter = $_POST["filtercsr"];
@@ -250,15 +251,10 @@ function getCSRs() {
 	if($results) {
 
 
-		//MGA NIREMOVE KO MUNA
-		//<th>Location</th>
-		//<td>'.$row["c_acronym"].' Block '.$row["c_block"].' Lot '.$row["c_lot"].' </td>
-
-
-
 		print '<table class="table table-striped table-hover table-bordered" id="data-table" cellspacing="0"><thead><tr>
 
 				<th> No.</th>
+				<th> Location </th>
 				<th>Buyers Name</th>
 				<th>Net TCP</th>
 				<th>Aproval Status</th>
@@ -270,6 +266,7 @@ function getCSRs() {
 			print '
 				<tr>
 					<td>'.$no++.'</td>
+					<td>'.$row["c_acronym"].' Block '.$row["c_block"].' Lot '.$row["c_lot"].' </td>
 					<td>'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].' </td>
 					<td>'.number_format($row["c_net_tcp"], 2).'</td>
 				';
@@ -284,6 +281,8 @@ function getCSRs() {
 					print '<td><span class="label label-info"> SOS '.$row['c_csr_status'].'</span></td>';
 				} elseif ($row['c_csr_status'] == "Cancelled"){
 					print '<td><span class="label label-danger"> COO '.$row['c_csr_status'].'</span></td>';
+				}elseif ($row['c_csr_status'] == "Reopen"){
+					print '<td><span class="label label-info"> For '.$row['c_csr_status'].'</span></td>';
 				}
 
 				else{

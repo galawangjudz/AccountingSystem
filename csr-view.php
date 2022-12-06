@@ -128,7 +128,7 @@ $mysqli->close();
             <div class="panel-heading">
                 <input type="hidden" value="<?php echo $p1; ?>" id="p1">
                 <input type="hidden" value="<?php echo $p2; ?>" id="p2">
-                <h2 class="float-left">CTRL #<?php echo $getID; ?></h2>
+                <!-- <h2 class="float-left">CTRL #<?php echo $getID; ?></h2> -->
                 <div class="clear"></div>
             </div>
             <div class="panel-body form-group form-group-sm">

@@ -279,6 +279,8 @@ if ($action == 'save_reservation'){
 	c_ca_status = '".$ca."'
 	where ra_id = '$ra_no';";
 
+	$query .= "UPDATE t_lots SET c_status = 'Reserved' where c_lid = '".$c_lot_lid."';";
+
 	$query .= "INSERT INTO t_reservation (
 					ra_no,
 					c_csr_no,
@@ -688,8 +690,13 @@ if($action == 'coo_approval_csr') {
 	//$duration = new DateTime('now')->format('Y-m-d H:i:s');
 
 	$query = "UPDATE t_csr SET c_csr_status = '$val' ,c_duration=DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL 1 DAY) where c_csr_no = ".$id.";";
+
+	
 	
 	if($val == "Approved"){
+
+		$query .= "UPDATE t_lots SET c_status = 'Pre-Reserved' where c_lid = '".$lot_id."';";
+		
 	
 		$query .= "INSERT INTO t_approval_csr(
 				c_csr_no,
