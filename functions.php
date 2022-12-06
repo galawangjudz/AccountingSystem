@@ -215,7 +215,7 @@ function getCSRs() {
 		$filter = $_POST["filtercsr"];
 		$query = "SELECT * FROM t_csr_view where c_csr_status = '$filter' order by c_csr_no";
 	}else{
-		$query = "SELECT * FROM t_csr_view where (c_csr_status != 'Approved' andgit c_csr_status != 'Reopen') ";
+		$query = "SELECT * FROM t_csr_view where (c_csr_status != 'Approved' and c_csr_status != 'Reopen') ";
 	}
 
 	//$query = "SELECT * FROM t_csr_view";
