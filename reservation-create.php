@@ -59,6 +59,14 @@
         <div class="row">
             <div class="col-xs-12">   
                 <div class="form-group">
+                    <label>Full name:</label>
+                    <input type="text" class="form-control margin-bottom required" name="fullname" id="fullname" readonly >
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">   
+                <div class="form-group">
                     <label>OR #:</label>
                     <input type="text" class="form-control margin-bottom required" name="or_no" id="or_no" tabindex="1">	
                 </div>

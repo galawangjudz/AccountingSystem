@@ -210,14 +210,14 @@ function getCSRs() {
 
 	// the query
 
-	//if(isset($_POST["filtercsr"])){
-		//$filter = $_POST["filtercsr"];
-		//$query = "SELECT * FROM t_csr_view where c_csr_status = '$filter' order by c_csr_no";
-	//}else{
-		//$query = "SELECT * FROM t_csr_view";
-	//}
+	if(isset($_POST["filtercsr"])){
+		$filter = $_POST["filtercsr"];
+		$query = "SELECT * FROM t_csr_view where c_csr_status = '$filter' order by c_csr_no";
+	}else{
+		$query = "SELECT * FROM t_csr_view";
+	}
 
-	$query = "SELECT * FROM t_csr";
+	//$query = "SELECT * FROM t_csr_view";
 
 	//$usertype = $_SESSION['user_type'];
 	//$username = $_SESSION['username'];
@@ -262,6 +262,7 @@ function getCSRs() {
 				<th>Buyers Name</th>
 				<th>Net TCP</th>
 				<th>Aproval Status</th>
+				<th>Res. Status</th>
 				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
@@ -289,6 +290,31 @@ function getCSRs() {
 				else{
 					print '<td><span class="label label-danger">No status</span></td>';
 				}
+
+				if(($td>$exp && $status!='Verified' && $status!='Pending')){ 
+					//$diff=$td-$exp;
+					$x=$exp_date->diff(new DateTime());
+
+					print '<td class="counter"><span class="label label-danger">'."Reopen".'</span></td>';
+					
+					$query1 = "UPDATE t_csr SET c_csr_status = 'Reopen' WHERE c_csr_no = '".$id."'";
+					$result1 = mysqli_query($mysqli,$query1);
+
+					if($result1){
+						//echo "goods";
+						}else{
+							//echo "not goods";
+						}
+					}
+				else if($today_date_only==$exp_date_only && $status!='Approved'){
+					print '<td class="counter"><span class="label label-danger">'."-".'</span></td>';
+				}
+				else{
+					//$diff=$td-$exp;
+					$x=$exp_date->diff(new DateTime());
+					print '<td class="counter"><span class="label label-info">'.$x->format('%h hr/s %i min/s %s sec/s remaining').'</span></td>';
+				}
+
 
 				print '
 				<td class="actions"><a href="csr-view.php?id='.$row["c_csr_no"].'" class="btn btn-info btn-xs">View
@@ -945,6 +971,7 @@ function getRAs() {
 				<th>Location </th>
 				<th>Buyer Name </th>
 				<th>Approval Status</th>
+
 				<th>Reserve Status</th>
 				<th>CA Status</th>
 				<th class="actions">Actions</th>
@@ -963,12 +990,11 @@ function getRAs() {
 
 			$today_date=date('Y/m/d H:i:s');
 			//$today_date_only=date("Y-m-d",strtotime($today_date));
+
 			//echo $today_date_only;
 
 			$exp=strtotime($exp_date_str);
 			$td=strtotime($today_date);
-				
-			
 			print '
 				<tr>
 					<td>'.$no++.'</td>
@@ -991,8 +1017,7 @@ function getRAs() {
 					<td>'.$row["c_date_of_sale"].'</td>
 					<td>'.$row["c_acronym"].' Block '.$row["c_block"].' Lot '.$row["c_lot"].' </td>
 					<td>'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].' </td>
-				    
-					
+
 				';
 
 				if($row['c_csr_status'] == "Approved"){
@@ -1020,6 +1045,7 @@ function getRAs() {
 					print '<td><span class="label label-success"> COO '.$row['c_csr_status'].'<br></span>
 					<span class="label label-info">'.$x->format('%h hr/s %i min/s %s sec/s remaining').'</td></span>';
 					}
+
 				} elseif ($row['c_csr_status'] == "Pending"){
 					print '<td><span class="label label-warning">'.$row['c_csr_status'].'</span></td>';
 				} elseif ($row['c_csr_status'] == "Disapproved"){
@@ -1028,11 +1054,42 @@ function getRAs() {
 					print '<td><span class="label label-info"> SOS '.$row['c_csr_status'].'</span></td>';
 				} elseif ($row['c_csr_status'] == "Cancelled"){
 					print '<td><span class="label label-danger"> SOS '.$row['c_csr_status'].'</span></td>';
+				} elseif ($row['c_csr_status'] == "For Reopen"){
+					print '<td><span class="label label-danger"> For '.$row['c_csr_status'].'</span></td>';
 				}
 
 				else{
 					print '<td><span class="label label-danger">No status</span></td>';
 				}
+
+			
+				if(($td>$exp && $status!='Verified' && $status!='Pending')){ 
+					//$diff=$td-$exp;
+					$x=$exp_date->diff(new DateTime());
+
+					print '<td class="counter"><span class="label label-danger">'."Reopen".'</span></td>';
+					
+					$query1 = "UPDATE t_csr SET c_csr_status = 'Reopen' WHERE c_csr_no = '".$id."'";
+					$result1 = mysqli_query($mysqli,$query1);
+
+					if($result1){
+						//echo "goods";
+						}else{
+							//echo "not goods";
+						}
+					}
+				else if($today_date_only==$exp_date_only && $status!='Approved'){
+					print '<td class="counter"><span class="label label-danger">'."-".'</span></td>';
+				}
+				else{
+					//$diff=$td-$exp;
+					$x=$exp_date->diff(new DateTime());
+					print '<td class="counter"><span class="label label-info">'.$x->format('%h hr/s %i min/s %s sec/s remaining').'</span></td>';
+				}
+
+				
+			
+		
 
 				if($row['c_reserve_status'] == "Paid"){
 					print '<td><span class="label label-success">'.$row['c_reserve_status'].'</span></td>';
@@ -1203,6 +1260,7 @@ function popRAsList() {
 				<th>Phase</th>
 				<th>Block</th>
 				<th>Lot</th>
+				<th>Buyer Name</th>
 				<th>Action</th>
 
 
@@ -1216,9 +1274,10 @@ function popRAsList() {
 						<td>'.$row["c_acronym"].'</td>
 						<td>'.$row["c_block"].'</td>
 						<td>'.$row["c_lot"].'</td>
+						<td>'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].' </td>
 					
 						
-						<td><a href="#" class="btn btn-primary btn-xs ra-select" data-ra-no="'.$row['ra_id'].'" data-ra-lot-lid="'.$row['c_lot_lid'].'" data-csr-no="'.$row['c_csr_no'].'" data-ra-site="'.$row['c_acronym'].'" data-ra-block="'.$row['c_block'].'" data-ra-lot="'.$row['c_lot'].'" data-ra-res="'.$row['c_reservation'].'">Select</a></td>
+						<td><a href="#" class="btn btn-primary btn-xs ra-select" data-ra-no="'.$row['ra_id'].'" data-ra-lot-lid="'.$row['c_lot_lid'].'" data-csr-no="'.$row['c_csr_no'].'" data-ra-site="'.$row['c_acronym'].'" data-ra-block="'.$row['c_block'].'" data-ra-lot="'.$row['c_lot'].'" data-ra-res="'.$row['c_reservation'].'" data-ra-fname="'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].'">Select</a></td>
 				   
 						</tr>
 				';
