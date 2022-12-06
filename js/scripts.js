@@ -2420,36 +2420,36 @@ function updateAgent(){
 //** //////////////////////////////////////////////////////////////////*/
 
 function redirectToClientList(){
-	window.location.href = "./customer-list.php";
+	window.location.href = "?page=customer-list";
 }
 
 function redirectToProjectList(){
-	window.location.href = "./project-list.php";
+	window.location.href = "?page=project-list";
 }
 
 function redirectToHouseList(){
-	window.location.href = "./house-list.php";
+	window.location.href = "?page=house-list";
 }
 
 function redirectToLotList(){
-	window.location.href = "./lot-list.php";
+	window.location.href = "?page=lot-list";
 }
 
 function redirectToCSRList(){
-	window.location.href = "./csr-create.php";
+	window.location.href = "?page=csr-create";
 }
 
 
 function redirectToAgentList(){
-	window.location.href = "./agent-list.php";
+	window.location.href = "?page=agent-list";
 }
 
 function redirectToUserList(){
-	window.location.href = "./user-list.php";
+	window.location.href = "?page=user-list";
 }
 
 function redirectToRaList(){
-	window.location.href = "./reservation-list.php";
+	window.location.href = "?page=reservation-list";
 }
 
 

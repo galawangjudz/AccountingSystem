@@ -1,6 +1,5 @@
 <?php
 
-include('header.php');
 include('functions.php');
 
 $getID = $_GET['id'];

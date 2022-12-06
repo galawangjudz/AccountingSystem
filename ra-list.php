@@ -1,5 +1,4 @@
 <?php
-  include('header.php');
   include('functions.php');
 ?>
 <script>
@@ -10,7 +9,7 @@
     }, 1000);
   });
 </script>
-<h2>RA Sale List</h2><div class="addbtn"><a href="csr-create.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
+<h2>RA Sale List</h2>
 <hr>
 <div class="row">
 	<div class="col-xs-12">

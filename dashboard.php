@@ -1,5 +1,4 @@
 <?php
-  include('header.php');
   include('functions.php');
   include_once("includes/config.php");
 ?>

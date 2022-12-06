@@ -1,9 +1,8 @@
 <?php
-  include('header.php');
   include('functions.php');
 ?>
 <body>
-<h2>Contract Sale List</h2><div class="addbtn"><a href="csr-create.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
+<h2>Contract Sale List</h2><div class="addbtn"><a href="index.php?page=csr-create" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
 <hr>
 <div id="response" class="alert alert-success" style="display:none;">
   <a href="#" class="close" data-dismiss="alert">&times;</a>

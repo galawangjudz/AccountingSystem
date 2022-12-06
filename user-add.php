@@ -1,5 +1,4 @@
 <?php
-	include('header.php');
 	include('functions.php');
 ?>
 <h2>Add User</h2>

@@ -1,5 +1,4 @@
 <?php
-  include('header.php');
   include('functions.php');
 ?>
 <h2>Project Site List</h2><div class="addbtn"><a href="project-add.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
