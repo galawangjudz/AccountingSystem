@@ -695,17 +695,19 @@ if($action == 'coo_approval_csr') {
 				c_csr_no,
 				c_lot_lid,
 				c_csr_status,
-				c_date_approved
+				c_date_approved,
+				c_duration
 			)
 			VALUES (
 				'".$id."',
 				'".$lot_id."',
 				'".$val."',
-				'".$approved_date."'
+				'".$approved_date."',
+				DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL 1 DAY)
 				);
 				";
 
-		$query .= "UPDATE t_csr SET c_csr_status = 'Cancelled' where c_lot_lid = ".$lot_id." and c_csr_no != ".$id.";";
+		//$query .= "UPDATE t_csr SET c_csr_status = 'Cancelled' where c_lot_lid = ".$lot_id." and c_csr_no != ".$id.";";
 
 		header('Content-Type: application/json');
 		}

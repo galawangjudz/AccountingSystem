@@ -2,6 +2,14 @@
   include('header.php');
   include('functions.php');
 ?>
+<script>
+  $(document).ready(function(){
+    $('#main_div').load("load.php");
+    setInterval(function(){
+      $('#main_div').load("load.php");
+    }, 1000);
+  });
+</script>
 <h2>RA Sale List</h2><div class="addbtn"><a href="csr-create.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
 <hr>
 <div class="row">
@@ -11,8 +19,7 @@
 			<div class="message"></div>
 		</div>
 		<div class="panel panel-default">
-			<div class="panel-body form-group form-group-sm">
-				<?php getRAs(); ?>
+			<div class="panel-body form-group form-group-sm" id="main_div">
 			</div>
 		</div>
 	</div>
