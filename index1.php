@@ -161,44 +161,10 @@
                       <td><span class="label label-success"> COO <?php echo $fetch['c_csr_status']?><br></span>
                       <span class="label label-info"><?php echo $x->format('%h hr/s %i min/s %s sec/s remaining')?></td></span><?php
                       }
-                    } elseif ($fetch['c_csr_status'] == "Pending"){?>
-                      <td><span class="label label-warning"><?php echo $fetch['c_csr_status']?></span></td>
-                    <?php } elseif ($fetch['c_csr_status'] == "Disapproved"){?>
-                      <td><span class="label label-danger">COO <?php echo $fetch['c_csr_status']?></span></td>
-                    <?php } elseif ($fetch['c_csr_status'] == "Verified"){?>
-                      <td><span class="label label-info"> SOS <?php echo $fetch['c_csr_status']?></span></td>
-                    <?php } elseif ($fetch['c_csr_status'] == "Cancelled"){?>
-                      <td><span class="label label-danger"> SOS <?php echo $fetch['c_csr_status']?></span></td>
-                      <?php }
-            
-                    else{?>
-                      <td><span class="label label-danger">No status</span></td>
-                    <?php }
-
-                    if($fetch['c_reserve_status'] == "Paid"){?>
-                      <td><span class="label label-success"><?php echo $fetch['c_reserve_status']?></span></td>
-
-                    <?php}else{?>
-                      <td><span class="label label-warning">Unpaid</span></td>
-                   <?php }
-
-                    if($fetch['c_ca_status'] == "Approved"){
-?>
-                      <td><span class="label label-success">CA '.$row['c_ca_status'].'</span></td>
-                    <?php} elseif ($row['c_ca_status'] == "Pending"){
-                      <td><span class="label label-warning">'.$row['c_ca_status'].'</span></td>
-                    } elseif ($row['c_ca_status'] == "Disapproved"){
-                      print '<td><span class="label label-danger">CA '.$row['c_ca_status'].'</span></td>';}
-
-                    else{
-                      print '<td><span class="label label-danger"> --- </span></td>';
-                    }
-
-
-                  }
-
-                      
-                      
+                    } 
+                }
+                }
+ 
 ?>
 
 
@@ -239,9 +205,6 @@
 
 
                 </div>
-                <?php
-                    
-                ?>
             </div>
                   </tbody>
                   </table>
