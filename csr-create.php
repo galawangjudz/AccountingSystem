@@ -40,7 +40,7 @@
 		</div>
 		<form method="post" id="create_csr">
 			<input type="hidden" name="action" value="create_csr">
-			<input type="hidden" name="login_username" value="<?php echo  $_SESSION['username'] ?>">
+			<input type="hidden" name="username" value="<?php echo  $_SESSION['username'] ?>">
 			<div id="Buyer" class="tabcontent">
 			<div class="row">
 				<div class="col-xs-12">
@@ -51,25 +51,18 @@
 						</div>
 						<div class="panel-body form-group form-group-sm">
 						<div class="main_box">
-						<div class="row">
+						<!-- <div class="row">
 							<div class="col-xs-6">		
 								<label class="control-label">Date of Sale: </label>
 								<div class="input-group date margin-bottom" id="dos">
-									<input type="text" class="form-control required date-of-sale" value= "" id ="date_of_sale" name = "date_of_sale" tabindex =1 data-date-format="<?php echo DATE_FORMAT ?>" />
+									<input type="hidden" class="form-control required date-of-sale" value= "" id ="date_of_sale" name = "date_of_sale" tabindex =1 data-date-format="<?php echo DATE_FORMAT ?>" />
 									<span class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 									</span>
 								</div>
 							</div>
-							<!-- <div class="col-xs-6">
-								<label class="control-label">Ctrl No: <label>
-								<div class="input-group col-xs-12">
-									<span class="input-group-addon">#<?php echo CSR_PREFIX ?></span>
-									<input type="text" name="csr_id" id="csr_id" class="form-control required" aria-describedby="sizing-addon1" tabindex =2 value="<?php getCSRId(); ?> " readonly>
-								</div>
-							</div> -->
 						</div>
-						<hr>
+						<hr> -->
 						<div class="row">
 							<div class="col-xs-4">		
 								<div class="form-group">

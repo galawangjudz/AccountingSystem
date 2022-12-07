@@ -211,39 +211,22 @@ function getCSRs() {
 	// the query
 	
 
-	if(isset($_POST["filtercsr"])){
+ 	if(isset($_POST["filtercsr"])){
 		$filter = $_POST["filtercsr"];
-		$query = "SELECT * FROM t_csr_view where c_csr_status = '$filter' order by c_csr_no";
+		$query = "SELECT * FROM t_csr_view  where c_csr_status = '$filter' order by c_csr_no";
 	}else{
-		$query = "SELECT * FROM t_csr_view where (c_csr_status != 'Approved' and c_csr_status != 'Reopen') ";
-	}
+		//$query = "SELECT * FROM t_csr_view  where (coo_approval != 1 and coo_approval != 2) ";
+		$query = "SELECT * FROM t_csr_view";
+	} 
 
-	//$query = "SELECT * FROM t_csr_view";
+
+
 
 	//$usertype = $_SESSION['user_type'];
 	//$username = $_SESSION['username'];
 	
-	/* if(($usertype) == ('IT Admin')){
-		$query = "SELECT * FROM t_csr_view";
-	}else if ($usertype ==  'COO'){
-		$query = "SELECT *
-		FROM t_csr WHERE (c_csr_status = 'Verified' or c_csr_status = 'Approved' or c_csr_status = 'Disapproved')
-		ORDER BY c_date_of_sale";
-	}else if ($usertype ==  'SOS') {
-		$query = "SELECT *
-		FROM t_csr WHERE (c_csr_status = 'Pending' or c_csr_status ='Verified' or c_csr_status = 'Cancelled')
-		ORDER BY c_date_of_sale";
-	}else if ($usertype ==  'CA') {
-		$query = "SELECT *
-		FROM t_csr WHERE (c_ca_status = 'Pending' or c_ca_status ='Approved' or c_ca_status = 'Disapproved')
-		ORDER BY c_date_of_sale";
-	
-	}else {
-	$query = "SELECT *
-	FROM t_csr 
-	WHERE c_created_by = '$username'
-	ORDER BY c_date_of_sale";
- 	} */
+	 //<th> Location </th>
+	 //<td>'.$row["c_acronym"].' Block '.$row["c_block"].' Lot '.$row["c_lot"].' </td>
 
 	// mysqli select query
 	$results = $mysqli->query($query);
@@ -253,11 +236,12 @@ function getCSRs() {
 
 		print '<table class="table table-striped table-hover table-bordered" id="data-table" cellspacing="0"><thead><tr>
 
-				<th> No.</th>
-				<th> Location </th>
+				<th> No.</th>	
+				<th> Location </th>		
 				<th>Buyers Name</th>
 				<th>Net TCP</th>
-				<th>Aproval Status</th>
+				<th>Status</th>
+				<th>Approval Status</th>
 				<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
@@ -271,22 +255,24 @@ function getCSRs() {
 					<td>'.number_format($row["c_net_tcp"], 2).'</td>
 				';
 			
-				if($row['c_csr_status'] == "Approved"){
-					print '<td><span class="label label-success"> COO '.$row['c_csr_status'].'</span></td>';
-				} elseif ($row['c_csr_status'] == "Pending"){
-					print '<td><span class="label label-warning">'.$row['c_csr_status'].'</span></td>';
-				} elseif ($row['c_csr_status'] == "Disapproved"){
-					print '<td><span class="label label-danger">COO '.$row['c_csr_status'].'</span></td>';
-				} elseif ($row['c_csr_status'] == "Verified"){
-					print '<td><span class="label label-info"> SOS '.$row['c_csr_status'].'</span></td>';
-				} elseif ($row['c_csr_status'] == "Cancelled"){
-					print '<td><span class="label label-danger"> COO '.$row['c_csr_status'].'</span></td>';
-				}elseif ($row['c_csr_status'] == "Reopen"){
-					print '<td><span class="label label-info"> For '.$row['c_csr_status'].'</span></td>';
+				if($row['c_verify'] == 0){
+					print '<td class="text-center"><span class="label label-warning">Pending</span></td>';
+				}elseif($row['c_verify'] == 1){
+					print '<td class="text-center"><span class="label label-info">SOS Verified</span></td>';
+				}elseif($row['c_verify'] == 2){
+					print '<td class="text-center"><span class="label label-danger">SOS Void</span></td>';
 				}
 
-				else{
-					print '<td><span class="label label-danger">No status</span></td>';
+				if($row['coo_approval'] == 0){
+					print '<td class="text-center"><span class="label label-warning">Pending</span></td>';
+				}elseif($row['coo_approval'] == 3){
+					print '<td class="text-center"><span class="label label-danger">Disapproved</span></td>';
+				
+				}elseif($row['coo_approval'] == 1){
+					print '<td class="text-center"><span class="label label-success">Approved</span></td>';
+				}
+				elseif($row['coo_approval'] == 2){
+					print '<td class="text-center"><span class="label label-default">Expired</span></td>';
 				}
 				print '
 				<td class="actions"><a href="?page=csr-view&id='.$row["c_csr_no"].'" class="btn btn-info btn-xs">View
@@ -341,49 +327,6 @@ function getUserId() {
 		} else {
 			echo $row['user_id'] + 1; 
 		}
-
-	    // Frees the memory associated with a result
-		$result->free();
-
-		// close connection 
-		$mysqli->close();
-	}
-	
-}
-
-
-// Initial csr number
-function getCSRId() {
-
-	// Connect to the database
-	$mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
-
-	// output any connection error
-	if ($mysqli->connect_error) {
-	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
-	}
-
-	$query = "SELECT AUTO_INCREMENT AS c_csr_no
-		FROM information_schema.TABLES
-		WHERE TABLE_SCHEMA = 'alscdb'
-		AND TABLE_NAME = 't_csr'";
-
-
-	if ($result = $mysqli->query($query)) {
-
-		$row_cnt = $result->num_rows;
-
-	    $row = mysqli_fetch_assoc($result);
-
-	    //var_dump($row);
-
-	    if($row_cnt == 0){
-			echo CSR_INITIAL_VALUE;
-		} else {
-
-			echo $row['c_csr_no']; 
-				
-			}
 
 	    // Frees the memory associated with a result
 		$result->free();
@@ -915,7 +858,8 @@ function getCustomers() {
 
 // get csr list
 function getRAs() {
-
+	
+	
 	// Connect to the database
 	$mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
 
@@ -933,17 +877,15 @@ function getRAs() {
 	$results = $mysqli->query($query);
 	$no = 1;
 	// mysqli select query
+	/* 		<th>Location </th> */
+	/* <td>'.$row["c_acronym"].' Block '.$row["c_block"].' Lot '.$row["c_lot"].' </td> */
 	if($results) {
 
 		print '<table class="table table-striped table-hover table-bordered" id="data-table" cellspacing="0"><thead><tr>
-				<th> No. </th>
 				<th>RA No.</th>
-
-				<th>Date of Sale</th>
 				<th>Location </th>
 				<th>Buyer Name </th>
 				<th>Approval Status</th>
-
 				<th>Reserve Status</th>
 				<th>CA Status</th>
 				<th class="actions">Actions</th>
@@ -968,85 +910,50 @@ function getRAs() {
 			$td=strtotime($today_date);
 			print '
 				<tr>
-					<td>'.$no++.'</td>
 					<td>'.$row["ra_id"].'</td>
-					';
-					
-					//else if($today_date_only==$exp_date_only && $status!='Approved'){
-						//print '<td class="counter"><span class="label label-danger">'."-".'</span></td>';
-					//}
-					//else{
-						//$diff=$td-$exp;
-					//	$x=$exp_date->diff(new DateTime());
-						//print '<td class="counter"><span class="label label-info">'.$x->format('%h hr/s %i min/s %s sec/s remaining').'</span></td>';
-					//}
-
-
-
-
-			print '
-					<td>'.$row["c_date_of_sale"].'</td>
 					<td>'.$row["c_acronym"].' Block '.$row["c_block"].' Lot '.$row["c_lot"].' </td>
 					<td>'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].' </td>
 
 				';
 
-				if($row['c_csr_status'] == "Approved"){
-					if(($td>$exp) && ($row['c_reserve_status'] == "")){ 
-						//$diff=$td-$exp;
-						$x=$exp_date->diff(new DateTime());
+				
+				if(($td>$exp) && ($row['c_reserve_status'] == 0)){ 
+					//$diff=$td-$exp;
+					$x=$exp_date->diff(new DateTime());
 
-						print '<td class="counter"><span class="label label-danger">'."Reopen".'</span></td>';
+					print '<td class="counter"><span class="label label-danger">Expired</span></td>';
+					$query = "UPDATE t_csr SET coo_approval = 2 WHERE c_csr_no = '".$id."'";
+					$result = mysqli_query($mysqli,$query);
+					$query2 = "UPDATE t_approval_csr SET c_csr_status = 2 WHERE c_csr_no = '".$id."'";
+					$result2 = mysqli_query($mysqli,$query2);
+					
+				} else if (($td>$exp) && ($row['c_reserve_status'] == 1)){
+					print '<td><span class="label label-success"> COO Approved<br></span>';
+					
+				}else if (($td<$exp) && ($row['c_reserve_status'] == 1)){
+						print '<td><span class="label label-success"> COO Approved<br></span>';
 						
-						$query1 = "UPDATE t_csr SET c_csr_status = 'Reopen' WHERE c_csr_no = '".$id."'";
-						$query2 = "UPDATE t_approval_csr SET c_csr_status = 'Reopen' WHERE c_csr_no = '".$id."'";
-						$result1 = mysqli_query($mysqli,$query1);
-						$result2 = mysqli_query($mysqli,$query2);
-						
-					} else if (($td>$exp) && ($row['c_reserve_status'] == "Paid")){
-						print '<td><span class="label label-success"> COO '.$row['c_csr_status'].'<br></span>';
-						
-					}else if (($td<$exp) && ($row['c_reserve_status'] == "Paid")){
-							print '<td><span class="label label-success"> COO '.$row['c_csr_status'].'<br></span>';
-							
-					}else{
-						$x=$exp_date->diff(new DateTime());
-						print '<td><span class="label label-success"> COO '.$row['c_csr_status'].'<br></span>
-						<span class="label label-info">'.$x->format('%h hr/s %i min/s %s sec/s remaining').'</td></span>';
-					}
-
-				} elseif ($row['c_csr_status'] == "Pending"){
-					print '<td><span class="label label-warning">'.$row['c_csr_status'].'</span></td>';
-				} elseif ($row['c_csr_status'] == "Disapproved"){
-					print '<td><span class="label label-danger">COO '.$row['c_csr_status'].'</span></td>';
-				} elseif ($row['c_csr_status'] == "Verified"){
-					print '<td><span class="label label-info"> SOS '.$row['c_csr_status'].'</span></td>';
-				} elseif ($row['c_csr_status'] == "Cancelled"){
-					print '<td><span class="label label-danger"> SOS '.$row['c_csr_status'].'</span></td>';
-				} elseif ($row['c_csr_status'] == "Reopen"){
-					print '<td><span class="label label-info"> For '.$row['c_csr_status'].'</span></td>';
-				}
-
-				else{
-					print '<td><span class="label label-danger">No status</span></td>';
-				}
-		
-
-				if($row['c_reserve_status'] == "Paid"){
-					print '<td><span class="label label-success">'.$row['c_reserve_status'].'</span></td>';
-			
 				}else{
+					$x=$exp_date->diff(new DateTime());
+					print '<td><span class="label label-success"> COO Approved <br></span>
+					<span class="label label-info">'.$x->format('%h hr/s %i min/s %s sec/s remaining').'</td></span>';
+				}
+
+
+				if($row['c_reserve_status'] == 1){
+					print '<td><span class="label label-success">Paid </span></td>';
+				}
+				if($row['c_reserve_status'] == 0){
 					print '<td><span class="label label-warning">Unpaid</span></td>';
 				}
 
 
-				if($row['c_ca_status'] == "Approved"){
-
-					print '<td><span class="label label-success">CA '.$row['c_ca_status'].'</span></td>';
-				} elseif ($row['c_ca_status'] == "Pending"){
-					print '<td><span class="label label-warning">'.$row['c_ca_status'].'</span></td>';
-				} elseif ($row['c_ca_status'] == "Disapproved"){
-					print '<td><span class="label label-danger">CA '.$row['c_ca_status'].'</span></td>';}
+				if($row['c_ca_status'] == 1){
+					print '<td><span class="label label-success">CA Approved</span></td>';
+				} elseif ($row['c_ca_status'] == 0){
+					print '<td><span class="label label-warning">Pending</span></td>';
+				} elseif ($row['c_ca_status'] == 2){
+					print '<td><span class="label label-danger">Disapproved</span></td>';}
 
 				else{
 					print '<td><span class="label label-danger"> --- </span></td>';
@@ -1054,7 +961,7 @@ function getRAs() {
 
 			
 				print '
-				<td class="actions"><a href="?page=csr-view&id='.$row["c_csr_no"].'" data-ra-id="'.$row['ra_id'].'" class="btn btn-primary btn-xs">View
+				<td class="actions"><a href="?page=ra-view&id='.$row["c_csr_no"].'" data-ra-id="'.$row['ra_id'].'" class="btn btn-primary btn-xs">View
 				<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
 				
 			    </tr>
@@ -1158,32 +1065,10 @@ function popRAsList() {
 		if ($mysqli->connect_error) {
 			die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
 		}
-		/* // the query
-		$query = "SELECT i.ra_id, i.c_csr_no, c_acronym, c_block, c_lot, x.c_lid, c_or_no, c_reserve_date, c_amount_paid
-		FROM t_ra i
-		LEFT JOIN t_csr c 
-		ON i.c_csr_no = c.c_csr_no 
-        LEFT JOIN t_lots x 
-        ON x.c_lid = c.c_lot_lid
-        LEFT JOIN t_projects y 
-        ON y.c_code = x.c_site
-		LEFT JOIN t_reservation z
-		ON z.c_csr_no = i.c_csr_no
-		ORDER BY i.ra_id"; */
-/* 
-		$query = "SELECT c.c_reservation,c_csr_no, c_acronym, c_block, c_lot, x.c_lid
-		FROM  t_csr c 
-        LEFT JOIN t_lots x 
-        ON x.c_lid = c.c_lot_lid
-        LEFT JOIN t_projects y 
-        ON y.c_code = x.c_site
-		WHERE c_reserve_status = '' AND c_csr_status = 'Approved'
-		ORDER BY c_csr_no"; */
+	
 
-
-		$query ="SELECT *
-		FROM t_approval_csr i inner join t_csr_view x on i.c_csr_no = x.c_csr_no
-		ORDER BY c_date_approved";
+		$query ="SELECT * FROM t_approval_csr i inner join t_csr_view x on i.c_csr_no = x.c_csr_no where (i.c_csr_status = 1 and i.c_reserve_status = 0) 
+				ORDER BY c_date_approved";
 
 		
 		//echo $query;

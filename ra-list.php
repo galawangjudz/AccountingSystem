@@ -1,13 +1,27 @@
 <?php
   include('functions.php');
+  
 ?>
 <script>
   $(document).ready(function(){
     $('#main_div').load("load.php");
+ 
     setInterval(function(){
       $('#main_div').load("load.php");
+      
     }, 1000);
+    
   });
+
+ /*  var table = $('data-table').DataTable( {
+    ajax: "data.json"
+  } );
+ 
+  setInterval( function () {
+    table.ajax.reload( null, false ); // user paging is not reset on reload
+  }, 1000 );
+ */
+
 </script>
 <h2>RA Sale List</h2>
 <hr>
@@ -18,7 +32,8 @@
 			<div class="message"></div>
 		</div>
 		<div class="panel panel-default">
-			<div class="panel-body form-group form-group-sm" id="main_div">
+			 <div class="panel-body form-group form-group-sm" id="main_div"> 
+     
 			</div>
 		</div>
 	</div>

@@ -101,10 +101,10 @@ $(document).ready(function() {
 	$(document).on('click', "#verify_btn", function(e) {
         e.preventDefault();
 		var btn_val = $("#verify_btn").val();
-        var csrId = 'action=verify_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"'; //build a post data structure
+        var csrId = 'action=verify_csr&id='+ $(this).attr('csr-id')+ '&value=' + btn_val; //build a post data structure
 		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
 			verify_btn(csrId);
-			setInterval('location.reload()', 3000);
+			
 
 		});
    	});
@@ -113,8 +113,7 @@ $(document).ready(function() {
 	$(document).on('click', "#cancel_btn", function(e) {
         e.preventDefault();
 		var btn_val = $("#cancel_btn").val();
-        var csrId = 'action=verify_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"'; //build a post data structure
-		alert(csrId);
+        var csrId = 'action=verify_csr&id='+ $(this).attr('csr-id')+ '&value=' + btn_val; //build a post data structure
 		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
 			verify_btn(csrId);
 
@@ -129,7 +128,7 @@ $(document).ready(function() {
 		var csrId = 'action=coo_approval_csr&id='+ $(this).attr('csr-id')+ '&lot_lid=' + $(this).attr('csr-lot-lid') + '&value=' + btn_val ;
 	 	$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() { 
 			CooApproval(csrId);
-			setInterval('location.reload()', 3000);
+			
 
 		}); 
    	});
@@ -141,7 +140,7 @@ $(document).ready(function() {
 		var csrId = 'action=coo_approval_csr&id='+ $(this).attr('csr-id')+ '&lot_lid=' + $(this).attr('csr-lot-lid') + '&value=' + btn_val ;
 	 	$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() { 
 			CooApproval(csrId);
-			setInterval('location.reload()', 3000);
+		
 		}); 
    	});
 
@@ -149,10 +148,10 @@ $(document).ready(function() {
 	$(document).on('click', "#ca_approval_btn", function(e) {
         e.preventDefault();
 		var btn_val = $("#ca_approval_btn").val();
-		var csrId = 'action=ca_approval_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"';
+		var csrId = 'action=ca_approval_csr&id='+ $(this).attr('csr-id')+ '&value=' + btn_val;
 		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
 			CaApproval(csrId);
-			setInterval('location.reload()', 3000);
+	
 
 		});
    	});
@@ -161,10 +160,10 @@ $(document).ready(function() {
 	$(document).on('click', "#dis_ca_approval_btn", function(e) {
         e.preventDefault();
 		var btn_val = $("#dis_ca_approval_btn").val();
-		var csrId = 'action=ca_approval_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"';
+		var csrId = 'action=ca_approval_csr&id='+ $(this).attr('csr-id')+ '&value=' + btn_val;
 		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
 			CaApproval(csrId);
-			setInterval('location.reload()', 3000);
+		
 		});
    	});
 
@@ -253,7 +252,7 @@ $(document).ready(function() {
 
 	// delete csr
 	$(document).on('click', ".delete-csr", function(e) {
-        e.preventDefault();
+        e.preventDefault();c_duration
 
         var csrId = 'action=delete_csr&delete='+ $(this).attr('data-csr-id'); //build a post data structure
         var csr = $(this);

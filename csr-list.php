@@ -13,11 +13,10 @@
     <div class="form-group col-md-12">
         <label class="lblFilter">Filter by: </label>
           <select name="filtercsr">
-            <option selected="selected" value="Pending">Pending</option>
-            <option value="Approved">Approved</option>
-            <option value="Disapproved">Disapproved</option>
-            <option value="Verified">Verified</option>
-            <option value="Cancelled">Cancelled</option>
+            <option selected="selected" value=0>Pending</option>
+            <option value=1>Approved</option>
+            <option value=3>Disapproved</option>
+            <option value=2>Lapsed</option>
           </select>
           <input type="submit" class="filterBtn" value ='Filter'>
     </div>             

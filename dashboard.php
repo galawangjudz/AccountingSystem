@@ -12,7 +12,7 @@
             <div class="small-box">
               <div class="inner">
                 <h3><?php 
-                  $result_approved = mysqli_query($mysqli, 'SELECT COUNT(c_csr_status) AS csr_approved FROM t_csr WHERE c_csr_status = "Approved"'); 
+                  $result_approved = mysqli_query($mysqli, 'SELECT COUNT(coo_approval) AS csr_approved FROM t_csr WHERE coo_approval = 1'); 
                   $row = mysqli_fetch_assoc($result_approved); 
                   $approved = $row['csr_approved'];
                   echo $approved;
@@ -30,7 +30,7 @@
             <div class="small-box">
               <div class="inner">
                 <h3><?php 
-                  $result_pending = mysqli_query($mysqli, 'SELECT COUNT(c_csr_status) AS csr_pending FROM t_csr WHERE c_csr_status = "Pending"'); 
+                  $result_pending = mysqli_query($mysqli, 'SELECT COUNT(c_verify) AS csr_pending FROM t_csr WHERE c_verify = 0'); 
                   $row = mysqli_fetch_assoc($result_pending); 
                   $pending = $row['csr_pending'];
                   echo $pending;
@@ -48,7 +48,7 @@
             <div class="small-box">
               <div class="inner">
               <h3><?php 
-                  $result_disapproved = mysqli_query($mysqli, 'SELECT COUNT(c_csr_status) AS csr_disapproved FROM t_csr WHERE c_csr_status = "Disapproved"'); 
+                  $result_disapproved = mysqli_query($mysqli, 'SELECT COUNT(coo_approval) AS csr_disapproved FROM t_csr WHERE coo_approval = 0'); 
                   $row = mysqli_fetch_assoc($result_disapproved); 
                   $disapproved = $row['csr_disapproved'];
                   echo $disapproved;
