@@ -1,124 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Hotel Management System</title>
+ 	
+
 <?php
-    include('functions.php');
-?>
-<!DOCTYPE html>  
-<html>  
-<head>  
-	<!--<link rel="stylesheet" href="css/bootstrap.min.css">!-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-	<link rel="stylesheet" href="css/bootstrap.datetimepicker.css">
-    <link rel="stylesheet" href="css/index_style.css">
-	<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
-	<link rel="stylesheet" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css"> 
-	<link rel="stylesheet" href="css/styles.css">
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script src="js/moment.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.js"></script>
-	<script src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-	<script src="js/bootstrap.datetime.js"></script>
-	<script src="js/bootstrap.password.js"></script>
-	<script src="js/scripts.js"></script>
+	session_start();
+  if(!isset($_SESSION['login_id']))
+    header('location:login.php');
+ include('./header.php'); 
+ // include('./auth.php'); 
+ ?>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-</head>  
-<body>  
-    <div class="main_panel">
-        <div class="panel panel-default login-panel">
-            <div class="panel-heading panel-login">
-				<img src="<?php echo COMPANY_LOGO ?>" class="img-responsive">
-		 	</div>
-            <div class="panel-body">
-                <form id="submit_form">
-                    <table>
-                        <tr>           
-                            <div class="toast" id="myToast" data-bs-autohide="true">
-                                <div class="toast-body">
-                                    <div id="error_message"></div>
-                                    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-                                </div>
-                            </div>
-                        <tr>
-                        <tr>
-                            <td width="1%"><div class="small-icons"></div></td>
-                            <td width="99%"><input type="username" name="username" id="username" class="form-control required"/></td> 
-                        </tr>
-                        <tr>
-                            <td width="1%"><div class="small-icon2"></div></td>
-                            <td width="99%"><input class="form-control required" name="password" id="password" type="password"/></td>
-                        </tr>
-                    </table>
-                    <table>
-                        <tr>
-                            <td width="1%"><div class="checkbox"></div></td>
-                            <td width="99%"><label><input name="remember" type="checkbox" value="Remember Me"> Remember Me</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td width="100%">
-                                <input type="button" name="submit" id="submit" class="btn btn-primary" value="Submit"/><br>
-                                <input type="text" id="samp_txt">
-                            </td>
-						</tr>
-					</table>
-		      	</form>
-            </div>
+</head>
+<style>
+	body{
+        background: #80808045;
+  }
+</style>
 
-        </div>
+<body>
+	<?php include 'topbar.php' ?>
+	<?php include 'navbar.php' ?>
+  <div class="toast" id="alert_toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body text-white">
     </div>
+  </div>
+  <main id="view-panel" >
+      <?php $page = isset($_GET['page']) ? $_GET['page'] :'home'; ?>
+  	<?php include $page.'.php' ?>
+  	
 
-<script>  
-    $(document).bind('keypress', function(e) {
-		e.preventDefault;
-		
-        if(e.keyCode==13){
-            $('#submit').trigger('click');
-        }
-    });
+  </main>
 
-    $(document).ready(function(){  
-        $('#submit').click(function(){  
-            var username = $('#username').val();  
-            var password = $('#password').val();  
-            if(username == '' || password == ''){  
-               
-                $('#error_message').html("All fields are required!");
-                getMsg();
-                $('.toast').toast('show');
-            }else{  
-                $.ajax({  
-                    url:"session.php",  
-                    method:"POST",  
-                    data:{username:username, password:password},  
-                    success:function(data){
-                        $('.toast').toast('show');
-                        $('#error_message').html(data);  
-                        getMsg();
-                    }
-                });  
-            }  
-        });  
-    }); 
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
-    function getMsg(){
-        var msg = document.getElementById('error_message');
-        var msg_res = msg.textContent || msg.innerText;
-        document.getElementById('samp_txt').value=msg_res;
-        var samp = document.getElementById('samp_txt').value;
-        var box = document.getElementsByClassName('toast');
-        if(samp == "Logged in successfully!"){
-            for(var i = 0; i < box.length; i++){
-                box[i].style.backgroundColor = "#00a65a";
-                setInterval(redirectToDashboard,1000);
+<div class="modal fade" id="confirm_modal" role='dialog'>
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title">Confirmation</h5>
+      </div>
+      <div class="modal-body">
+        <div id="delete_content"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id='confirm' onclick="">Continue</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="uni_modal" role='dialog'>
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title"></h5>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id='submit' onclick="$('#uni_modal form').submit()">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+	 window.start_load = function(){
+    $('body').prepend('<di id="preloader2"></di>')
+  }
+  window.end_load = function(){
+    $('#preloader2').fadeOut('fast', function() {
+        $(this).remove();
+      })
+  }
+
+  window.uni_modal = function($title = '' , $url=''){
+    start_load()
+    $.ajax({
+        url:$url,
+        error:err=>{
+            console.log()
+            alert("An error occured")
+        },
+        success:function(resp){
+            if(resp){
+                $('#uni_modal .modal-title').html($title)
+                $('#uni_modal .modal-body').html(resp)
+                $('#uni_modal').modal('show')
+                end_load()
             }
         }
-    }
-    function redirectToDashboard(){
-	window.location.href = "./dashboard.php";
+    })
 }
-</script>  
-</body>  
-</html>  
+window._conf = function($msg='',$func='',$params = []){
+     $('#confirm_modal #confirm').attr('onclick',$func+"("+$params.join(',')+")")
+     $('#confirm_modal .modal-body').html($msg)
+     $('#confirm_modal').modal('show')
+  }
+   window.alert_toast= function($msg = 'TEST',$bg = 'success'){
+      $('#alert_toast').removeClass('bg-success')
+      $('#alert_toast').removeClass('bg-danger')
+      $('#alert_toast').removeClass('bg-info')
+      $('#alert_toast').removeClass('bg-warning')
+
+    if($bg == 'success')
+      $('#alert_toast').addClass('bg-success')
+    if($bg == 'danger')
+      $('#alert_toast').addClass('bg-danger')
+    if($bg == 'info')
+      $('#alert_toast').addClass('bg-info')
+    if($bg == 'warning')
+      $('#alert_toast').addClass('bg-warning')
+    $('#alert_toast .toast-body').html($msg)
+    $('#alert_toast').toast({delay:3000}).toast('show');
+  }
+  $(document).ready(function(){
+    $('#preloader').fadeOut('fast', function() {
+        $(this).remove();
+      })
+  })
+</script>	
+</html>
