@@ -83,6 +83,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 	$fixed_factor = $row['c_fixed_factor'];
 	$monthly_payment = $row['c_monthly_payment'];
 	$start_date = $row['c_start_date'];
+	$csr_status = $row['c_csr_status'];
 	$remarks = $row['c_remarks'];
 	$date_created = $row['c_date_created'];
 	$date_updated = $row['c_date_updated'];

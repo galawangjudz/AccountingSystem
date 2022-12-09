@@ -180,7 +180,7 @@ $(document).ready(function() {
         });
    	});
 
-/*  	// delete agent
+	// delete agent
 	$(document).on('click', ".delete-agent", function(e) {
 		e.preventDefault();
 
@@ -192,10 +192,9 @@ $(document).ready(function() {
 			$(agent).closest('tr').remove();
 		});
 	});
- */
- 
+
    	// delete customer
-/* 	$(document).on('click', ".delete-customer", function(e) {
+	$(document).on('click', ".delete-customer", function(e) {
         e.preventDefault();
 
         var userId = 'action=delete_customer&delete='+ $(this).attr('data-customer-id'); //build a post data structure
@@ -205,7 +204,7 @@ $(document).ready(function() {
 			deleteCustomer(userId);
 			$(user).closest('tr').remove();
         });
-   	}); */
+   	});
 
 	// update agent
 	$(document).on('click', "#action_update_agent", function(e) {

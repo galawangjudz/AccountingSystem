@@ -149,7 +149,7 @@ if ($action == 'add_project'){
 					c_rate,
 					c_reservation,
 					c_status
-				) VALUES (
+				) VALUES (r
 					?,
 					?,
 					?,
@@ -323,8 +323,6 @@ if ($action == 'update_reservation'){
 	if ($mysqli->connect_error) {
 	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
 	}
-	$duration_stat = "Updated";
-	$duration = "";
 	$id = $_POST['res_id'];
 	$csr_no = $_POST['csr_no'];
 	$c_or_no = $_POST['or_no'];
@@ -336,9 +334,7 @@ if ($action == 'update_reservation'){
 	$query = "UPDATE t_reservation SET
 				c_or_no = ?,
 				c_reserve_date = ?,
-				c_amount_paid = ?,
-				c_duration = ?,
-				c_duration_stat = ?
+				c_amount_paid = ?
 				WHERE id = ?
 			";
 

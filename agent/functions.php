@@ -1,5 +1,6 @@
 <?php
 include_once("includes/config.php");
+include_once("header.php");
 date_default_timezone_set('Asia/Manila');
 
 function getProject() {
@@ -237,11 +238,9 @@ function getCSRs() {
 		print '<table class="table table-striped table-hover table-bordered" id="data-table" cellspacing="0"><thead><tr>
 
 				<th> No.</th>	
-				<th> Date Prepared </th>	
 				<th> Location </th>		
 				<th>Buyers Name</th>
 				<th>Net TCP</th>
-				<th>Prepared By</th>
 				<th>Status</th>
 				<th>Approval Status</th>
 				<th class="actions">Actions</th>
@@ -252,11 +251,9 @@ function getCSRs() {
 			print '
 				<tr>
 					<td>'.$no++.'</td>
-					<td>'.$row["c_date_updated"].'</td>
 					<td>'.$row["c_acronym"].' Block '.$row["c_block"].' Lot '.$row["c_lot"].' </td>
 					<td>'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].' </td>
 					<td>'.number_format($row["c_net_tcp"], 2).'</td>
-					<td>'.$row["c_created_by"].'</td>
 				';
 			
 				if($row['c_verify'] == 0){

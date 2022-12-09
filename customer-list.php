@@ -15,24 +15,27 @@
 			</div>
 		</div>
 	</div>
-<div>
-<div id="delete_customer" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Delete Client</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to delete this client?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
-		    <button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<?php
-	include('footer.php');
-?>
+
+
+<script>
+$('.delete-customer').click(function(){
+		_conf("Are you sure to delete this customer?","delete_cust",[$(this).attr('data-customer-id')])
+	})
+
+function delete_cust($id){
+	start_load()
+	$.ajax({
+		url:'ajax.php?action=delete_customer',
+		method:'POST',
+		data:{id:$id},
+		success:function(resp){
+			if(resp==1){
+					alert_toast("Data successfully deleted",'success')
+					setTimeout(function(){
+						location.reload()
+					},1500)
+				}
+		}
+	})
+}
+</script> 

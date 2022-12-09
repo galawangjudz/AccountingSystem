@@ -23,15 +23,8 @@ include('header.php');
 
 <?php include 'topbar.php' ?>
 <?php include 'navbar.php' ?>
-
-  <div class="toast" id="alert_toast" role="alert" aria-live="assertive" aria-atomic="true">
-			<div class="toast-body text-white">
-			</div>
-	</div>
  
   <main id="view-panel" >
-
-
       <?php $page = isset($_GET['page']) ? $_GET['page'] :'dashboard'; ?>
   	  <?php
         if(!file_exists($page.".php") && !is_dir($page)){
@@ -131,8 +124,7 @@ window._conf = function($msg='',$func='',$params = []){
     if($bg == 'warning')
       $('#alert_toast').addClass('bg-warning')
     $('#alert_toast .toast-body').html($msg)
-
-
+    $('#alert_toast').toast({delay:3000}).toast('show');
   }
   $(document).ready(function(){
     $('#preloader').fadeOut('fast', function() {
@@ -140,5 +132,18 @@ window._conf = function($msg='',$func='',$params = []){
       })
   })
 
+$(document).ready(function(){
+$('#main_div1').load("load.php");
+setInterval(function(){
+    $('#main_div1').load("load.php");
+}, 1000);
+});
+
 </script>	
+<style>
+  #main_div1{
+    visibility: hidden;
+    position:absolute;
+  }
+</style>
 </html>
