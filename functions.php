@@ -305,41 +305,6 @@ function getCSRs() {
 
 }
 
-// Initial csr number
-function getUserId() {
-
-	// Connect to the database
-	$mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
-
-	// output any connection error
-	if ($mysqli->connect_error) {
-	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
-	}
-
-	$query = "SELECT user_id FROM users ORDER BY user_id DESC LIMIT 1";
-
-	if ($result = $mysqli->query($query)) {
-
-		$row_cnt = $result->num_rows;
-
-	    $row = mysqli_fetch_assoc($result);
-
-	    //var_dump($row);
-
-	    if($row_cnt == 0){
-			echo CSR_INITIAL_VALUE;
-		} else {
-			echo $row['user_id'] + 1; 
-		}
-
-	    // Frees the memory associated with a result
-		$result->free();
-
-		// close connection 
-		$mysqli->close();
-	}
-	
-}
 function get_acronym($phase) {
 	$mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
 
@@ -684,7 +649,7 @@ function getUsers() {
 				    <td>'.$row["middle_name"].'</td>
 					<td>'.$row["username"].'</td>
 					<td>'.$row["user_type"].'</td>
-				    <td class="actions"><a href="?page=user-edit&id='.$row["user_id"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-user-id="'.$row['user_id'].'" class="btn btn-danger btn-xs delete-user"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+				    <td class="actions"><a href="?page=user-edit&id='.$row["user_id"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-id="'.$row['user_id'].'" class="btn btn-danger btn-xs delete-user"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
 		}

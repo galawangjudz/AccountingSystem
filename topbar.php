@@ -18,6 +18,7 @@
       </a>
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
+     
         <ul class="nav navbar-nav">
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
@@ -31,13 +32,22 @@
             </a>
             <ul class="dropdown-menu">
              <!-- Drop down list-->
-              <li><a href="?page=logout" class="btn btn-default btn-flat">Log out</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)" id="manage_my_account"><i class="fa fa-cog"></i> Manage Account</a>
+              <li><a class="dropdown-item" href="ajax.php?action=logout"><i class="fa fa-power-off"></i> Logout</a>
+<!--               <li><a href="?page=logout" class="btn btn-default btn-flat">Log out</a></li> -->
             </ul>
           </li>
         </ul>
       </div>
     </nav>
   </header>
+
+  
+<script>
+  $('#manage_my_account').click(function(){
+    uni_modal("Manage Account","manage_user.php?id=<?php echo $_SESSION['user_id'] ?>&mtype=own")
+  })
+</script>
   
 
 

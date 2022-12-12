@@ -15,3 +15,20 @@ if($action == "delete_customer"){
 	if($save)
 		echo $save;
 }
+
+if($action == 'save_user'){
+	$save = $crud->save_user();
+	if($save)
+		echo $save;
+}
+
+if($action == 'logout'){
+	$logout = $crud->logout();
+	if($logout)
+		echo $logout;
+}
+if($action == "delete_user"){
+	$save = $crud->delete_user();
+	if($save)
+		echo $save;
+}

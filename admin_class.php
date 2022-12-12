@@ -32,4 +32,42 @@ Class Action {
 	}
 
 
+	function save_user(){
+		extract($_POST);
+		$data = " last_name = '$last_name' ";
+		$data .= ", first_name = '$first_name' ";
+		$data .= ", middle_name = '$middle_name' ";
+		$data .= ", email = '$email_address' "; 
+	 	$data .= ", phone = '$phone' "; 
+		$data .= ", date_hired = '$date_hired' "; 
+		$data .= ", username = '$username' ";
+		$data .= ", password = '$password' ";
+		$data .= ", user_type = '$user_type' ";
+		if(empty($user_id)){
+			$save = $this->db->query("INSERT INTO users set ".$data);
+		}else{
+			$save = $this->db->query("UPDATE users set ".$data." where user_id = ".$user_id);
+		}
+		if($save){
+			return 1;
+		}
+	}
+
+	function logout(){
+		session_destroy();
+		foreach ($_SESSION as $key => $value) {
+			unset($_SESSION[$key]);
+		}
+		header("location:login.php");
+	}
+
+	function delete_user(){
+		extract($_POST);
+		$delete = $this->db->query("DELETE FROM users where user_id = ".$id);
+		if($delete){
+			return 1;
+		}
+			
+	}
+
 }
