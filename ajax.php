@@ -32,3 +32,9 @@ if($action == "delete_user"){
 	if($save)
 		echo $save;
 }
+
+if($action == "delete_csr"){
+	$save = $crud->delete_csr();
+	if($save)
+		echo $save;
+}

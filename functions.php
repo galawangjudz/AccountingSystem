@@ -649,8 +649,9 @@ function getUsers() {
 				    <td>'.$row["middle_name"].'</td>
 					<td>'.$row["username"].'</td>
 					<td>'.$row["user_type"].'</td>
-				    <td class="actions"><a href="?page=user-edit&id='.$row["user_id"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-id="'.$row['user_id'].'" class="btn btn-danger btn-xs delete-user"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
-			    </tr>
+				   	<td class="actions"><a data-id="'.$row['user_id'].'" class="btn btn-primary btn-xs edit-user"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-id="'.$row['user_id'].'" class="btn btn-danger btn-xs delete-user"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+			   
+				</tr>
 		    ';
 		}
 

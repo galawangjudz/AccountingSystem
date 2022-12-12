@@ -52,7 +52,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="index.php?page=agent-list"><i class="fa fa-id-card-clip"></i>Manage Agents</a></li>
-            <li><a href="index.php?page=commission-list"><i class="fa fa-money-bill-1-wave"></i>Commissions</a></li>
+       <!--      <li><a href="index.php?page=commission-list"><i class="fa fa-money-bill-1-wave"></i>Commissions</a></li> -->
           </ul>
         </li>        
       </ul>

@@ -14,7 +14,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<label>User ID:</label>
-				<b><input type="text" class="form-control margin-bottom" id="user_id" name="user_id" value="<?php getUserId(); ?>" readonly></b>
+				<b><input type="text" class="form-control margin-bottom" id="user_id" name="user_id" value="100" readonly></b>
 			</div>
 		</div>
 		<div class="row">

@@ -37,12 +37,12 @@ Class Action {
 		$data = " last_name = '$last_name' ";
 		$data .= ", first_name = '$first_name' ";
 		$data .= ", middle_name = '$middle_name' ";
-		$data .= ", email = '$email_address' "; 
-	 	$data .= ", phone = '$phone' "; 
+		$data .= ", email = '$email' "; 
+	 	$data .= ", phone = '$phone' ";
 		$data .= ", date_hired = '$date_hired' "; 
 		$data .= ", username = '$username' ";
-		$data .= ", password = '$password' ";
 		$data .= ", user_type = '$user_type' ";
+		$data .= ", password = '$password' ";
 		if(empty($user_id)){
 			$save = $this->db->query("INSERT INTO users set ".$data);
 		}else{
@@ -64,6 +64,15 @@ Class Action {
 	function delete_user(){
 		extract($_POST);
 		$delete = $this->db->query("DELETE FROM users where user_id = ".$id);
+		if($delete){
+			return 1;
+		}
+			
+	}
+
+	function delete_csr(){
+		extract($_POST);
+		$delete = $this->db->query("DELETE FROM t_csr where c_csr_no = ".$id);
 		if($delete){
 			return 1;
 		}

@@ -82,6 +82,24 @@ include('header.php');
   </div>
 </body>
 <script>
+
+    
+	/* 	window.validateForm = function() {
+	    var errorCounter = 0;
+	    $(".required").each(function(i, obj) {
+
+	        if($(this).val() === ''){
+	            $(this).parent().addClass("has-error");
+	            errorCounter++;
+	        } else{ 
+	            $(this).parent().removeClass("has-error"); 
+	        }
+
+	    })};
+
+ */
+
+
 	 window.start_load = function(){
     $('body').prepend('<di id="preloader2"></di>')
   }

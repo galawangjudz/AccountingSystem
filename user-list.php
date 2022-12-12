@@ -25,6 +25,10 @@ $('#new_user').click(function(){
 	uni_modal('New User','manage_user.php')
 })
 
+$('.edit-user').click(function(){
+	uni_modal('Edit User','manage_user.php?id='+$(this).attr('data-id'))
+})
+
 
 $('.delete-user').click(function(){
 		_conf("Are you sure to delete this user?","delete_user",[$(this).attr('data-id')])

@@ -2049,9 +2049,9 @@ function updateTotals(elem) {
 		var errorCounter = validateForm();
 	
 		if (errorCounter > 0) {
-			$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+		/* 	$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn(); */
 			$("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
-			$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+			/* $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000); */
 		} else {
 	
    		var $btn = $("#action_update_user").button("loading");

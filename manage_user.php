@@ -8,28 +8,27 @@ foreach($user->fetch_array() as $k =>$v){
 }
 ?>
 <div class="container-fluid">
-	
 	<form action="" id="manage-user">
 		<input type="hidden" name="user_id" value="<?php echo isset($meta['user_id']) ? $meta['user_id']: '' ?>">
 		<div class="form-group">
 			<label for="name">Last Name</label>
-			<input type="text" name="last_name" id="last_name" class="form-control" value="<?php echo isset($meta['last_name']) ? $meta['last_name']: '' ?>" required>
+			<input type="text" name="last_name" id="last_name" class="form-control required" value="<?php echo isset($meta['last_name']) ? $meta['last_name']: '' ?>" required>
 		</div>
 		<div class="form-group">
 			<label for="name">First Name</label>
-			<input type="text" name="first_name" id="first_name" class="form-control" value="<?php echo isset($meta['first_name']) ? $meta['first_name']: '' ?>" required>
+			<input type="text" name="first_name" id="first_name" class="form-control required" value="<?php echo isset($meta['first_name']) ? $meta['first_name']: '' ?>" required>
 		</div>
 		<div class="form-group">
 			<label for="name">Middle Name</label>
-			<input type="text" name="middle_name" id="middle_name" class="form-control" value="<?php echo isset($meta['middle_name']) ? $meta['middle_name']: '' ?>" required>
+			<input type="text" name="middle_name" id="middle_name" class="form-control required" value="<?php echo isset($meta['middle_name']) ? $meta['middle_name']: '' ?>" required>
 		</div>
 		<div class="form-group">
 			<label for="name">Email Address</label>
-			<input type="text" name="email_address" id="email_address" class="form-control" value="<?php echo isset($meta['email_address']) ? $meta['email_address']: '' ?>" required>
+			<input type="text" name="email" id="email" class="form-control required" value="<?php echo isset($meta['email']) ? $meta['email']: '' ?>" required>
 		</div>
 		<div class="form-group">
 			<label for="name">Contact Number</label>
-			<input type="text" name="phone" id="phone" class="form-control" value="<?php echo isset($meta['phone']) ? $meta['phone']: '' ?>" required>
+			<input type="text" name="phone" id="phone" class="form-control required" value="<?php echo isset($meta['phone']) ? $meta['phone']: '' ?>" required>
 		</div>
 		<div class="form-group">
 			<label for="name">Date Hired</label>
@@ -42,18 +41,18 @@ foreach($user->fetch_array() as $k =>$v){
 		</div>
 		<div class="form-group">
 			<label for="username">Username</label>
-			<input type="text" name="username" id="username" class="form-control" value="<?php echo isset($meta['username']) ? $meta['username']: '' ?>" required>
+			<input type="text" name="username" id="username" class="form-control required" value="<?php echo isset($meta['username']) ? $meta['username']: '' ?>" required>
 		</div>
 		<div class="form-group">
 			<label for="password">Password</label>
-			<input type="password" name="password" id="password" class="form-control" value="<?php echo isset($meta['password']) ? $meta['user_id']: '' ?>" required>
+			<input type="password" name="password" id="password" class="form-control required" value="<?php echo isset($meta['password']) ? $meta['password']: '' ?>" required>
 		</div>
 		<div class="form-group">
 			<style>
 				select:invalid { color: gray; }
 			</style>
 			<label class="control-label">User Type: </label>
-			<select name="user_type" id="user_type" class="form-control">
+			<select name="user_type" id="user_type" class="form-control required">
 				<option value="SOS" <?php echo isset($meta['user_type']) && $meta['user_type'] == "IT Admin" ? 'selected': '' ?>>Sales Operation Supervisor</option>
 				<option value="COO"<?php echo isset($meta['user_type']) && $meta['user_type'] == "COO" ? 'selected': '' ?>> COO</option>
 				<option value="IT Admin"<?php echo isset($meta['user_type']) && $meta['user_type'] == "IT Admin" ? 'selected': '' ?>>IT Admin</option>
@@ -65,29 +64,61 @@ foreach($user->fetch_array() as $k =>$v){
 	</form>
 </div>
 <script>
+
+	function validateForm() {
+	    // error handling
+	    var errorCounter = 0;
+
+	    $(".required").each(function(i, obj) {
+
+	        if($(this).val() === ''){
+	            $(this).parent().addClass("has-error");
+	            errorCounter++;
+	        } else{ 
+	            $(this).parent().removeClass("has-error"); 
+	        }
+
+	    });
+		
+	    return errorCounter;
+
+	}
+
 	$('#manage-user').submit(function(e){
 		e.preventDefault();
-		start_load()
-		$.ajax({
-			url:'ajax.php?action=save_user',
-			method:'POST',
-			data:$(this).serialize(),
-			success:function(resp){
-				if(resp == 1){
-					alert_toast("Data successfully saved",'success')
-					setTimeout(function(){
-						location.reload()
-					},1500)
+		 //get notes
+	 	start_load() 
+
+		var errorCounter = validateForm();
+
+		if (errorCounter > 0) {
+			alert_toast("It appear's you have forgotten to complete something!","warning")	  
+		}else{
+
+			$(".required").parent().removeClass("has-error")
+			
+			$.ajax({
+				url:'ajax.php?action=save_user',
+				method:'POST',
+				data:$(this).serialize(),
+				success:function(resp){
+					if(resp == 1){
+						alert_toast("Data successfully saved",'success')
+						setTimeout(function(){
+							location.reload()
+						},1500)
+					}
+					else{
+					console.log()
+					alert("An error occured2")
 				}
-				else{
+			},
+			error:err=>{
 				console.log()
-            	alert("An error occured2")
+				alert("An error occured")
 			}
-		},
-		error:err=>{
-            console.log()
-            alert("An error occured")
-        }
-		})
+			})
+		}
 	})
+
 </script>
