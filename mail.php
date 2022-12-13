@@ -1,5 +1,5 @@
 <?php
-include('header.php');
+/* session_start(); */
 include('functions.php');
 $getID = $_GET['id'];
 $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
@@ -13,15 +13,15 @@ $result = mysqli_query($mysqli, $query);
 // mysqli select query
 if($result) {
 	while ($row = mysqli_fetch_assoc($result)) {
-		$csr_no = $row['c_csr_no']; // customer last name
+		$csr_no = $row['c_csr_no'];
+        $email = $row['c_email'];
+        $employment_status= $row['c_employment_status'];
     }
 }
 $mysqli->close();
 ?>
 <head>
-    <!-- include summernote css-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" />
-    <!-- include summernote js-->
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </head>
 <?php
