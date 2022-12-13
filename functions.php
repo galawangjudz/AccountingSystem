@@ -20,7 +20,8 @@ function getProject() {
 		echo '<select name="prod_code" id= "prod_code" class="form-control">';
 		while($row = $results->fetch_assoc()) {
 
-			print '<option value="'.$row['c_code'].'">'.$row['c_acronym'].'</option>';
+	/* 		print '<option value="'.$row['c_code'].'">'.$row['c_acronym'].'</option>'; */
+			print '<option value="'.$row['c_code'].'" >'.$row['c_acronym'].'</option>';
 			
 		}
 		echo '</select>';
@@ -123,7 +124,7 @@ function getProjectSite() {
 				    <td>'.$row["c_zip"].'</td>
 					<td>'.$row["c_rate"].'</td>
 				    <td>'.number_format($row["c_reservation"],2).'</td>
-				    <td class="actions"><a href="?page=project-edit&id='.$row["c_code"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-project-id="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-project"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+				    <td class="actions"><a data-project-id="'.$row['c_code'].'" class="btn btn-primary btn-xs edit-project"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-project-id="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-project"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
 		}
@@ -177,7 +178,7 @@ function getHouse() {
 					<td>'.$row["c_code"].'</td>
 				    <td>'.$row["c_model"].'</td>
 				    <td>'.$row["c_acronym"].'</td>
-				    <td class="actions"><a href="?page=house-edit&id='.$row["c_code"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-house-id="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-house"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+				    <td class="actions"><a data-house-id="'.$row['c_code'].'" class="btn btn-primary btn-xs edit-house"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-house-id="'.$row['c_code'].'" class="btn btn-danger btn-xs delete-house"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
 		}
@@ -588,7 +589,7 @@ function getLots() {
 					<td>'.$row["c_lot_area"].'</td>
 					<td>'.number_format($row["c_price_sqm"],2).'</td>
 					<td>'.$row["c_status"].'</td>
-				    <td class="actions"><a href="?page=lot-edit&id='.$row["c_lid"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-lot-id="'.$row['c_lid'].'" class="btn btn-danger btn-xs delete-lot"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+				    <td class="actions"><a data-lot-id="'.$row['c_lid'].'" class="btn btn-primary btn-xs edit-lot"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-lot-id="'.$row['c_lid'].'" class="btn btn-danger btn-xs delete-lot"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
 		}

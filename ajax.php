@@ -38,3 +38,32 @@ if($action == "delete_csr"){
 	if($save)
 		echo $save;
 }
+
+if($action == "save_lot"){
+	$save = $crud->save_lot();
+	if($save)
+		echo $save;
+}
+
+if($action == "delete_lot"){
+	$save = $crud->delete_lot();
+	if($save)
+		echo $save;
+}
+
+
+if($action == "delete_project"){
+	$save = $crud->delete_project();
+	if($save)
+		echo $save;
+}
+if($action == "save_project"){
+	$save = $crud->save_project();
+	if($save)
+		echo $save;
+}
+if($action == "save_model_house"){
+	$save = $crud->save_model_house();
+	if($save)
+		echo $save;
+}
