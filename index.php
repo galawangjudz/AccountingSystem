@@ -4,7 +4,6 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
   <title>ALSC Web App System</title>
  	
 
@@ -18,10 +17,51 @@ include('header.php');
 
 </head>
 <style>
+
+  .toast:not(:last-child) {
+  margin-bottom: 0.75rem;
+  }
+  .toast.showing {
+    opacity: 1;
+  }
+  .toast.show {
+    display: block;
+    opacity: 1;
+  }
+  .toast.hide {
+    display: none;
+  }
+
+  .toast-header {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    color: #6c757d;
+    background-color: rgba(255, 255, 255, 0.85);
+    background-clip: padding-box;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .toast-body {
+    padding: 0.75rem;
+  }
+
+  .toast{
+  display: none;
+  min-width: 20vw
+  }
+  .toast.show {
+      display: block;
+      opacity: 1;
+      position: fixed;
+      z-index: 99999999;
+      margin: 20px;
+      right: 0;
+      top: 3.5rem;
+  }
 	body{
         background: #80808045;
   }
-  
   #preloader2 {
     position: fixed;
     top: 0;
@@ -63,6 +103,21 @@ include('header.php');
       transform: rotate(360deg);
     }
   }
+
+.toast{
+  display: none;
+  min-width: 20vw
+}
+.toast.show {
+    display: block;
+    opacity: 1;
+    position: fixed;
+    z-index: 99999999;
+    margin: 20px;
+    right: 0;
+    top: 3.5rem;
+}
+  
 </style>
 <body>
 
@@ -73,6 +128,12 @@ include('header.php');
 			<div class="toast-body text-white">
 			</div>
 	</div>
+ <!--  <div class="toast" id="myToast" data-bs-autohide="true">
+      <div class="toast-body">
+          <div id="error_message"></div>
+          <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+      </div>
+  </div> -->
  
   <main id="view-panel" >
 
@@ -159,7 +220,7 @@ window._conf = function($msg='',$func='',$params = []){
      $('#confirm_modal .modal-body').html($msg)
      $('#confirm_modal').modal('show')
   }
-   window.alert_toast= function($msg = 'TEST',$bg = 'success'){
+  window.alert_toast= function($msg = 'TEST',$bg = 'success'){
       $('#alert_toast').removeClass('bg-success')
       $('#alert_toast').removeClass('bg-danger')
       $('#alert_toast').removeClass('bg-info')
@@ -173,9 +234,8 @@ window._conf = function($msg='',$func='',$params = []){
       $('#alert_toast').addClass('bg-info')
     if($bg == 'warning')
       $('#alert_toast').addClass('bg-warning')
-    $('#alert_toast .toast-body').html($msg)
-
-
+    $('#alert_toast .toast-body').html($msg) 
+ /*    $('#alert_toast').toast({delay:3000}).toast('show'); */
   }
   $(document).ready(function(){
     $('#preloader').fadeOut('fast', function() {

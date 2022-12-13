@@ -38,9 +38,6 @@
 										<td class="text-center"><span class="label label-default">Inactive</span></td>
 									<?php endif; ?>
 									<td class="text-center">
-									<button class="btn btn-sm btn-primary edit-agent" type="button" data-id="<?php echo $row['c_code'] ?>">Edit</button>
-									<button class="btn btn-sm btn-danger delete-agent" type="button" data-id="<?php echo $row['c_code'] ?>">Delete</button>
-
 									<a href="?page=agent-edit&id='<?php $row["c_code"] ?>" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
 									<a data-agent-id="<?php $row['c_code'] ?>" class="btn btn-danger btn-xs delete-agent"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 									</td>
@@ -55,10 +52,10 @@
 
 <script>
 $('.delete-agent').click(function(){
-		_conf("Are you sure to delete this agent?","delete_age",[$(this).attr('data-id')])
+		_conf("Are you sure to delete this agent?","delete_agent",[$(this).attr('data-id')])
 	})
 
-function delete_age($id){
+function delete_agent($id){
 	start_load()
 	$.ajax({
 		url:'ajax.php?action=delete_agent',

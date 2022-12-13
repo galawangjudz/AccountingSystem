@@ -352,8 +352,6 @@ function popLotsList() {
 	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
 	}
 	
-
-
 	// the query
 	$query = "SELECT c_lid, c.c_acronym, i.c_block, i.c_lot, i.c_status, i.c_lot_area, i.c_price_sqm 
 	FROM t_lots i 

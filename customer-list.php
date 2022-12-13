@@ -1,7 +1,7 @@
 <?php
   include('functions.php');
 ?>
-<h2>Client List</h2><div class="addbtn"><a href="?page=customer-add" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
+<h2>Client List</h2><div class="addbtn"><a href="?page=manage_client" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
 <hr>
 <div class="row">
 	<div class="col-xs-12">

@@ -32,7 +32,7 @@
 	<link rel="stylesheet" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
 	<link rel="stylesheet" href="css/styles.css">
 	<link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="temp/toastr.min.css"> 
+<!--   <link rel="stylesheet" href="temp/toastr.min.css">  -->
 
   <!-- Vendor CSS Files -->
 <!--   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

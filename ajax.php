@@ -16,6 +16,13 @@ if($action == "delete_customer"){
 		echo $save;
 }
 
+if($action == "save_client"){
+	$save = $crud->save_client();
+	if($save)
+		echo $save;
+}
+
+
 if($action == 'save_user'){
 	$save = $crud->save_user();
 	if($save)

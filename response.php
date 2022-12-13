@@ -505,7 +505,8 @@ if ($action == 'create_csr'){
 					c_date_created,
 					c_date_updated,
 					c_created_by,
-					c_verify
+					c_verify,
+					c_coo_approval
 			
 				) VALUES (
 					'".$lot_lid."',
@@ -561,9 +562,12 @@ if ($action == 'create_csr'){
 					'".$mysqldate."',
 					'".$mysqldate."',
 					'".$username."',
-					'$csr_status'
+					'$csr_status',
+					'$csr_status',
 						);
 					"; 
+
+			
 	$query2 = "SELECT AUTO_INCREMENT AS c_csr_no
 					FROM information_schema.TABLES
 					WHERE TABLE_SCHEMA = 'alscdb'

@@ -138,17 +138,6 @@ Class Action {
 
 	function save_project(){
 		extract($_POST);
-
-	
-	/* 	$proj_name = $_POST['c_name'];
-		$proj_acronym = $_POST['c_acronym'];
- 		$proj_address = $_POST['c_address'];
-		$proj_province = $_POST['c_province'];
-		$proj_zip = $_POST['c_zip'];
-		$proj_rate = $_POST['c_rate']; 
-		$proj_reservation = $_POST['c_reservation']; 
-		$proj_status = $_POST['c_status'];  */
-		
 		$data = " c_name = '$c_name' ";
 		$data .= ", c_acronym = '$c_acronym' ";
 		$data .= ", c_address = '$c_address' "; 
@@ -185,5 +174,37 @@ Class Action {
 			return 1;
 		}
 	}
+
+	function save_client(){
+		extract($_POST);
+		$data = " last_name = '$customer_last_name' ";
+		$data .= ", first_name = '$customer_first_name' ";
+		$data .= ", middle_name = '$customer_middle_name' ";
+		$data .= ", b2_last_name = '$b2_customer_last_name' ";
+		$data .= ", b2_first_name = '$b2_customer_first_name' ";
+		$data .= ", b2_middle_name = '$b2_customer_middle_name' ";
+		$data .= ", address = '$customer_address' ";
+		$data .= ", city_prov = '$customer_city_prov' ";
+		$data .= ", zip_code = '$customer_zip_code' ";
+		$data .= ", address_abroad = '$customer_address_abroad' ";
+		$data .= ", birthdate = '$birth_day' ";
+		$data .= ", age = '$customer_age' ";
+		$data .= ", viber = '$customer_viber' ";
+		$data .= ", civil_status = '$civil_status' ";
+		$data .= ", employment_status = '$employment_status' ";
+		$data .= ", email = '$customer_email' ";
+		$data .= ", phone = '$customer_phone' ";
+	
+		if(empty($prod_id)){
+			$save = $this->db->query("INSERT INTO store_customer set ".$data);
+		}else{
+			$save = $this->db->query("UPDATE store_customer set ".$data." where id = ".$prod_id);
+		}
+		if($save){
+			return 1;
+		}
+	}
+
+	
 
 }
