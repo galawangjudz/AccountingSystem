@@ -29,21 +29,36 @@
 		</div>
 	</div>
 <div>
-<div id="delete_csr" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Delete CSR</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to delete this CSR?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
-		    <button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
 </body>
+
+<script>
+$('.delete-csr').click(function(){
+		_conf("Are you sure to delete this csr?","delete_csr",[$(this).attr('data-csr-id')])
+	})
+
+function delete_csr($id){
+	start_load()
+	$.ajax({
+		url:'ajax.php?action=delete_csr',
+		method:'POST',
+		data:{id:$id},
+		success:function(resp){
+			if(resp==1){
+				alert_toast("Data successfully deleted",'success') 
+				setTimeout(function(){
+					location.reload()
+				},1500)
+				}
+			else{
+				console.log()
+            	alert("An error occured2")
+			}
+		},
+		error:err=>{
+            console.log()
+            alert("An error occured")
+        }
+	})
+}
+
+</script>

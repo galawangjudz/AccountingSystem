@@ -131,6 +131,8 @@ $mysqli->close();
                                 <a href="?page=csr-edit&id=<?php echo $getID; ?>" class="btn btn-primary">Edit <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
                                 <a href="?page=mail&id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
                                 <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                               <!--  <a data-csr-id="<?php echo $csr_no ?>" class="btn btn-info compose-email"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
+                                -->
                                 <hr>
                                 <?php if($verify == 0){?>  
                                     <button type="button" id= "verify_btn" csr-id =<?php echo $getID; ?> value="1" class="btn btn-success btn-lg btn-block">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
@@ -553,7 +555,7 @@ $mysqli->close();
         </div>
     </div>
 </div>
-
+<!-- 
 <div id="update_stat" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -568,11 +570,11 @@ $mysqli->close();
         <button type="button" data-dismiss="modal" class="btn btn-primary" id="confirm">Confirm</button>
 		<button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div>
+  </div>
+</div>
 
-
+ -->
 <div id="verify_stat" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -591,7 +593,7 @@ $mysqli->close();
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 </div>
-
+<!-- 
 <div id="reopen_csr" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -606,18 +608,21 @@ $mysqli->close();
         <button type="button" data-dismiss="modal" class="btn btn-primary" id="reopen">Confirm</button>
 		<button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
+    </div>
+  </div>
 </div>
-</div>
+</div> -->
 
-<form id="statform" action="update_duration.php?c_csr_no=<?php echo $getID ?>" method="post">
+<!-- <form id="statform" action="update_duration.php?c_csr_no=<?php echo $getID ?>" method="post">
     <input type="hidden" name="samp_txt" id="samp_txt">
-</form>
+</form> -->
 </body>
 
 <script>
 
+    $('.compose-email').click(function(){
+        uni_modal('Compose Email','mail.php?id='+$(this).attr('data-csr-id'))
+    })
 
     function showReplyForm(self) {
         var commentId = self.getAttribute("data-id");
@@ -642,22 +647,7 @@ $mysqli->close();
     document.getElementById("form-" + commentId).scrollIntoView();
     }
 
-    function statusColor(){
-        var cstatus=document.getElementById('txtstatus').value;
-        if (cstatus=='Disapproved'){
-            document.getElementById('txtstatus').style.background = "#dd4b39";
-            document.getElementById('status_list').style.background = "#dd4b39";
-            document.getElementById('status_list').style.color = "white";
-        }else if (cstatus=='Approved'){
-            document.getElementById('txtstatus').style.background = "#00a65a";
-            document.getElementById('status_list').style.background = "#00a65a";
-            document.getElementById('status_list').style.color = "white";
-        }else{
-            document.getElementById('txtstatus').style.background = "#f39c12";
-            document.getElementById('status_list').style.background = "#f39c12";
-            document.getElementById('status_list').style.color = "white";
-        }
-    }
+   
     function changeSelected(){
         var cstatus_changed=document.getElementById('status_list').value;
     }
@@ -725,30 +715,8 @@ $mysqli->close();
 
     function loadAll(){
         paymentType();
-        statusColor();
     }
 </script>
-<script>
 
-    $("#CountDown").TimeCircles();
-    $("#CountDown").TimeCircles({count_past_zero: false}).addListener(countdownComplete);
-	
-    function countdownComplete(unit, value, total){
-        if(total<=0){
-            //alert('RESERVATION ALREADY EXPIRED');
-            //$(this).fadeOut('slow').replaceWith("<h3>RESERVATION ALREADY EXPIRED</h3>");
-            document.getElementById("samp_txt").value="EXPIRED";
-            updateStat();
-
-        }
-    }
-</script>
-<script>
-        function updateStat(){
-           // document.getElementById("samp_txt").onchange = function() {
-            document.getElementById("statform").submit();
-        //}
-        }
-</script>
 
 

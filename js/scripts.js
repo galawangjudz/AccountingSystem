@@ -167,7 +167,7 @@ $(document).ready(function() {
 		});
    	});
 
-	// delete user
+/* 	// delete user
 	$(document).on('click', ".delete-user", function(e) {
         e.preventDefault();
 
@@ -178,7 +178,7 @@ $(document).ready(function() {
 			deleteUser(userId);
 			$(user).closest('tr').remove();
         });
-   	});
+   	}); */
 
 /*  	// delete agent
 	$(document).on('click', ".delete-agent", function(e) {
@@ -251,7 +251,7 @@ $(document).ready(function() {
 		actionLogin();
 	});
 
-	// delete csr
+/* 	// delete csr
 	$(document).on('click', ".delete-csr", function(e) {
         e.preventDefault();c_duration
 
@@ -262,9 +262,9 @@ $(document).ready(function() {
 			deleteCSR(csrId);
 			$(csr).closest('tr').remove();
         });
-   	});
+   	}); */
 
-	// delete lot
+	/* // delete lot
 	$(document).on('click', ".delete-lot", function(e) {
         e.preventDefault();
 
@@ -276,8 +276,8 @@ $(document).ready(function() {
 			$(lot).closest('tr').remove();
         });
    	});
-
-	// delete project
+ */
+/* 	// delete project
 	$(document).on('click', ".delete-project", function(e) {
 		e.preventDefault();
 
@@ -288,7 +288,7 @@ $(document).ready(function() {
 			deleteProject(projectId);
 			$(project).closest('tr').remove();
 		});
-	});
+	}); */
 	// delete reservation
 	$(document).on('click', ".delete-reservation", function(e) {
 		e.preventDefault();
@@ -302,7 +302,7 @@ $(document).ready(function() {
 		
 		});
 
-	// delete house model
+/* 	// delete house model
 	$(document).on('click', ".delete-house", function(e) {
 		e.preventDefault();
 
@@ -313,7 +313,7 @@ $(document).ready(function() {
 			deleteHouse(houseId);
 			$(house).closest('tr').remove();
 		});
-	});
+	}); */
 
 	//agent
 	$(document).on('click', ".item-select", function(e) {
@@ -2049,9 +2049,9 @@ function updateTotals(elem) {
 		var errorCounter = validateForm();
 	
 		if (errorCounter > 0) {
-			$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+		/* 	$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn(); */
 			$("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
-			$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+			/* $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000); */
 		} else {
 	
    		var $btn = $("#action_update_user").button("loading");
