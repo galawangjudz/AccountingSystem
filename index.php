@@ -5,7 +5,8 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>ALSC Web App System</title>
- 	
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="css/styles.css" rel="stylesheet" />
 
 <?php
 session_start();
@@ -18,105 +19,11 @@ include('header.php');
 </head>
 <style>
 
-  .toast:not(:last-child) {
-  margin-bottom: 0.75rem;
-  }
-  .toast.showing {
-    opacity: 1;
-  }
-  .toast.show {
-    display: block;
-    opacity: 1;
-  }
-  .toast.hide {
-    display: none;
-  }
-
-  .toast-header {
-    display: flex;
-    align-items: center;
-    padding: 0.25rem 0.75rem;
-    color: #6c757d;
-    background-color: rgba(255, 255, 255, 0.85);
-    background-clip: padding-box;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  }
-
-  .toast-body {
-    padding: 0.75rem;
-  }
-
-  .toast{
-  display: none;
-  min-width: 20vw
-  }
-  .toast.show {
-      display: block;
-      opacity: 1;
-      position: fixed;
-      z-index: 99999999;
-      margin: 20px;
-      right: 0;
-      top: 3.5rem;
-  }
 	body{
         background: #80808045;
   }
-  #preloader2 {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9999;
-    overflow: hidden;
-    background: #ffffff82;
-  }
+ 
 
-  #preloader2:before {
-    content: "";
-    position: fixed;
-    top: calc(50% - 30px);
-    left: calc(50% - 30px);
-    border: 6px solid #1977cc;
-    border-top-color: #d1e6f9;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    -webkit-animation: animate-preloader 1s linear infinite;
-    animation: animate-preloader 1s linear infinite;
-  }
-  @-webkit-keyframes animate-preloader {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  @keyframes animate-preloader {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-.toast{
-  display: none;
-  min-width: 20vw
-}
-.toast.show {
-    display: block;
-    opacity: 1;
-    position: fixed;
-    z-index: 99999999;
-    margin: 20px;
-    right: 0;
-    top: 3.5rem;
-}
   
 </style>
 <body>
@@ -235,7 +142,7 @@ window._conf = function($msg='',$func='',$params = []){
     if($bg == 'warning')
       $('#alert_toast').addClass('bg-warning')
     $('#alert_toast .toast-body').html($msg) 
- /*    $('#alert_toast').toast({delay:3000}).toast('show'); */
+    //$('#alert_toast').toast({delay:3000}).toast('show');
   }
   $(document).ready(function(){
     $('#preloader').fadeOut('fast', function() {

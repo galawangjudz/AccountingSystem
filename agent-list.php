@@ -38,7 +38,7 @@
 										<td class="text-center"><span class="label label-default">Inactive</span></td>
 									<?php endif; ?>
 									<td class="text-center">
-									<a href="?page=agent-edit&id='<?php $row["c_code"] ?>" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
+									<a href="?page=agent-edit&id=<?php echo $row["c_code"] ?>" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
 									<a data-agent-id="<?php $row['c_code'] ?>" class="btn btn-danger btn-xs delete-agent"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 									</td>
 								</tr>
