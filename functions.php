@@ -587,8 +587,21 @@ function getLots() {
 				    <td>'.$row["c_block"].'</td>
 					<td>'.$row["c_lot"].'</td>
 					<td>'.$row["c_lot_area"].'</td>
-					<td>'.number_format($row["c_price_sqm"],2).'</td>
-					<td>'.$row["c_status"].'</td>
+					<td>'.number_format($row["c_price_sqm"],2).'</td>';
+					if($row['c_status'] == "Available"){
+						print '<td class="text-center"><span class="label label-primary">Available</span></td>';
+					}elseif($row['c_status'] == "Reserved"){
+						print '<td class="text-center"><span class="label label-success">Reserved</span></td>';
+					}elseif($row['c_status'] == "Pre-Reserved"){
+						print '<td class="text-center"><span class="label label-info">Pre-Reserved</span></td>';
+					}elseif($row['c_status'] == "On Hold"){
+						print '<td class="text-center"><span class="label label-default">On Hold</span></td>';
+					}elseif($row['c_status'] == "Packaged"){
+						print '<td class="text-center"><span class="label label-warning">Packaged</span></td>';
+					}elseif($row['c_status'] == "Sold"){
+						print '<td class="text-center"><span class="label label-danger">Sold</span></td>';
+					}
+					print '
 				    <td class="actions"><a data-lot-id="'.$row['c_lid'].'" class="btn btn-primary btn-xs edit-lot"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a data-lot-id="'.$row['c_lid'].'" class="btn btn-danger btn-xs delete-lot"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';

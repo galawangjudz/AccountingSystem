@@ -86,6 +86,14 @@ Class Action {
 		}
 			
 	}
+	function delete_model_house(){
+		extract($_POST);
+		$delete = $this->db->query("DELETE FROM t_model_house where c_code = ".$id);
+		if($delete){
+			return 1;
+		}
+			
+	}
 	function delete_project(){
 		extract($_POST);
 		$delete = $this->db->query("DELETE FROM t_projects where c_code = ".$id);
@@ -132,29 +140,29 @@ Class Action {
 		extract($_POST);
 
 	
-		$proj_name = $_POST['c_name'];
+	/* 	$proj_name = $_POST['c_name'];
 		$proj_acronym = $_POST['c_acronym'];
  		$proj_address = $_POST['c_address'];
 		$proj_province = $_POST['c_province'];
 		$proj_zip = $_POST['c_zip'];
 		$proj_rate = $_POST['c_rate']; 
 		$proj_reservation = $_POST['c_reservation']; 
-		$proj_status = $_POST['c_status']; 
+		$proj_status = $_POST['c_status'];  */
 		
-		$data = ", c_name = '$proj_name' ";
-		$data .= ", c_acronym = '$proj_acronym' ";
-		$data .= ", c_address = '$proj_address' "; 
-	 	$data .= ", c_province = '$proj_province' ";
-		$data .= ", c_zip = '$proj_zip' "; 
-		$data .= ", c_rate = '$proj_rate' ";
-		$data .= ", c_reservation = '$proj_reservation' ";
-		$data .= ", c_status = '$proj_status' ";
-		if(empty($proj_code)){
-			$proj_code = $_POST['c_code'];
-			$data .= " c_code = '$proj_code' ";
+		$data = " c_name = '$c_name' ";
+		$data .= ", c_acronym = '$c_acronym' ";
+		$data .= ", c_address = '$c_address' "; 
+	 	$data .= ", c_province = '$c_province' ";
+		$data .= ", c_zip = '$c_zip' "; 
+		$data .= ", c_rate = '$c_rate' ";
+		$data .= ", c_reservation = '$c_reservation' ";
+		$data .= ", c_status = '$c_status' ";
+		$data .= ", c_code = '$c_code' ";
+		if(empty($prod_id)){
+			
 			$save = $this->db->query("INSERT INTO t_projects set ".$data);
 		}else{
-			$save = $this->db->query("UPDATE t_projects set ".$data." where c_code = ".$proj_code);
+			$save = $this->db->query("UPDATE t_projects set ".$data." where c_code = ".$prod_id);
 		}
 		if($save){
 			return 1;
@@ -165,15 +173,13 @@ Class Action {
 	function save_model_house(){
 		extract($_POST);
 		$data = " c_model = '$c_model' ";
-		$data .= ", c_acronym = '$fc_acronym' ";
-		
-
-		if(empty($c_code)){
-			$data .= ", c_code = '$c_code' ";
-
+		$data .= ", c_acronym = '$c_acronym' ";
+		$data .= ", c_code = '$c_code' ";
+		if(empty($prod_id)){
+			
 			$save = $this->db->query("INSERT INTO t_model_house set ".$data);
 		}else{
-			$save = $this->db->query("UPDATE t_model_house set ".$data." where c_code = ".$c_code);
+			$save = $this->db->query("UPDATE t_model_house set ".$data." where c_code = ".$prod_id);
 		}
 		if($save){
 			return 1;

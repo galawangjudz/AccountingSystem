@@ -50,8 +50,11 @@ if($action == "delete_lot"){
 	if($save)
 		echo $save;
 }
-
-
+if($action == "delete_model_house"){
+	$save = $crud->delete_model_house();
+	if($save)
+		echo $save;
+}
 if($action == "delete_project"){
 	$save = $crud->delete_project();
 	if($save)

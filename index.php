@@ -63,7 +63,6 @@ include('header.php');
       transform: rotate(360deg);
     }
   }
-
 </style>
 <body>
 
@@ -76,7 +75,6 @@ include('header.php');
 	</div>
  
   <main id="view-panel" >
-
 
       <?php $page = isset($_GET['page']) ? $_GET['page'] :'dashboard'; ?>
   	  <?php

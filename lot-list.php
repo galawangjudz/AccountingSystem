@@ -46,7 +46,9 @@ function delete_lot($id){
 				}
 			else{
 				console.log()
-            	alert("An error occured2")
+            	alert_toast("An error occured",'danger')
+				end_load()
+		
 			}
 		},
 		error:err=>{

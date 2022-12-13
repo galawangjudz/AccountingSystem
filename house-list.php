@@ -30,13 +30,13 @@ $('.edit-house').click(function(){
 })
 
 $('.delete-house').click(function(){
-		_conf("Are you sure to delete this house?","delete_house",[$(this).attr('data-house-id')])
+		_conf("Are you sure to delete this house?","delete_model_house",[$(this).attr('data-house-id')])
 	})
 
-function delete_house($id){
+function delete_model_house($id){
 	start_load()
 	$.ajax({
-		url:'ajax.php?action=delete_house',
+		url:'ajax.php?action=delete_model_house',
 		method:'POST',
 		data:{id:$id},
 		success:function(resp){
@@ -48,7 +48,8 @@ function delete_house($id){
 				}
 			else{
 				console.log()
-            	alert("An error occured2")
+            	alert_toast("An error occured",'danger')
+				end_load()
 			}
 		},
 		error:err=>{

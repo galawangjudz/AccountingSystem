@@ -647,7 +647,7 @@ $mysqli->close();
     document.getElementById("form-" + commentId).scrollIntoView();
     }
 
-    function statusColor(){
+/*     function statusColor(){
         var cstatus=document.getElementById('txtstatus').value;
         if (cstatus=='Disapproved'){
             document.getElementById('txtstatus').style.background = "#dd4b39";
@@ -662,7 +662,7 @@ $mysqli->close();
             document.getElementById('status_list').style.background = "#f39c12";
             document.getElementById('status_list').style.color = "white";
         }
-    }
+    } */
     function changeSelected(){
         var cstatus_changed=document.getElementById('status_list').value;
     }
@@ -730,7 +730,7 @@ $mysqli->close();
 
     function loadAll(){
         paymentType();
-        statusColor();
+    /*     statusColor(); */
     }
 </script>
 <script>
