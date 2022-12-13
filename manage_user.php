@@ -65,6 +65,12 @@ foreach($user->fetch_array() as $k =>$v){
 </div>
 <script>
 
+	$('#hire_date').datetimepicker({
+		showClose: false,
+		format : "YYYY-MM-DD"
+	});
+
+
 	function validateForm() {
 	    // error handling
 	    var errorCounter = 0;
