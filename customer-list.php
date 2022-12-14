@@ -22,6 +22,9 @@ $('#new_customer').click(function(){
 	uni_modal('New Client','manage_client.php')
 })
 
+$('.edit-customer').click(function(){
+	uni_modal('Edit Client','manage_client.php?id='+$(this).attr('data-customer-id'))
+})
 
 $('.delete-customer').click(function(){
 		_conf("Are you sure to delete this customer?","delete_cust",[$(this).attr('data-customer-id')])

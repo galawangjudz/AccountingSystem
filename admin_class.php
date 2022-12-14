@@ -131,7 +131,8 @@ Class Action {
 			$save = $this->db->query("UPDATE t_lots set ".$data." where c_lid = ".$prod_lid);
 		} 
 		if($save){
-			return 1;
+			 return 1;
+		
 		}
 			
 	}
@@ -186,7 +187,7 @@ Class Action {
 		$data .= ", address = '$customer_address' ";
 		$data .= ", city_prov = '$customer_city_prov' ";
 		$data .= ", zip_code = '$customer_zip_code' ";
-		$data .= ", address_abroad = '$customer_address_abroad' ";
+		$data .= ", address_abroad = '$customer_address_2' ";
 		$data .= ", birthdate = '$birth_day' ";
 		$data .= ", age = '$customer_age' ";
 		$data .= ", gender = '$customer_gender' ";
@@ -196,10 +197,10 @@ Class Action {
 		$data .= ", email = '$customer_email' ";
 		$data .= ", phone = '$customer_phone' ";
 	
-		if(empty($prod_id)){
+		if(empty($id)){
 			$save = $this->db->query("INSERT INTO store_customers set ".$data);
 		}else{
-			$save = $this->db->query("UPDATE store_customers set ".$data." where id = ".$prod_id);
+			$save = $this->db->query("UPDATE store_customers set ".$data." where id = ".$id);
 		}
 		if($save){
 			return 1;
@@ -219,7 +220,7 @@ Class Action {
 /* 		$data .= ", c_date_approved = '$approved_date' "; */
 		$data .= ", c_duration = DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL 1 DAY) ";
  
-		
+
 		$chk = $this->db->query("SELECT * FROM t_lots where c_status = 'Available' and c_lid =".$lid);
 			if($chk->num_rows > 0){
 	  			$save = $this->db->query("UPDATE t_lots set c_status = 'Pre-Reserved' where c_lid =".$chk->fetch_array()['c_lid']);

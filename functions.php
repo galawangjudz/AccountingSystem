@@ -818,8 +818,8 @@ function getCustomers() {
 					<td>'.$row["last_name"].', '.$row["first_name"].'</td>
 				    <td>'.$row["email"].'</td>
 				    <td>'.$row["phone"].'</td>
-				    <td class="actions"><a href="?page=customer-edit&id='.$row["id"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
-					<a data-customer-id="'.$row['id'].'" class="btn btn-danger btn-xs delete-customer">
+					<td class="actions"><a data-customer-id="'.$row['id'].'" class="btn btn-primary btn-xs edit-customer"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
+				   <a data-customer-id="'.$row['id'].'" class="btn btn-danger btn-xs delete-customer">
 					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';
