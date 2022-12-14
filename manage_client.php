@@ -199,14 +199,20 @@ foreach($user->fetch_array() as $k =>$v){
 				data:$(this).serialize(),
 				success:function(resp){
 					if(resp == 1){
-						alert_toast("Client Data successfully saved",'success')
+                        $("#response .message").html("<strong>" + "Success" + "</strong>: " + "Data successfully saved");
+						$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+						$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+	/* 					alert_toast("Client Data successfully saved",'success') */
 						setTimeout(function(){
 							location.reload()
 						},1500)
 					}
 					else{
                         console.log()
-						alert("An error occured",'danger')
+                        $("#response .message").html("<strong> Error  </strong>: ");
+						$("#response").removeClass("alert-success").addClass("alert-danger").fadeIn();
+						$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+	/* 					alert("An error occured",'danger') */
 						end_load()
 				}
 			},

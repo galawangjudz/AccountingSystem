@@ -57,8 +57,9 @@ function getHouseModel() {
 	 //$all_categories = mysqli_query($con,$sql);
 	 if($results) {
 		 echo '<select name="house_model" id= "house_model" class="form-control">';
+		 print  '<option  value="None" selected="selected">No House</option>';
 		 while($row = $results->fetch_assoc()) {
- 
+			
 			 print '<option value="'.$row['c_model'].'">'.$row['c_model'].'</option>';
 			 
 		 }
@@ -217,7 +218,7 @@ function getCSRs() {
 		$query = "SELECT * FROM t_csr_view  where c_csr_status = '$filter' order by c_csr_no";
 	}else{
 		//$query = "SELECT * FROM t_csr_view  where (coo_approval != 1 and coo_approval != 2) ";
-		$query = "SELECT * FROM t_csr_view";
+		$query = "SELECT * FROM t_csr_view order by c_csr_no";
 	} 
 
 
