@@ -28,6 +28,7 @@ include('header.php');
 </style>
 <body>
 
+	
 <?php include 'topbar.php' ?>
 <?php include 'navbar.php' ?>
 
@@ -35,7 +36,10 @@ include('header.php');
 			<div class="toast-body text-white">
 			</div>
 	</div>
-
+  <div id="response" class="alert alert-success" style="display:none;">
+			<a href="#" class="close" data-dismiss="alert">&times;</a>
+			<div class="message"></div>
+	</div>
 
   <main id="view-panel" >
 
