@@ -106,6 +106,7 @@ foreach($user->fetch_array() as $k =>$v){
 		var errorCounter = validateForm();
 		if (errorCounter > 0) {
 			alert_toast("It appear's you have forgotten to complete something!","warning")	  
+			end_load()  
 		}else{
 
 			$(".required").parent().removeClass("has-error")
@@ -122,8 +123,9 @@ foreach($user->fetch_array() as $k =>$v){
 						},1500)
 					}
 					else{
-					console.log()
-					alert("An error occured2")
+						console.log()
+						alert_toast("An error occured",'danger')
+						end_load()
 				}
 			},
 			error:err=>{

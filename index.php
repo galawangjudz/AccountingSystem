@@ -4,9 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
   <title>ALSC Web App System</title>
- 	
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="css/styles.css" rel="stylesheet" />
 
 <?php
 session_start();
@@ -18,52 +18,13 @@ include('header.php');
 
 </head>
 <style>
+
 	body{
         background: #80808045;
   }
+ 
+
   
-  #preloader2 {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9999;
-    overflow: hidden;
-    background: #ffffff82;
-  }
-
-  #preloader2:before {
-    content: "";
-    position: fixed;
-    top: calc(50% - 30px);
-    left: calc(50% - 30px);
-    border: 6px solid #1977cc;
-    border-top-color: #d1e6f9;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    -webkit-animation: animate-preloader 1s linear infinite;
-    animation: animate-preloader 1s linear infinite;
-  }
-  @-webkit-keyframes animate-preloader {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  @keyframes animate-preloader {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
 </style>
 <body>
 
@@ -74,9 +35,8 @@ include('header.php');
 			<div class="toast-body text-white">
 			</div>
 	</div>
- 
-  <main id="view-panel" >
 
+  <main id="view-panel" >
 
       <?php $page = isset($_GET['page']) ? $_GET['page'] :'dashboard'; ?>
   	  <?php
@@ -161,7 +121,7 @@ window._conf = function($msg='',$func='',$params = []){
      $('#confirm_modal .modal-body').html($msg)
      $('#confirm_modal').modal('show')
   }
-   window.alert_toast= function($msg = 'TEST',$bg = 'success'){
+  window.alert_toast= function($msg = 'TEST',$bg = 'success'){
       $('#alert_toast').removeClass('bg-success')
       $('#alert_toast').removeClass('bg-danger')
       $('#alert_toast').removeClass('bg-info')
@@ -175,9 +135,8 @@ window._conf = function($msg='',$func='',$params = []){
       $('#alert_toast').addClass('bg-info')
     if($bg == 'warning')
       $('#alert_toast').addClass('bg-warning')
-    $('#alert_toast .toast-body').html($msg)
-
-
+    $('#alert_toast .toast-body').html($msg) 
+    /* $('#alert_toast').toast({delay:3000}).toast('show'); */
   }
   $(document).ready(function(){
     $('#preloader').fadeOut('fast', function() {

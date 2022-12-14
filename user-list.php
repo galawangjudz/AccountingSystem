@@ -41,6 +41,7 @@ function delete_user($id){
 		data:{id:$id},
 		success:function(resp){
 			if(resp==1){
+				
 				alert_toast("Data successfully deleted",'success') 
 				setTimeout(function(){
 					location.reload()
@@ -48,7 +49,9 @@ function delete_user($id){
 				}
 			else{
 				console.log()
-            	alert("An error occured2")
+            	alert_toast("An error occured",'danger')
+				end_load()
+			
 			}
 		},
 		error:err=>{

@@ -16,6 +16,13 @@ if($action == "delete_customer"){
 		echo $save;
 }
 
+if($action == "save_client"){
+	$save = $crud->save_client();
+	if($save)
+		echo $save;
+}
+
+
 if($action == 'save_user'){
 	$save = $crud->save_user();
 	if($save)
@@ -50,8 +57,11 @@ if($action == "delete_lot"){
 	if($save)
 		echo $save;
 }
-
-
+if($action == "delete_model_house"){
+	$save = $crud->delete_model_house();
+	if($save)
+		echo $save;
+}
 if($action == "delete_project"){
 	$save = $crud->delete_project();
 	if($save)
@@ -64,6 +74,12 @@ if($action == "save_project"){
 }
 if($action == "save_model_house"){
 	$save = $crud->save_model_house();
+	if($save)
+		echo $save;
+}
+
+if($action == "coo_approved"){
+	$save = $crud->coo_approved();
 	if($save)
 		echo $save;
 }

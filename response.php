@@ -505,7 +505,8 @@ if ($action == 'create_csr'){
 					c_date_created,
 					c_date_updated,
 					c_created_by,
-					c_verify
+					c_verify,
+					c_coo_approval
 			
 				) VALUES (
 					'".$lot_lid."',
@@ -561,9 +562,12 @@ if ($action == 'create_csr'){
 					'".$mysqldate."',
 					'".$mysqldate."',
 					'".$username."',
-					'$csr_status'
+					'$csr_status',
+					'$csr_status',
 						);
 					"; 
+
+			
 	$query2 = "SELECT AUTO_INCREMENT AS c_csr_no
 					FROM information_schema.TABLES
 					WHERE TABLE_SCHEMA = 'alscdb'
@@ -677,6 +681,9 @@ if($action == 'coo_approval_csr') {
 	date_default_timezone_set("Asia/Manila");
 	$approved_date = date("Y-m-d H:i:s"); 
 	$approved_by  = $_SESSION['username'];
+
+	
+
 	//$duration = new DateTime('now')->format('Y-m-d H:i:s');
 
 	//$query = "UPDATE t_csr SET c_csr_status = '$val' ,c_duration=DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL 1 DAY) where c_csr_no = ".$id.";";

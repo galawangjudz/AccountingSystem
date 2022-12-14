@@ -10,7 +10,7 @@ foreach($user->fetch_array() as $k =>$v){
 ?>
 <div class="container-fluid">
 	<form action="" id="manage-project">
-    <input type="hidden" name="c_code" value="<?php echo isset($meta['c_code']) ? $meta['c_code']: '' ?>">
+    <input type="hidden" name="prod_id" value="<?php echo isset($meta['c_code']) ? $meta['c_code']: '' ?>">
 		<div class="form-group">
             <label class="control-label">Code: </label>
 			<input type="number" class="form-control required" name="c_code" id="c_code" value="<?php echo isset($meta['c_code']) ? $meta['c_code']: '' ?>">
@@ -79,7 +79,8 @@ foreach($user->fetch_array() as $k =>$v){
 	 	start_load() 
 		var errorCounter = validateForm();
 		if (errorCounter > 0) {
-			alert_toast("It appear's you have forgotten to complete something!","warning")	  
+			alert_toast("It appear's you have forgotten to complete something!","warning")
+			end_load()  	  
 		}else{
 
 			$(".required").parent().removeClass("has-error")
@@ -96,8 +97,9 @@ foreach($user->fetch_array() as $k =>$v){
 						},1500)
 					}
 					else{
-					console.log()
-					alert("An error occured2")
+						console.log()
+						alert_toast("An error occured",'danger')
+						end_load()
 				}
 			},
 			error:err=>{

@@ -134,14 +134,22 @@ $mysqli->close();
                                <!--  <a data-csr-id="<?php echo $csr_no ?>" class="btn btn-info compose-email"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
                                 -->
                                 <hr>
-                                <?php if($verify == 0){?>  
-                                    <button type="button" id= "verify_btn" csr-id =<?php echo $getID; ?> value="1" class="btn btn-success btn-lg btn-block">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
-                                    <button type="button" id= "cancel_btn" csr-id =<?php echo $getID; ?> value="2" class="btn btn-danger btn-lg btn-block">Void <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
+                                <?php if($verify == 0){?> 
+                                    <?php 
+                                        $cat = $mysqli->query("SELECT * from t_lots where c_lid = '$lot_id'");
+                                        while($row= $cat->fetch_assoc()) {
+                                            $cat_name[$row['c_code']] = $row['c_acronym'];
+                                            $code = $row['c_code'];
+                                            }
+                                        ?>
+                                    
+                                    <button type="button" id= "verify_btn" csr-id =<?php echo $getID; ?> value="1" class="btn btn-success btn-lg btn-block verify-btn">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                    <button type="button" id= "cancel_btn" csr-id =<?php echo $getID; ?> value="2" class="btn btn-danger btn-lg btn-block void-btn">Void <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
                                 <?php } ?>
 
                                 <?php if($verify == 1 && $coo_approval == 0){ ?>
-                                    
-                                    <button type="button" id= "coo_approval_btn" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                  <!--   <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block coo-approval">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                  -->   <button type="button" id= "coo_approval_btn" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
                                     <button type="button" id= "dis_coo_approval_btn" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="0" class="btn btn-danger btn-lg btn-block">COO Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
                                 
                                 <?php } ?>
@@ -619,6 +627,32 @@ $mysqli->close();
 </body>
 
 <script>
+    $('.coo-approval').click(function(){
+		_conf("Are you sure to approved this csr?","coo_approved",[$(this).attr('csr-id')])
+	})
+	function coo_approved($id){
+		/* start_load() */
+		$.ajax({
+			url:'ajax.php?action=coo_approved',
+			method:'POST',
+			data:{id:$id},
+			success:function(resp){
+				if(resp==1){
+					alert("CSR successfully approved",'success')
+					setTimeout(function(){
+						location.reload()
+					},1500)
+                }else if(resp == 2){
+					alert("CSR already Pre-Reserved",'danger')
+                    setTimeout(function(){
+						location.reload()
+					},1500)
+				}
+			}
+		})
+	}
+
+
 
     $('.compose-email').click(function(){
         uni_modal('Compose Email','mail.php?id='+$(this).attr('data-csr-id'))

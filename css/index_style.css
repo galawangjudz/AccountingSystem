@@ -1,16 +1,4 @@
-.toast
-{
-    margin-top:-45px!important;
-    height:40px;
-    width:auto;
-    color:white;
-    padding:5px!important;
-    border-color:white;
-    margin-top:5px;
-    margin-bottom:5px;
-    font-size:15px;
-    background-color:red;
-}
+
 #samp_txt{
     visibility:hidden;
 }
@@ -29,20 +17,7 @@ img{
     height:100%;
     padding:15px;
 }
-.form-control{
-    border-radius:0px 5px 5px 0px!important;
-    margin-bottom:15px;
-    margin-top:0px;
-    width: 100%;
-}
-.btn{
-    margin-bottom:15px;
-    margin-top:15px;
-    width: 100%;
-}
-table{
-    width:100%;
-}
+
 .small-icons{
     background-color:#E8E8E8;
     background-repeat:no-repeat;
@@ -64,10 +39,4 @@ table{
     width:35px;
     margin-top:-10px;
     border-radius: 5px 0px 0px 5px;
-}
-body{
-    background-color:#FFFFF0;
-}
-#submit{
-    color:white!important;
 }
