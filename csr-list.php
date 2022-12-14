@@ -24,8 +24,8 @@
 </div>
 		<div class="panel panel-default">
 			<div class="panel-body form-group form-group-sm">
-        <?php getCSRs(); ?>
-      </div>
+        		<?php getCSRs(); ?>
+      		</div>
 		</div>
 	</div>
 <div>

@@ -1,4 +1,4 @@
-<meta charset="utf-8">
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -20,8 +20,8 @@
 	<script src="js/bootstrap.datetime.js"></script>
 	<script src="js/bootstrap.password.js"></script>
 	<script src="js/scripts.js"></script>
-  <script src="temp/jquery-3-3.1.min.js"></script>
-  <script src="temp/toastr.min.js"></script>
+<!--   <script src="temp/jquery-3-3.1.min.js"></script> -->
+<!--   <script src="temp/toastr.min.js"></script> -->
 	<!-- AdminLTE App -->
 	<script src="js/app.min.js"></script>
 	<!-- CSS -->
@@ -31,4 +31,4 @@
   <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 	<link rel="stylesheet" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
 	<link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="temp/toastr.min.css">
+  <link rel="stylesheet" href="css/index_style.css">
