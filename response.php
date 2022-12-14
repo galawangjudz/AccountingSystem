@@ -681,6 +681,9 @@ if($action == 'coo_approval_csr') {
 	date_default_timezone_set("Asia/Manila");
 	$approved_date = date("Y-m-d H:i:s"); 
 	$approved_by  = $_SESSION['username'];
+
+	
+
 	//$duration = new DateTime('now')->format('Y-m-d H:i:s');
 
 	//$query = "UPDATE t_csr SET c_csr_status = '$val' ,c_duration=DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL 1 DAY) where c_csr_no = ".$id.";";

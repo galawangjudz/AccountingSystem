@@ -35,13 +35,7 @@ include('header.php');
 			<div class="toast-body text-white">
 			</div>
 	</div>
- <!--  <div class="toast" id="myToast" data-bs-autohide="true">
-      <div class="toast-body">
-          <div id="error_message"></div>
-          <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-      </div>
-  </div> -->
- 
+
   <main id="view-panel" >
 
       <?php $page = isset($_GET['page']) ? $_GET['page'] :'dashboard'; ?>
@@ -142,7 +136,7 @@ window._conf = function($msg='',$func='',$params = []){
     if($bg == 'warning')
       $('#alert_toast').addClass('bg-warning')
     $('#alert_toast .toast-body').html($msg) 
-    //$('#alert_toast').toast({delay:3000}).toast('show');
+    /* $('#alert_toast').toast({delay:3000}).toast('show'); */
   }
   $(document).ready(function(){
     $('#preloader').fadeOut('fast', function() {

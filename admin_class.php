@@ -205,6 +205,29 @@ Class Action {
 		}
 	}
 
-	
+/* 	function coo_approved(){
+		extract($_POST);
 
-}
+		date_default_timezone_set("Asia/Manila");
+		$approved_date = date("Y-m-d H:i:s"); 
+		$data = " c_status = 'Pre-Reserved' ";
+
+		$data1 = " c_csr_no = '$id' ";
+		$data1 .= ", c_lot_lid = '$lot_lid' ";
+		$data1 .= "c_csr_status = 1 ";
+		$data1 .= "c_date_approved = '$approved_date' ";
+		$data1 .= "c_duration      = DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL 1 DAY ";
+
+		$chk = $this->db->query("SELECT * FROM t_lots where c_status =  'Available' and c_lid =".$lot_lid);
+			if($chk->num_rows > 0){
+				$save = $this->db->query("UPDATE t_lots set ".$data." where c_lid =".$chk->fetch_array()['c_lid']);
+				$save = $this->db->query("UPDATE t_csr SET coo_approval = 1 where c_csr_no = ".$id);
+				$save = $this->db->query("INSERT INTO t_approval_csr set ".$data1);
+
+				return 1;
+			}else{
+				return 2;
+			}
+
+ */
+

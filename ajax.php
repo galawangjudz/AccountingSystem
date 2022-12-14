@@ -77,3 +77,9 @@ if($action == "save_model_house"){
 	if($save)
 		echo $save;
 }
+
+if($action == "coo_approved"){
+	$save = $crud->coo_approved();
+	if($save)
+		echo $save;
+}

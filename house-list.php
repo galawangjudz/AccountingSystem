@@ -41,14 +41,14 @@ function delete_model_house($id){
 		data:{id:$id},
 		success:function(resp){
 			if(resp==1){
-				alert_toast("House Data successfully deleted",'success') 
+				alert("House Data successfully deleted",'success') 
 				setTimeout(function(){
 					location.reload()
 				},1500)
 				}
 			else{
 				console.log()
-            	alert_toast("An error occured",'danger')
+            	alert("An error occured2",'danger')
 				end_load()
 			}
 		},

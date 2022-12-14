@@ -63,14 +63,14 @@ foreach($user->fetch_array() as $k =>$v){
 				data:$(this).serialize(),
 				success:function(resp){
 					if(resp == 1){
-						alert_toast("Model House Data successfully saved",'success')
+						alert("Model House Data successfully saved",'success')
 						setTimeout(function(){
 							location.reload()
 						},1500)
 					}
 					else{
 						console.log()
-						alert_toast("An error occured",'danger')
+						alert("An error occured",'danger')
 						end_load()
 				}
 			},
