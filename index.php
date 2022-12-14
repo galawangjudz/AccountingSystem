@@ -36,6 +36,7 @@ include('header.php');
 			</div>
 	</div>
 
+
   <main id="view-panel" >
 
       <?php $page = isset($_GET['page']) ? $_GET['page'] :'dashboard'; ?>

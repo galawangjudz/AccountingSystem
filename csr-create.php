@@ -51,18 +51,6 @@
 						</div>
 						<div class="panel-body form-group form-group-sm">
 						<div class="main_box">
-						<!-- <div class="row">
-							<div class="col-xs-6">		
-								<label class="control-label">Date of Sale: </label>
-								<div class="input-group date margin-bottom" id="dos">
-									<input type="hidden" class="form-control required date-of-sale" value= "" id ="date_of_sale" name = "date_of_sale" tabindex =1 data-date-format="<?php echo DATE_FORMAT ?>" />
-									<span class="input-group-addon">
-										<span class="glyphicon glyphicon-calendar"></span>
-									</span>
-								</div>
-							</div>
-						</div>
-						<hr> -->
 						<div class="row">
 							<div class="col-xs-4">		
 								<div class="form-group">
@@ -652,9 +640,7 @@
 			<h4 class="modal-title">Select Lot</h4>
 		</div>
 		<div class="modal-body">
-				<!-- <input type="text" name="l_code" id="hide_code" value="" >
-				<input type="text" name="l_blk" id="hide_blk" value="" >
-				<input type="text" name="l_lot" id="hide_lot" value="" > -->
+			
 			<?php				
 				popLotsList();
 			?>
@@ -683,9 +669,7 @@
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 </body>
-<?php
-	include('footer.php');
-?>
+
 <script>
 	function redirectToMail() {
         window.location.href = "./mail.php";

@@ -57,8 +57,9 @@ function getHouseModel() {
 	 //$all_categories = mysqli_query($con,$sql);
 	 if($results) {
 		 echo '<select name="house_model" id= "house_model" class="form-control">';
+		 print  '<option  value="None" selected="selected">No House</option>';
 		 while($row = $results->fetch_assoc()) {
- 
+			
 			 print '<option value="'.$row['c_model'].'">'.$row['c_model'].'</option>';
 			 
 		 }
@@ -217,7 +218,7 @@ function getCSRs() {
 		$query = "SELECT * FROM t_csr_view  where c_csr_status = '$filter' order by c_csr_no";
 	}else{
 		//$query = "SELECT * FROM t_csr_view  where (coo_approval != 1 and coo_approval != 2) ";
-		$query = "SELECT * FROM t_csr_view";
+		$query = "SELECT * FROM t_csr_view order by c_csr_no";
 	} 
 
 
@@ -238,11 +239,11 @@ function getCSRs() {
 		print '<table class="table table-striped table-hover table-bordered" id="data-table" cellspacing="0"><thead><tr>
 
 				<th> No.</th>	
-				<th> Date Prepared </th>	
+				<th> Prepared by </th>	
 				<th> Location </th>		
 				<th>Buyers Name</th>
 				<th>Net TCP</th>
-				<th>Prepared By</th>
+				<th>Prepared Date</th>
 				<th>Status</th>
 				<th>Approval Status</th>
 				<th class="actions">Actions</th>
@@ -250,14 +251,16 @@ function getCSRs() {
 			  </tr></thead><tbody>';
 
 		while($row = $results->fetch_assoc()) {
+			$timeStamp = date( "m/d/Y", strtotime($row['c_date_updated']));
 			print '
 				<tr>
 					<td>'.$no++.'</td>
-					<td>'.$row["c_date_updated"].'</td>
+					<td class="text-center">'.$row["c_created_by"].'</td>
 					<td>'.$row["c_acronym"].' Block '.$row["c_block"].' Lot '.$row["c_lot"].' </td>
 					<td>'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].' </td>
-					<td>'.number_format($row["c_net_tcp"], 2).'</td>
-					<td>'.$row["c_created_by"].'</td>
+					<td class="text-right">'.number_format($row["c_net_tcp"], 2).'</td>
+					<td class="text-center">'.$timeStamp.'</td>
+					
 				';
 			
 				if($row['c_verify'] == 0){
@@ -816,8 +819,8 @@ function getCustomers() {
 					<td>'.$row["last_name"].', '.$row["first_name"].'</td>
 				    <td>'.$row["email"].'</td>
 				    <td>'.$row["phone"].'</td>
-				    <td class="actions"><a href="?page=customer-edit&id='.$row["id"].'" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
-					<a data-customer-id="'.$row['id'].'" class="btn btn-danger btn-xs delete-customer">
+					<td class="actions"><a data-customer-id="'.$row['id'].'" class="btn btn-primary btn-xs edit-customer"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
+				   <a data-customer-id="'.$row['id'].'" class="btn btn-danger btn-xs delete-customer">
 					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			    </tr>
 		    ';

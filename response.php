@@ -502,11 +502,10 @@ if ($action == 'create_csr'){
 					c_monthly_payment, 
 					c_start_date,
 					c_remarks,
-					c_date_created,
-					c_date_updated,
 					c_created_by,
 					c_verify,
-					c_coo_approval
+					coo_approval
+			
 			
 				) VALUES (
 					'".$lot_lid."',
@@ -559,19 +558,17 @@ if ($action == 'create_csr'){
 					'".$monthly_amortization."', 
 					'".$start_date."',
 					'".$invoice_notes."',
-					'".$mysqldate."',
-					'".$mysqldate."',
 					'".$username."',
 					'$csr_status',
-					'$csr_status',
-						);
+					'$csr_status'
+					);
 					"; 
 
-			
+		
 	$query2 = "SELECT AUTO_INCREMENT AS c_csr_no
 					FROM information_schema.TABLES
 					WHERE TABLE_SCHEMA = 'alscdb'
-					AND TABLE_NAME = 't_csr'";
+					AND TABLE_NAME = 't_csr'"; 
 			
 			
 	if ($result = $mysqli->query($query2)) {
@@ -612,7 +609,7 @@ if ($action == 'create_csr'){
 				'$agent_amount',
 				'$agent_rate'
 				);
-				";
+				"; 
 		}
 
 	header('Content-Type: application/json');

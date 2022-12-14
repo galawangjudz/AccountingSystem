@@ -131,26 +131,21 @@ $mysqli->close();
                                 <a href="?page=csr-edit&id=<?php echo $getID; ?>" class="btn btn-primary">Edit <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
                                 <a href="?page=mail&id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
                                 <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
-                               <!--  <a data-csr-id="<?php echo $csr_no ?>" class="btn btn-info compose-email"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
-                                -->
+                               <!--  <a data-csr-id="<?php echo $getID ?>" class="btn btn-info compose-email"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
+                                 -->
                                 <hr>
                                 <?php if($verify == 0){?> 
-                                    <?php 
-                                        $cat = $mysqli->query("SELECT * from t_lots where c_lid = '$lot_id'");
-                                        while($row= $cat->fetch_assoc()) {
-                                            $cat_name[$row['c_code']] = $row['c_acronym'];
-                                            $code = $row['c_code'];
-                                            }
-                                        ?>
+                                
                                     
                                     <button type="button" id= "verify_btn" csr-id =<?php echo $getID; ?> value="1" class="btn btn-success btn-lg btn-block verify-btn">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
                                     <button type="button" id= "cancel_btn" csr-id =<?php echo $getID; ?> value="2" class="btn btn-danger btn-lg btn-block void-btn">Void <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
                                 <?php } ?>
 
                                 <?php if($verify == 1 && $coo_approval == 0){ ?>
-                                  <!--   <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block coo-approval">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
-                                  -->   <button type="button" id= "coo_approval_btn" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
-                                    <button type="button" id= "dis_coo_approval_btn" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="0" class="btn btn-danger btn-lg btn-block">COO Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
+                                <!--     <button type="button" class="btn btn-primary" id="approved">Approved</button> -->
+                                    <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> class="btn btn-success btn-lg btn-block coo-approval">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                    <button type="button" id= "coo_approval_btn" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                    <button type="button" id= "dis_coo_approval_btn" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="3" class="btn btn-danger btn-lg btn-block">COO Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
                                 
                                 <?php } ?>
 
@@ -601,61 +596,42 @@ $mysqli->close();
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 </div>
-<!-- 
-<div id="reopen_csr" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Reopen CSR</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to reopen CSR?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" data-dismiss="modal" class="btn btn-primary" id="reopen">Confirm</button>
-		<button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
-</div> -->
 
-<!-- <form id="statform" action="update_duration.php?c_csr_no=<?php echo $getID ?>" method="post">
-    <input type="hidden" name="samp_txt" id="samp_txt">
-</form> -->
 </body>
 
 <script>
     $('.coo-approval').click(function(){
-		_conf("Are you sure to approved this csr?","coo_approved",[$(this).attr('csr-id')])
+		_conf("Are you sure to approved this csr?","coo_approved",[$(this).attr('csr-id'),$(this).attr('csr-lot-lid')])
 	})
-	function coo_approved($id){
-		/* start_load() */
+	function coo_approved($id,$lid){
+		start_load()
 		$.ajax({
 			url:'ajax.php?action=coo_approved',
 			method:'POST',
-			data:{id:$id},
+            data:{id:$id,lid:$lid},
 			success:function(resp){
 				if(resp==1){
 					alert("CSR successfully approved",'success')
 					setTimeout(function(){
 						location.reload()
 					},1500)
-                }else if(resp == 2){
-					alert("CSR already Pre-Reserved",'danger')
-                    setTimeout(function(){
+                }else{
+                    alert("Lot already Reserved",'warning')
+					setTimeout(function(){
 						location.reload()
 					},1500)
-				}
+                }
+			},
+			error:err=>{
+				console.log()
+				alert("An error occured")
 			}
 		})
 	}
 
-
-
     $('.compose-email').click(function(){
-        uni_modal('Compose Email','mail.php?id='+$(this).attr('data-csr-id'))
+           uni_modal('Compose Email','mail.php?id='+$(this).attr('data-csr-id')) 
+    /*     uni_modal("Compose Email","mail.php?id='<?php echo $getID ?>") */
     })
 
     function showReplyForm(self) {

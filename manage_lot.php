@@ -9,6 +9,12 @@ foreach($user->fetch_array() as $k =>$v){
 }
 ?>
 <div class="container-fluid">
+	<div id="response" class="alert alert-success" style="display:none;">
+		<a href="#" class="close" data-dismiss="alert">&times;</a>
+		<div class="message"></div>
+	</div>
+
+
 	<form action="" id="manage-lot">
 		<input type="hidden" name="prod_lid" id="prod_lid" value="<?php echo isset($meta['c_lid']) ? $meta['c_lid']: '' ?>">
 		<div class="form-group">
@@ -117,14 +123,23 @@ foreach($user->fetch_array() as $k =>$v){
 				data:$(this).serialize(),
 				success:function(resp){
 					if(resp == 1){
-						alert_toast("Data successfully saved",'success')
+						$("#response .message").html("<strong>" + "Success" + "</strong>: " + "Data successfully saved");
+						$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+						$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+					/* 	alert("Data successfully saved",'success') */
 						setTimeout(function(){
 							location.reload()
 						},1500)
 					}
 					else{
-						console.log()
-						alert_toast("An error occured",'danger')
+						$("#response .message").html("<strong> Error  </strong>: ");
+						$("#response").removeClass("alert-success").addClass("alert-danger").fadeIn();
+						$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+						setTimeout(function(){
+							location.reload()
+						},1500)
+					/* 	console.log()
+						alert_toast("An error occured",'danger') */
 						end_load()
 				}
 			},
