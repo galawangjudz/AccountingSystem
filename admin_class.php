@@ -189,6 +189,7 @@ Class Action {
 		$data .= ", address_abroad = '$customer_address_abroad' ";
 		$data .= ", birthdate = '$birth_day' ";
 		$data .= ", age = '$customer_age' ";
+		$data .= ", gender = '$customer_gender' ";
 		$data .= ", viber = '$customer_viber' ";
 		$data .= ", civil_status = '$civil_status' ";
 		$data .= ", employment_status = '$employment_status' ";
@@ -196,39 +197,38 @@ Class Action {
 		$data .= ", phone = '$customer_phone' ";
 	
 		if(empty($prod_id)){
-			$save = $this->db->query("INSERT INTO store_customer set ".$data);
+			$save = $this->db->query("INSERT INTO store_customers set ".$data);
 		}else{
-			$save = $this->db->query("UPDATE store_customer set ".$data." where id = ".$prod_id);
+			$save = $this->db->query("UPDATE store_customers set ".$data." where id = ".$prod_id);
 		}
 		if($save){
 			return 1;
 		}
 	}
 
-/* 	function coo_approved(){
+ 	function coo_approved(){
 		extract($_POST);
 
-		date_default_timezone_set("Asia/Manila");
-		$approved_date = date("Y-m-d H:i:s"); 
-		$data = " c_status = 'Pre-Reserved' ";
-
-		$data1 = " c_csr_no = '$id' ";
-		$data1 .= ", c_lot_lid = '$lot_lid' ";
-		$data1 .= "c_csr_status = 1 ";
-		$data1 .= "c_date_approved = '$approved_date' ";
-		$data1 .= "c_duration      = DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL 1 DAY ";
-
-		$chk = $this->db->query("SELECT * FROM t_lots where c_status =  'Available' and c_lid =".$lot_lid);
+ 		/* date_default_timezone_set("Asia/Manila"); */
+		/* $approved_date = date("Y-m-d H:i:s");  */
+		$data = " c_csr_no = '$id' ";
+		$data .= ", c_lot_lid = '$lid' ";
+		$data .= ", c_csr_status = '1' ";
+		$data .= ", c_reserve_status = '0' ";
+		$data .= ", c_ca_status = '0' ";
+/* 		$data .= ", c_date_approved = '$approved_date' "; */
+		$data .= ", c_duration = DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL 1 DAY) ";
+ 
+		
+		$chk = $this->db->query("SELECT * FROM t_lots where c_status = 'Available' and c_lid =".$lid);
 			if($chk->num_rows > 0){
-				$save = $this->db->query("UPDATE t_lots set ".$data." where c_lid =".$chk->fetch_array()['c_lid']);
-				$save = $this->db->query("UPDATE t_csr SET coo_approval = 1 where c_csr_no = ".$id);
-				$save = $this->db->query("INSERT INTO t_approval_csr set ".$data1);
-
-				return 1;
-			}else{
-				return 2;
-			}
-
- */
+	  			$save = $this->db->query("UPDATE t_lots set c_status = 'Pre-Reserved' where c_lid =".$chk->fetch_array()['c_lid']);
+				$save = $this->db->query("UPDATE t_csr SET coo_approval = 1 where c_csr_no = ".$id); 
+		 		$save = $this->db->query("INSERT INTO t_approval_csr set ".$data);
+				} 
+		if($save){
+			return 1;
+		}
+	}
 
 }

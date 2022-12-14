@@ -158,7 +158,7 @@ foreach($user->fetch_array() as $k =>$v){
                     </div>
                     <div class="row">
                         <div class="col-xs-12 margin-top btn-group">
-                            <button type="button" class="btn btn-primary" id='submit'>Creating Client</button>
+                            <!-- <button type="button" class="btn btn-primary" id='submit'>Creating Client</button> -->
                            <!--  <input type="submit" class="btn btn-success float-right" value="Create Client" data-loading-text="Creating..."> -->
                         </div>
                     </div>
@@ -213,7 +213,7 @@ foreach($user->fetch_array() as $k =>$v){
 					}
 					else{
                         console.log()
-						alert_toast("An error occured",'danger')
+						alert("An error occured",'danger')
 						end_load()
 				}
 			},

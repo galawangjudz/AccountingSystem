@@ -1,7 +1,7 @@
 <?php
   include('functions.php');
 ?>
-<h2>Client List</h2><div class="addbtn"><a href="?page=manage_client" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
+<h2>Client List</h2><div class="addbtn"><a href="#" class="btn btn-flat" id="new_customer"><span class="fas fa-plus"></span>  Create New</a></div>
 <hr>
 <div class="row">
 	<div class="col-xs-12">
@@ -18,6 +18,11 @@
 
 
 <script>
+$('#new_customer').click(function(){
+	uni_modal('New Client','manage_client.php')
+})
+
+
 $('.delete-customer').click(function(){
 		_conf("Are you sure to delete this customer?","delete_cust",[$(this).attr('data-customer-id')])
 	})

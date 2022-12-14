@@ -238,11 +238,11 @@ function getCSRs() {
 		print '<table class="table table-striped table-hover table-bordered" id="data-table" cellspacing="0"><thead><tr>
 
 				<th> No.</th>	
-				<th> Date Prepared </th>	
+				<th> Prepared by </th>	
 				<th> Location </th>		
 				<th>Buyers Name</th>
 				<th>Net TCP</th>
-				<th>Prepared By</th>
+				<th>Prepared Date</th>
 				<th>Status</th>
 				<th>Approval Status</th>
 				<th class="actions">Actions</th>
@@ -250,14 +250,16 @@ function getCSRs() {
 			  </tr></thead><tbody>';
 
 		while($row = $results->fetch_assoc()) {
+			$timeStamp = date( "m/d/Y", strtotime($row['c_date_updated']));
 			print '
 				<tr>
 					<td>'.$no++.'</td>
-					<td>'.$row["c_date_updated"].'</td>
+					<td class="text-center">'.$row["c_created_by"].'</td>
 					<td>'.$row["c_acronym"].' Block '.$row["c_block"].' Lot '.$row["c_lot"].' </td>
 					<td>'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].' </td>
-					<td>'.number_format($row["c_net_tcp"], 2).'</td>
-					<td>'.$row["c_created_by"].'</td>
+					<td class="text-right">'.number_format($row["c_net_tcp"], 2).'</td>
+					<td class="text-center">'.$timeStamp.'</td>
+					
 				';
 			
 				if($row['c_verify'] == 0){

@@ -1,4 +1,16 @@
-
+.toast
+{
+    margin-top:-45px!important;
+    height:40px;
+    width:auto;
+    color:white;
+    padding:5px!important;
+    border-color:white;
+    margin-top:5px;
+    margin-bottom:5px;
+    font-size:15px;
+    background-color:red;
+}
 #samp_txt{
     visibility:hidden;
 }

@@ -1,5 +1,5 @@
 <?php
-/* session_start(); */
+/* session_start();  */
 include('functions.php');
 $getID = $_GET['id'];
 $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
@@ -24,6 +24,14 @@ $mysqli->close();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </head>
+<!-- <style>
+	.container-fluid p{
+		margin: unset
+	}
+	#uni_modal .modal-footer{
+		display: none;
+	}
+</style> -->
 <?php
  require 'includes/mail/PHPMailer.php';
  require 'includes/mail/SMTP.php';
