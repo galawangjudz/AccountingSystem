@@ -1,5 +1,4 @@
 <?php
-	include('header.php');
 	include('functions.php');
 
 ?>
@@ -165,6 +164,5 @@
 		</div>
 	</div>
 </form>
-<?php
-	include('footer.php');
-?>
+
+

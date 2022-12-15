@@ -149,7 +149,7 @@ if ($action == 'add_project'){
 					c_rate,
 					c_reservation,
 					c_status
-				) VALUES (
+				) VALUES (r
 					?,
 					?,
 					?,
@@ -256,8 +256,6 @@ if ($action == 'save_reservation'){
 	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
 	}
 
-	$reserved = "Paid";
-	$ca = "Pending";
 	$ra_no = $_POST['ra_no'];
 	$csr_no = $_POST['csr_no'];
 	$c_or_no = $_POST['or_no'];
@@ -268,16 +266,14 @@ if ($action == 'save_reservation'){
 	$c_amount_paid = $_POST['amount_paid'];
 	$c_lot_lid =  $_POST['lot_lid'];
 
-	$query ="UPDATE t_csr 
-	SET c_reserve_status = '".$reserved."' ,
-	c_ca_status = '".$ca."'
-	where c_csr_no = '$csr_no'
-	;";
 
-	$query .="UPDATE t_approval_csr 
-	SET c_reservation_status = '".$reserved."' ,
-	c_ca_status = '".$ca."'
+
+	$query ="UPDATE t_approval_csr 
+	SET c_reserve_status = 1 ,
+	c_ca_status = 0
 	where ra_id = '$ra_no';";
+
+	$query .= "UPDATE t_lots SET c_status = 'Reserved' where c_lid = '".$c_lot_lid."';";
 
 	$query .= "INSERT INTO t_reservation (
 					ra_no,
@@ -327,8 +323,6 @@ if ($action == 'update_reservation'){
 	if ($mysqli->connect_error) {
 	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
 	}
-	$duration_stat = "Updated";
-	$duration = "";
 	$id = $_POST['res_id'];
 	$csr_no = $_POST['csr_no'];
 	$c_or_no = $_POST['or_no'];
@@ -340,9 +334,7 @@ if ($action == 'update_reservation'){
 	$query = "UPDATE t_reservation SET
 				c_or_no = ?,
 				c_reserve_date = ?,
-				c_amount_paid = ?,
-				c_duration = ?,
-				c_duration_stat = ?
+				c_amount_paid = ?
 				WHERE id = ?
 			";
 
@@ -391,14 +383,14 @@ if ($action == 'create_csr'){
 	//
 	date_default_timezone_set("Asia/Manila");
 	$mysqldate = date("Y-m-d H:i:s"); 
-	$csr_status = 'Pending';
+	$csr_status = 0;
 
-	$username =  $_POST['login_username'];
+	$username =  $_POST['username'];
 
 
 /* 	$csr_id = $_POST['csr_id']; */
 	$lot_lid = $_POST['l_lid'];
-	$customer_date_of_sale = $_POST['date_of_sale'];
+	/* $customer_date_of_sale = $_POST['date_of_sale']; */
 	// buyer details
 	$customer_last_name_1 = $_POST['customer_last_name_1']; // customer last name
 	$customer_first_name_1 = $_POST['customer_first_name_1']; // customer first name
@@ -509,15 +501,15 @@ if ($action == 'create_csr'){
 					c_fixed_factor, 
 					c_monthly_payment, 
 					c_start_date,
-					c_csr_status,
 					c_remarks,
-					c_date_created,
-					c_date_updated,
-					c_created_by
+					c_created_by,
+					c_verify,
+					coo_approval
+			
 			
 				) VALUES (
 					'".$lot_lid."',
-					'".$customer_date_of_sale."',
+					'".$mysqldate."',
 				  	'".$customer_last_name_1."',
 				  	'".$customer_first_name_1."',
 				  	'".$customer_middle_name_1."',
@@ -565,17 +557,18 @@ if ($action == 'create_csr'){
 					'".$fixed_factor."', 
 					'".$monthly_amortization."', 
 					'".$start_date."',
-					'".$csr_status."',
 					'".$invoice_notes."',
-					'".$mysqldate."',
-					'".$mysqldate."',
-					'".$username."'
-						);
+					'".$username."',
+					'$csr_status',
+					'$csr_status'
+					);
 					"; 
+
+		
 	$query2 = "SELECT AUTO_INCREMENT AS c_csr_no
 					FROM information_schema.TABLES
 					WHERE TABLE_SCHEMA = 'alscdb'
-					AND TABLE_NAME = 't_csr'";
+					AND TABLE_NAME = 't_csr'"; 
 			
 			
 	if ($result = $mysqli->query($query2)) {
@@ -616,7 +609,7 @@ if ($action == 'create_csr'){
 				'$agent_amount',
 				'$agent_rate'
 				);
-				";
+				"; 
 		}
 
 	header('Content-Type: application/json');
@@ -649,7 +642,7 @@ if($action == 'verify_csr') {
 	$id = $_POST["id"];
 	$val = $_POST["value"];
 
-	$query = "UPDATE t_csr SET c_csr_status = ".$val." where c_csr_no = ".$id.";";
+	$query = "UPDATE t_csr SET c_verify = ".$val." where c_csr_no = ".$id.";";
 
 
 	if($mysqli -> multi_query($query)) {
@@ -685,11 +678,19 @@ if($action == 'coo_approval_csr') {
 	date_default_timezone_set("Asia/Manila");
 	$approved_date = date("Y-m-d H:i:s"); 
 	$approved_by  = $_SESSION['username'];
+
+	
+
 	//$duration = new DateTime('now')->format('Y-m-d H:i:s');
 
-	$query = "UPDATE t_csr SET c_csr_status = '$val' ,c_duration=DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL 1 DAY) where c_csr_no = ".$id.";";
+	//$query = "UPDATE t_csr SET c_csr_status = '$val' ,c_duration=DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL 1 DAY) where c_csr_no = ".$id.";";
+	$query = "UPDATE t_csr SET coo_approval = $val where c_csr_no = ".$id.";";
 	
-	if($val == "Approved"){
+	
+	if($val == 1){
+
+		$query .= "UPDATE t_lots SET c_status = 'Pre-Reserved' where c_lid = '".$lot_id."';";
+		
 	
 		$query .= "INSERT INTO t_approval_csr(
 				c_csr_no,
@@ -743,16 +744,7 @@ if($action == 'ca_approval_csr') {
 	$id = $_POST["id"];
 	$val = $_POST["value"];
 
-	$query = "UPDATE t_csr SET c_ca_status = ".$val." where c_csr_no = ".$id.";";
-
-
-	$query .= "UPDATE t_approval_csr SET c_ca_status = ".$val." where c_csr_no = ".$id.";";
-
-
-
-
-
-
+	$query = "UPDATE t_approval_csr SET c_ca_status = $val where c_csr_no = ".$id.";";
 
 	if($mysqli -> multi_query($query)) {
 	    //if saving success
@@ -928,8 +920,8 @@ if($action == 'delete_reservation') {
 	$csr_no = $_POST["csr_no"];
 
 	// the query
-	$query ="UPDATE t_csr 
-	SET c_reserve_status = ''
+	$query ="UPDATE t_approval_csr 
+	SET c_reserve_status = 0
 	where c_csr_no = ".$csr_no."
 	;";
 

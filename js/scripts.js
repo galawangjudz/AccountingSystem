@@ -101,10 +101,10 @@ $(document).ready(function() {
 	$(document).on('click', "#verify_btn", function(e) {
         e.preventDefault();
 		var btn_val = $("#verify_btn").val();
-        var csrId = 'action=verify_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"'; //build a post data structure
+        var csrId = 'action=verify_csr&id='+ $(this).attr('csr-id')+ '&value=' + btn_val; //build a post data structure
 		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
 			verify_btn(csrId);
-			setInterval('location.reload()', 3000);
+			
 
 		});
    	});
@@ -113,8 +113,7 @@ $(document).ready(function() {
 	$(document).on('click', "#cancel_btn", function(e) {
         e.preventDefault();
 		var btn_val = $("#cancel_btn").val();
-        var csrId = 'action=verify_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"'; //build a post data structure
-		alert(csrId);
+        var csrId = 'action=verify_csr&id='+ $(this).attr('csr-id')+ '&value=' + btn_val; //build a post data structure
 		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
 			verify_btn(csrId);
 
@@ -129,7 +128,7 @@ $(document).ready(function() {
 		var csrId = 'action=coo_approval_csr&id='+ $(this).attr('csr-id')+ '&lot_lid=' + $(this).attr('csr-lot-lid') + '&value=' + btn_val ;
 	 	$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() { 
 			CooApproval(csrId);
-			setInterval('location.reload()', 3000);
+			
 
 		}); 
    	});
@@ -141,7 +140,7 @@ $(document).ready(function() {
 		var csrId = 'action=coo_approval_csr&id='+ $(this).attr('csr-id')+ '&lot_lid=' + $(this).attr('csr-lot-lid') + '&value=' + btn_val ;
 	 	$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() { 
 			CooApproval(csrId);
-			setInterval('location.reload()', 3000);
+		
 		}); 
    	});
 
@@ -149,10 +148,10 @@ $(document).ready(function() {
 	$(document).on('click', "#ca_approval_btn", function(e) {
         e.preventDefault();
 		var btn_val = $("#ca_approval_btn").val();
-		var csrId = 'action=ca_approval_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"';
+		var csrId = 'action=ca_approval_csr&id='+ $(this).attr('csr-id')+ '&value=' + btn_val;
 		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
 			CaApproval(csrId);
-			setInterval('location.reload()', 3000);
+	
 
 		});
    	});
@@ -161,14 +160,14 @@ $(document).ready(function() {
 	$(document).on('click', "#dis_ca_approval_btn", function(e) {
         e.preventDefault();
 		var btn_val = $("#dis_ca_approval_btn").val();
-		var csrId = 'action=ca_approval_csr&id='+ $(this).attr('csr-id')+ '&value="' + btn_val + '"';
+		var csrId = 'action=ca_approval_csr&id='+ $(this).attr('csr-id')+ '&value=' + btn_val;
 		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
 			CaApproval(csrId);
-			setInterval('location.reload()', 3000);
+		
 		});
    	});
 
-	// delete user
+/* 	// delete user
 	$(document).on('click', ".delete-user", function(e) {
         e.preventDefault();
 
@@ -179,9 +178,9 @@ $(document).ready(function() {
 			deleteUser(userId);
 			$(user).closest('tr').remove();
         });
-   	});
+   	}); */
 
-	// delete agent
+/*  	// delete agent
 	$(document).on('click', ".delete-agent", function(e) {
 		e.preventDefault();
 
@@ -193,9 +192,10 @@ $(document).ready(function() {
 			$(agent).closest('tr').remove();
 		});
 	});
-
+ */
+ 
    	// delete customer
-	$(document).on('click', ".delete-customer", function(e) {
+/* 	$(document).on('click', ".delete-customer", function(e) {
         e.preventDefault();
 
         var userId = 'action=delete_customer&delete='+ $(this).attr('data-customer-id'); //build a post data structure
@@ -205,7 +205,7 @@ $(document).ready(function() {
 			deleteCustomer(userId);
 			$(user).closest('tr').remove();
         });
-   	});
+   	}); */
 
 	// update agent
 	$(document).on('click', "#action_update_agent", function(e) {
@@ -251,9 +251,9 @@ $(document).ready(function() {
 		actionLogin();
 	});
 
-	// delete csr
+/* 	// delete csr
 	$(document).on('click', ".delete-csr", function(e) {
-        e.preventDefault();
+        e.preventDefault();c_duration
 
         var csrId = 'action=delete_csr&delete='+ $(this).attr('data-csr-id'); //build a post data structure
         var csr = $(this);
@@ -262,9 +262,9 @@ $(document).ready(function() {
 			deleteCSR(csrId);
 			$(csr).closest('tr').remove();
         });
-   	});
+   	}); */
 
-	// delete lot
+	/* // delete lot
 	$(document).on('click', ".delete-lot", function(e) {
         e.preventDefault();
 
@@ -276,8 +276,8 @@ $(document).ready(function() {
 			$(lot).closest('tr').remove();
         });
    	});
-
-	// delete project
+ */
+/* 	// delete project
 	$(document).on('click', ".delete-project", function(e) {
 		e.preventDefault();
 
@@ -288,7 +288,7 @@ $(document).ready(function() {
 			deleteProject(projectId);
 			$(project).closest('tr').remove();
 		});
-	});
+	}); */
 	// delete reservation
 	$(document).on('click', ".delete-reservation", function(e) {
 		e.preventDefault();
@@ -302,7 +302,7 @@ $(document).ready(function() {
 		
 		});
 
-	// delete house model
+/* 	// delete house model
 	$(document).on('click', ".delete-house", function(e) {
 		e.preventDefault();
 
@@ -313,7 +313,7 @@ $(document).ready(function() {
 			deleteHouse(houseId);
 			$(house).closest('tr').remove();
 		});
-	});
+	}); */
 
 	//agent
 	$(document).on('click', ".item-select", function(e) {
@@ -623,6 +623,7 @@ $(document).ready(function() {
 		var ra_site = $(this).attr('data-ra-site');
 		var ra_block = $(this).attr('data-ra-block');
 		var ra_lot = $(this).attr('data-ra-lot');
+		var fullname = $(this).attr('data-ra-fname');
 
 		var reserve_or_no = $(this).attr('data-or-no');
 		var reserve_date = $(this).attr('data-reserve-date');
@@ -636,7 +637,7 @@ $(document).ready(function() {
 		$('#reserve_site').val(ra_site);
 		$('#reserve_block').val(ra_block);
 		$('#reserve_lot').val(ra_lot);
-
+		$('#fullname').val(fullname);
 		$('#or_no').val(reserve_or_no);
 		$('#pay_date').val(reserve_date);
 		$('#amount_paid').val(reserve_amt);
@@ -2048,9 +2049,9 @@ function updateTotals(elem) {
 		var errorCounter = validateForm();
 	
 		if (errorCounter > 0) {
-			$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+		/* 	$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn(); */
 			$("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
-			$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+			/* $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000); */
 		} else {
 	
    		var $btn = $("#action_update_user").button("loading");
@@ -2419,36 +2420,36 @@ function updateAgent(){
 //** //////////////////////////////////////////////////////////////////*/
 
 function redirectToClientList(){
-	window.location.href = "./customer-list.php";
+	window.location.href = "?page=customer-list";
 }
 
 function redirectToProjectList(){
-	window.location.href = "./project-list.php";
+	window.location.href = "?page=project-list";
 }
 
 function redirectToHouseList(){
-	window.location.href = "./house-list.php";
+	window.location.href = "?page=house-list";
 }
 
 function redirectToLotList(){
-	window.location.href = "./lot-list.php";
+	window.location.href = "?page=lot-list";
 }
 
 function redirectToCSRList(){
-	window.location.href = "./csr-create.php";
+	window.location.href = "?page=csr-create";
 }
 
 
 function redirectToAgentList(){
-	window.location.href = "./agent-list.php";
+	window.location.href = "?page=agent-list";
 }
 
 function redirectToUserList(){
-	window.location.href = "./user-list.php";
+	window.location.href = "?page=user-list";
 }
 
 function redirectToRaList(){
-	window.location.href = "./reservation-list.php";
+	window.location.href = "?page=reservation-list";
 }
 
 

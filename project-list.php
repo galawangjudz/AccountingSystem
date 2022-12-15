@@ -1,15 +1,14 @@
 <?php
-  include('header.php');
   include('functions.php');
 ?>
-<h2>Project Site List</h2><div class="addbtn"><a href="project-add.php" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
+<h2>Project Site List</h2><div class="addbtn"><a href="#" class="btn btn-flat" id="new_project"><span class="fas fa-plus"></span>  Create New</a></div>
 <hr>
 <div class="row">
 	<div class="col-xs-12">
-		<div id="response" class="alert alert-success" style="display:none;">
-			<a href="#" class="close" data-dismiss="alert">&times;</a>
-			<div class="message"></div>
-		</div>
+    <div id="response" class="alert alert-success" style="display:none;">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <div class="message"></div>
+    </div>
 	
 		<div class="panel panel-default">
 			<div class="panel-body form-group form-group-sm">
@@ -18,23 +17,48 @@
 		</div>
 	</div>
 <div>
-<div id="confirm" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Delete Project</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to delete this project site?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
-		    <button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<?php
-	include('footer.php');
-?>
+
+<script>
+$('#new_project').click(function(){
+	uni_modal('New Project','manage_project.php')
+})
+
+$('.edit-project').click(function(){
+	uni_modal('Edit Project','manage_project.php?id='+$(this).attr('data-project-id'))
+})
+
+
+$('.delete-project').click(function(){
+		_conf("Are you sure to delete this project?","delete_project",[$(this).attr('data-project-id')])
+	})
+
+
+function delete_project($id){
+	start_load()
+	$.ajax({
+		url:'ajax.php?action=delete_project',
+		method:'POST',
+		data:{id:$id},
+		success:function(resp){
+			if(resp==1){
+				alert_toast("Project Data successfully deleted",'success') 
+				setTimeout(function(){
+					location.reload()
+				},1500)
+				}
+			else{
+				console.log()
+            	alert_toast("An error occured",'danger')
+				end_load()
+			
+			}
+		},
+		error:err=>{
+            console.log()
+            alert("An error occured")
+        }
+	})
+}
+
+</script>
+

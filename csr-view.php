@@ -1,5 +1,4 @@
 <?php
-include('header.php');
 include('functions.php');
 
 $getID = $_GET['id'];
@@ -46,9 +45,8 @@ if($result) {
         $customer_gender = $row['c_sex']; // customer phone number
         $civil_status = $row['c_civil_status']; // customer civil status
         $employment_status = $row['c_employment_status']; // customer civil status
-        $csr_status = $row['c_csr_status'];// status
-        $reserv_status = $row['c_reserve_status'];// status
-        $ca_status = $row['c_ca_status'];// status
+        $coo_approval = $row['coo_approval'];// status
+
 
         ///LOT
         $lot_area = $row['c_lot_area'];
@@ -91,17 +89,15 @@ if($result) {
         $net_dp = $row['c_net_dp'];
         $down_percent = $row['c_down_percent'];
         $start_date = $row['c_start_date'];
-        $duration = $row['c_duration'];
+        $verify = $row['c_verify'];
+   /*      $duration = $row['c_duration']; */
         }
 
 }
 /* close connection */
 $mysqli->close();
 ?>
-<head>
-    <link rel="stylesheet" href="css/TimeCircles.css"></script>
-    <script src="js/TimeCircles.js"></script>
-</head>
+
 <style>
     h4{
         font-size:12px!important;
@@ -121,89 +117,39 @@ $mysqli->close();
 
 <div class="row">
     <div class="col-xs-12">
-        <div class="timer_box">
-            <div id="CountDown" data-date="<?php echo $duration; ?>"></div>
-            <br>
-        </div>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <input type="hidden" value="<?php echo $p1; ?>" id="p1">
                 <input type="hidden" value="<?php echo $p2; ?>" id="p2">
-                <h2 class="float-left">CTRL #<?php echo $getID; ?></h2>
+                 <h2 class="float-left">CTRL #<?php echo $getID; ?></h2> 
                 <div class="clear"></div>
             </div>
             <div class="panel-body form-group form-group-sm">
                 <div class="row">
                     <div class="buttons">
-                        <div class="lbl_box"> 
-                            <label id="lblupdatestatus">COO Approval: </label>
-                            <select class= "status-list" name= "status_list" id ="status_list" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?>>
-                                <option class="options1" id="pendingselected" value="Pending" <?php if($csr_status === 'Pending'){?>selected<?php }?>>Pending</option>
-                                <option class="options1" id="approvedselected" value="Approved" <?php if($csr_status === 'Approved'){?>selected<?php }?>>Approved</option>
-                                <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($csr_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
-                            </select>
-                        </div>
-                        <div class="lbl_box">
-                            <label id="lblupdatestatus">CA Approval: </label>
-                            <select class= "ca-approval" name= "ca_approval" id ="ca_approval" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?>>
-                                <option class="options1" id="pendingselected" value="Pending" <?php if($ca_status === 'Pending'){?>selected<?php }?>>Pending</option>
-                                <option class="options1" id="approvedselected" value="Approved" <?php if($ca_status === 'Approved'){?>selected<?php }?>>Approved</option>
-                                <option class="options1" id="disapprovedselected" value="Disapproved" <?php if($ca_status === 'Disapproved'){?>selected<?php }?>>Disapproved</option>
-                            </select>
-                        </div>
-                            <?php if($usertype == "IT Admin"){?>
-                                <a href="csr-edit.php?id=<?php echo $getID; ?>" class="btn btn-primary">Edit <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
-                                <a href="mail.php?id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
-                                <a href="print_ra.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                       
+                                <a href="?page=csr-edit&id=<?php echo $getID; ?>" class="btn btn-primary">Edit <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
+                                <a href="?page=mail&id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
+                                <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                               <!--  <a data-csr-id="<?php echo $getID ?>" class="btn btn-info compose-email"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
+                                 -->
                                 <hr>
-                                <?php if($csr_status == "Pending"){?>  
-                                    <button type="button" id= "verify_btn" csr-id =<?php echo $getID; ?> value="Verified" class="btn btn-success btn-lg btn-block">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
-                                    <button type="button" id= "cancel_btn" csr-id =<?php echo $getID; ?> value="Cancelled" class="btn btn-danger btn-lg btn-block">Cancelled <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
+                                <?php if($verify == 0){?> 
+                                
+                                    
+                                    <button type="button" id= "verify_btn" csr-id =<?php echo $getID; ?> value="1" class="btn btn-success btn-lg btn-block verify-btn">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                    <button type="button" id= "cancel_btn" csr-id =<?php echo $getID; ?> value="2" class="btn btn-danger btn-lg btn-block void-btn">Void <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
                                 <?php } ?>
 
-                                <?php if($csr_status == "Verified"){ ?>
-                                    
-                                    <button type="button" id= "coo_approval_btn" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="Approved" class="btn btn-success btn-lg btn-block">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
-                                    <button type="button" id= "dis_coo_approval_btn" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="Disapproved" class="btn btn-danger btn-lg btn-block">COO Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
+                                <?php if($verify == 1 && $coo_approval == 0){ ?>
+                                <!--     <button type="button" class="btn btn-primary" id="approved">Approved</button> -->
+                                    <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> class="btn btn-success btn-lg btn-block coo-approval">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                    <!-- <button type="button" id= "coo_approval_btn" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                    --> <button type="button" id= "dis_coo_approval_btn" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="3" class="btn btn-danger btn-lg btn-block">COO Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
                                 
                                 <?php } ?>
 
-                                <?php if($csr_status == "Approved" && $reserv_status == "Paid" && $ca_status == "Pending"){ ?>
-                                    
-                                    <button type="button" id= "ca_approval_btn" csr-id =<?php echo $getID; ?> value="Approved" class="btn btn-success btn-lg btn-block">CA Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
-                                    <button type="button" id= "dis_ca_approval_btn" csr-id =<?php echo $getID; ?> value="Disapproved" class="btn btn-danger btn-lg btn-block">CA Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
-                                
-                                <?php } ?>    
-
-                            <?php }else if($usertype == "COO"){?>
-                                    <a href="print_ra.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
-                                    <hr>
-                                    <?php if($csr_status == "Verified"){ ?>
-                                    
-                                        <button type="button" id= "coo_approved_btn" csr-id =<?php echo $getID; ?> value="Approved" class="btn btn-success btn-lg btn-block">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
-                                        <button type="button" id= "dis_coo_disapproved_btn" csr-id =<?php echo $getID; ?> value="Disapproved" class="btn btn-danger btn-lg btn-block">COO Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
-                                    <?php } ?>       
-                             <?php } else if ($usertype == "SOS"){?>
-                                <a href="mail.php?id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
-                                <a href="print_ra.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
-                                <hr>
-                
-                                <?php if($csr_status == "" || $csr_status == "Pending"){ ?>
-                                    
-                                    <button type="button" id= "verify_btn" csr-id =<?php echo $getID; ?> value="Verified" class="btn btn-success btn-lg btn-block">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
-                                    <button type="button" id= "cancel_btn" csr-id =<?php echo $getID; ?> value="Cancelled" class="btn btn-danger btn-lg btn-block">Cancelled <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
-                                
-                                <?php } ?>
-
-                            <?php }else if($usertype == "CA"){?>
-                                <a href="print_ra.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
-                                <hr>
-                                <?php if($csr_status == "Approved" && $reserv_status == "Paid" && $ca_status == "" && $ca_status == "Pending"){ ?>
-                                    
-                                    <button type="button" id= "ca_approval_btn" csr-id =<?php echo $getID; ?> value="Approved" class="btn btn-success btn-lg btn-block">CA Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
-                                    <button type="button" id= "dis_ca_approval_btn" csr-id =<?php echo $getID; ?> value="Disapproved" class="btn btn-danger btn-lg btn-block">CA Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
-                                <?php } ?>        
-                            <?php } ?>
+                        
                     </div>
                     <div class="titles"> Buyer's Profile</div>
                         <br>
@@ -271,7 +217,7 @@ $mysqli->close();
                                         <td><?php echo $employment_status ?></td>
                                     </tr>
                            
-                                    <tr>
+                               <!--      <tr>
                                         <td> <label id="lblupdatestatus3">COO Approval: </label> </td>
                                         <td> <?php echo $csr_status ?> </span>
                                     
@@ -285,7 +231,7 @@ $mysqli->close();
                                         <td> <label id="lblupdatestatus3">CA Approval: </label> </td>
                                         <td> <?php echo $ca_status ?>
                                         </div>
-                                    </tr>
+                                    </tr> -->
                                 </table> 
                             </div>       
                         </div>
@@ -612,7 +558,7 @@ $mysqli->close();
         </div>
     </div>
 </div>
-
+<!-- 
 <div id="update_stat" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -627,11 +573,11 @@ $mysqli->close();
         <button type="button" data-dismiss="modal" class="btn btn-primary" id="confirm">Confirm</button>
 		<button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div>
+  </div>
+</div>
 
-
+ -->
 <div id="verify_stat" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -651,32 +597,42 @@ $mysqli->close();
 </div><!-- /.modal -->
 </div>
 
-<div id="reopen_csr" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Reopen CSR</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to reopen CSR?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" data-dismiss="modal" class="btn btn-primary" id="reopen">Confirm</button>
-		<button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div>
-</div>
-
-<form id="statform" action="update_duration.php?c_csr_no=<?php echo $getID ?>" method="post">
-    <input type="hidden" name="samp_txt" id="samp_txt">
-</form>
 </body>
 
 <script>
+    $('.coo-approval').click(function(){
+		_conf("Are you sure to approved this csr?","coo_approved",[$(this).attr('csr-id'),$(this).attr('csr-lot-lid')])
+	})
+	function coo_approved($id,$lid){
+		start_load()
+		$.ajax({
+			url:'ajax.php?action=coo_approved',
+			method:'POST',
+            data:{id:$id,lid:$lid},
+			success:function(resp){
+				if(resp==1){
+					alert("CSR successfully approved",'success')
+					setTimeout(function(){
+						location.reload()
+					},1500)
+                }else{
+                    alert("Lot already Reserved",'warning')
+					setTimeout(function(){
+						location.reload()
+					},1500)
+                }
+			},
+			error:err=>{
+				console.log()
+				alert("An error occured")
+			}
+		})
+	}
 
+    $('.compose-email').click(function(){
+           uni_modal('Compose Email','mail.php?id='+$(this).attr('data-csr-id')) 
+    /*     uni_modal("Compose Email","mail.php?id='<?php echo $getID ?>") */
+    })
 
     function showReplyForm(self) {
         var commentId = self.getAttribute("data-id");
@@ -701,22 +657,7 @@ $mysqli->close();
     document.getElementById("form-" + commentId).scrollIntoView();
     }
 
-    function statusColor(){
-        var cstatus=document.getElementById('txtstatus').value;
-        if (cstatus=='Disapproved'){
-            document.getElementById('txtstatus').style.background = "#dd4b39";
-            document.getElementById('status_list').style.background = "#dd4b39";
-            document.getElementById('status_list').style.color = "white";
-        }else if (cstatus=='Approved'){
-            document.getElementById('txtstatus').style.background = "#00a65a";
-            document.getElementById('status_list').style.background = "#00a65a";
-            document.getElementById('status_list').style.color = "white";
-        }else{
-            document.getElementById('txtstatus').style.background = "#f39c12";
-            document.getElementById('status_list').style.background = "#f39c12";
-            document.getElementById('status_list').style.color = "white";
-        }
-    }
+   
     function changeSelected(){
         var cstatus_changed=document.getElementById('status_list').value;
     }
@@ -784,30 +725,8 @@ $mysqli->close();
 
     function loadAll(){
         paymentType();
-        statusColor();
     }
 </script>
-<script>
 
-    $("#CountDown").TimeCircles();
-    $("#CountDown").TimeCircles({count_past_zero: false}).addListener(countdownComplete);
-	
-    function countdownComplete(unit, value, total){
-        if(total<=0){
-            //alert('RESERVATION ALREADY EXPIRED');
-            //$(this).fadeOut('slow').replaceWith("<h3>RESERVATION ALREADY EXPIRED</h3>");
-            document.getElementById("samp_txt").value="EXPIRED";
-            updateStat();
-
-        }
-    }
-</script>
-<script>
-        function updateStat(){
-           // document.getElementById("samp_txt").onchange = function() {
-            document.getElementById("statform").submit();
-        //}
-        }
-</script>
 
 

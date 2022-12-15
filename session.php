@@ -21,6 +21,7 @@
     $count = mysqli_num_rows($results);
     if($results->num_rows > 0){
 		$row = $results->fetch_assoc();
+        $_SESSION['user_id'] = $row['user_id'];
         $_SESSION['user_type'] = $row['user_type'];
         $_SESSION['username'] = $row['username'];
         $_SESSION['password'] = $row['password'];
