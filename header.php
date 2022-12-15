@@ -20,7 +20,7 @@
 	<script src="js/bootstrap.datetime.js"></script>
 	<script src="js/bootstrap.password.js"></script>
 	<script src="js/scripts.js"></script>
-  <script src="temp/jquery-3-3.1.min.js"></script>
+<!--   <script src="temp/jquery-3-3.1.min.js"></script> -->
   <script src="temp/toastr.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="js/app.min.js"></script>
