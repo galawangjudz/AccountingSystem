@@ -142,7 +142,7 @@ $mysqli->close();
                                 <a href="?page=mail&id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
                                 <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
                                 <hr>
-                                <?php if($reserv_status == 1  && $ca_status == NULL){ ?>
+                                <?php if($reserve_status == 1  && $ca_status == NULL){ ?>
                          
                                     <button type="button" id= "ca_approval_btn" csr-id =<?php echo $getID; ?> value=1 class="btn btn-success btn-lg btn-block">CA Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
                                     <button type="button" id= "dis_ca_approval_btn" csr-id =<?php echo $getID; ?> value=2 class="btn btn-danger btn-lg btn-block">CA Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>

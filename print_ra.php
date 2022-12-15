@@ -963,7 +963,7 @@ $mysqli->close();
                     <label class="control-label">TOTAL</label>
                 </div>
                 <div class="col-md-2">   
-                    <input type="text" id="txtpf" value="" class="form-control form-control-sm">
+                    <input type="text" id="txtpf1" value="" class="form-control form-control-sm">
                 </div>
             </div>
             </tr>
