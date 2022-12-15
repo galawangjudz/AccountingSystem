@@ -34,6 +34,7 @@ Class Action {
 
 	function save_user(){
 		extract($_POST);
+		$password = md5($password);
 		$data = " last_name = '$last_name' ";
 		$data .= ", first_name = '$first_name' ";
 		$data .= ", middle_name = '$middle_name' ";
@@ -43,8 +44,11 @@ Class Action {
 		$data .= ", username = '$username' ";
 		$data .= ", user_type = '$user_type' ";
 		$data .= ", password = '$password' ";
+
+	
 		if(empty($user_id)){
 			$save = $this->db->query("INSERT INTO users set ".$data);
+	
 		}else{
 			$save = $this->db->query("UPDATE users set ".$data." where user_id = ".$user_id);
 		}

@@ -1,5 +1,15 @@
 <?php
   include('functions.php');
+
+/* 
+$cat = $mysqli->query("SELECT * FROM ");
+$cat_arr = array();
+while($row = $cat->fetch_assoc()){
+	$cat_arr[$row['id']] = $row;
+}
+
+
+ */
 ?>
 <body>
 <h2>Pending List</h2><div class="addbtn"><a href="index.php?page=csr-create" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
@@ -8,7 +18,7 @@
   <a href="#" class="close" data-dismiss="alert">&times;</a>
   <div class="message"></div>
 </div>
-<div class="filterDiv">
+<!-- <div class="filterDiv">
   <form action="" id="filtercsr">
     <div class="form-group col-md-12">
         <label class="lblFilter">Filter by: </label>
@@ -21,7 +31,7 @@
           <input type="submit" class="filterBtn" value ='Filter'>
     </div>             
   </form>
-</div>
+</div> -->
 		<div class="panel panel-default">
 			<div class="panel-body form-group form-group-sm">
         		<?php getCSRs(); ?>

@@ -611,12 +611,18 @@ $mysqli->close();
             data:{id:$id,lid:$lid},
 			success:function(resp){
 				if(resp==1){
-					alert("CSR successfully approved",'success')
+					/* alert("CSR successfully approved",'success') */
+                    $("#response .message").html("<strong>" + "Success" + "</strong>: " + "CSR successfully approved");
+                    $("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+                    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 					setTimeout(function(){
 						location.reload()
 					},1500)
                 }else{
-                    alert("Lot already Reserved",'warning')
+                    $("#response .message").html("<strong> Lot Already Reserved </strong>: ");
+                    $("#response").removeClass("alert-success").addClass("alert-danger").fadeIn();
+                    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+                   /*  alert("Lot already Reserved",'warning') */
 					setTimeout(function(){
 						location.reload()
 					},1500)

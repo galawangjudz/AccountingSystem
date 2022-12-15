@@ -11,7 +11,17 @@
         </li>
         <!-- Menu 1.1 -->
         <li class="treeview">
-          <a href="index.php?page=csr-list"><i class="fa fa-file-invoice"></i><span>Pending List</span></a>
+          <a href="#"><i class="fa fa-file-invoice"></i><span>Pending List</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="index.php?page=csr-list"><i class="fa fa-map-location-dot"></i>Pending</a></li>
+            <li><a href="#"><i class="fa fa-square"></i>Approved</a></li>
+            <li><a href="#"><i class="fa fa-house"></i>Disapproved</a></li>
+            <li><a href="#"><i class="fa fa-house"></i>Cancelled</a></li>
+          </ul>
         </li>
         <!-- Menu 1 -->
          <li class="treeview">

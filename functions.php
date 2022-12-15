@@ -280,7 +280,7 @@ function getCSRs() {
 					print '<td class="text-center"><span class="label label-success">Approved</span></td>';
 				}
 				elseif($row['coo_approval'] == 2){
-					print '<td class="text-center"><span class="label label-default">Expired</span></td>';
+					print '<td class="text-center"><span class="label label-default">Cancelled</span></td>';
 				}
 				print '
 				<td class="actions"><a href="?page=csr-view&id='.$row["c_csr_no"].'" class="btn btn-info btn-xs">View
