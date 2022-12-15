@@ -214,14 +214,13 @@ Class Action {
  	function coo_approved(){
 		extract($_POST);
 
- 		/* date_default_timezone_set("Asia/Manila"); */
-		/* $approved_date = date("Y-m-d H:i:s");  */
+
 		$data = " c_csr_no = '$id' ";
 		$data .= ", c_lot_lid = '$lid' ";
 		$data .= ", c_csr_status = '1' ";
 		$data .= ", c_reserve_status = '0' ";
 		$data .= ", c_ca_status = '0' ";
-/* 		$data .= ", c_date_approved = '$approved_date' "; */
+		
 		$data .= ", c_duration = DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL 1 DAY) ";
  
 
