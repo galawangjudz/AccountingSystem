@@ -154,7 +154,7 @@ $mysqli->close();
                             <?php if($usertype == "IT Admin"){?>
                                 <a href="csr-edit.php?id=<?php echo $getID; ?>" class="btn btn-primary">Edit <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
                                 <a href="mail.php?id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
-                                <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                <a href="print_ra.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
                                 <hr>
                                 <?php if($csr_status == "Pending"){?>  
                                     <button type="button" id= "verify_btn" csr-id =<?php echo $getID; ?> value="Verified" class="btn btn-success btn-lg btn-block">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
@@ -176,7 +176,7 @@ $mysqli->close();
                                 <?php } ?>    
 
                             <?php }else if($usertype == "COO"){?>
-                                    <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                    <a href="print_ra.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
                                     <hr>
                                     <?php if($csr_status == "Verified"){ ?>
                                     
@@ -185,7 +185,7 @@ $mysqli->close();
                                     <?php } ?>       
                              <?php } else if ($usertype == "SOS"){?>
                                 <a href="mail.php?id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
-                                <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                <a href="print_ra.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
                                 <hr>
                 
                                 <?php if($csr_status == "" || $csr_status == "Pending"){ ?>
@@ -196,7 +196,7 @@ $mysqli->close();
                                 <?php } ?>
 
                             <?php }else if($usertype == "CA"){?>
-                                <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                <a href="print_ra.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
                                 <hr>
                                 <?php if($csr_status == "Approved" && $reserv_status == "Paid" && $ca_status == "" && $ca_status == "Pending"){ ?>
                                     
