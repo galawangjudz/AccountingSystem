@@ -1,3 +1,93 @@
+<?php
+//--->get app url > start
+
+if (isset($_SERVER['HTTPS']) &&
+    ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+    isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+    $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+  $ssl = 'https';
+}
+else {
+  $ssl = 'http';
+}
+ 
+$app_url = ($ssl  )
+          . "://".$_SERVER['HTTP_HOST']
+          //. $_SERVER["SERVER_NAME"]
+          . (dirname($_SERVER["SCRIPT_NAME"]) == DIRECTORY_SEPARATOR ? "" : "/")
+          . trim(str_replace("\\", "/", dirname($_SERVER["SCRIPT_NAME"])), "/");
+
+//--->get app url > end
+
+header("Access-Control-Allow-Origin: *");
+
+?>
+
+
+<!DOCTYPE html>
+
+<head>
+	 
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script> 
+
+
+	<script src="https://cdn.apidelv.com/libs/awesome-functions/awesome-functions.min.js"></script> 
+  
+ 	
+ 	
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" ></script>
+
+ 
+
+	<script type="text/javascript">
+	$(document).ready(function($) 
+	{ 
+
+		$(document).on('click', '.btn_print', function(event) 
+		{
+			event.preventDefault();
+
+			//credit : https://ekoopmans.github.io/html2pdf.js
+			
+			var element = document.getElementById('container_content'); 
+
+			//easy
+			//html2pdf().from(element).save();
+
+			//custom file name
+			//html2pdf().set({filename: 'code_with_mark_'+js.AutoCode()+'.pdf'}).from(element).save();
+
+
+			//more custom settings
+			var opt = 
+			{
+			  margin:       [0,5,0,5],
+			  filename:     'pageContent_'+js.AutoCode()+'.pdf',
+			  image:        { type: 'jpeg', quality: 2 },
+			  html2canvas:  { dpi: 300, letterRendering: true, width: 780, height: 1500, scale:2},
+              //html2canvas:  { dpi: 2000, letterRendering: true, width: 216, height: 356, scale:2},
+			  jsPDF:        { unit: 'mm', format: 'legal', orientation: 'portrait' }
+			};
+
+			// New Promise-based usage:
+			html2pdf().set(opt).from(element).save();
+
+			 
+		});
+
+ 
+ 
+	});
+	</script>
+
+	 
+
+</head>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,6 +116,7 @@
         $c_b2_first_name = $row['c_b2_first_name']; 
         $c_b1_middle_name = $row['c_b1_middle_name']; 
         $c_b2_middle_name = $row['c_b2_middle_name']; 
+        $c_citizenship = $row['c_citizenship']; 
         $c_address = $row['c_address']; 
         $c_city_prov = $row['c_city_prov']; 
         $c_mobile_no = $row['c_mobile_no']; 
@@ -35,6 +126,9 @@
         $c_billing_address = $row['c_billing_address'];
         $c_birthday = $row['c_birthday'];  
         $c_age = $row['c_age'];  
+        $c_tin = $row['c_tin'];  
+        $c_zip_code = $row['c_zip_code'];  
+        $c_id_presented = $row['c_id_presented'];
         $c_sex = $row['c_sex']; 
         $c_civil_status = $row['c_civil_status'];  
         $c_email = $row['c_email'];  
@@ -68,198 +162,504 @@ $mysqli->close();
     <link rel="stylesheet" href="css/print_ra.css">
 </head>
 <body onload="loadBasics()">
-<img src="images/Header.jpg" class="img-thumbnail" style="height:110px;width:700px" alt="">
-<h3 class="text-center"><b>RESERVATION APPLICATION</b></h3>
-
+<div class="text-center" style="padding:20px;">
+	<input type="button" id="rep" value="Print" class="btn btn-info btn_print">
+</div>
+<div class="container_content" id="container_content" >
+<img src="images/Header.jpg" class="img-thumbnail" style="height:95px;width:650px" alt="">
+<h5 class="text-center"><b>RESERVATION APPLICATION</b></h5>
+<div style="clear:both"></div>
     <div class="text-center" id="dateofsale"><b>Date of Sale:</b> <?php echo date("F d, Y",strtotime('c_date_created')) ?></div>
+    <br>
     <div class="card-body">
-        <div class="checkboxes">
-            <div class="csr_status">
-                <input type="checkbox" id="chknew" name="chknew" value="new">
-                <label> NEW</label>&nbsp&nbsp&nbsp
-                <input type="checkbox" id="chkrevised" name="chkrevised" value="revised">
-                <label> REVISED</label>
+        <div class="col-md-12" id="checkboxes">
+            <div id="csr_status">
+                <div style="float:left;margin-right:2px">
+                    <input id="chkOption1" type="checkbox" name="chkOption1" />
+                </div>
+                <div style="float:left">
+                    <label>NEW<label>
+                </div>
+                <div style="float:left;margin-right:2px">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                </div>
+                <div style="float:left">
+                    <label>REVISED<label>
+                </div>
             </div>
-            <div class="csr_source">
-            <input type="checkbox" id="chkand" name="chkand" value="and">
-                <label> And</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                <input type="checkbox" id="chkspouses" name="chkspouses" value="spouses">
-                <label> Spouses</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                <input type="checkbox" id="chkmarriedto" name="chkmarriedto" value="marriedto">
-                <label> Married To</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                <input type="checkbox" id="chkminorrep" name="chkminorrep" value="minorrep">
-                <label> Minor/Represented by Legal Guardian</label>
+            <div class="col-md-12">
+                <div style="float:left;margin-right:2px">
+                    <input id="chkOption1" type="checkbox" name="chkOption1" />
+                </div>
+                <div style="float:left">
+                    <label>And<label>
+                </div>
+                <div style="float:left;margin-right:2px">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                </div>
+                <div style="float:left">
+                    <label>Spouses<label>
+                </div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <div style="float:left;margin-right:2px">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                </div>
+                <div style="float:left">
+                <label>Married To<label>
+                </div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <div style="float:left;margin-right:2px">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                </div>
+                
+                <div style="float:left">
+                    <label>Minor/Represented by Legal Guardian<label>
+                </div>
             </div>
         </div>
-        <div class="doc_title">NAME OF BUYER</div>
-        <div class="subcontainer">
-            <div class="sidetexts">
-                <label class="label1">Name/s you want shown or printed in the contract</label><br>
-                <label class="label2">Please fill-out the box legibly</label>
-            </div>
-            <div class="client_label">
-                <input type="checkbox" id="chkand" name="chkand" value="and">
-                <label> And</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                <input type="checkbox" id="chkspouses" name="chkspouses" value="spouses">
-                <label> Spouses</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                <input type="checkbox" id="chkmarriedto" name="chkmarriedto" value="marriedto">
-                <label> Married To</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                <input type="checkbox" id="chkminorrep" name="chkminorrep" value="minorrep">
-                <label> Minor/Represented by Legal Guardian</label>
-            </div>
-        </div>
+        <div class="doc_title">Name and Contact details of Purchaser's Spouse or Co-Owner - Details must be consistent will all documents</div>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="control-label">Last Name:</label>
                         <input type="text" value="<?php echo $c_b1_last_name; ?>" class="form-control form-control-sm">
-                        <input type="text" value="<?php echo $c_b2_last_name; ?>" class="form-control form-control-sm">
-                        <input type="text" value="" class="form-control form-control-sm">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Suffix Name:</label>
+                        <input type="text" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-4">
                     <div class="form-group">
                         <label class="control-label">First Name:</label>
                         <input type="text" value="<?php echo $c_b1_first_name; ?>" class="form-control form-control-sm">
-                        <input type="text" value="<?php echo $c_b2_first_name; ?>" class="form-control form-control-sm">
-                        <input type="text" value="" class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="control-label">Middle Name:</label>
                         <input type="text" value="<?php echo $c_b1_middle_name; ?>" class="form-control form-control-sm">
-                        <input type="text" value="<?php echo $c_b2_middle_name; ?>" class="form-control form-control-sm">
-                        <input type="text" value="" class="form-control form-control-sm">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="control-label">Tax Identification No.:</label>
-                        <input type="text" class="form-control form-control-sm">
-                        <input type="text" class="form-control form-control-sm">
-                        <input type="text" class="form-control form-control-sm">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <label class="control-label">Address in the Philippines (Required):</label>
-                        <input type="text" value="<?php echo $c_address; ?>"  class="form-control form-control-sm">
-                        <label class="control-label">City/Province:</label>
-                        <input type="text" value="<?php echo $c_city_prov; ?>"  class="form-control form-control-sm">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="control-label">Contact Numbers:</label>
-                        <input type="text" value="<?php echo $c_mobile_no; ?>"  class="form-control form-control-sm">
-                        <label class="control-label">Viber Account:</label>
-                        <input type="text" value="<?php echo $c_viber_no; ?>"  class="form-control form-control-sm">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <label class="control-label">Address Abroad (if any):</label>
-                        <input type="text" value="<?php echo $c_address_abroad; ?>"  class="form-control form-control-sm">
-                        <input type="text" value=""  class="form-control form-control-sm">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="control-label">Contact Numbers:</label>
-                        <input type="text" value="<?php echo $c_mobile_abroad; ?>"  class="form-control form-control-sm">
-                        <input type="text" value=""  class="form-control form-control-sm">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-2">
                     <div class="form-group">
-                    <label class="control-label" id="lbl_space">Billing Address:</label><br>	
-                    <input type="hidden" id="billing_address" value="<?php echo $c_billing_address; ?>">					
-                    <input type="radio" id="rdolocal"/>
-                    <label class="rdobtn">Local</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    <input type="radio" id="rdoabroad"/>
-                    <label class="rdobtn">Abroad</label>
+                        <label class="control-label">Citizenship:</label>
+                        <input type="text" value="<?php echo $c_citizenship; ?>"  class="form-control form-control-sm">
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-5">
                     <div class="form-group">
-                        <label class="control-label">Birthdate:</label>
-                        <input type="date" id="birthdate" name="birthdate" value="<?php echo $c_birthday; ?>"  class="form-control form-control-sm">
+                        <label class="control-label" id="small_title">Civil Status:</label>
+                        <div class="chkboxes">
+                            <div style="float:left;margin-right:2px;">
+                            <input id="chkOption1" type="checkbox" name="chkOption1" />
+                            </div>
+                            <div style="float:left">
+                                <label class="light">SINGLE<label>
+                            </div>
+                            <div style="float:left;margin-right:2px;">
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                            </div>
+                            <div style="float:left">
+                                <label class="light">MARRIED<label>
+                            </div>
+                            <div style="float:left;margin-right:2px;">
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                            </div>
+                            <div style="float:left">
+                                <label class="light">WIDOWED<label>
+                            </div>
+                            <div style="float:left;margin-right:2px;">
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                            </div>
+                            <div style="float:left">
+                                <label class="light">SEPARATED<label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-1">
                     <div class="form-group">
+                        <label class="control-label" id="small_title">Gender:</label>
+
+                            <div style="float:left;margin-right:2px;">
+                            <input id="chkOption1" type="checkbox" name="chkOption1" />
+                            </div>
+                            <div style="float:left">
+                                <label class="light">M<label>
+                            </div>
+                            <div style="float:left;margin-right:2px;">
+                            &nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                            </div>
+                            <div style="float:left">
+                                <label class="light">F<label>
+                            </div>
+                            
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
                         <label class="control-label">Age:</label>
-                        <input type="text" id="age" name="age" value="<?php echo $c_age; ?>"  class="form-control form-control-sm">
+                        <input type="text" value="<?php echo $c_age; ?>"  class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label class="control-label">Gender:</label>
-                        <select name="c_sex" id="c_sex" class="form-control" required>
-                            <option value="M" <?php if($c_sex === 'M'){?>selected<?php }?>>Male</option>
-                            <option value="F" <?php if($c_sex === 'F'){?>selected<?php }?>>Female</option>
-                        </select>
+                        <label class="control-label">Birthdate (MM-DD-YYYY):</label>
+                        <input type="date" value="<?php echo $c_birthday; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Type of Valid ID presented:</label>
+                        <input type="text" value="<?php echo $c_id_presented; ?>"  class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label class="control-label">Civil Status:</label>
-                        <select name="c_civil_status" id="c_civil_status" class="form-control" required>
-                            <option value="Married" <?php if($c_civil_status === 'Married'){?>selected<?php }?>>Married</option>
-                            <option value="Separated" <?php if($c_civil_status === 'Separated'){?>selected<?php }?>>Separated</option>
-                            <option value="Single" <?php if($c_civil_status === 'Single'){?>selected<?php }?>>Single</option>
-                            <option value="Widowed" <?php if($c_civil_status === 'Widowed'){?>selected<?php }?>>Widowed</option>
-                        </select>
+                        <label class="control-label">TIN #:</label>
+                        <input type="text" value="<?php echo $c_tin; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                    <label class="control-label" id="lbl_space">Contact Number:</label><br>	
+                    <input type="text" value="<?php echo $c_mobile_no; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Viber Account:</label>
+                        <input type="text" value="<?php echo $c_viber_no; ?>"  class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="control-label">Email Address:</label>
-                        <input type="text" id="email_address" name="email_address" value="<?php echo $c_email; ?>"  class="form-control form-control-sm">
+                        <input type="text" value="<?php echo $c_email; ?>"  class="form-control form-control-sm">
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-10">
                     <div class="form-group">
-                        <label class="control-label" id="lbl_space">Employment Status:</label><br>
-                        <input type="hidden" id="employment_status" value="<?php echo $c_employment_status; ?>" class="form-control form-control-sm">					
-                        <input type="radio" id="rdoemployed" value="employed">
-                        <label class="rdobtn">Employed</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                        <input type="radio" id="rdoselfemployed" value="selfemployed">
-                        <label class="rdobtn">Self-Employed</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                        <input type="radio" id="rdoocw" value="ocw">
-                        <label class="rdobtn">OCW</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                        <input type="radio" id="rdoretired" value="retired">
-                        <label class="rdobtn">Retired</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                        <input type="radio" id="rdoothers" value="others">
-                        <label class="rdobtn">Others:</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        <label class="control-label">Residential/Billing Address:</label>
+                        <input type="text" value="<?php echo $c_address; ?>, <?php echo $c_city_prov; ?>"  class="form-control form-control-sm">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <div class="form-group">
-                        <label class="control-label"></label>
-                        <input type="text" id="others" name="others" value=""  class="form-control form-control-sm">
+                        <label class="control-label">Area Code:</label>
+                        <input type="text" value="<?php echo $c_zip_code; ?>"  class="form-control form-control-sm">
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="card-body">
-        <div class="doc_title" id="bottom_space">INVESTMENT VALUE</div>
+    <div class="doc_title">Name and Contact details of Purchaser's Spouse or Co-Owner - Details must be consistent will all documents</div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Last Name:</label>
+                        <input type="text" value="<?php echo $c_b2_last_name; ?>" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Suffix Name:</label>
+                        <input type="text" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">First Name:</label>
+                        <input type="text" value="<?php echo $c_b2_first_name; ?>" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Middle Name:</label>
+                        <input type="text" value="<?php echo $c_b2_middle_name; ?>" class="form-control form-control-sm">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Citizenship:</label>
+                        <input type="text" value="<?php echo $c_citizenship; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label" id="small_title">Civil Status:</label>
+                        <div class="chkboxes">
+                            <div style="float:left;margin-right:2px;">
+                            <input id="chkOption1" type="checkbox" name="chkOption1" />
+                            </div>
+                            <div style="float:left">
+                                <label class="light">SINGLE<label>
+                            </div>
+                            <div style="float:left;margin-right:2px;">
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                            </div>
+                            <div style="float:left">
+                                <label class="light">MARRIED<label>
+                            </div>
+                            <div style="float:left;margin-right:2px;">
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                            </div>
+                            <div style="float:left">
+                                <label class="light">WIDOWED<label>
+                            </div>
+                            <div style="float:left;margin-right:2px;">
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                            </div>
+                            <div style="float:left">
+                                <label class="light">SEPARATED<label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="control-label" id="small_title">Gender:</label>
+                                <div style="float:left;margin-right:2px;">
+                                <input id="chkOption1" type="checkbox" name="chkOption1" />
+                                </div>
+                                <div style="float:left">
+                                    <label class="light">M<label>
+                                </div>
+                                <div style="float:left;margin-right:2px;">
+                                &nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                                </div>
+                                <div style="float:left">
+                                    <label class="light">F<label>
+                                </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Age:</label>
+                        <input type="text" value="<?php echo $c_age; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Birthdate (MM-DD-YYYY):</label>
+                        <input type="date" value="<?php echo $c_birthday; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Type of Valid ID presented:</label>
+                        <input type="text" value="<?php echo $c_id_presented; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">TIN #:</label>
+                        <input type="text" value="<?php echo $c_tin; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                    <label class="control-label" id="lbl_space">Contact Number:</label><br>	
+                    <input type="text" value="<?php echo $c_mobile_no; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Viber Account:</label>
+                        <input type="text" value="<?php echo $c_viber_no; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Email Address:</label>
+                        <input type="text" value="<?php echo $c_email; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label class="control-label">Residential/Billing Address:</label>
+                        <input type="text" value="<?php echo $c_address; ?>, <?php echo $c_city_prov; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Area Code:</label>
+                        <input type="text" value="<?php echo $c_zip_code; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+    <div class="doc_title">Name and Contact details of Purchaser's Spouse or Co-Owner - Details must be consistent will all documents</div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Last Name:</label>
+                        <input type="text" value="<?php echo $c_b2_last_name; ?>" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Suffix Name:</label>
+                        <input type="text" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">First Name:</label>
+                        <input type="text" value="<?php echo $c_b2_first_name; ?>" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Middle Name:</label>
+                        <input type="text" value="<?php echo $c_b2_middle_name; ?>" class="form-control form-control-sm">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Citizenship:</label>
+                        <input type="text" value="<?php echo $c_citizenship; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label" id="small_title">Civil Status:</label>
+                        <div class="chkboxes">
+                            <div style="float:left;margin-right:2px;">
+                            <input id="chkOption1" type="checkbox" name="chkOption1" />
+                            </div>
+                            <div style="float:left">
+                                <label class="light">SINGLE<label>
+                            </div>
+                            <div style="float:left;margin-right:2px;">
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                            </div>
+                            <div style="float:left">
+                                <label class="light">MARRIED<label>
+                            </div>
+                            <div style="float:left;margin-right:2px;">
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                            </div>
+                            <div style="float:left">
+                                <label class="light">WIDOWED<label>
+                            </div>
+                            <div style="float:left;margin-right:2px;">
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                            </div>
+                            <div style="float:left">
+                                <label class="light">SEPARATED<label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="control-label" id="small_title">Gender:</label>
+
+                                <div style="float:left;margin-right:2px;">
+                                <input id="chkOption1" type="checkbox" name="chkOption1" />
+                                </div>
+                                <div style="float:left">
+                                    <label class="light">M<label>
+                                </div>
+                                <div style="float:left;margin-right:2px;">
+                                &nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                                </div>
+                                <div style="float:left">
+                                    <label class="light">F<label>
+                                </div>
+    
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Age:</label>
+                        <input type="text" value="<?php echo $c_age; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Birthdate (MM-DD-YYYY):</label>
+                        <input type="date" value="<?php echo $c_birthday; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Type of Valid ID presented:</label>
+                        <input type="text" value="<?php echo $c_id_presented; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">TIN #:</label>
+                        <input type="text" value="<?php echo $c_tin; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                    <label class="control-label" id="lbl_space">Contact Number:</label><br>	
+                    <input type="text" value="<?php echo $c_mobile_no; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Viber Account:</label>
+                        <input type="text" value="<?php echo $c_viber_no; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Email Address:</label>
+                        <input type="text" value="<?php echo $c_email; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label class="control-label">Residential/Billing Address:</label>
+                        <input type="text" value="<?php echo $c_address; ?>, <?php echo $c_city_prov; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Area Code:</label>
+                        <input type="text" value="<?php echo $c_zip_code; ?>"  class="form-control form-control-sm">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="investment_value" id="bottom_space">INVESTMENT VALUE</div>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-0.5">
                     <div class="form-group">
-                    &nbsp&nbsp<label class="control-label">Project:</label>
+                    &nbsp&nbsp&nbsp&nbsp<label class="control-label">Project:</label>
                     </div>
                 </div>
                 <div class="col-md-1">
@@ -269,7 +669,7 @@ $mysqli->close();
                 </div>
                 <div class="col-md-0.5">
                     <div class="form-group">
-                        <label class="control-label">Block:</label>
+                    &nbsp&nbsp&nbsp&nbsp<label class="control-label">Block:</label>
                     </div>
                 </div>
                 <div class="col-md-1">
@@ -279,7 +679,7 @@ $mysqli->close();
                 </div>
                 <div class="col-md-0.5">
                     <div class="form-group">
-                        <label class="control-label">Lot:</label>
+                    &nbsp&nbsp&nbsp&nbsp<label class="control-label">Lot:</label>
                     </div>
                 </div>
                 <div class="col-md-1">
@@ -289,15 +689,37 @@ $mysqli->close();
                 </div>
                 <div class="col-md-7">
                     <div class="form-group">
-                        <div class="control-label">
-                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="checkbox" id="rdolotonly" value="0">
-                            <label class="control-label"> Lot Only</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                            <input type="checkbox" id="rdohouseonly" value="1">
-                            <label class="control-label"> House Only</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                            <input type="checkbox" id="rdopackaged" value="2">
-                            <label class="control-label"> House & Lot</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                            <input type="checkbox" id="rdoitothers" value="3">
-                            <label class="control-label"> Others</label>
+                        <div class="control-label" id="options">
+                            <div style="float:left;margin-right:2px;">
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                            </div>
+                            <div style="float:left">
+                                <label class="light">Lot Only<label>
+                            </div>
+                            <div style="float:left;margin-right:2px;">
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                            </div>
+                            <div style="float:left">
+                                <label class="light">House Only<label>
+                            </div>
+                            <div style="float:left;margin-right:2px;">
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                            </div>
+                            <div style="float:left">
+                                <label class="light">House & Lot<label>
+                            </div>
+                            <div style="float:left;margin-right:2px;">
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                            </div>
+                            <div style="float:left">
+                                <label class="light">Fence<label>
+                            </div>
+                            <div style="float:left;margin-right:2px;">
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                            </div>
+                            <div style="float:left">
+                                <label class="light">Add Cost<label>
+                            </div>
                             <input type="hidden" id="investment_type" name="investment_type" value="<?php echo isset($c_investment_type) ? $c_investment_type : ''; ?>" >
                         </div>
                     </div>
@@ -306,239 +728,279 @@ $mysqli->close();
         </div>
 
         <!--------------------------------------------------------------------------------------------------------->
-        <div class="row">
-            <div class="small_box_lot">
-                <div class="titles">LOT</div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label class="control-label2">Lot Area:</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" id="c_lot_area" name="c_lot_area" value="<?php echo $c_lot_area; ?>" class="form-control form-control-sm">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label class="control-label2">Price/SQM:</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" id="c_price_sqm" name="c_price_sqm" value="<?php echo $c_price_sqm; ?>" class="form-control form-control-sm">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label class="control-label2">Lot Price:</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" id="c_lot_price" name="c_lot_price" class="form-control form-control-sm">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label class="control-label2">Discount (%):</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" id="c_lot_discount_percentage" name="c_lot_discount_percentage" value="<?php echo $c_lot_discount; ?>" class="form-control form-control-sm">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label class="control-label2">Disc. Amount:</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" id="c_lot_discount_amount" name="c_lot_discount_amount" value="<?php echo $c_lot_discount_amt; ?>" class="form-control form-control-sm">
-                    </div>
-                </div>
-                <label class="control-label2"></label><br>
-                <div class="sub_titles"><b><i>NET LOT CONTRACT PRICE:</i></b></div>
-                <input type="text" id="c_lcp" name="c_lcp" value="<?php echo isset($c_lcp) ? $c_lcp : ''; ?>" class="highlighted_textbox form-control form-control-sm">
-            </div>
-            <div class="small_box">
-                <div class="titles">HOUSE</div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label class="control-label2">House Model:</label>
-                    </div>
-                    <div class="col-md-8">
-                        <?php
-                        $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
-                        $query1 = "SELECT * FROM t_model_house WHERE c_model = '" . $c_house_model . "'";
-
-                        $result1 = mysqli_query($mysqli, $query1);
-                        if($result1) {
-                            while ($row = mysqli_fetch_assoc($result1)) {
-                                $c_model = $row['c_model']; 
-                            }
-                        }
-                        ?>
-                        <input type="text" value="<?php echo $c_model; ?>" class="form-control form-control-sm">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label class="control-label2">Floor Area:</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" id="c_floor_area" name="c_floor_area" value="<?php echo $c_floor_area; ?>" class="form-control form-control-sm">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label class="control-label2">House Price:</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" id="c_house_price_sqm" name="c_house_price_sqm" value="<?php echo $c_house_price_sqm; ?>" class="form-control form-control-sm">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label class="control-label2">Discount (%):</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" id="c_house_discount" name="c_house_discount" value="<?php echo $c_house_discount; ?>" value="" class="form-control form-control-sm">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label class="control-label2">Disc. Amount:</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" id="c_house_discount_amt" name="c_house_discount_amt" value="<?php echo $c_house_discount_amt; ?>" value="" class="form-control form-control-sm">
-                    </div>
-                </div>
-                <label class="control-label2"></label><br>
-                <div class="sub_titles"><b><i>HOUSE CONTRACT PRICE:</i></b></div>
-                <input type="text" id="c_hcp" name="c_hcp" class="highlighted_textbox form-control form-control-sm">
-            </div>
-            <div class="small_box">
-                <div class="titles">OTHERS</div>
-                <div class="row">
-                    <div class="col-md-5">
-                        <label class="control-label2">Fence:</label>
-                    </div>
-                    <div class="col-md-7">
-                        <input type="text" value="" class="form-control form-control-sm">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5">
-                        <label class="control-label2">Provision for 2F:</label>
-                    </div>
-                    <div class="col-md-7">
-                        <input type="text" value="" class="form-control form-control-sm">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label class="control-label2">Add Flr Elevation:</label>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" value="" class="form-control form-control-sm">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5">
-                        <label class="control-label2">UPGRADE</label>
-                    </div>
-                </div>
-                    <div class="row">
-                        <div class="col-md-9">
-                        <label class="control-label2">Sliding Glass Analek Windows: </label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" value="" class="form-control form-control-sm">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-9">
-                        <label class="control-label2">Floor Finishes: </label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" value="" class="form-control form-control-sm">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-9">
-                        <label class="control-label2">ACU hole, outlet & grills: </label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" value="" class="form-control form-control-sm">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="control-label2"><b><i>TOTAL ADD-ONS:</i></b></label>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="text" value="" class="highlighted_textbox form-control form-control-sm">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card-body">
-        <div class="buyer_info_box">	
+        <div class="container-fluid">
             <div class="row">
-                <div class="small_box2" id="tcp_coverage">
-                    <label class="control-label3">TOTAL CONTRACT PRICE:</label><br>
-                    <label class="control-label3">TITLING FEE:</label><br>
-                    <label class="control-label3">TOTAL SELLING PRICE:</label><br>
-                    <label class="control-label3">TCP DISCOUNT:</label><br>
+                <div class="col-md-1" id="tcp_coverage">
+                    <label class="control-label3">LOT:</label><br>
+                    <label class="control-label3">HOUSE:</label><br>
+                    <label class="control-label3">FENCE:</label><br>
                 </div>
-                <div class="small_box2">
-                    <input type="text" value="<?php echo $c_tcp; ?>" class="form-control form-control-sm">
-                    <input type="text" value="" class="form-control form-control-sm">
-                    <input type="text" value="" class="form-control form-control-sm">
-                </div>
-                <div class="small_box2">
+                <div class="col-md-4">
                     <div class="row">
                         <div class="col-md-4">
-                                <input type="hidden" id="c_vat_res" name="c_vat_res">
-                                <input type="hidden" id="c_title_monthly_res" name="c_title_monthly_res">
-                                <input type="checkbox" id="rdovat">
-                                <label class="control-label" id="rdo_class">VAT:</label><br>		
-                                <input type="checkbox" id="rdotitlemonthly">
-                                <label class="control-label" id="rdo_class">Monthly: </label>&nbsp&nbsp&nbsp
+                            <label class="control-label2" id="lbliv">Lot Area:</label>
                         </div>
-                        <div class="col-md-3">
-                            <input type="text" value="" class="form-control form-control-sm">					
-                            <input type="text" value="" class="form-control form-control-sm">					
+                        <div class="col-md-6">
+                            <input type="text" id="c_lot_area" name="c_lot_area" value="<?php echo $c_lot_area; ?>" class="form-control form-control-sm">
                         </div>
-                        <div class="col-md-5">
-                                &nbsp&nbsp&nbsp&nbsp&nbsp<input type="checkbox" id="rdovatexempt">
-                                <label class="control-label" id="rdo_class">VAT-exempt </label><br>		
-                                &nbsp&nbsp&nbsp&nbsp&nbsp<input type="checkbox" id="rdolumpsum">
-                                <label class="control-label" id="rdo_class">Lumpsum </label>&nbsp&nbsp&nbsp
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label2" id="lbliv">Model:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <?php
+                            $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+                            $query1 = "SELECT * FROM t_model_house WHERE c_model = '" . $c_house_model . "'";
+
+                            $result1 = mysqli_query($mysqli, $query1);
+                            if($result1) {
+                                while ($row = mysqli_fetch_assoc($result1)) {
+                                    $c_model = $row['c_model']; 
+                                }
+                            }
+                            ?>
+                            <input type="text"  id="c_mod" value="<?php echo $c_model; ?>" class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label2" id="lbliv">Linear Meter:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="c_lot_price" name="c_lot_price" class="form-control form-control-sm">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                    <div class="col-md-4">
+                            <label class="control-label2" id="lbliv">Price/SQM:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="c_house_price_sqm" name="c_house_price_sqm" value="<?php echo $c_floor_area; ?>" class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label2" id="lbliv">Floor Area:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="c_floor_area" name="c_floor_area" value="<?php echo $c_floor_area; ?>" class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label2" id="lbliv">Price/LM:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="c_house_price_lm" name="c_house_price_lm" value="<?php echo $c_house_price_sqm; ?>" class="form-control form-control-sm">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                    <div class="col-md-6">
+                            <label class="control-label2" id="lbliv">LOT CONTRACT PRICE: </label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="c_floor_area" name="c_floor_area" value="<?php echo $c_floor_area; ?>" class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="control-label2" id="lbliv">HOUSE CONTRACT PRICE: </label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="c_floor_area" name="c_floor_area" value="<?php echo $c_floor_area; ?>" class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="control-label2" id="lbliv">FENCE CONTRACT PRICE: </label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="c_house_price_sqm" name="c_house_price_sqm" value="<?php echo $c_house_price_sqm; ?>" class="form-control form-control-sm">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="card-body">
+
+    <div class="others_title" id="bottom_space">Others</div>
+
+    <div class="card-body" id="others_main_div">
+        <div class="container-fluid" id="lbl_div_others">
+            <div class="row">
+                <label class="control-label2" id="lbl1">Floor Elevation: </label>
+            </div>
+            <div class="row">
+                <label class="control-label2" id="lbl1">Aircon Outlets: </label>
+            </div>
+            <div class="row">
+                <label class="control-label2" id="lbl1">Aircon Grille: </label>
+            </div>
+            <div class="row">
+                <label class="control-label2" id="lbl2">(for window-type) </label>
+            </div>
+            <div class="row">
+                <label class="control-label2" id="lbl1">Convenience Outlet: </label>
+            </div>
+            <div class="row">
+                <label class="control-label2" id="lbl1">Faucet: </label>
+            </div>
+            <div class="row">
+                <label class="control-label2" id="lbl1">Others (specify): </label>
+            </div>
+        </div>
+        <div class="container-fluid" id="lbl_units">
+            <div class="row">
+                <label class="control-label2" id="lbl1"></label>
+            </div>
+            <div class="row">
+                <label class="control-label2" id="lbl1">___Unit/s</label>
+            </div>
+            <div class="row">
+                <label class="control-label2" id="lbl1">___Unit/s</label>
+            </div>
+            <div class="row">
+                <label class="control-label2" id="lbl3">___Unit/s</label>
+            </div>
+            <div class="row">
+                <label class="control-label2" id="lbl1">___Unit/s</label>
+            </div>
+            <div class="row">
+                <label class="control-label2" id="lbl1">___Unit/s</label>
+            </div>
+        </div>
+        <div class="rdo_buttons">
+            <div class="row">
+                <input type="radio" id="rdo20meter" value="1">
+                <label class="control-label" id="rdolight"> 0.20 meter</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <input type="radio" id="rdo20meter" value="1">
+                <label class="control-label" id="rdolight"> 0.40 meter</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <input type="radio" id="rdo20meter" value="1">
+                <label class="control-label" id="rdolight"> 0.60 meter</label>
+            </div>
+            <div class="row" id="r2">
+                <input type="radio" id="rdo20meter" value="1">
+                <label class="control-label" id="rdolight"> MBR</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <input type="radio" id="rdo20meter" value="1">
+                <label class="control-label" id="rdolight"> BR-1</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <input type="radio" id="rdo20meter" value="1">
+                <label class="control-label" id="rdolight"> BR-2</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <input type="radio" id="rdo20meter" value="1">
+                <label class="control-label" id="rdolight"> LIV</label>
+            </div>
+            <div class="row" id="r2">
+                <input type="radio" id="rdo20meter" value="1">
+                <label class="control-label" id="rdolight"> MBR</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <input type="radio" id="rdo20meter" value="1">
+                <label class="control-label" id="rdolight"> BR-1</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <input type="radio" id="rdo20meter" value="1">
+                <label class="control-label" id="rdolight"> BR-2</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <input type="radio" id="rdo20meter" value="1">
+                <label class="control-label" id="rdolight"> LIV</label>
+            </div>
+            <div class="row" id="r3">
+                <input type="radio" id="rdo20meter" value="1">
+                <label class="control-label" id="rdolight"> INTERIOR (2-gang)</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <input type="radio" id="rdo20meter" value="1">
+                <label class="control-label" id="rdolight"> EXTERIOR (2-gang)</label>
+            </div>
+            <div class="row">
+                <input type="text" value="" class="form-control form-control-sm" id="txtfaucet">
+            </div>
+            <div class="row">
+                <input type="text" value="" class="form-control form-control-sm" id="txtotherspecify">
+            </div>
+        </div>
+        <div class="lbl_div_others_txtbox">
+            <div class="row" id="lbl11">
+            <input type="text" value="" class="form-control form-control-sm">
+            </div>
+            <div class="row" id="lbl12">
+            <input type="text" value="" class="form-control form-control-sm">
+            </div>
+            <div class="row" id="lbl13">
+            <input type="text" value="" class="form-control form-control-sm">
+            </div>
+            <div class="row" id="lbl9">
+            <input type="text" value="" class="form-control form-control-sm">
+            </div>
+            <div class="row" id="lbl14">
+            <input type="text" value="" class="form-control form-control-sm">
+            </div>
+            <div class="row" id="lbl15">
+            <input type="text" value="" class="form-control form-control-sm">
+            </div>
+        </div>
+    </div>
+    <div class="card-body" id="processing_fee">
+        <table>
+            <tr>
+            <div class="row">
+                <div class="ml">   
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label class="control-label" id="pf_space">PROCESSING FEE</label>
+                </div>
+                <div class="col-md-2">   
+                <input type="text" id="txtpf" value="" class="form-control form-control-sm">
+                </div>
+                <div class="ml">   
+                    <label class="control-label">PF/mo.</label>
+                </div>
+                <div class="col-md-2">   
+                <input type="text" id="txtpf" value="" class="form-control form-control-sm">
+                </div>
+                <div class="ml">   
+                    <label class="control-label">LESS: APPLIED DISCOUNT</label>
+                </div>
+                <div class="col-md-2">   
+                <input type="text" id="txtpf" value="" class="form-control form-control-sm">
+                </div>
+                <div class="ml">   
+                    <label class="control-label">TOTAL</label>
+                </div>
+                <div class="col-md-2">   
+                    <input type="text" id="txtpf1" value="" class="form-control form-control-sm">
+                </div>
+            </div>
+            </tr>
+        </table>
+    </div>
+    <div class="card-body" id="nobotspace">
         <div class="row">
             <div class="dp_sched">
-                <div class="titles">DOWN PAYMENT <br/>SCHEDULE</div>
+                <div class="titles">DOWN PAYMENT SCHEDULE</div>
                 <div class="row">
                     <input type="hidden" value="<?php echo $down_percent; ?>" id="down_percent">
-                    <div class="col-md-4">
-                        
-                        <input type="checkbox" id="cbo20" class="control-label2">
-                        <label class="control-label4"> 20%</label>&nbsp&nbsp&nbsp
+                    <div style="float:left;margin-right:2px;">
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
                     </div>
-                    <div class="col-md-4">
-                        <input type="checkbox" id="cbo30" class="control-label2">
-                        <label class="control-label4"> 30%</label>&nbsp&nbsp&nbsp
+                    <div style="float:left">
+                        <label class="light">20%<label>
                     </div>
-                    <div class="col-md-1">
-                        <input type="checkbox"  id="cboothers" class="control-label2">
+                    <div style="float:left;margin-right:2px;">
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
                     </div>
-                    <div class="col-md-3">
-                        <input type="text" id="txtothers" value="" class="form-control form-control-sm">
+                    <div style="float:left">
+                        <label class="light">30%<label>
+                    </div>
+                    <div style="float:left;margin-right:2px;">
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                    </div>
+                    <div style="float:left">
+                        <label class="light">FDP<label>
+                    </div>
+                    <div style="float:left;margin-right:2px;">
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                    </div>
+                    <div style="float:left">
+                        <label class="light"><input type="text" id="txtothers" value="" class="form-control form-control-sm"><label>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" id="dplbl">
                     <div class="col-md-12">
                         <label class="control-label2">Down Payment Amount:</label>
                         <input type="text" value="" class="form-control form-control-sm">
@@ -546,10 +1008,10 @@ $mysqli->close();
                 </div>
                 <div class="row">
                     <div class="col-md-7">
-                        <label class="control-label2">Less: Reservation Fee:</label>
+                        <label class="control-label2" id="spacetop">Less: Reservation Money:</label>
                     </div>
                     <div class="col-md-5">
-                        <label class="control-label2">Payable in (mos):</label>
+                        <label class="control-label2" id="spacetop">Payable in (mos):</label>
                     </div>
                 </div>
                 <div class="row">
@@ -562,57 +1024,74 @@ $mysqli->close();
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <label class="control-label2">Monthly Amortization Payment:</label>
-                        <input type="text" value="" class="form-control form-control-sm">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label class="control-label2">Mo. Closing Fee:</label>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="control-label2">Mo. Maintenance Fee:</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="text" value="" class="form-control form-control-sm">
-                    </div>
-                    <div class="col-md-6">
+                        <label class="control-label2" id="spacetop">Partial Monthly Down Payment:</label>
                         <input type="text" value="" class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <label class="control-label2">Total Monthly Payment:</label>
+                        <label class="control-label2" id="title_sub">Monthly Down Payments</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label2">PF/mo:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label2">GCF/mo:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label2">STL/mo:</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="text" value="" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="control-label2" id="spacetop">Total Monthly Payment:</label>
                         <input type="text" value="<?php echo $c_monthly_payment; ?>" class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <label class="control-label2">Monthly Due Date:</label>
-                        <input type="text" value="" class="form-control form-control-sm">
+                        <label class="control-label2" id="spacetop">Monthly Due Date:</label>
+                        <input type="text" value="" id="monthly_due" class="form-control form-control-sm">
                     </div>
                 </div>
             </div>
             <div class="ma">
-            <div class="titles">MONTHLY AMORTIZATION</div>
-            <div class="sub"> *Based on In-House Financing pending <br/>Bank approval of Housing Loan</div>
+            <div class="titles2">MONTHLY AMORTIZATION</div>
+            <div class="sub"> *Based on In-House Financing pending Bank approval of Housing Loan</div>
                 <div class="row">
-                    <div class="col-md-4">
-                        <input type="checkbox" class="control-label2">
-                        <label class="control-label4"> MDP-BF </label>&nbsp&nbsp&nbsp
+                <div style="float:left;margin-right:2px;">
+                    &nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
                     </div>
-                    <div class="col-md-5">
-                        <input type="checkbox" class="control-label2">
-                        <label class="control-label4"> FULL DP-DFC </label>&nbsp&nbsp&nbsp
+                    <div style="float:left">
+                        <label class="light">MDP-BF<label>
                     </div>
-                    <div class="col-md-3">
-                        <input type="checkbox" class="control-label2">
-                        <label class="control-label4"> CASH </label>&nbsp&nbsp&nbsp
+                    <div style="float:left;margin-right:2px;">
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                    </div>
+                    <div style="float:left">
+                        <label class="light">FULL DP-DFC<label>
+                    </div>
+                    <div style="float:left;margin-right:2px;">
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                    </div>
+                    <div style="float:left">
+                        <label class="light">CASH<label>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" id="aflbl">
                     <div class="col-md-8">
                         <label class="control-label2">Amount to be financed:</label>
                     </div>
@@ -630,10 +1109,10 @@ $mysqli->close();
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <label class="control-label2">Interest Rate:</label>
+                        <label class="control-label2" id="spacetop">Interest Rate:</label>
                     </div>
                     <div class="col-md-8">
-                        <label class="control-label2">Interest Factor:</label>
+                        <label class="control-label2" id="spacetop">Interest Factor:</label>
                     </div>
                 </div>
                 <div class="row">
@@ -646,16 +1125,21 @@ $mysqli->close();
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <label class="control-label2">Partial Monthly Down Payment:</label>
+                        <label class="control-label2" id="spacetop">Monthly Amortization Payment:</label>
                         <input type="text" value="" class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-md-12">
+                        <label class="control-label2" id="title_sub">Monthly Payments</label>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6">
-                        <label class="control-label2">Mo. Closing Fee:</label>
+                        <label class="control-label2">PF/mo:</label>
                     </div>
                     <div class="col-md-6">
-                        <label class="control-label2">Mo. Maintenance Fee:</label>
+                        <label class="control-label2">GCF/mo:</label>
                     </div>
                 </div>
                 <div class="row">
@@ -668,18 +1152,21 @@ $mysqli->close();
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <label class="control-label2">Total Monthly Payment:</label>
+                        <label class="control-label2" id="spacetop">Total Monthly Payment:</label>
                         <input type="text" value="" class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <label class="control-label2">Monthly Due Date:</label>
-                        <input type="text" value="" class="form-control form-control-sm">
+                        <label class="control-label2" id="spacetop">Monthly Due Date:</label>
+                        <input type="text" value="" id="monthly_due" class="form-control form-control-sm">
                     </div>
                 </div>
             </div>
-            <div class="sales"><?php
+            <div class="sales">
+                <div class="titles3">SALES</div>
+                <div class="first_table">
+                <?php
                 $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
 
                 // output any connection error
@@ -695,11 +1182,11 @@ $mysqli->close();
 
                 if($results) {
 
-                    print '<table class="table table-striped table-hover table-bordered" id="data-table"><thead><tr>
+                    print '<table class="table-bordered" id="table-bordered1"><thead><tr>
 
-                            <th>POSITION</th>
+                            <th class="agent_position2">POSITION</th>
                             <th>AGENT</th>
-                            <th>SIGNATURE</th>
+                            <th class="signature_width2">SIGNATURE</th>
 
                         </tr></thead><tbody>';
 
@@ -709,108 +1196,108 @@ $mysqli->close();
                             <tr>
                                 <td>'.$row["c_position"].'</td>
                                 <td>'.$row["c_agent"].'</td>
-                                <td></td>
+                                <td id="border_right_none"></td>
                             </tr>
                         ';
                     }
-
                     print '</tr></tbody></table>';
-
                 } else {
-
                     echo "<p>There are no project sites to display.</p>";
-
                 }
-
-                // Frees the memory associated with a result
                 $results->free();
-
-                // close connection 
                 $mysqli->close();
                 ?>
-                <!--<div class="titles">SALES</div>
-                <table width="100%">
-                    <tr>
-                        <td width="30%" class="table_head">POSITION</td>
-                        <td width="50%" class="table_head">AGENT</td>
-                        <td width="20%" class="table_head">SIGNATURE</td>
-                    </tr>
-                    <tr>
-                        <td width="30%"></td>
-                        <td width="50%">ZANDRO LEMUEL SANTOS</td>
-                        <td width="20%"></td>
-                    </tr>
-                    <tr>
-                        <td width="30%">Sales Manager</td>
-                        <td width="50%">DEVIE ROQUE</td>
-                        <td width="20%"></td>
-                    </tr>
-                    <tr>
-                        <td width="30%">PC Coordinator</td>
-                        <td width="50%">WOW Properties PH Realty</td>
-                        <td width="20%"></td>
-                    </tr>
-                    <tr>
-                    <td width="25%">
-                        <div class="row" id="sales_checkbox">
-                            <div class="col-md-5">
-                                <input type="checkbox" class="control-label2">REB
-                            </div>
-                            <div class="col-md-4">
-                                <input type="checkbox" class="control-label2">PC
-                            </div>
-                        </div>
-                        </td>
-                        <td width="50%"></td>
-                        <td width="25%"></td>
-                    </tr>
-                    <tr>
-                        <td width="25%">Employee Referral</td>
-                        <td width="50%"></td>
-                        <td width="25%"></td>
-                    </tr>
-                </table>!-->
-                <table width="100%">
+                </div>
+                <div class="second_table">
+                    <table class="table-bordered">
+
+                    <tbody>
+                        <tr>
+                            <td id="spc" class="agent_position3">SENIOR PROPERTY CONSULTANT</td>
+                            <td></td>
+                            <td class="signature_width3" id="border_right_none"></td>
+                        </tr>
+                        <tr>
+                            <td id="spc">PC COORDINATOR</td>
+                            <td></td>
+                            <td id="border_right_none"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="row" id="sales_checkbox">
+                                    <div style="float:left;margin-right:2px;">
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                                    </div>
+                                    <div style="float:left">
+                                        <label class="light">REB<label>
+                                    </div>
+                                    <div style="float:left;margin-right:2px;">
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                                    </div>
+                                    <div style="float:left">
+                                        <label class="light">PC<label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td id="border_right_none"></td>
+                        </tr>
+                        <tr>
+                            <td>Employee Referral</td>
+                            <td></td>
+                            <td id="border_right_none"></td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
+                <table width="100%" id="tblborder">
                     <tr><td><div class="notes">I have read and understood the Guidelines and Policies for In-House Financing and Data Privacy Consent at the back page.</div></td></tr>
-                    <tr><td><div class="client_conforme">Client Conforme:</div><br>
-                    <?php echo $c_b1_first_name; ?> <?php echo $c_b1_middle_name; ?> <?php echo $c_b1_last_name; ?><br>
+                    <tr><td><div class="client_conforme">Client Conforme:</div><td></tr>
+                    <tr><td>
                             <input type="text" class="txtSignature" value="Client's Signature Over Printed Name">
                     </td></tr>
+                    <tr><td><div class="rec_app">RECOMMENDING APPROVAL:</div><td></tr>
+                    <tr><td><div class="coo_name">PIA MARIE ISABELLE B. MADRID</div></td></tr>
+                    <tr><td><div class="coo_val">Chief Operating Officer</div></td></tr>
                 </table>
-                <table class="rec" width="100%">
+                <!--<table class="rec" width="100%">
                     <tr width="60%">
-                        <td><div class="approval">Recommending Approval:</div><br><br>
+                        <td><div class="approval">Recommending Approval:</div>
                         <div class="coo_name">PIA MARIE ISABELLE B. MADRID</div><br>
                         <div class="coo_val">Chief Operating Officer</div>
                         </td>
-                        <td><div class="validation">Validation</div></td>
                     </tr>
-                </table>
+                </table>!-->
             </div>
         </div>
     </div>
-    <div class="card-body">
-        <div class="row">
-            <table width="99.5%">
-                <tr>
-                    <td width="75%"><div class="doc_title_last">REMARKS</div></td>
-                    <td width="25%"><div class="doc_title_last">CHECKED AND VERIFIED BY:</div></td>
-                </tr>
-                <tr>
-                    <td width="75%">
-                        <textarea style="width: 100%; max-width: 98%;" class="noborder"><?php echo $remarks; ?></textarea>
-                    </td>
-                    <td width="25%">
-                        <input type="text" value="" style="width: 100%; max-width: 98%;" class="noborder">
-                        <input type="text" value="VSB, SMO dated" style="width: 100%; max-width: 98%;" class="noborder">
-                        <input type="text" value="" style="width: 100%; max-width: 98%;" class="noborder">
-                    </td>
-                </tr>
-            </table>
-        </div>
+    <div class="row">
+        <table class="rem">
+            <tr>
+                <td width="50%" class="rightbd"><div class="doc_title_lastrem">REMARKS</div></td>
+                <td width="25%" class="rightbd"><div class="doc_title_last">Fit to Lot Verification:</div></td>
+                <td width="25%" class="rightbd"><div class="doc_title_last">Cashier Validation:</div></td>
+            </tr>
+            <tr>
+                <td width="50%" class="withbd">
+                    <textarea style="width: 100%; max-width: 98%; border:none; height:100%; margin-left:1px; margin-top:3px;"><?php echo $remarks; ?></textarea>
+                </td>
+                <td>
+                    <table class="test">
+                    <tr class="rightbdarch"><td style="text-align:left; padding-left:5px;">Architect Date:</td><td><input type="text" id="arch_date"></td></tr>
+                    <tr><td class="rightbdarch2"></td></tr>
+                    </table>
+                </td>
+                
+                <td width="25%" class="rightbd">
+
+                </td>
+            </tr>
+        </table>
     </div>
 
 <hr>
+</div>
 </body>
 </html>
 <script>
@@ -1290,3 +1777,49 @@ function loadDP(){
     }
 }
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" ></script>
+
+ 
+
+	<script type="text/javascript">
+	$(document).ready(function($) 
+	{ 
+
+		$(document).on('click', '.btn_print', function(event) 
+		{
+			event.preventDefault();
+
+			//credit : https://ekoopmans.github.io/html2pdf.js
+			
+			var element = document.getElementById('container_content'); 
+
+			//easy
+			//html2pdf().from(element).save();
+
+			//custom file name
+			//html2pdf().set({filename: 'code_with_mark_'+js.AutoCode()+'.pdf'}).from(element).save();
+
+
+			//more custom settings
+			var opt = 
+			{
+			  margin:       1,
+			  filename:     'pageContent_'+js.AutoCode()+'.pdf',
+			  image:        { type: 'jpeg', quality: 0.98 },
+			  html2canvas:  { scale: 2 },
+			  jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+			};
+
+			// New Promise-based usage:
+			html2pdf().set(opt).from(element).save();
+
+			 
+		});
+
+ 
+ 
+	});
+	</script>
