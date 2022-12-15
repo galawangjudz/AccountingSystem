@@ -28,6 +28,7 @@
 					while($row=$ras->fetch_assoc()):
 						
 						$i ++;
+						$ra_id = $row["ra_id"];
 						$status=$row["c_csr_status"];
 						$date_created=$row["c_date_created"];
 						$id=$row["c_csr_no"];
@@ -146,7 +147,7 @@
 							<td><span class="label label-danger"> --- </span></td>
 						<?php endif; ?>
 
-						<td class="actions"><a href="?page=ra-view&id='<?php $row["c_csr_no"] ?>" data-ra-id="<?php $row['ra_id'] ?>" class="btn btn-primary btn-xs">View
+						<td class="actions"><a href="?page=ra-view&id=<?php echo $row['c_csr_no'] ?>" data-ra-id="<?php $row['ra_id'] ?>" class="btn btn-primary btn-xs">View
 						<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
 					
 					</tr>	
