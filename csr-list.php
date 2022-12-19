@@ -1,3 +1,7 @@
+
+
+
+
 <?php
   include('functions.php');
 
@@ -8,7 +12,6 @@ while($row = $cat->fetch_assoc()){
 	$cat_arr[$row['id']] = $row;
 }
 
-
  */
 ?>
 <body>
@@ -18,27 +21,117 @@ while($row = $cat->fetch_assoc()){
   <a href="#" class="close" data-dismiss="alert">&times;</a>
   <div class="message"></div>
 </div>
-<!-- <div class="filterDiv">
-  <form action="" id="filtercsr">
-    <div class="form-group col-md-12">
-        <label class="lblFilter">Filter by: </label>
-          <select name="filtercsr">
-            <option selected="selected" value=0>Pending</option>
-            <option value=1>Approved</option>
-            <option value=3>Disapproved</option>
-            <option value=2>Lapsed</option>
-          </select>
-          <input type="submit" class="filterBtn" value ='Filter'>
-    </div>             
-  </form>
-</div> -->
-		<div class="panel panel-default">
-			<div class="panel-body form-group form-group-sm">
-        		<?php getCSRs(); ?>
-      		</div>
+
+<form id="filter">
+    <div class="filterDiv">
+        <div class=" col-md-3">
+            <label class="control-label">Category :</label>
+            <select class="custom-select browser-default" name="category_id">
+                <option value="all"> All</option>
+                <option value="0" <?php echo isset($_GET['category_id']) && $_GET['category_id'] == 0 ? 'selected' : '' ?>> Pending</option>
+                <option value="1" <?php echo isset($_GET['category_id']) && $_GET['category_id'] == 1 ? 'selected' : '' ?>>Approved</option>
+                <option value="2" <?php echo isset($_GET['category_id']) && $_GET['category_id'] == 2 ? 'selected' : '' ?>>Lapsed/Cancelled</option>
+                <option value="3" <?php echo isset($_GET['category_id']) && $_GET['category_id'] == 3 ? 'selected' : '' ?>>Disapproved</option>   
+            </select>
+                
+        </div> 
+        <div class=" col-md-2">
+          <!--   <label for="" class="control-label">&nbsp</label> -->
+            <button class="btn btn-btn-block filterBtn"><span class="fas fa-filter"></span>Filter</button>
+        </div>
+        
+    </div>
+</form>
+
+
+    <div class="panel panel-default">
+        <div class="panel-body form-group form-group-sm">
+
+
+    
+                        <table class="table table-striped table-hover table-bordered" id="data-table" cellspacing="0">
+                            <thead>
+                                <tr>
+
+                                    <th> No.</th>	
+                                    <th> Prepared by </th>	
+                                    <th> Location </th>		
+                                    <th>Buyers Name</th>
+                                    <th>Net TCP</th>
+                                    <th>Prepared Date</th>
+                                    <th>Status</th>
+                                    <th>Approval Status</th>
+                                    <th class="actions">Actions</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+		
+								<?php 
+								$i = 1;
+								$where = '';
+								if(isset($_GET['category_id'])  && $_GET['category_id'] != 'all'){
+									$where .= " where coo_approval = '".$_GET['category_id']."' ";
+								}
+								else{
+									$where .= " ";
+                                }
+								$csr = $mysqli->query("SELECT * FROM t_csr_view ".$where." order by c_date_updated asc");
+								while($row=$csr->fetch_assoc()):
+                                    $timeStamp = date( "m/d/Y", strtotime($row['c_date_updated']));
+								?>
+                                        <tr>
+                                            <td><?php echo $i++ ?></td>
+                                            <td class="text-center"><?php echo $row["c_created_by"] ?></td>
+                                            <td><?php echo $row["c_acronym"]. ' Block ' .$row["c_block"] . ' Lot '.$row["c_lot"] ?></td>
+                                            <td class="text-center"><?php echo $row["c_b1_last_name"]. ','  .$row["c_b1_first_name"] .' ' .$row["c_b1_middle_name"]?></td>
+
+                                            <td class="text-right"><?php echo "P".number_format($row["c_net_tcp"], 2) ?></td>
+                                            <td class="text-center"><?php echo $timeStamp ?> </td>
+                                            
+                                    
+                                    
+                                        <?php if($row['c_verify'] == 0){ ?>
+                                           <td class="text-center"><span class="label label-warning">Pending</span></td>
+                                        <?php }elseif($row['c_verify'] == 1){ ?>
+                                           <td class="text-center"><span class="label label-info">SOS Verified</span></td>
+                                        <?php }elseif($row['c_verify'] == 2){ ?>
+                                           <td class="text-center"><span class="label label-danger">SOS Void</span></td>
+                                        <?php }
+
+                                        if($row['coo_approval'] == 0){ ?> 
+                                            <td class="text-center"><span class="label label-warning">Pending</span></td>
+                                        <?php }elseif($row['coo_approval'] == 3){ ?>
+                                           <td class="text-center"><span class="label label-danger">Disapproved</span></td>
+                                        
+                                        <?php }elseif($row['coo_approval'] == 1){ ?>
+                                            <td class="text-center"><span class="label label-success">Approved</span></td>
+                                        <?php }
+                                        elseif($row['coo_approval'] == 2){ ?> 
+                                            <td class="text-center"><span class="label label-default">Cancelled</span></td>
+                                        <?php } ?>
+                                     
+                                        <td class="actions"><a href="?page=csr-view&id=<?php echo $row["c_csr_no"] ?>" class="btn btn-info btn-xs">
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
+
+                                        <a data-csr-id="<?php echo $row['c_csr_no'] ?>" class="btn btn-danger btn-xs delete-csr">
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+                                        
+                                        </tr>
+							<?php endwhile; ?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-<div>
+</div>
+
+
+        
+        </div>
+    </div>
 </body>
 
 <script>
@@ -54,7 +147,7 @@ function delete_csr($id){
 		data:{id:$id},
 		success:function(resp){
 			if(resp==1){
-				alert_toast("Data successfully deleted",'success') 
+				alert("Data successfully deleted",'success') 
 				setTimeout(function(){
 					location.reload()
 				},1500)
@@ -71,4 +164,9 @@ function delete_csr($id){
 	})
 }
 
+
+$('#filter').submit(function(e){
+		e.preventDefault()
+		location.replace('index.php?page=csr-list&category_id='+$(this).find('[name="category_id"]').val())
+	})
 </script>

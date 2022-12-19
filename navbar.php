@@ -10,7 +10,7 @@
           <a href="index.php?page=dashboard"><i class="fa fa-th"></i><span>Dashboard</span></a>
         </li>
         <!-- Menu 1.1 -->
-        <li class="treeview">
+     <!--    <li class="treeview">
           <a href="#"><i class="fa fa-file-invoice"></i><span>Pending List</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
@@ -22,6 +22,9 @@
             <li><a href="#"><i class="fa fa-house"></i>Disapproved</a></li>
             <li><a href="#"><i class="fa fa-house"></i>Cancelled</a></li>
           </ul>
+        </li> -->
+        <li class="treeview">
+          <a href="index.php?page=csr-list"><i class="fa-solid fa-map-location-dot"></i><span> Pending</span></a>
         </li>
         <!-- Menu 1 -->
          <li class="treeview">
