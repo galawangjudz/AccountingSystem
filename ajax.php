@@ -83,3 +83,9 @@ if($action == "coo_approved"){
 	if($save)
 		echo $save;
 }
+
+if($action == "sm_verification"){
+	$save = $crud->sm_verification();
+	if($save)
+		echo $save;
+}

@@ -27,6 +27,10 @@
          <li class="treeview">
           <a href="index.php?page=ra-list"><i class="fa-solid fa-book"></i><span>  RA List</span></a>
         </li>
+         <!-- Menu 1 -->
+         <li class="treeview">
+          <a href="index.php?page=ca-list"><i class="fa-solid fa-book"></i><span>  CA List</span></a>
+        </li>
     
           <!-- Menu 1.2 -->
         <li class="treeview">

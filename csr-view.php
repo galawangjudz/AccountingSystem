@@ -135,8 +135,9 @@ $mysqli->close();
                                  -->
                                 <hr>
                                 <?php if($verify == 0){?> 
-                                
-                                    
+                                    <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block sm-verification">New Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>                            
+                                    <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="2" class="btn btn-danger btn-lg btn-block sm-verification">New Void <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>                            
+                                   
                                     <button type="button" id= "verify_btn" csr-id =<?php echo $getID; ?> value="1" class="btn btn-success btn-lg btn-block verify-btn">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
                                     <button type="button" id= "cancel_btn" csr-id =<?php echo $getID; ?> value="2" class="btn btn-danger btn-lg btn-block void-btn">Void <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
                                 <?php } ?>
@@ -634,6 +635,52 @@ $mysqli->close();
 			}
 		})
 	}
+
+    $('.sm-verification').click(function(){
+		_conf("Are you sure to verified this csr?","sm_verification",[$(this).attr('csr-id'),$(this).attr('csr-lot-lid'),$(this).attr('value')])
+	})
+	function sm_verification($id,$lid,$value){
+		start_load()
+		$.ajax({
+			url:'ajax.php?action=sm_verification',
+			method:'POST',
+            data:{id:$id,lid:$lid,value:$value},
+			success:function(resp){
+				if(resp==1){
+					/* alert("CSR successfully approved",'success') */
+                    $("#response .message").html("<strong>" + "Success" + "</strong>: " + "CSR successfully verified");
+                    $("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+                    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+					setTimeout(function(){
+						location.reload()
+					},1500)
+                }else if(resp==2){
+					/* alert("CSR successfully approved",'success') */
+                    $("#response .message").html("<strong>" + "Success" + "</strong>: " + "CSR successfully void");
+                    $("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+                    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+					setTimeout(function(){
+						location.reload()
+					},1500)
+                }else{
+                    $("#response .message").html("<strong> Lot Already Verified </strong>: ");
+                    $("#response").removeClass("alert-success").addClass("alert-danger").fadeIn();
+                    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+                   /*  alert("Lot already Reserved",'warning') */
+					setTimeout(function(){
+						location.reload()
+					},1500)
+                }
+			},
+			error:err=>{
+				console.log()
+				alert("An error occured")
+			}
+		})
+	}
+
+
+
 
     $('.compose-email').click(function(){
            uni_modal('Compose Email','mail.php?id='+$(this).attr('data-csr-id')) 
