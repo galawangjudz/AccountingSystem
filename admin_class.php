@@ -239,32 +239,18 @@ Class Action {
 	function sm_verification(){
 		extract($_POST);
 
-
-		$data = " c_csr_no = '$id' ";
-		$data .= ", c_lot_lid = '$lid' ";
-		$data .= ", c_verify = '$value'";
-		$data .= ", c_csr_status = '0' ";
-		$data .= ", c_reserve_status = '0' ";
-		$data .= ", c_ca_status = '0' ";
-
-		if($value == 2){
-			$save = $this->db->query("UPDATE t_csr SET c_verify = ".$value." where c_csr_no = ".$id); 
-			return 2;
-		}else{
-
-				$chk = $this->db->query("SELECT * FROM t_csr where c_verify = 1 and c_lot_lid =".$lid);
-				if($chk->num_rows > 0){
-					return 3;
-					} 
-				else{
-					if ($value == 1):
-						$save = $this->db->query("UPDATE t_csr SET c_verify = ".$value." where c_csr_no = ".$id); 
-						return 1;
-			
+		$chk = $this->db->query("SELECT * FROM t_csr where c_verify = 1 and c_lot_lid =".$lid);
+			if($chk->num_rows > 0){
+				return 2;
+			}else{
+				$save = $this->db->query("UPDATE t_csr SET c_verify = ".$value." where c_csr_no = ".$id);
+				return 1; 
 				}
-		}
+		
+		
+			
 			
 		
-	}
+	
 
 }

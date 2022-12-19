@@ -648,22 +648,14 @@ $mysqli->close();
 			success:function(resp){
 				if(resp==1){
 					/* alert("CSR successfully approved",'success') */
-                    $("#response .message").html("<strong>" + "Success" + "</strong>: " + "CSR successfully verified");
-                    $("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-                    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					setTimeout(function(){
-						location.reload()
-					},1500)
-                }else if(resp==2){
-					/* alert("CSR successfully approved",'success') */
-                    $("#response .message").html("<strong>" + "Success" + "</strong>: " + "CSR successfully void");
+                    $("#response .message").html("<strong>" + "CSR successfully verified" + "</strong> ");
                     $("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
                     $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 					setTimeout(function(){
 						location.reload()
 					},1500)
                 }else{
-                    $("#response .message").html("<strong> Lot Already Verified </strong>: ");
+                    $("#response .message").html("<strong> Lot Already Verified </strong> ");
                     $("#response").removeClass("alert-success").addClass("alert-danger").fadeIn();
                     $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
                    /*  alert("Lot already Reserved",'warning') */
