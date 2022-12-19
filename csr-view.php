@@ -136,18 +136,20 @@ $mysqli->close();
                                 <hr>
                                 <?php if($verify == 0){?> 
                                     <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block sm-verification">New Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>                            
-                                    <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="2" class="btn btn-danger btn-lg btn-block sm-verification">New Void <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>                            
-                                   
+                                    <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="2" class="btn btn-danger btn-lg btn-block sm-verification2">New Void <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>                            
+                                <!--                                    
                                     <button type="button" id= "verify_btn" csr-id =<?php echo $getID; ?> value="1" class="btn btn-success btn-lg btn-block verify-btn">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
-                                    <button type="button" id= "cancel_btn" csr-id =<?php echo $getID; ?> value="2" class="btn btn-danger btn-lg btn-block void-btn">Void <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
+                                    <button type="button" id= "cancel_btn" csr-id =<?php echo $getID; ?> value="2" class="btn btn-danger btn-lg btn-block void-btn">Void <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button> -->
                                 <?php } ?>
 
                                 <?php if($verify == 1 && $coo_approval == 0){ ?>
                                 <!--     <button type="button" class="btn btn-primary" id="approved">Approved</button> -->
-                                    <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> class="btn btn-success btn-lg btn-block coo-approval">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                    <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block coo-approval">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                    <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="3" class="btn btn-danger btn-lg btn-block coo-approval2">COO DisApproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
+                                  
                                     <!-- <button type="button" id= "coo_approval_btn" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
-                                    --> <button type="button" id= "dis_coo_approval_btn" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="3" class="btn btn-danger btn-lg btn-block">COO Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
-                                
+                                     <button type="button" id= "dis_coo_approval_btn" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="3" class="btn btn-danger btn-lg btn-block">COO Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
+                                -->
                                 <?php } ?>
 
                         
@@ -602,18 +604,23 @@ $mysqli->close();
 
 <script>
     $('.coo-approval').click(function(){
-		_conf("Are you sure to approved this csr?","coo_approved",[$(this).attr('csr-id'),$(this).attr('csr-lot-lid')])
+		_conf("Are you sure to approved this csr?","coo_approval",[$(this).attr('csr-id'),$(this).attr('csr-lot-lid'),$(this).attr('value')])
 	})
-	function coo_approved($id,$lid){
+
+    $('.coo-approval2').click(function(){
+		_conf("Are you sure to disapproved this csr?","coo_approval",[$(this).attr('csr-id'),$(this).attr('csr-lot-lid'),$(this).attr('value')])
+	})
+
+	function coo_approval($id,$lid,$value){
 		start_load()
 		$.ajax({
-			url:'ajax.php?action=coo_approved',
+			url:'ajax.php?action=coo_approval',
 			method:'POST',
-            data:{id:$id,lid:$lid},
+            data:{id:$id,lid:$lid,value:$value},
 			success:function(resp){
 				if(resp==1){
 					/* alert("CSR successfully approved",'success') */
-                    $("#response .message").html("<strong>" + "Success" + "</strong>: " + "CSR successfully approved");
+                    $("#response .message").html("<strong>" + "Success" + "</strong>: " + "Data Successfully saved");
                     $("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
                     $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 					setTimeout(function(){
@@ -639,6 +646,10 @@ $mysqli->close();
     $('.sm-verification').click(function(){
 		_conf("Are you sure to verified this csr?","sm_verification",[$(this).attr('csr-id'),$(this).attr('csr-lot-lid'),$(this).attr('value')])
 	})
+
+    $('.sm-verification2').click(function(){
+		_conf("Are you sure to void this csr?","sm_verification",[$(this).attr('csr-id'),$(this).attr('csr-lot-lid'),$(this).attr('value')])
+	})
 	function sm_verification($id,$lid,$value){
 		start_load()
 		$.ajax({
@@ -648,15 +659,22 @@ $mysqli->close();
 			success:function(resp){
 				if(resp==1){
 					/* alert("CSR successfully approved",'success') */
-                    $("#response .message").html("<strong>" + "CSR successfully verified" + "</strong> ");
-                    $("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+                    $("#response .message").html("<strong>" + "Data Successfully saved" + "</strong> ");
+                    $("#response").removeClass("alert-danger");
+                    $("#response").removeClass("alert-warning");
+                    $("#response").removeClass("alert-success");
+                    $("#response").addClass("alert-success").fadeIn();
                     $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 					setTimeout(function(){
 						location.reload()
 					},1500)
+                
                 }else{
                     $("#response .message").html("<strong> Lot Already Verified </strong> ");
-                    $("#response").removeClass("alert-success").addClass("alert-danger").fadeIn();
+                    $("#response").removeClass("alert-danger");
+                    $("#response").removeClass("alert-warning");
+                    $("#response").removeClass("alert-success");
+                    $("#response").addClass("alert-danger").fadeIn();
                     $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
                    /*  alert("Lot already Reserved",'warning') */
 					setTimeout(function(){

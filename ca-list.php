@@ -49,8 +49,11 @@
 							<td><span class="label label-danger"> --- </span></td>
 						<?php endif; ?>
 
-						<td class="actions"><a href="?page=ca-view&id=<?php echo $row['c_csr_no'] ?>" data-ra-id="<?php $row['ra_id'] ?>" class="btn btn-primary btn-xs">View
-						<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
+						<td class="actions">
+							<a href="?page=ca-view&id=<?php echo $row['c_csr_no'] ?>" data-ra-id="<?php $row['ra_id'] ?>" class="btn btn-primary btn-xs">View
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+						<button class="btn btn-sm btn-primary ca_approval" type="button" data-id="<?php echo $row['c_csr_no'] ?>">View <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> </td>
+						 
 					
 					</tr>	
 					<?php endwhile; ?>
@@ -58,5 +61,10 @@
 		</div>
 	</div>
 </div>
+<script>
 
+$('.ca_approval').click(function(){
+		uni_modal("CA Approval","manage_ca.php?approval=1&id="+$(this).attr("data-id"))
 
+})
+</script>

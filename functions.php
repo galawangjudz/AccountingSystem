@@ -215,10 +215,10 @@ function getCSRs() {
 
  	if(isset($_POST["filtercsr"])){
 		$filter = $_POST["filtercsr"];
-		$query = "SELECT * FROM t_csr_view  where c_csr_status = '$filter' order by c_csr_no";
+		$query = "SELECT * FROM t_csr_view  where c_csr_status = '$filter' order by c_csr_no desc";
 	}else{
 		//$query = "SELECT * FROM t_csr_view  where (coo_approval != 1 and coo_approval != 2) ";
-		$query = "SELECT * FROM t_csr_view order by c_csr_no";
+		$query = "SELECT * FROM t_csr_view order by c_csr_no desc";
 	} 
 
 
@@ -283,10 +283,10 @@ function getCSRs() {
 					print '<td class="text-center"><span class="label label-default">Cancelled</span></td>';
 				}
 				print '
-				<td class="actions"><a href="?page=csr-view&id='.$row["c_csr_no"].'" class="btn btn-info btn-xs">View
+				<td class="actions"><a href="?page=csr-view&id='.$row["c_csr_no"].'" class="btn btn-info btn-xs">
 				<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
 
-				<a data-csr-id="'.$row['c_csr_no'].'" class="btn btn-danger btn-xs delete-csr">Delete
+				<a data-csr-id="'.$row['c_csr_no'].'" class="btn btn-danger btn-xs delete-csr">
 				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 				
 			    </tr>
