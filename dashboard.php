@@ -124,6 +124,3 @@
       </div>
     </section>
     <!-- /.content -->
-<?php
-	include('footer.php');
-?>

@@ -167,45 +167,6 @@ $(document).ready(function() {
 		});
    	});
 
-/* 	// delete user
-	$(document).on('click', ".delete-user", function(e) {
-        e.preventDefault();
-
-        var userId = 'action=delete_user&delete='+ $(this).attr('data-user-id'); //build a post data structure
-        var user = $(this);
-
-	    $('#delete_user').modal({ backdrop: 'static', keyboard: false }).one('click', '#delete', function() {
-			deleteUser(userId);
-			$(user).closest('tr').remove();
-        });
-   	}); */
-
-/*  	// delete agent
-	$(document).on('click', ".delete-agent", function(e) {
-		e.preventDefault();
-
-		var agentId = 'action=delete_agent&delete='+ $(this).attr('data-agent-id'); //build a post data structure
-		var agent = $(this);
-
-		$('#delete_agent').modal({ backdrop: 'static', keyboard: false }).one('click', '#delete', function() {
-			deleteAgent(agentId);
-			$(agent).closest('tr').remove();
-		});
-	});
- */
- 
-   	// delete customer
-/* 	$(document).on('click', ".delete-customer", function(e) {
-        e.preventDefault();
-
-        var userId = 'action=delete_customer&delete='+ $(this).attr('data-customer-id'); //build a post data structure
-        var user = $(this);
-
-	    $('#delete_customer').modal({ backdrop: 'static', keyboard: false }).one('click', '#delete', function() {
-			deleteCustomer(userId);
-			$(user).closest('tr').remove();
-        });
-   	}); */
 
 	// update agent
 	$(document).on('click', "#action_update_agent", function(e) {
@@ -251,44 +212,7 @@ $(document).ready(function() {
 		actionLogin();
 	});
 
-/* 	// delete csr
-	$(document).on('click', ".delete-csr", function(e) {
-        e.preventDefault();c_duration
 
-        var csrId = 'action=delete_csr&delete='+ $(this).attr('data-csr-id'); //build a post data structure
-        var csr = $(this);
-
-	    $('#delete_csr').modal({ backdrop: 'static', keyboard: false }).one('click', '#delete', function() {
-			deleteCSR(csrId);
-			$(csr).closest('tr').remove();
-        });
-   	}); */
-
-	/* // delete lot
-	$(document).on('click', ".delete-lot", function(e) {
-        e.preventDefault();
-
-        var lotId = 'action=delete_lot&delete='+ $(this).attr('data-lot-id'); //build a post data structure
-        var lot = $(this);
-
-	    $('#confirm').modal({ backdrop: 'static', keyboard: false }).one('click', '#delete', function() {
-			deleteLot(lotId);
-			$(lot).closest('tr').remove();
-        });
-   	});
- */
-/* 	// delete project
-	$(document).on('click', ".delete-project", function(e) {
-		e.preventDefault();
-
-		var projectId = 'action=delete_project&delete='+ $(this).attr('data-project-id'); //build a post data structure
-		var project = $(this);
-
-		$('#confirm').modal({ backdrop: 'static', keyboard: false }).one('click', '#delete', function() {
-			deleteProject(projectId);
-			$(project).closest('tr').remove();
-		});
-	}); */
 	// delete reservation
 	$(document).on('click', ".delete-reservation", function(e) {
 		e.preventDefault();
@@ -302,18 +226,7 @@ $(document).ready(function() {
 		
 		});
 
-/* 	// delete house model
-	$(document).on('click', ".delete-house", function(e) {
-		e.preventDefault();
 
-		var houseId = 'action=delete_house&delete='+ $(this).attr('data-house-id'); //build a post data structure
-		var house = $(this);
-
-		$('#confirm').modal({ backdrop: 'static', keyboard: false }).one('click', '#delete', function() {
-			deleteHouse(houseId);
-			$(house).closest('tr').remove();
-		});
-	}); */
 
 	//agent
 	$(document).on('click', ".item-select", function(e) {
@@ -1744,123 +1657,7 @@ function updateTotals(elem) {
 
    	}
 
-   	function deleteLot(lotId) {
-
-        jQuery.ajax({
-
-        	url: 'response.php',
-            type: 'POST', 
-            data: lotId,
-            dataType: 'json', 
-            success: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				$btn.button("reset");
-			},
-			error: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				$btn.button("reset");
-			} 
-    	});
-
-   	}
-
-	   function deleteProject(projectId) {
-
-        jQuery.ajax({
-
-        	url: 'response.php',
-            type: 'POST', 
-            data: projectId,
-            dataType: 'json', 
-            success: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				$btn.button("reset");
-			},
-			error: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				$btn.button("reset");
-			} 
-    	});
-
-   	}
-
-   	function deleteUser(userId) {
-
-        jQuery.ajax({
-
-        	url: 'response.php',
-            type: 'POST', 
-            data: userId,
-            dataType: 'json', 
-            success: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				$btn.button("reset");
-			},
-			error: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				$btn.button("reset");
-			} 
-    	});
-
-   	}
-
-	function deleteCustomer(userId) {
-
-        jQuery.ajax({
-
-        	url: 'response.php',
-            type: 'POST', 
-            data: userId,
-            dataType: 'json', 
-            success: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-			},
-			error: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-			} 
-    	});
-
-   	}
-
-	function deleteAgent(agentId) {
-
-	jQuery.ajax({
-
-		url: 'response.php',
-		type: 'POST', 
-		data: agentId,
-		dataType: 'json', 
-		success: function(data){
-			$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-			$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-			$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-		},
-		error: function(data){
-			$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-			$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-			$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-		} 
-	});
-
-   	}
-
-
+  
    	function deleteCSR(csrId) {
 
         jQuery.ajax({

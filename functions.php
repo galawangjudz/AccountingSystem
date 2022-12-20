@@ -350,7 +350,7 @@ function popLotsList() {
 	FROM t_lots i 
 	JOIN t_projects c 
 	ON i.c_site = c.c_code
-	WHERE i.c_site = c.c_code  and  (i.c_status = 'Available' or i.c_status  = 'Pre-Reserved')
+	WHERE i.c_site = c.c_code  and  (i.c_status = 'Available' )
 	ORDER BY c.c_acronym, i.c_block, i.c_lot";
 
 	//echo $query;

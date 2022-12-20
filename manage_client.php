@@ -188,7 +188,7 @@ foreach($user->fetch_array() as $k =>$v){
 	 	start_load() 
 		var errorCounter = validateForm();
 		if (errorCounter > 0) {
-			alert_toast("It appear's you have forgotten to complete something!","warning")	  
+			alert("It appear's you have forgotten to complete something!","warning")	  
             end_load()
 		}else{
 
