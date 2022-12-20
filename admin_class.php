@@ -330,7 +330,7 @@ Class Action {
 	
 	function ca_approval2(){
 		extract($_POST);
-
+	/* 	$save = $this->db->query("UPDATE t_csr SET c_verify = 2 where c_csr_no = ".$id); */
 		$save = $this->db->query("UPDATE t_approval_csr SET c_ca_status = 2 where ra_id = ".$ra_id);
 		if($save){
 			return 1;

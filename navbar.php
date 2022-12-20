@@ -27,7 +27,7 @@
         </li>
         <?php } ?>
          <!-- Menu 1 -->
-         <?php if ($usertype == 'IT Admin' || $usertype == 'CA Supervisor'){ ?>
+         <?php if ($usertype == 'IT Admin' || $usertype == 'CA'){ ?>
          <li class="treeview">
           <a href="index.php?page=ca-list"><i class="fa-solid fa-book"></i><span>  CA List</span></a>
         </li>
