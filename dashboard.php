@@ -20,7 +20,7 @@
                 <p>Approved</p>
               </div>
               <div class="icon">
-                <i class="fa-sharp fa-solid fa-check-to-slot"></i>
+              <a href="index.php?page=csr-list&category_id=1"><i class="fa-sharp fa-solid fa-check-to-slot"></i></a>
               </div>
             </div>
           </div>
@@ -38,7 +38,7 @@
                 <p>Pending</p>
               </div>
               <div class="icon">
-                <i class="fa-sharp fa-solid fa-clock"></i>
+              <a href="index.php?page=csr-list&category_id=0"><i class="fa-sharp fa-solid fa-clock"></i></a>
               </div>
             </div>
           </div>
@@ -48,7 +48,7 @@
             <div class="small-box">
               <div class="inner">
               <h3><?php 
-                  $result_disapproved = mysqli_query($mysqli, 'SELECT COUNT(coo_approval) AS csr_disapproved FROM t_csr WHERE coo_approval = 0'); 
+                  $result_disapproved = mysqli_query($mysqli, 'SELECT COUNT(coo_approval) AS csr_disapproved FROM t_csr WHERE coo_approval = 3'); 
                   $row = mysqli_fetch_assoc($result_disapproved); 
                   $disapproved = $row['csr_disapproved'];
                   echo $disapproved;
@@ -56,7 +56,7 @@
                 <p>Disapproved</p>
               </div>
               <div class="icon">
-                <i class="fa-solid fa-circle-xmark"></i>
+              <a href="index.php?page=csr-list&category_id=3"><i class="fa-solid fa-circle-xmark"></i></a>
               </div>
             </div>
           </div>
