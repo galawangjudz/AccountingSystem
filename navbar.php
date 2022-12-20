@@ -21,6 +21,10 @@
         <li class="treeview">
           <a href="index.php?page=csr-list"><i class="fa-solid fa-map-location-dot"></i><span> Pending</span></a>
         </li>
+
+        <li class="treeview">
+          <a href=""><i class="fa-solid fa-map-location-dot"></i><span>For Revision</span></a>
+        </li>
         <!-- Menu 1 -->
          <li class="treeview">
           <a href="index.php?page=ra-list"><i class="fa-solid fa-book"></i><span>  RA List</span></a>

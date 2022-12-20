@@ -142,7 +142,7 @@ $mysqli->close();
                                     <button type="button" id= "cancel_btn" csr-id =<?php echo $getID; ?> value="2" class="btn btn-danger btn-lg btn-block void-btn">Void <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button> -->
                                 <?php } ?>
 
-                                <?php if($verify == 1 && $coo_approval == 0){ ?>
+                                <?php if($verify == 1 && $coo_approval == 0 && $usertype = "COO"){ ?>
                                 <!--     <button type="button" class="btn btn-primary" id="approved">Approved</button> -->
                                     <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block coo-approval">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
                                     <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="3" class="btn btn-danger btn-lg btn-block coo-approval2">COO DisApproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
