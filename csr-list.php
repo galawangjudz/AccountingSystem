@@ -5,14 +5,9 @@
 <?php
   include('functions.php');
 
-/* 
-$cat = $mysqli->query("SELECT * FROM ");
-$cat_arr = array();
-while($row = $cat->fetch_assoc()){
-	$cat_arr[$row['id']] = $row;
-}
+  $usertype = $_SESSION['user_type'];
+  $username = $_SESSION['username'];
 
- */
 ?>
 <body>
 <h2>Pending List</h2><div class="addbtn"><a href="index.php?page=csr-create" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
@@ -71,13 +66,25 @@ while($row = $cat->fetch_assoc()){
 								$i = 1;
 								$where = '';
 								if(isset($_GET['category_id'])  && $_GET['category_id'] != 'all'){
-									$where .= " where coo_approval = '".$_GET['category_id']."' ";
+                                    if ($usertype == 'Agent')
+                                        $where .= " where coo_approval = '".$_GET['category_id']."' and c_created_by = '$username' ";
+                                    
+                                    if ($usertype == 'COO')
+                                        $where .= " where coo_approval = '".$_GET['category_id']."'  and c_verify = '1' ";
+                                    else
+									    $where .= " where coo_approval = '".$_GET['category_id']."' ";
 								}
 								else{
-									$where .= " ";
+                                    if ($usertype == 'Agent')
+                                        $where .=  " where c_created_by = '$username' ";
+                                    if ($usertype == 'COO')
+                                        $where .=  " where c_verify = 1 ";
+                                    else
+									    $where .= " ";
                                 }
 								$csr = $mysqli->query("SELECT * FROM t_csr_view ".$where." order by c_date_updated asc");
-								while($row=$csr->fetch_assoc()):
+                                
+                                while($row=$csr->fetch_assoc()):
                                     $timeStamp = date( "m/d/Y", strtotime($row['c_date_updated']));
 								?>
                                         <tr>

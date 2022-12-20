@@ -48,7 +48,7 @@
             <div class="small-box">
               <div class="inner">
               <h3><?php 
-                  $result_disapproved = mysqli_query($mysqli, 'SELECT COUNT(coo_approval) AS csr_disapproved FROM t_csr WHERE coo_approval = 0'); 
+                  $result_disapproved = mysqli_query($mysqli, 'SELECT COUNT(coo_approval) AS csr_disapproved FROM t_csr WHERE coo_approval = 3'); 
                   $row = mysqli_fetch_assoc($result_disapproved); 
                   $disapproved = $row['csr_disapproved'];
                   echo $disapproved;

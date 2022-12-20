@@ -135,8 +135,8 @@ $mysqli->close();
                                  -->
                                 <hr>
                                 <?php if($verify == 0){?> 
-                                    <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block sm-verification">New Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>                            
-                                    <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="2" class="btn btn-danger btn-lg btn-block sm-verification2">New Void <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>                            
+                                    <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block sm-verification">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>                            
+                                    <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="2" class="btn btn-danger btn-lg btn-block sm-verification2">Void <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>                            
                                 <!--                                    
                                     <button type="button" id= "verify_btn" csr-id =<?php echo $getID; ?> value="1" class="btn btn-success btn-lg btn-block verify-btn">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
                                     <button type="button" id= "cancel_btn" csr-id =<?php echo $getID; ?> value="2" class="btn btn-danger btn-lg btn-block void-btn">Void <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button> -->
