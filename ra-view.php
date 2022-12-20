@@ -11,7 +11,9 @@ if ($mysqli->connect_error) {
 	die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
 }
 // the query
-$query = "SELECT x.*, y.ra_id, y.c_csr_status, y.c_reserve_status, y.c_ca_status, y.c_duration, y.c_csr_no as csr_num FROM t_csr x left join t_approval_csr y on x.c_csr_no = y.c_csr_no WHERE y.c_csr_no = '" . $mysqli->real_escape_string($getID) . "'";
+$query = "SELECT x.*, y.ra_id, y.c_csr_status, y.c_reserve_status, y.c_ca_status, y.c_duration, y.c_csr_no as csr_num FROM t_approval_csr y inner join t_csr x on x.c_csr_no = y.c_csr_no WHERE y.c_csr_no = '" . $mysqli->real_escape_string($getID) . "'";
+ 
+/* $query = "SELECT * FROM t_approval_csr y inner join t_csr_view x on y.c_csr_no = x.c_csr_no WHERE y.ra_id = '" . $mysqli->real_escape_string($getID) . "'"; */
 
 $result = mysqli_query($mysqli, $query);
 // mysqli select query
@@ -141,6 +143,7 @@ $mysqli->close();
                        
                                 <a href="?page=csr-edit&id=<?php echo $getID; ?>" class="btn btn-primary">Edit <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
                                 <a href="?page=mail&id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
+
                                       <!-- Navbar Right Menu -->
                                 
                               
@@ -157,8 +160,9 @@ $mysqli->close();
                                         <li><a class="dropdown-item" href="print_agreement.php?id=<?php echo $getID; ?>" class="btn btn-info">Print Agreement Page</a>
                                         </ul>
                                     </li>
+
                                 <hr>
-                                <?php if($reserve_status == 1  && $ca_status == NULL){ ?>
+                                <?php if($reserv_status == 1  && $ca_status == 0){ ?>
                          
                                     <button type="button" id= "ca_approval_btn" csr-id =<?php echo $getID; ?> value=1 class="btn btn-success btn-lg btn-block">CA Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
                                     <button type="button" id= "dis_ca_approval_btn" csr-id =<?php echo $getID; ?> value=2 class="btn btn-danger btn-lg btn-block">CA Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>

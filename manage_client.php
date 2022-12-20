@@ -7,6 +7,7 @@ foreach($user->fetch_array() as $k =>$v){
 	$meta[$k] = $v;
 }
 }
+
 ?>
 <div class="container-fluid">
 	<form action="" id="manage-client">
