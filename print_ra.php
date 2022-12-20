@@ -18,88 +18,37 @@ $app_url = ($ssl  )
           . trim(str_replace("\\", "/", dirname($_SERVER["SCRIPT_NAME"])), "/");
 
 //--->get app url > end
-
 header("Access-Control-Allow-Origin: *");
 
 ?>
-
-
 <!DOCTYPE html>
-
 <head>
-	 
-
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script> 
-
-
 	<script src="https://cdn.apidelv.com/libs/awesome-functions/awesome-functions.min.js"></script> 
-  
- 	
- 	
-
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" ></script>
-
- 
-
-	<script type="text/javascript">
-	$(document).ready(function($) 
-	{ 
-
-		$(document).on('click', '.btn_print', function(event) 
-		{
-			event.preventDefault();
-
-			//credit : https://ekoopmans.github.io/html2pdf.js
-			
-			var element = document.getElementById('container_content'); 
-
-			//easy
-			//html2pdf().from(element).save();
-
-			//custom file name
-			//html2pdf().set({filename: 'code_with_mark_'+js.AutoCode()+'.pdf'}).from(element).save();
-
-
-			//more custom settings
-			var opt = 
-			{
-			  margin:       [0,5,0,5],
-			  filename:     'pageContent_'+js.AutoCode()+'.pdf',
-			  image:        { type: 'jpeg', quality: 2 },
-			  html2canvas:  { dpi: 300, letterRendering: true, width: 780, height: 1500, scale:2},
-              //html2canvas:  { dpi: 2000, letterRendering: true, width: 216, height: 356, scale:2},
-			  jsPDF:        { unit: 'mm', format: 'legal', orientation: 'portrait' }
-			};
-
-			// New Promise-based usage:
-			html2pdf().set(opt).from(element).save();
-
-			 
-		});
-
- 
- 
-	});
-	</script>
-
-	 
-
 </head>
+<style>
+    .watermark_sample{
+    background-image: url("images/4.png");
+    width:400px;
+    background-repeat:no-repeat;
+    position:absolute;
+    height:350px;
+    margin-top:860px;
+    margin-left:375px;
+    opacity:0.1;
+}
 
+</style>
 
 
 <!DOCTYPE html>
 <html lang="en">
 <?php 
       include "includes/header.php" ;
-      include('functions.php');?>
-
-
-   
+      include('functions.php');?> 
   <?php
-
-  
     $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
     $query = "SELECT * from `t_csr` where c_csr_no = '{$_GET['id']}' ";
 
@@ -161,7 +110,7 @@ $mysqli->close();
 <head>
     <link rel="stylesheet" href="css/print_ra.css">
 </head>
-<body onload="loadBasics()">
+<body onload="printFront()">
 <div class="text-center" style="padding:20px;">
 	<input type="button" id="rep" value="Print" class="btn btn-info btn_print">
 </div>
@@ -172,6 +121,7 @@ $mysqli->close();
     <div class="text-center" id="dateofsale"><b>Date of Sale:</b> <?php echo date("F d, Y",strtotime('c_date_created')) ?></div>
     <br>
     <div class="card-body">
+    <div class="watermark_sample"></div>
         <div class="col-md-12" id="checkboxes">
             <div id="csr_status">
                 <div style="float:left;margin-right:2px">
@@ -1295,8 +1245,6 @@ $mysqli->close();
             </tr>
         </table>
     </div>
-
-<hr>
 </div>
 </body>
 </html>
@@ -1782,15 +1730,10 @@ function loadDP(){
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" ></script>
 
- 
 
-	<script type="text/javascript">
-	$(document).ready(function($) 
-	{ 
+<script type="text/javascript">
+    function printFront(){
 
-		$(document).on('click', '.btn_print', function(event) 
-		{
-			event.preventDefault();
 
 			//credit : https://ekoopmans.github.io/html2pdf.js
 			
@@ -1806,20 +1749,22 @@ function loadDP(){
 			//more custom settings
 			var opt = 
 			{
-			  margin:       1,
-			  filename:     'pageContent_'+js.AutoCode()+'.pdf',
-			  image:        { type: 'jpeg', quality: 0.98 },
-			  html2canvas:  { scale: 2 },
-			  jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+			  margin:       [0,5,0,5],
+			  filename:    'RA<?php echo $c_csr_no; ?>-'+'<?php echo $c_b1_last_name; ?>_'+'<?php echo $c_b1_first_name; ?>_'+'<?php echo $c_b1_middle_name; ?>'+'.pdf',
+              
+			  image:        { type: 'jpeg', quality: 2 },
+			  html2canvas:  { dpi: 300, letterRendering: true, width: 780, height: 1500, scale:2},
+              //html2canvas:  { dpi: 2000, letterRendering: true, width: 216, height: 356, scale:2},
+			  jsPDF:        { unit: 'mm', format: 'legal', orientation: 'portrait' }
 			};
 
 			// New Promise-based usage:
 			html2pdf().set(opt).from(element).save();
 
-			 
-		});
+            window.setTimeout(function(){
+            window.history.back();
+            }, 500);
 
- 
- 
-	});
+        }
 	</script>
+ 
