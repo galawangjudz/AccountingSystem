@@ -50,6 +50,7 @@ if($result) {
         $csr_status = $row['c_csr_status'];// status
         $reserv_status = $row['c_reserve_status'];// status
         $ca_status = $row['c_ca_status'];// status 
+    
 
         ///LOT
         $lot_area = $row['c_lot_area'];
@@ -140,7 +141,22 @@ $mysqli->close();
                        
                                 <a href="?page=csr-edit&id=<?php echo $getID; ?>" class="btn btn-primary">Edit <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
                                 <a href="?page=mail&id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
-                                <a href="print.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                      <!-- Navbar Right Menu -->
+                                
+                              
+                                    <li class="dropdown user user-menu">
+
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+                                        <span class="btn btn-info" target="_blank">Print<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></span>   
+                                        </a>
+                                        <ul class="dropdown-menu">
+
+                                        <li><a class="dropdown-item" href="print_ra.php?id=<?php echo $getID; ?>" class="btn btn-info">Print Front Page</a>
+                                        <li><a class="dropdown-item" href="print_ra_back.php?id=<?php echo $getID; ?>" class="btn btn-info">Print Back Page</a>
+                                        <li><a class="dropdown-item" href="print_agreement.php?id=<?php echo $getID; ?>" class="btn btn-info">Print Agreement Page</a>
+                                        </ul>
+                                    </li>
                                 <hr>
                                 <?php if($reserve_status == 1  && $ca_status == NULL){ ?>
                          
