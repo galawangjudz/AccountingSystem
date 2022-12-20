@@ -180,6 +180,65 @@ Class Action {
 		}
 	}
 
+
+	function save_agent(){
+		extract($_POST);
+
+
+		$getID = $_POST['c_code'];
+		$c_last_name = $_POST['c_last_name']; 
+		$c_first_name = $_POST['c_first_name']; 
+		$c_middle_initial = $_POST['c_middle_initial']; 
+		$c_nick_name = $_POST['c_nick_name']; 
+		$c_sex = $_POST['c_sex']; 
+		$c_birthdate = $_POST['c_birthdate']; 
+		$c_birth_place = $_POST['c_birth_place']; 
+		$c_civil_status = $_POST['c_civil_status']; 
+		$c_address_ln1 = $_POST['c_address_ln1']; 
+		$c_address_ln2 = $_POST['c_address_ln2']; 
+		$c_tel_no = $_POST['c_tel_no']; 
+		$c_sss_no =$_POST['c_sss_no']; 
+		$c_tin = $_POST['c_tin']; 
+		$c_status =$_POST['c_status']; 
+		$c_recruited_by = $_POST['c_recruited_by']; 
+		$c_hire_date = $_POST['c_hire_date']; 
+		$c_position = $_POST['c_position']; 
+		$c_network = $_POST['c_network']; 
+		$c_division = $_POST['c_division']; 		
+		$data = " c_last_name = '$$c_last_name' ";
+		$data .= ", c_first_name = '$c_first_name' ";
+		$data .= ", c_middle_initial = '$c_middle_initial' ";
+		$data .= ", c_nick_name = '$c_nick_name' ";
+		$data .= ", c_sex = '$c_sex' ";
+		$data .= ", c_birthdate = '$c_birthdate' ";
+		$data .= ", c_birth_place = '$c_birth_place' ";
+		$data .= ", c_address_ln1 = '$customer_city_prov' ";
+		$data .= ", c_address_ln2 = '$customer_zip_code' ";
+		$data .= ", c_tel_no = '$customer_address_2' ";
+		$data .= ", c_civil_status = '$birth_day' ";
+		$data .= ", c_sss_no = '$customer_age' ";
+		$data .= ", c_tin = '$customer_gender' ";
+		$data .= ", c_status = '$customer_viber' ";
+		$data .= ", c_recruited_by = '$civil_status' ";
+		$data .= ", c_hire_date = '$employment_status' ";
+		$data .= ", c_position = '$customer_email' ";
+		$data .= ", c_network = '$customer_phone' ";
+		$data .= ", c_division = '$customer_phone' ";
+	
+		if(empty($id)){
+			$save = $this->db->query("INSERT INTO t_agents set ".$data);
+		}else{
+			$save = $this->db->query("UPDATE t_agents set ".$data." where id = ".$id);
+		}
+		if($save){
+			return 1;
+		}
+	}
+
+
+
+
+
 	function save_client(){
 		extract($_POST);
 		$data = " last_name = '$customer_last_name' ";

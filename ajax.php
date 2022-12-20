@@ -22,6 +22,11 @@ if($action == "save_client"){
 		echo $save;
 }
 
+if($action == "save_agent"){
+	$save = $crud->save_agent();
+	if($save)
+		echo $save;
+}
 
 if($action == 'save_user'){
 	$save = $crud->save_user();
