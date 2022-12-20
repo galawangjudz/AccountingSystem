@@ -221,16 +221,6 @@ function getCSRs() {
 		$query = "SELECT * FROM t_csr_view order by c_csr_no desc";
 	} 
 
-
-
-
-	//$usertype = $_SESSION['user_type'];
-	//$username = $_SESSION['username'];
-	
-	 //<th> Location </th>
-	 //<td>'.$row["c_acronym"].' Block '.$row["c_block"].' Lot '.$row["c_lot"].' </td>
-
-	// mysqli select query
 	$results = $mysqli->query($query);
 	$no = 1;
 	if($results) {
@@ -1055,7 +1045,35 @@ function popRAsList() {
 		if ($mysqli->connect_error) {
 			die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
 		}
-	
+
+
+		$ras = $mysqli->query("SELECT * FROM t_approval_csr i inner join t_csr_view x on i.c_csr_no = x.c_csr_no ORDER BY c_date_approved");
+		while($row=$ras->fetch_assoc()):
+			$ra_id = $row["ra_id"];
+			$status=$row["c_csr_status"];
+			$date_created=$row["c_date_created"];
+			$id=$row["c_csr_no"];
+			$lid = $row["c_lot_lid"];
+			$exp_date=new DateTime($row["c_duration"]);
+			$exp_date_str=$row["c_duration"];
+			$exp_date_only=date("Y-m-d",strtotime($exp_date_str));
+			//echo $exp_date_only;
+
+			$today_date=date('Y/m/d H:i:s');
+			$today_date_only=date("Y-m-d",strtotime($today_date));
+			//echo $today_date_only;
+
+			$exp=strtotime($exp_date_str);
+			$td=strtotime($today_date);		
+
+			if(($td>$exp) && ($row['c_reserve_status'] == 0)  && ($row['c_csr_status'] == 1)){
+				$update_csr = $mysqli->query("UPDATE t_csr SET coo_approval = 2 WHERE c_csr_no = '".$id."'");	
+				$update_app = $mysqli->query("UPDATE t_approval_csr SET c_csr_status = 2 WHERE c_csr_no = '".$id."'");
+				$update_lot = $mysqli->query("UPDATE t_lots SET c_status = 'Available' WHERE c_lid = '".$lid."'");
+			}
+
+			endwhile;
+
 
 		$query ="SELECT * FROM t_approval_csr i inner join t_csr_view x on i.c_csr_no = x.c_csr_no where (i.c_csr_status = 1 and i.c_reserve_status = 0) 
 				ORDER BY c_date_approved";

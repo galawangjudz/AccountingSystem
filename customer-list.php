@@ -38,7 +38,7 @@ function delete_cust($id){
 		data:{id:$id},
 		success:function(resp){
 			if(resp==1){
-					alert_toast("Data successfully deleted",'success')
+					alert("Data successfully deleted",'success')
 					setTimeout(function(){
 						location.reload()
 					},1500)

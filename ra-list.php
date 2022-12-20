@@ -4,6 +4,28 @@
 ?>
 <h2>RA Sale List</h2>
 <hr>
+
+<form id="filter">
+    <div class="filterDiv">
+        <div class=" col-md-3">
+            <label class="control-label">Category :</label>
+            <select class="custom-select browser-default" name="category_id">
+                <option value="all"> All</option>
+                <option value="1" <?php echo isset($_GET['category_id']) && $_GET['category_id'] == 1 ? 'selected' : '' ?>>Approved</option>
+                <option value="2" <?php echo isset($_GET['category_id']) && $_GET['category_id'] == 2 ? 'selected' : '' ?>>Lapsed/Cancelled</option>
+                <option value="3" <?php echo isset($_GET['category_id']) && $_GET['category_id'] == 3 ? 'selected' : '' ?>>Disapproved</option>   
+            </select>
+                
+        </div> 
+        <div class=" col-md-2">
+          <!--   <label for="" class="control-label">&nbsp</label> -->
+            <button class="btn btn-btn-block filterBtn"><span class="fas fa-filter"></span>Filter</button>
+        </div>
+        
+    </div>
+</form>
+
+
 <div class="row">
 	<div class="col-xs-12">
 		<div class="panel panel-default">
@@ -123,7 +145,6 @@
 							if(($td>$exp) && ($row['c_reserve_status'] == 0)  && ($row['c_csr_status'] == 1)){
 								$update_csr = $mysqli->query("UPDATE t_csr SET coo_approval = 2 WHERE c_csr_no = '".$id."'");	
 								$update_app = $mysqli->query("UPDATE t_approval_csr SET c_csr_status = 2 WHERE c_csr_no = '".$id."'");
-							/* 	if ($row[$c_csr_status] == 2) */
 								$update_lot = $mysqli->query("UPDATE t_lots SET c_status = 'Available' WHERE c_lid = '".$lid."'");
 							}
 						?> 

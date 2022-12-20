@@ -20,7 +20,7 @@
                 <p>Approved</p>
               </div>
               <div class="icon">
-                <i class="fa-sharp fa-solid fa-check-to-slot"></i>
+              <a href="index.php?page=csr-list&category_id=1"><i class="fa-sharp fa-solid fa-check-to-slot"></i></a>
               </div>
             </div>
           </div>
@@ -38,7 +38,7 @@
                 <p>Pending</p>
               </div>
               <div class="icon">
-                <i class="fa-sharp fa-solid fa-clock"></i>
+              <a href="index.php?page=csr-list&category_id=0"><i class="fa-sharp fa-solid fa-clock"></i></a>
               </div>
             </div>
           </div>
@@ -56,7 +56,7 @@
                 <p>Disapproved</p>
               </div>
               <div class="icon">
-                <i class="fa-solid fa-circle-xmark"></i>
+              <a href="index.php?page=csr-list&category_id=3"><i class="fa-solid fa-circle-xmark"></i></a>
               </div>
             </div>
           </div>

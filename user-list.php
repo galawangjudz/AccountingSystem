@@ -42,14 +42,14 @@ function delete_user($id){
 		success:function(resp){
 			if(resp==1){
 				
-				alert_toast("Data successfully deleted",'success') 
+				alert("Data successfully deleted",'success') 
 				setTimeout(function(){
 					location.reload()
 				},1500)
 				}
 			else{
 				console.log()
-            	alert_toast("An error occured",'danger')
+            	alert("An error occured",'danger')
 				end_load()
 			
 			}

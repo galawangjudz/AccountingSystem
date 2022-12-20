@@ -110,7 +110,7 @@ foreach($user->fetch_array() as $k =>$v){
 						/* $("#response .message").html("<strong>" + "Success" + "</strong>: " + "Data successfully saved");
 						$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 						$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000); */
-						alert_toast("Data successfully saved",'success')
+						alert("Data successfully saved",'success')
 						setTimeout(function(){
 							location.reload()
 						},1500)
