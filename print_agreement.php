@@ -119,16 +119,13 @@ $mysqli->close();
     margin-left:350px;
     opacity:0.1;
 }
-body{
-    visibility:hidden;
-}
 </style>
 
-<body onload="printAgreement()">
+<body>
 <div class="text-center" style="padding:20px;">
 	<input type="button" id="rep" value="Print" class="btn btn-info btn_print">
 </div>
-<div class="container_content" id="container_content" >
+<div class="container_content" id="container_content">
 <img src="images/Header.jpg" class="img-thumbnail" style="height:95px;width:650px" alt="">
 <h5 class="text-center"><b>RESERVATION AGREEMENT</b></h5>
 <div style="clear:both"></div>
@@ -232,8 +229,12 @@ of &#8195;&#8195;purchase of the Property.<br><br><br>
 
 
     <script type="text/javascript">
-    function printAgreement(){
+	$(document).ready(function($) 
+	{ 
 
+		$(document).on('click', '.btn_print', function(event) 
+		{
+			event.preventDefault();
 			var element = document.getElementById('container_content'); 
 
 			var opt = 
@@ -248,10 +249,13 @@ of &#8195;&#8195;purchase of the Property.<br><br><br>
 
 			html2pdf().set(opt).from(element).save();
 
-            window.setTimeout(function(){
-            window.history.back();
-            }, 100);
-			 
-	}
+            //window.setTimeout(function(){
+            //window.history.back();
+           // }, 100);
+		});
+
+ 
+ 
+});
 	</script>
  

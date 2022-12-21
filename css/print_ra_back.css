@@ -8,6 +8,50 @@ body{
 table th{
     text-align:center;
 }
+.left_table{
+    height:120px;
+    width:50%;
+    float:left;
+}
+.right_table{
+    height:120px;
+    width:50%;
+    float:left;
+}
+.whole{
+    width:auto;
+    height:auto;
+    float:left;
+}
+.doc_titlerem{
+    margin-top:50px;
+    width:100%;
+    background-color:black;
+    color:white;
+    text-align:center;
+    display:inline-block;
+    padding-left:8px;
+    font-weight:bold;
+}
+.whole_table{
+    height:120px;
+    width:100%;
+    float:left;
+    margin-bottom:-35px;
+}
+.doc_title2{
+    font-weight:bold;
+    float:left;
+    width:50%;
+    font-size:9px;
+}
+.doc_title3{
+    font-weight:bold!important;
+    float:left;
+    width:100%;
+    font-size:9px;
+    margin-top:10px;
+}
 .dp_sched{
 	width:28%;
 	border:solid 1px black;
@@ -136,39 +180,15 @@ table th{
     text-transform: uppercase!important;
     font-size:10px;
 }
-.control-label{
-    display: inline-block;
-    width: auto;
-    font-style:italic;
-    margin-bottom:0px;
-}
-.control-labeliv{
-    display: inline-block;
-    width: auto;
-    font-style:italic;
-    margin-bottom:-5px;
-    margin-top:-10px!important;
-}
-.control-label2{
-    display: inline-block;
-    width: auto;
-    font-style:italic;
-    margin-bottom:0px;
-}
-.control-label4{
-    width: auto;
-    font-style:italic;
-    width:auto;
+.longsentences{
+    width:500px;
     height:auto;
+    background-color: pink;
+    float:left;
 }
-.control-label3{
-    display: inline-block;
-    width: auto;
-    margin-bottom:1px;
-    margin-top: 3px;
-    font-weight:bold!important;
+.label_notb{
+    font-weight:normal!important;
 }
-
 img{
     margin-left: auto;
     margin-right: auto;
@@ -196,16 +216,34 @@ h5{
     padding-bottom: 8px!important;
     border:none!important;
     text-align:justify;
-    font-size:12px;
+    font-size:10px;
     line-height:15px;
     
 }
-
+.purchasers_profile{
+    text-align:center;
+    font-size:13px;
+}
+.cont{
+    float:left;
+    width:100%;
+    margin-bottom:-10px!important;
+    padding:2px;
+}
 .doc_title{
 	width:100%;
     background-color:black;
     color:white;
     text-align:center;
+    display:inline-block;
+    padding-left:8px;
+    font-weight:bold;
+}
+.doc_title1{
+    width:100%;
+    background-color:black;
+    color:white;
+    text-align:left;
     display:inline-block;
     padding-left:8px;
     font-weight:bold;
@@ -274,18 +312,16 @@ h5{
     display:inline-block;
     margin-top:1px;
 }
-.client_label{
-    width:60%;
-    float:right;
-}
-.label1{
-    height:4px;
-}
-.label2{
-    font-style:italic;
-}
+
 #bottom_space{
     margin-bottom:3px;
+}
+.tdwidth{
+    width:300px;
+    align-items: center;
+    text-align: center;
+    padding-left:8%;
+    padding-right:5%;
 }
 
 #tcp_coverage{

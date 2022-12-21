@@ -551,15 +551,7 @@ table{
     font-style:normal;
     font-weight: bold; 
 }
-#txtpf{
-    width:115px;
-}
-#txtpf1{
-    width:140px;
-}
-.ml{
-    margin-left:-5px;
-}
+
 .rdo_buttons{
     width:auto;
     height:auto;
