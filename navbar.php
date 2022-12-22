@@ -19,21 +19,21 @@
           <a href="index.php?page=customer-list"><i class="fa fa-users"></i> <span>Clients</span></a>
         </li>
         <li class="treeview">
-          <a href="index.php?page=csr-list"><i class="fa-solid fa-map-location-dot"></i><span> Pending</span></a>
+          <a href="index.php?page=sm-list"><i class="fa-solid fa-file-text"></i><span>Sales And Marketing</span></a>
         </li>
 
         <li class="treeview">
-          <a href="index.php?page=for-revision"><i class="fa-solid fa-map-location-dot"></i><span>For Revision</span></a>
+          <a href="index.php?page=coo-list"><i class="fa-solid fa-file"></i><span>COO For Approval</span></a>
         </li>
         <!-- Menu 1 -->
          <li class="treeview">
-          <a href="index.php?page=ra-list"><i class="fa-solid fa-book"></i><span>  RA List</span></a>
+          <a href="index.php?page=ra-list-new"><i class="fa-solid fa-clipboard"></i><span>  Reservation Application</span></a>
         </li>
         <?php } ?>
          <!-- Menu 1 -->
          <?php if ($usertype == 'IT Admin' || $usertype == 'CA'){ ?>
          <li class="treeview">
-          <a href="index.php?page=ca-list"><i class="fa-solid fa-book"></i><span>  CA List</span></a>
+          <a href="index.php?page=ca-list"><i class="fa-solid fa-ruble"></i><span>  Credit Assessment</span></a>
         </li>
         <?php } ?>
        

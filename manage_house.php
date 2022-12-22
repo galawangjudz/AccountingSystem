@@ -67,7 +67,7 @@ foreach($user->fetch_array() as $k =>$v){
 						$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 			
 						$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-			
+
 						setTimeout(function(){
 							$(".modal").removeClass("visible");
 							$(".modal").modal('hide');
