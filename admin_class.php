@@ -34,6 +34,7 @@ Class Action {
 
 	function save_user(){
 		extract($_POST);
+		$password = md5($password);
 		$data = " last_name = '$last_name' ";
 		$data .= ", first_name = '$first_name' ";
 		$data .= ", middle_name = '$middle_name' ";
@@ -43,8 +44,11 @@ Class Action {
 		$data .= ", username = '$username' ";
 		$data .= ", user_type = '$user_type' ";
 		$data .= ", password = '$password' ";
+
+	
 		if(empty($user_id)){
 			$save = $this->db->query("INSERT INTO users set ".$data);
+	
 		}else{
 			$save = $this->db->query("UPDATE users set ".$data." where user_id = ".$user_id);
 		}
@@ -176,6 +180,65 @@ Class Action {
 		}
 	}
 
+
+	function save_agent(){
+		extract($_POST);
+
+
+		$getID = $_POST['c_code'];
+		$c_last_name = $_POST['c_last_name']; 
+		$c_first_name = $_POST['c_first_name']; 
+		$c_middle_initial = $_POST['c_middle_initial']; 
+		$c_nick_name = $_POST['c_nick_name']; 
+		$c_sex = $_POST['c_sex']; 
+		$c_birthdate = $_POST['c_birthdate']; 
+		$c_birth_place = $_POST['c_birth_place']; 
+		$c_civil_status = $_POST['c_civil_status']; 
+		$c_address_ln1 = $_POST['c_address_ln1']; 
+		$c_address_ln2 = $_POST['c_address_ln2']; 
+		$c_tel_no = $_POST['c_tel_no']; 
+		$c_sss_no =$_POST['c_sss_no']; 
+		$c_tin = $_POST['c_tin']; 
+		$c_status =$_POST['c_status']; 
+		$c_recruited_by = $_POST['c_recruited_by']; 
+		$c_hire_date = $_POST['c_hire_date']; 
+		$c_position = $_POST['c_position']; 
+		$c_network = $_POST['c_network']; 
+		$c_division = $_POST['c_division']; 		
+		$data = " c_last_name = '$$c_last_name' ";
+		$data .= ", c_first_name = '$c_first_name' ";
+		$data .= ", c_middle_initial = '$c_middle_initial' ";
+		$data .= ", c_nick_name = '$c_nick_name' ";
+		$data .= ", c_sex = '$c_sex' ";
+		$data .= ", c_birthdate = '$c_birthdate' ";
+		$data .= ", c_birth_place = '$c_birth_place' ";
+		$data .= ", c_address_ln1 = '$customer_city_prov' ";
+		$data .= ", c_address_ln2 = '$customer_zip_code' ";
+		$data .= ", c_tel_no = '$customer_address_2' ";
+		$data .= ", c_civil_status = '$birth_day' ";
+		$data .= ", c_sss_no = '$customer_age' ";
+		$data .= ", c_tin = '$customer_gender' ";
+		$data .= ", c_status = '$customer_viber' ";
+		$data .= ", c_recruited_by = '$civil_status' ";
+		$data .= ", c_hire_date = '$employment_status' ";
+		$data .= ", c_position = '$customer_email' ";
+		$data .= ", c_network = '$customer_phone' ";
+		$data .= ", c_division = '$customer_phone' ";
+	
+		if(empty($id)){
+			$save = $this->db->query("INSERT INTO t_agents set ".$data);
+		}else{
+			$save = $this->db->query("UPDATE t_agents set ".$data." where id = ".$id);
+		}
+		if($save){
+			return 1;
+		}
+	}
+
+
+
+
+
 	function save_client(){
 		extract($_POST);
 		$data = " last_name = '$customer_last_name' ";
@@ -207,29 +270,70 @@ Class Action {
 		}
 	}
 
- 	function coo_approved(){
+ 	function coo_approval(){
 		extract($_POST);
 
- 		/* date_default_timezone_set("Asia/Manila"); */
-		/* $approved_date = date("Y-m-d H:i:s");  */
+
 		$data = " c_csr_no = '$id' ";
 		$data .= ", c_lot_lid = '$lid' ";
-		$data .= ", c_csr_status = '1' ";
+		$data .= ", c_csr_status = '$value' ";
 		$data .= ", c_reserve_status = '0' ";
 		$data .= ", c_ca_status = '0' ";
-/* 		$data .= ", c_date_approved = '$approved_date' "; */
+		
 		$data .= ", c_duration = DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL 1 DAY) ";
  
 
 		$chk = $this->db->query("SELECT * FROM t_lots where c_status = 'Available' and c_lid =".$lid);
 			if($chk->num_rows > 0){
+				if ($value == 1){
 	  			$save = $this->db->query("UPDATE t_lots set c_status = 'Pre-Reserved' where c_lid =".$chk->fetch_array()['c_lid']);
-				$save = $this->db->query("UPDATE t_csr SET coo_approval = 1 where c_csr_no = ".$id); 
+				$save = $this->db->query("UPDATE t_csr SET coo_approval = ".$value." where c_csr_no = ".$id); 
 		 		$save = $this->db->query("INSERT INTO t_approval_csr set ".$data);
+				}
+				if ($value == 3){
+				$save = $this->db->query("UPDATE t_csr SET coo_approval = ".$value." where c_csr_no = ".$id);
+				$save = $this->db->query("UPDATE t_csr SET c_verify = 2 where c_csr_no = ".$id);
+				}
 				} 
 		if($save){
 			return 1;
 		}
 	}
 
+
+	function sm_verification(){
+		extract($_POST);
+
+		$chk = $this->db->query("SELECT * FROM t_csr where c_verify = 1 and c_lot_lid =".$lid);
+			if($chk->num_rows == 0){
+				$save = $this->db->query("UPDATE t_csr SET c_verify = ".$value." where c_csr_no = ".$id);
+				}
+			else{
+				if ($value == 2){
+					$save = $this->db->query("UPDATE t_csr SET c_verify = ".$value." where c_csr_no = ".$id);
+				}
+			} 
+		if($save){
+			return 1;
+		}
+	}
+	
+
+	function ca_approval(){
+		extract($_POST);
+
+		$save = $this->db->query("UPDATE t_approval_csr SET c_ca_status = 1 where ra_id = ".$ra_id);
+		if($save){
+			return 1;
+		}
+	}
+	
+	function ca_approval2(){
+		extract($_POST);
+	/* 	$save = $this->db->query("UPDATE t_csr SET c_verify = 2 where c_csr_no = ".$id); */
+		$save = $this->db->query("UPDATE t_approval_csr SET c_ca_status = 2 where ra_id = ".$ra_id);
+		if($save){
+			return 1;
+		}
+	}
 }

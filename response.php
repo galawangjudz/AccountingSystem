@@ -1293,77 +1293,7 @@ if($action == 'update_agent') {
 	
 }
 
-// Update project
-if($action == 'update_project') {
 
-	// output any connection error
-	if ($mysqli->connect_error) {
-	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
-	}
-	$getID = $_POST['c_code']; 
-	$c_name = $_POST['c_name']; 
-	$c_acronym= $_POST['c_acronym']; 
-	$c_address = $_POST['c_address']; 
-	$c_province = $_POST['c_province']; 
-	$c_zip= $_POST['c_zip']; 
-	$c_rate = $_POST['c_rate']; 
-	$c_reservation = $_POST['c_reservation'];
-	$c_status= $_POST['c_status'];
-
-	// the query
-	$query = "UPDATE t_projects SET
-				c_name = ?,
-				c_acronym = ?,
-				c_address = ?,
-				c_province = ?,
-				c_zip = ?,
-				c_rate = ?,
-				c_reservation = ?,
-				c_status = ?
-			 WHERE c_code = ?
-			";
-
-	
-	/* Prepare statement */
-	$stmt = $mysqli->prepare($query);
-	if($stmt === false) {
-	  trigger_error('Wrong SQL: ' . $query . ' Error: ' . $mysqli->error, E_USER_ERROR);
-	}
-
-	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
-	$stmt->bind_param(
-		'sssssssss',
-		$c_name,
-		$c_acronym,
-		$c_address,
-		$c_province,
-		$c_zip,
-		$c_rate,
-		$c_reservation,
-		$c_status,
-		$getID);
-
-	//execute the query
-	if($stmt->execute()){
-	    //if saving success
-		echo json_encode(array(
-			'status' => 'Success',
-			'message'=> 'Project has been updated successfully!'
-		));
-
-	} else {
-	    //if unable to create new record
-	    echo json_encode(array(
-	    	'status' => 'Error',
-	    	//'message'=> 'There has been an error, please try again.'
-	    	'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>'
-	    ));
-	}
-
-	//close database connection
-	$mysqli->close();
-	
-}
 
 // Update house
 if($action == 'update_house') {
@@ -1707,49 +1637,6 @@ if($action == 'delete_house') {
 		echo json_encode(array(
 			'status' => 'Success',
 			'message'=> 'House model has been deleted successfully!'
-		));
-
-	} else {
-	    //if unable to create new record
-	    echo json_encode(array(
-	    	'status' => 'Error',
-	    	//'message'=> 'There has been an error, please try again.'
-	    	'message' => 'There has been an error, please try again.<pre>'.$mysqli->error.'</pre><pre>'.$query.'</pre>'
-	    ));
-	}
-
-	// close connection 
-	$mysqli->close();
-
-}
-// Delete project
-if($action == 'delete_project') {
-
-	// output any connection error
-	if ($mysqli->connect_error) {
-	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
-	}
-
-	$id = $_POST["delete"];
-
-	// the query
-	$query = "DELETE FROM t_projects WHERE c_code = ?";
-
-	/* Prepare statement */
-	$stmt = $mysqli->prepare($query);
-	if($stmt === false) {
-	  trigger_error('Wrong SQL: ' . $query . ' Error: ' . $mysqli->error, E_USER_ERROR);
-	}
-
-	/* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
-	$stmt->bind_param('s',$id);
-
-	//execute the query
-	if($stmt->execute()){
-	    //if saving success
-		echo json_encode(array(
-			'status' => 'Success',
-			'message'=> 'Project site has been deleted successfully!'
 		));
 
 	} else {

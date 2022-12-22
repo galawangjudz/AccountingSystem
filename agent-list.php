@@ -1,7 +1,7 @@
 <?php
 	include('functions.php');
 ?>
-<h2>Agent List</h2><div class="addbtn"><a href="?page=agent-add" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
+<h2>Agent List</h2><div class="addbtn"><a href="#" class="btn btn-flat" id="new_agent"><span class="fas fa-plus"></span>  Create New</a></div>
 <hr>
 <div class="row">
 		<div class="panel panel-default">
@@ -38,8 +38,8 @@
 										<td class="text-center"><span class="label label-default">Inactive</span></td>
 									<?php endif; ?>
 									<td class="text-center">
-									<a href="?page=agent-edit&id=<?php echo $row["c_code"] ?>" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
-									<a data-agent-id="<?php $row['c_code'] ?>" class="btn btn-danger btn-xs delete-agent"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+									<a data-agent-id="'<?php echo $row['c_code'] ?>'" class="btn btn-primary btn-xs edit-agent"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
+									<a data-agent-id="'<?php echo $row['c_code'] ?>'" class="btn btn-danger btn-xs delete-agent"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 									</td>
 								</tr>
 								<?php endwhile; ?>
@@ -51,8 +51,17 @@
 <div>
 
 <script>
+$('#new_agent').click(function(){
+	uni_modal('New Agent','manage_agent.php')
+})
+
+$('.edit-agent').click(function(){
+	uni_modal('Edit Client','manage_agent.php?id='+$(this).attr('data-agent-id'))
+})
+
+
 $('.delete-agent').click(function(){
-		_conf("Are you sure to delete this agent?","delete_agent",[$(this).attr('data-id')])
+		_conf("Are you sure to delete this agent?","delete_agent",[$(this).attr('data-agent-id')])
 	})
 
 function delete_agent($id){
@@ -63,7 +72,7 @@ function delete_agent($id){
 		data:{id:$id},
 		success:function(resp){
 			if(resp==1){
-				alert_toast("Data successfully deleted",'success') 
+				alert("Data successfully deleted",'success') 
 				setTimeout(function(){
 					location.reload()
 				},1500)

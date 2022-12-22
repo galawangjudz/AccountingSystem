@@ -1,6 +1,14 @@
 <?php
 	include('functions.php');
+
+	
+if (($_SESSION["user_type"]) != "IT Admin") {
+	include '404.html';
+	exit;
+}
 ?>
+
+
 <!--  <h2>User List</h2><div class="addbtn"><a href="?page=user-add" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>  -->
  <h2>User List</h2><div class="addbtn"><a href="#" class="btn btn-flat" id="new_user"><span class="fas fa-plus"></span>  Create New</a></div> 
 <hr>
@@ -42,14 +50,14 @@ function delete_user($id){
 		success:function(resp){
 			if(resp==1){
 				
-				alert_toast("Data successfully deleted",'success') 
+				alert("Data successfully deleted",'success') 
 				setTimeout(function(){
 					location.reload()
 				},1500)
 				}
 			else{
 				console.log()
-            	alert_toast("An error occured",'danger')
+            	alert("An error occured",'danger')
 				end_load()
 			
 			}

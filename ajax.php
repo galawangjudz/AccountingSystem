@@ -22,6 +22,11 @@ if($action == "save_client"){
 		echo $save;
 }
 
+if($action == "save_agent"){
+	$save = $crud->save_agent();
+	if($save)
+		echo $save;
+}
 
 if($action == 'save_user'){
 	$save = $crud->save_user();
@@ -78,8 +83,25 @@ if($action == "save_model_house"){
 		echo $save;
 }
 
-if($action == "coo_approved"){
-	$save = $crud->coo_approved();
+if($action == "coo_approval"){
+	$save = $crud->coo_approval();
+	if($save)
+		echo $save;
+}
+
+if($action == "sm_verification"){
+	$save = $crud->sm_verification();
+	if($save)
+		echo $save;
+}
+
+if($action == "ca_approval"){
+	$save = $crud->ca_approval();
+	if($save)
+		echo $save;
+}
+if($action == "ca_approval2"){
+	$save = $crud->ca_approval2();
 	if($save)
 		echo $save;
 }

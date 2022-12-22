@@ -20,7 +20,7 @@
 	<script src="js/bootstrap.datetime.js"></script>
 	<script src="js/bootstrap.password.js"></script>
 	<script src="js/scripts.js"></script>
-  <script src="temp/jquery-3-3.1.min.js"></script>
+<!--   <script src="temp/jquery-3-3.1.min.js"></script> -->
   <script src="temp/toastr.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="js/app.min.js"></script>
@@ -32,3 +32,5 @@
 	<link rel="stylesheet" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
 	<link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="temp/toastr.min.css">
+
+  
