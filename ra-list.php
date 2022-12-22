@@ -11,6 +11,7 @@
             <label class="control-label">Category :</label>
             <select class="custom-select browser-default" name="category_id">
                 <option value="all"> All</option>
+				<option value="0" <?php echo isset($_GET['category_id']) && $_GET['category_id'] == 1 ? 'selected' : '' ?>>Pending</option>
                 <option value="1" <?php echo isset($_GET['category_id']) && $_GET['category_id'] == 1 ? 'selected' : '' ?>>Approved</option>
                 <option value="2" <?php echo isset($_GET['category_id']) && $_GET['category_id'] == 2 ? 'selected' : '' ?>>Lapsed/Cancelled</option>
                 <option value="3" <?php echo isset($_GET['category_id']) && $_GET['category_id'] == 3 ? 'selected' : '' ?>>Disapproved</option>   
@@ -34,6 +35,7 @@
 		  <thead>
 			  <tr>
 				  <th>RA No.</th>
+				  <th>Ref. No.</th>
 				  <th>Location </th>
 				  <th>Buyer Name </th>
 				  <th>Approval Status</th>
@@ -71,6 +73,7 @@
 					<tr>
 					
 						<td class="text-center"><?php echo $row["ra_id"] ?></td>
+						<td class="text-center"><?php echo $row["c_csr_no"] ?></td>
 						<td class="text-center"><?php echo $row["c_acronym"]. ' Block ' .$row["c_block"] . ' Lot '.$row["c_lot"] ?></td>
 						<td class="text-center"><?php echo $row["c_b1_last_name"]. ','  .$row["c_b1_first_name"] .' ' .$row["c_b1_middle_name"]?></td>
 
@@ -86,7 +89,8 @@
 							<td><span class="label label-danger">Cancelled</span>
 							<span class="label label-danger"><b id="demo<?php echo $id ?>"></b></span></td>
 						<?php else: ?>
-							<td><b id="demo<?php echo $id ?>"> </b></td>
+							<td><span class="label label-warning">Pending</span>
+							<!-- <span class="label label-warning"><b id="demo<?php echo $id ?>"></b></span> --></td>
 						<?php endif; ?>
 							
 						
@@ -164,6 +168,8 @@
 							<td><span class="label label-warning">Pending</span></td>
 						<?php elseif ($row['c_ca_status'] == 2): ?>
 							<td><span class="label label-danger">Disapproved</span></td>
+							<?php elseif ($row['c_ca_status'] == 3): ?>
+							<td><span class="label label-info">For Revision</span></td>
 						<?php else: ?>
 							<td><span class="label label-danger"> --- </span></td>
 						<?php endif; ?>
