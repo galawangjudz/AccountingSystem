@@ -13,7 +13,6 @@ foreach($agent->fetch_array() as $k =>$v){
 <form action="" id="manage-agent">
         <input type="hidden" name="id" value="<?php echo isset($meta['id']) ? $meta['id']: '' ?>">
         <div class="panel panel-default">
-            <div class="panel-body form-group form-group-sm">
                 <div class="main_box">
                     <div class="row">
                         <div class="col-xs-6">
@@ -234,7 +233,6 @@ foreach($agent->fetch_array() as $k =>$v){
                    
                 </div>
             </div>
-        </div>
     </form>	
 </div>
 
@@ -280,18 +278,30 @@ foreach($agent->fetch_array() as $k =>$v){
                         $("#response .message").html("<strong>" + "Success" + "</strong>: " + "Data successfully saved");
 						$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 						$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-	/* 					alert_toast("Client Data successfully saved",'success') */
+                        setTimeout(function(){
+							$(".modal").removeClass("visible");
+							$(".modal").modal('hide');
+							end_load()
+						},1500)
+
 						setTimeout(function(){
 							location.reload()
-						},1500)
+						},3000)
 					}
 					else{
                         console.log()
                         $("#response .message").html("<strong> Error  </strong>: ");
 						$("#response").removeClass("alert-success").addClass("alert-danger").fadeIn();
 						$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-	/* 					alert("An error occured",'danger') */
-						end_load()
+                        setTimeout(function(){
+							$(".modal").removeClass("visible");
+							$(".modal").modal('hide');
+							end_load()
+						},1500)
+
+						setTimeout(function(){
+							location.reload()
+						},3000)
 				}
 			},
 			error:err=>{

@@ -65,19 +65,35 @@ foreach($user->fetch_array() as $k =>$v){
 					if(resp == 1){
 						$("#response .message").html("<strong>" + "Success" + "</strong>: " + "Data successfully saved");
 						$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+			
 						$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-			/* 			alert_toast("Model House Data successfully saved",'success') */
+			
+						setTimeout(function(){
+							$(".modal").removeClass("visible");
+							$(".modal").modal('hide');
+							end_load()
+						},1500)
+
 						setTimeout(function(){
 							location.reload()
-						},1500)
+						},3000)
+						
 					}
 					else{
 						console.log()
 						$("#response .message").html("<strong> Error  </strong>: ");
 						$("#response").removeClass("alert-success").addClass("alert-danger").fadeIn();
 						$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					/* 	alert_toast("An error occured",'danger') */
-						end_load()
+						setTimeout(function(){
+							$(".modal").removeClass("visible");
+							$(".modal").modal('hide');
+							end_load()
+						},1500)
+
+						setTimeout(function(){
+							location.reload()
+						},3000)
+						
 				}
 			},
 			error:err=>{

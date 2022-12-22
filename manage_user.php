@@ -112,16 +112,29 @@ foreach($user->fetch_array() as $k =>$v){
 						$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000); */
 						alert("Data successfully saved",'success')
 						setTimeout(function(){
-							location.reload()
+							$(".modal").removeClass("visible");
+							$(".modal").modal('hide');
+							end_load()
 						},1500)
+
+						setTimeout(function(){
+							location.reload()
+						},3000)
 					}
 					else{
 						console.log()
 						$("#response .message").html("<strong> Error  </strong>: ");
 						$("#response").removeClass("alert-success").addClass("alert-danger").fadeIn();
 						$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-			/* 			alert_toast("An error occured",'danger') */
-						end_load()
+						setTimeout(function(){
+							$(".modal").removeClass("visible");
+							$(".modal").modal('hide');
+							end_load()
+						},1500)
+
+						setTimeout(function(){
+							location.reload()
+						},3000)
 				}
 			},
 			error:err=>{

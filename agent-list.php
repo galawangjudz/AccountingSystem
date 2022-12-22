@@ -1,6 +1,12 @@
 <?php
 	include('functions.php');
 ?>
+<style>
+.modal-content{
+  width:1000px;
+  margin-left:-200px;
+}
+</style>
 <h2>Agent List</h2><div class="addbtn"><a href="#" class="btn btn-flat" id="new_agent"><span class="fas fa-plus"></span>  Create New</a></div>
 <hr>
 <div class="row">
