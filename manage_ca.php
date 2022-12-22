@@ -168,8 +168,14 @@ $mysqli->close();
 				if(resp ==1){
 					alert("Data successfully saved",'success')
 					setTimeout(function(){
-						location.reload()
-					},1500)
+							$(".modal").removeClass("visible");
+							$(".modal").modal('hide');
+							end_load()
+						},1500)
+
+						setTimeout(function(){
+							location.reload()
+						},3000)
 				}
 			}
 		})
@@ -185,8 +191,14 @@ $mysqli->close();
 				if(resp ==1){
 					alert("Data successfully saved",'success')
 					setTimeout(function(){
-						location.reload()
-					},1500)
+							$(".modal").removeClass("visible");
+							$(".modal").modal('hide');
+							end_load()
+						},1500)
+
+						setTimeout(function(){
+							location.reload()
+						},3000)
 				}
 			}
 		})

@@ -8,6 +8,7 @@ foreach($user->fetch_array() as $k =>$v){
 }
 }
 ?>
+
 <div class="container-fluid">
 	<div id="response" class="alert alert-success" style="display:none;">
 		<a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -126,21 +127,29 @@ foreach($user->fetch_array() as $k =>$v){
 						$("#response .message").html("<strong>" + "Success" + "</strong>: " + "Data successfully saved");
 						$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
 						$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					/* 	alert("Data successfully saved",'success') */
+						setTimeout(function(){
+							$(".modal").removeClass("visible");
+							$(".modal").modal('hide');
+							end_load()
+						},1500)
+
 						setTimeout(function(){
 							location.reload()
-						},1500)
+						},3000)
 					}
 					else{
 						$("#response .message").html("<strong> Error  </strong>: ");
 						$("#response").removeClass("alert-success").addClass("alert-danger").fadeIn();
 						$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
 						setTimeout(function(){
-							location.reload()
+							$(".modal").removeClass("visible");
+							$(".modal").modal('hide');
+							end_load()
 						},1500)
-					/* 	console.log()
-						alert_toast("An error occured",'danger') */
-						end_load()
+
+						setTimeout(function(){
+							location.reload()
+						},3000)
 				}
 			},
 			error:err=>{

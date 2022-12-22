@@ -127,10 +127,10 @@ $mysqli->close();
 </div>
 <div class="container_content" id="container_content">
 <img src="images/Header.jpg" class="img-thumbnail" style="height:95px;width:650px" alt="">
-<h5 class="text-center"><b>RESERVATION AGREEMENT</b></h5>
+<h5 class="text-center" style="position:absolute;margin-top:-55px;margin-left:320px;"><b>RESERVATION AGREEMENT</b></h5>
 <div style="clear:both"></div>
     <br>
-    <div class="card-body">
+    <div class="card-body" style="margin-top:-20px;">
         <div class="watermark_sample"></div>
     I hereby offer to purchase from Asian Land Strategies Corporation (“ALSC”, “Seller”) the following property (“Property”) and request that the property be reserved for my
 purchase. Project Name and Phase ___________________________ Block ______ Lot ______ . The property is to be paid by me in the manner I chose as indicated in the

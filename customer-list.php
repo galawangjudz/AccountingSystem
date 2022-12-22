@@ -3,8 +3,8 @@
 ?>
 <style>
 .modal-content{
-  width:1500px;
-  margin-left:-450px;
+  width:1000px;
+  margin-left:-200px;
 }
 </style>
 <h2>Client List</h2><div class="addbtn"><a href="#" class="btn btn-flat" id="new_customer"><span class="fas fa-plus"></span>  Create New</a></div>
