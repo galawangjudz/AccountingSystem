@@ -10,7 +10,7 @@
 
 ?>
 <body>
-<h2>Pending List</h2><div class="addbtn"><a href="index.php?page=csr-create" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
+<h2>For Revision List</h2><div class="addbtn"><a href="index.php?page=csr-create" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
 <hr>
 <div id="response" class="alert alert-success" style="display:none;">
   <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -48,8 +48,7 @@
                             <thead>
                                 <tr>
 
-                                    <th> No.</th>
-                                    <th> Ref. No.</th>
+                                    <th> No.</th>	
                                     <th> Prepared by </th>	
                                     <th> Location </th>		
                                     <th>Buyers Name</th>
@@ -68,20 +67,20 @@
 								$where = '';
 								if(isset($_GET['category_id'])  && $_GET['category_id'] != 'all'){
                                     if ($usertype == 'Agent')
-                                        $where .= " where coo_approval = '".$_GET['category_id']."' and c_created_by = '$username' ";
+                                        $where .= " where coo_approval = '".$_GET['category_id']."' and c_created_by = '$username'  and c_revised = 1";
                                     
                                     if ($usertype == 'COO')
-                                        $where .= " where coo_approval = '".$_GET['category_id']."'  and c_verify = '1' ";
+                                        $where .= " where coo_approval = '".$_GET['category_id']."'  and c_verify = '1' and c_revised = 1 ";
                                     else
-									    $where .= " where coo_approval = '".$_GET['category_id']."' ";
+									    $where .= " where coo_approval = '".$_GET['category_id']."' and c_revised = 1";
 								}
 								else{
                                     if ($usertype == 'Agent')
-                                        $where .=  " where c_created_by = '$username' ";
+                                        $where .=  " where c_created_by = '$username'  and c_revised = 1";
                                     if ($usertype == 'COO')
-                                        $where .=  " where c_verify = 1 ";
+                                        $where .=  " where c_verify = 1 and c_revised = 1";
                                     else
-									    $where .= " ";
+									    $where .= "where c_revised = 1";
                                 }
 								$csr = $mysqli->query("SELECT * FROM t_csr_view ".$where." order by c_date_updated asc");
                                 
@@ -90,7 +89,6 @@
 								?>
                                         <tr>
                                             <td><?php echo $i++ ?></td>
-                                            <td><?php echo $row['c_csr_no'] ?></td>
                                             <td class="text-center"><?php echo $row["c_created_by"] ?></td>
                                             <td><?php echo $row["c_acronym"]. ' Block ' .$row["c_block"] . ' Lot '.$row["c_lot"] ?></td>
                                             <td class="text-center"><?php echo $row["c_b1_last_name"]. ','  .$row["c_b1_first_name"] .' ' .$row["c_b1_middle_name"]?></td>

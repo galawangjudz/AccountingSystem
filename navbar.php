@@ -23,7 +23,7 @@
         </li>
 
         <li class="treeview">
-          <a href=""><i class="fa-solid fa-map-location-dot"></i><span>For Revision</span></a>
+          <a href="index.php?page=for-revision"><i class="fa-solid fa-map-location-dot"></i><span>For Revision</span></a>
         </li>
         <!-- Menu 1 -->
          <li class="treeview">

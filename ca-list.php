@@ -11,6 +11,7 @@
 		  <table class="table table-striped table-hover table-bordered" id="data-table">
 		  <thead>
 			  <tr>
+			  	  <th>Ref. No.</th>
 				  <th>RA No.</th>
 				  <th>Location </th>
 				  <th>Buyer Name </th>
@@ -34,7 +35,7 @@
 
 						?>
 					<tr>
-					
+						<td class="text-center"><?php echo $row["c_csr_no"] ?></td>
 						<td class="text-center"><?php echo $row["ra_id"] ?></td>
 						<td class="text-center"><?php echo $row["c_acronym"]. ' Block ' .$row["c_block"] . ' Lot '.$row["c_lot"] ?></td>
 						<td class="text-center"><?php echo $row["c_b1_last_name"]. ','  .$row["c_b1_first_name"] .' ' .$row["c_b1_middle_name"]?></td>
@@ -45,6 +46,8 @@
 							<td><span class="label label-warning">Pending</span></td>
 						<?php elseif ($row['c_ca_status'] == 2): ?>
 							<td><span class="label label-danger">Disapproved</span></td>
+						<?php elseif ($row['c_ca_status'] == 3): ?>
+							<td><span class="label label-danger">For Revision</span></td>
 						<?php else: ?>
 							<td><span class="label label-danger"> --- </span></td>
 						<?php endif; ?>
