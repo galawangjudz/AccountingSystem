@@ -140,15 +140,20 @@ $mysqli->close();
 	<hr>
     <hr>
 
-    <div class="col-md-3">
-        <button type="button" class="btn btn-success btn-s" id="ca_approved">Approved</button>
+    <div class="col-md-3"> 
+        <button type="button" class="btn btn-success btn-s ca_approved" csr-id ="<?php $csr_no ?>"  value= 1>Approved</button>
     </div>
+
     <div class="col-md-4">
-        <button type="button" class="btn btn-danger btn-s"  id="ca_disapproved">Disapproved</button>
+        <button type="button" class="btn btn-danger btn-s ca_approved" csr-id ="<?php $csr_no ?>"  value= 2>Disapproved</button>
+    </div>
+
+    <div class="col-md-4">
+        <button type="button" class="btn btn-danger btn-s ca_approved" csr-id ="<?php $csr_no ?>" value= 3>For Revision</button>
     </div>
 
     <div class="col-md-5">
-        <button type="button" class="btn btn-secondary btn-s" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary btn-s ca_approved" data-dismiss="modal">Close</button>
     </div>
 		
 
@@ -158,12 +163,12 @@ $mysqli->close();
 		
 	})
 
-	$('#ca_approved').click(function(){
+	$('.ca_approved').click(function(){
 		start_load()
 		$.ajax({
 			url:'ajax.php?action=ca_approval',
 			method:'POST',
-			data:{ra_id:'<?php echo $ra_id ?>'},
+			data:{ra_id:'<?php echo $ra_id ?>',id:'<?php echo $csr_no ?>',value:$(this).attr('value')},
 			success:function(resp){
 				if(resp ==1){
 					alert("Data successfully saved",'success')
@@ -175,20 +180,4 @@ $mysqli->close();
 		})
 	})
 
-    $('#ca_disapproved').click(function(){
-		start_load()
-		$.ajax({
-			url:'ajax.php?action=ca_approval2',
-			method:'POST',
-			data:{ra_id:'<?php echo $ra_id ?>'},
-			success:function(resp){
-				if(resp ==1){
-					alert("Data successfully saved",'success')
-					setTimeout(function(){
-						location.reload()
-					},1500)
-				}
-			}
-		})
-	})
 </script>

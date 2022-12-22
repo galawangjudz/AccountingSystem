@@ -100,8 +100,3 @@ if($action == "ca_approval"){
 	if($save)
 		echo $save;
 }
-if($action == "ca_approval2"){
-	$save = $crud->ca_approval2();
-	if($save)
-		echo $save;
-}
