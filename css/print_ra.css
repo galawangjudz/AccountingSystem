@@ -1,5 +1,5 @@
 body{
-    font-size:10px;
+    font-size:8px!important;
 }
 .rec{
     height:60px;
@@ -134,7 +134,7 @@ table th{
     padding-top:0px!important;
     padding-bottom:0px!important;
     text-transform: uppercase!important;
-    font-size:10px;
+    font-size:8px!important;
 }
 .control-label{
     display: inline-block;
@@ -177,12 +177,13 @@ img{
     width:100%;
     margin-top:none;
 }
-h5{
-    margin-top:-55px;
+h6{
+    margin-top:-195px;
     margin-left:100px;
+    position:absolute!important;
 }
 #dateofsale{
-    margin-top:-12px;
+    margin-top:-122px;
     margin-left:85px;
     margin-bottom:8px;
 }
@@ -214,11 +215,9 @@ h5{
     text-align:center;
     display:inline-block;
     padding-left:8px;
-    font-weight: bolder;
+    
 }
-#monthly_due{
-    margin-bottom:5px;
-}
+
 #others_main_div{
     margin-top:-5px;
 }
@@ -229,14 +228,12 @@ h5{
     text-align:left;
     display:inline-block;
     padding-left:15px;
-    font-weight: bolder;
     height:auto;
 }
 .doc_title_last{
 	width:100%;
     background-color:black;
     color:white;
-    font-weight:bolderer;
     text-align:left;
     display:inline-block;
     padding-left:5px;
@@ -246,7 +243,6 @@ h5{
 	width:100%;
     background-color:black;
     color:white;
-    font-weight:bolderer;
     text-align:left;
     display:inline-block;
     padding-left:10px;
@@ -305,7 +301,7 @@ table th{
 }
 .txtSignature{
     width: 100%;
-    font-size:8px;
+    font-size:8px!important;
     text-align:center;
     border-right:none;
     border-left:none;
@@ -323,9 +319,6 @@ body{
 }
 .container-fluid{
     margin-bottom:-10px;
-}
-table{
-  font-weight:bold;
 }
 .test{
     height:15px;
@@ -348,7 +341,7 @@ table{
 }
 .notes{
     font-style:italic;
-    font-size:8px;
+    font-size:8px!important;
     border-bottom:black 1px solid!important;
     border-top:none!important;
 }
@@ -360,7 +353,7 @@ table{
     padding-left:4px;
     padding-right:5px;
     margin-top:-1px;
-    font-size:10px;
+    font-size:8px!important;
 }
 .rec_app{
     float:left;
@@ -370,7 +363,7 @@ table{
     padding-left:4px;
     padding-right:5px;
     margin-top:-1px;
-    font-size:10px;
+    font-size:8px!important;
     border-top: black 1px solid!important;
 }
 #tblborder{
@@ -389,10 +382,6 @@ table{
     padding-right:5px;
     margin-top:-29px;
 }
-.coo_val{
-    margin-bottom:8px;
-    height:auto;
-}
 .validation{
     margin-top:92px;
 }
@@ -403,7 +392,7 @@ table{
     width:auto;
     height:auto;
     margin-bottom:-20px;
-    font-weight: bolder;
+    
 }
 .rem{
     height:auto;
@@ -441,7 +430,6 @@ table{
 #rdo_class{
     margin-top:8px;
     font-style:normal;
-    font-weight:bold;
 }
 #others{
     margin-top:5px!important;
@@ -461,9 +449,6 @@ table{
     margin-left:15px;
     background-color: pink;
 
-}
-.light{
-    font-weight: bold!important;
 }
 #small_title{
     text-align: center!important;
@@ -497,11 +482,10 @@ table{
     margin-top:8px;
     margin-left:15px;
     font-style:normal;
-    font-weight: bold;
 }
 #rdolight{
     font-style:normal;
-    font-weight: bold;
+    
     margin-top:3px;
 }
 #lbl2{
@@ -509,7 +493,7 @@ table{
     margin-left:15px;
     font-size:10px!important;
     font-style:normal;
-    font-weight: bold;
+    
 }
 #options{
     margin-left:10px;
@@ -528,13 +512,13 @@ table{
     width:15%;
     height:auto;
     float:left;
-    font-size:10px;
+    font-size:8px!important;
 }
 .lbl_div_others_txtbox{
     width:25%;
     height:auto;
     float:left;
-    font-size:10px;
+    font-size:8px!important;
     margin-top:5px;
 }
 
@@ -543,13 +527,13 @@ table{
     height:auto;
     float:left;
     margin-top:18px;
-    font-size:10px;
+    font-size:8px!important;
 }
 #lbl3{
     margin-top:18px;
     padding-left:15px;
     font-style:normal;
-    font-weight: bold; 
+     
 }
 
 .rdo_buttons{
@@ -601,7 +585,7 @@ table{
     width:100%;
 }
 #spc{
-    font-size:8px;
+    font-size:8px!important;
 }
 .agent_position2{
     height:auto;

@@ -121,7 +121,7 @@ $mysqli->close();
 }
 </style>
 
-<body>
+<body onload="printAgreement()">
 <div class="text-center" style="padding:20px;">
 	<input type="button" id="rep" value="Print" class="btn btn-info btn_print">
 </div>
@@ -229,12 +229,7 @@ of &#8195;&#8195;purchase of the Property.<br><br><br>
 
 
     <script type="text/javascript">
-	$(document).ready(function($) 
-	{ 
-
-		$(document).on('click', '.btn_print', function(event) 
-		{
-			event.preventDefault();
+    function printAgreement(){
 			var element = document.getElementById('container_content'); 
 
 			var opt = 
@@ -249,13 +244,9 @@ of &#8195;&#8195;purchase of the Property.<br><br><br>
 
 			html2pdf().set(opt).from(element).save();
 
-            //window.setTimeout(function(){
-            //window.history.back();
-           // }, 100);
-		});
-
- 
- 
-});
+            window.setTimeout(function(){
+            window.history.back();
+            }, 500);
+    }
 	</script>
  

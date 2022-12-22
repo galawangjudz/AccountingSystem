@@ -132,7 +132,7 @@ $mysqli->close();
     opacity:0.1;
 }
 </style>
-<body>
+<body onload="printRABack()">
 <div class="text-center" style="padding:20px;">
 	<input type="button" id="rep" value="Print" class="btn btn-info btn_print">
 </div>
@@ -548,13 +548,7 @@ preclude the existence of other &#8195;&#8195;&#8195;criteria for the lawful pro
 
 
 <script type="text/javascript">
-	$(document).ready(function($) 
-	{ 
-
-		$(document).on('click', '.btn_print', function(event) 
-		{
-			event.preventDefault();
-			
+    function printRABack(){             
 			var element = document.getElementById('container_content'); 
 
 			var opt = 
@@ -569,13 +563,9 @@ preclude the existence of other &#8195;&#8195;&#8195;criteria for the lawful pro
 
 			html2pdf().set(opt).from(element).save();
 
-            //window.setTimeout(function(){
-            //window.history.back();
-           // }, 100);
-		});
-
- 
- 
-	});
+            window.setTimeout(function(){
+            window.history.back();
+           }, 500);
+        };
 	</script>
  
