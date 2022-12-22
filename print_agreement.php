@@ -119,21 +119,18 @@ $mysqli->close();
     margin-left:350px;
     opacity:0.1;
 }
-body{
-    visibility:hidden;
-}
 </style>
 
 <body onload="printAgreement()">
 <div class="text-center" style="padding:20px;">
 	<input type="button" id="rep" value="Print" class="btn btn-info btn_print">
 </div>
-<div class="container_content" id="container_content" >
+<div class="container_content" id="container_content">
 <img src="images/Header.jpg" class="img-thumbnail" style="height:95px;width:650px" alt="">
-<h5 class="text-center"><b>RESERVATION AGREEMENT</b></h5>
+<h5 class="text-center" style="position:absolute;margin-top:-55px;margin-left:320px;"><b>RESERVATION AGREEMENT</b></h5>
 <div style="clear:both"></div>
     <br>
-    <div class="card-body">
+    <div class="card-body" style="margin-top:-20px;">
         <div class="watermark_sample"></div>
     I hereby offer to purchase from Asian Land Strategies Corporation (“ALSC”, “Seller”) the following property (“Property”) and request that the property be reserved for my
 purchase. Project Name and Phase ___________________________ Block ______ Lot ______ . The property is to be paid by me in the manner I chose as indicated in the
@@ -233,7 +230,6 @@ of &#8195;&#8195;purchase of the Property.<br><br><br>
 
     <script type="text/javascript">
     function printAgreement(){
-
 			var element = document.getElementById('container_content'); 
 
 			var opt = 
@@ -250,8 +246,7 @@ of &#8195;&#8195;purchase of the Property.<br><br><br>
 
             window.setTimeout(function(){
             window.history.back();
-            }, 100);
-			 
-	}
+            }, 500);
+    }
 	</script>
  
