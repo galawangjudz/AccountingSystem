@@ -568,12 +568,20 @@ $('#comm_table').on('click', ".delete-row", function(e) {
 	//calculateTotal();
 });
 
-// add new product row on invoice
+// add new agent row on ra
 var cloned = $('#comm_table tr:last').clone();
 $(".add-row").click(function(e) {
 	e.preventDefault();
 	cloned.clone().appendTo('#comm_table'); 
 });
+
+
+var cloned2 = $('#buyer :last').clone();
+$(".add-buyer-row").click(function(e) {
+	e.preventDefault();
+	cloned2.clone().appendTo('#buyer'); 
+});
+
 
  
 /* $(document).on('keyup', ".agent-rate", function(e) {

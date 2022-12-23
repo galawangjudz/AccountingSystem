@@ -41,6 +41,7 @@
 		<form method="post" id="create_csr">
 			<input type="hidden" name="action" value="create_csr">
 			<input type="hidden" name="username" value="<?php echo  $_SESSION['username'] ?>">
+			<h4><a href="#" class="btn btn-success btn-xs add-buyer-row"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a> Add Buyer</h4>
 			<div id="Buyer" class="tabcontent">
 			<div class="row">
 				<div class="col-xs-12">
