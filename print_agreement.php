@@ -119,9 +119,13 @@ $mysqli->close();
     margin-left:350px;
     opacity:0.1;
 }
+.whole_content{
+    visibility:hidden;
+}
 </style>
 
 <body onload="printAgreement()">
+<div class="whole_content">
 <div class="text-center" style="padding:20px;">
 	<input type="button" id="rep" value="Print" class="btn btn-info btn_print">
 </div>
@@ -216,6 +220,7 @@ of &#8195;&#8195;purchase of the Property.<br><br><br>
 &#8195;&#8195;&#8195;&#8195;&#8195;______________________________________________________<br><br>
 &#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&nbsp;&nbsp;&nbsp;Authorized Signature over Printed Name/Date
     </div>
+</div>
 </div>
 </body>
 </html>

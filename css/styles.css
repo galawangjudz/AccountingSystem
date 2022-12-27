@@ -13,7 +13,7 @@ body {
 .btn{
   color:white;
   font-weight:bold;
-  background-color: #0038a5;
+  background-color: #cc0a2f;
   border:none!important;
 }
 
@@ -63,11 +63,6 @@ body {
   border-color: #f72a1b;
 }
 
-.panel-login {
-  background-color: #ffffff !important;
-  /*box-shadow: 5px 0px 77px #333;*/
-}
-
 .clear {
   clear: both;
 }
@@ -91,14 +86,7 @@ body {
   padding:25px;
   border-radius:5px;
 }
-.login-panel {
-  box-shadow: 2px 20px 20px #C0C0C0;
-  margin-top: 80px;
-  height:auto;
-  width:auto;
-  margin-bottom: 30px;
 
-}
 .addbtn{
   float:right;
   margin-top:-52px;
@@ -695,12 +683,6 @@ input{
   border:none;
   position:absolute;
 }
-.main_panel{
-  height:250px;
-  width:27%;
-  margin-left:auto;
-  margin-right:auto;
-}
 .view_box{
   border: solid black 1px;
   height:auto;
@@ -932,6 +914,17 @@ body, h1, h2, h3, h4, h5, h6{
   color:white!important;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+.filterBtn2{
+  font-size:13px!important;
+  height:30px;
+  width:80px;
+  background-color:#084bda;
+  border-radius:3px!important;
+  border:none;
+  font-weight: bold;
+  color:white!important;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
 .filterBtn:hover{
   background-color:#0360eb;
 }
@@ -1099,6 +1092,7 @@ min-width: 20vw
     right: 0;
     top: 3.5rem;
 }
+
 #preloader2 {
   position: fixed;
   top: 0;

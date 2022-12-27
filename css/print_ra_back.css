@@ -18,6 +18,9 @@ table th{
     width:50%;
     float:left;
 }
+.whole_content{
+    visibility:hidden;
+}
 .whole{
     width:auto;
     height:auto;

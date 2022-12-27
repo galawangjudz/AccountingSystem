@@ -29,7 +29,7 @@ header("Access-Control-Allow-Origin: *");
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" ></script>
 </head>
 <style>
-    .watermark_sample{
+.watermark_sample{
     background-image: url("images/4.png");
     width:400px;
     background-repeat:no-repeat;
@@ -110,7 +110,13 @@ $mysqli->close();
 <head>
     <link rel="stylesheet" href="css/print_ra.css">
 </head>
+<style>
+.whole_content{
+    visibility:hidden;
+}
+</style>
 <body onload="printRA()">
+<div class="whole_content">
 <div class="text-center" style="padding:20px;">
 	<input type="button" id="rep" value="Print" class="btn btn-info btn_print">
 </div>
@@ -683,32 +689,8 @@ $mysqli->close();
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
-                    <div style="float:left;margin-right:2px">
-                        <input id="chkOption1" type="checkbox" name="chkOption1" />
-                    </div>
-                    <div style="float:left">
-                        <label style="font-weight:normal;margin-bottom:-5px;">And<label>
-                    </div>
-                    <div style="float:left;margin-right:2px">
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
-                    </div>
-                    <div style="float:left">
-                        <label style="font-weight:normal;margin-bottom:-5px;">Spouses<label>
-                    </div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    <div style="float:left;margin-right:2px">
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
-                    </div>
-                    <div style="float:left">
-                    <label style="font-weight:normal;margin-bottom:-5px;">Married To<label>
-                    </div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    <div style="float:left;margin-right:2px">
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
-                    </div>
-                    
-                    <div style="float:left">
-                        <label style="font-weight:normal;margin-bottom:-5px;">Minor/Represented by Legal Guardian<label>
-                    </div>
+                <div class="col-md-12" style="text-align:center">
+                    <i>(Please use another sheet for another co-owners)</i>
                 </div>
             </div>
         </div>
@@ -1348,6 +1330,7 @@ $mysqli->close();
             </tr>
         </table>
     </div>
+</div>
 </div>
 </body>
 </html>
