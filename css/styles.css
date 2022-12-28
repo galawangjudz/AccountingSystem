@@ -13,7 +13,7 @@ body {
 .btn{
   color:white;
   font-weight:bold;
-  background-color: #cc0a2f;
+  background-color: #0038a5;
   border:none!important;
 }
 
@@ -22,7 +22,16 @@ body {
   font-weight:bold;
   background-color: #cc0a2f;
 }
-
+.login-panel {
+  box-shadow: 2px 20px 20px #C0C0C0;
+  margin-top: 80px;
+  height:auto;
+  width:auto;
+  margin-bottom: 30px;
+}
+.login-form {
+  margin-top: 100px;
+}
 #btncancel:hover{
   color:white;
   font-weight:bold;

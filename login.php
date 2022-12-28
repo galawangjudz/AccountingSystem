@@ -39,14 +39,12 @@ header("location:index.php?page=dashboard");
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>  
 <style>
-    .panel{
-  border-radius:5px;
-  margin-top:130px;
-
-
-}
-.panel-heading{
-    background-color:gainsboro;
+.main_panel{
+    border-radius:5px;
+    margin-top:130px;
+    box-shadow: 2px 20px 20px #C0C0C0;
+    width:30%;
+    height:auto;
 }
 </style>
 <body>  
@@ -69,11 +67,11 @@ header("location:index.php?page=dashboard");
                             <tr>
                             <tr>
                                 <td width="1%"><div class="small-icons"></div></td>
-                                <td width="99%"><input class="form-control" type="username" name="username" id="username" required style="margin-bottom:10px;"/></td> 
+                                <td width="99%"><input class="form-control" type="username" name="username" id="username" required style="margin-bottom:10px;background-color:white;"/></td> 
                             </tr>
                             <tr>
                                 <td width="1%"><div class="small-icon2" style="margin-top:-15px;"></div></td>
-                                <td width="99%"><input class="form-control" name="password" id="password" type="password" required/></td>
+                                <td width="99%"><input class="form-control" name="password" id="password" type="password" required style="margin-bottom:10px;background-color:white;"/></td>
                             </tr>
                         </table>
                         <table>

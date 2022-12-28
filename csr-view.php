@@ -107,6 +107,9 @@ $mysqli->close();
         text-align:center;
         font-weight:bold;
     }
+    #btnprint:hover{
+        background-color:blue;
+    }
 </style>
 <body onload="loadAll()">
 
@@ -137,7 +140,7 @@ $mysqli->close();
                                     <!-- User Account Menu -->
                                     <li class="dropdown user user-menu">
                                         <!-- Menu Toggle Button -->
-                                        <a href="#" class="btn btn-info" data-toggle="dropdown">
+                                        <a href="#" class="btn btn-info" id="btnprint" data-toggle="dropdown">
                                         <!-- The user image in the navbar-->
                                         
                                         <!-- hidden-xs hides the username on small devices so only the image appears. -->

@@ -32,7 +32,7 @@
         </div> 
         <div class=" col-md-2">
           <!--   <label for="" class="control-label">&nbsp</label> -->
-            <button class="btn btn-btn-block filterBtn" style="margin-left:-85px;margin-top:-2px;"><span class="fas fa-filter"></span>Filter</button>
+            <button class="btn btn-btn-block filterBtn"><span class="fas fa-filter"></span>Filter</button>
         </div>
         
     </div>
