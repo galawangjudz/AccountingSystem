@@ -121,7 +121,7 @@ $mysqli->close();
     <link rel="stylesheet" href="css/print_ra_back.css">
 </head>
 <style>
-    .watermark_sample{
+.watermark_sample{
     background-image: url("images/4.png");
     width:400px;
     background-repeat:no-repeat;
@@ -131,8 +131,12 @@ $mysqli->close();
     margin-left:285px;
     opacity:0.1;
 }
+.whole_content{
+    visibility:hidden;
+}
 </style>
 <body onload="printRABack()">
+<div class="whole_content">
 <div class="text-center" style="padding:20px;">
 	<input type="button" id="rep" value="Print" class="btn btn-info btn_print">
 </div>
@@ -539,6 +543,7 @@ preclude the existence of other &#8195;&#8195;&#8195;criteria for the lawful pro
 &#8195;&#8195;&#8195;&#8195;&#8195;&#8195;Client Signature over Printed Name/Date&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;Client Signature over Printed Name/Date
     </div>
 
+</div>
 </div>
 </body>
 </html>

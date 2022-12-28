@@ -38,47 +38,58 @@ header("location:index.php?page=dashboard");
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>  
+<style>
+.main_panel{
+    border-radius:5px;
+    margin-top:130px;
+    box-shadow: 2px 20px 20px #C0C0C0;
+    width:30%;
+    height:auto;
+}
+</style>
 <body>  
     <div class="main_panel">
         <div class="panel panel-default login-panel">
             <div class="panel-heading panel-login">
 				<img src="<?php echo COMPANY_LOGO ?>" class="img-responsive">
 		 	</div>
-            <div class="panel-body">
-                <form id="submit_form">
-                    <table>
-                        <tr>           
-                            <div class="toast" id="myToast" data-bs-autohide="true">
-                                <div class="toast-body">
-                                    <div id="error_message"></div>
-                                    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            <div class="panel-body form-group form-group-sm">
+                <div class="row">
+                    <form id="submit_form">
+                        <table>
+                            <tr>           
+                                <div class="toast" id="myToast" data-bs-autohide="true">
+                                    <div class="toast-body">
+                                        <div id="error_message"></div>
+                                        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                                    </div>
                                 </div>
-                            </div>
-                        <tr>
-                        <tr>
-                            <td width="1%"><div class="small-icons"></div></td>
-                            <td width="99%"><input type="username" name="username" id="username" class="form-control required"/></td> 
-                        </tr>
-                        <tr>
-                            <td width="1%"><div class="small-icon2"></div></td>
-                            <td width="99%"><input class="form-control required" name="password" id="password" type="password"/></td>
-                        </tr>
-                    </table>
-                    <table>
-                        <tr>
-                            <td width="1%"><div class="checkbox"></div></td>
-                            <td width="99%"><label><input name="remember" type="checkbox" value="Remember Me"> Remember Me</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td width="100%">
-                                <input type="button" name="submit" id="submit" class="btn btn-primary" value="Submit"/><br>
-                                <input type="text" id="samp_txt">
-                            </td>
-						</tr>
-					</table>
-		      	</form>
+                            <tr>
+                            <tr>
+                                <td width="1%"><div class="small-icons"></div></td>
+                                <td width="99%"><input class="form-control" type="username" name="username" id="username" required style="margin-bottom:10px;background-color:white;"/></td> 
+                            </tr>
+                            <tr>
+                                <td width="1%"><div class="small-icon2" style="margin-top:-15px;"></div></td>
+                                <td width="99%"><input class="form-control" name="password" id="password" type="password" required style="margin-bottom:10px;background-color:white;"/></td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td width="1%"><div class="checkbox"></div></td>
+                                <td width="99%"><label><input name="remember" type="checkbox" value="Remember Me"> Remember Me</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td width="100%">
+                                    <input type="button" name="submit" id="submit" class="btn btn-primary" value="Submit" style="width:100%;font-weight: bold;margin-top:10px;margin-bottom:10px;background-color:#0038a5;color:white!important;"/><br>
+                                    <input type="text" id="samp_txt">
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
             </div>
 
         </div>

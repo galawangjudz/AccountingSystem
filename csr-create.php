@@ -24,6 +24,15 @@
 		document.getElementById('Buyer').style.display="block";
 	  }
 </script>
+<style>
+#action_create_csr:hover{
+  background-color:blue;
+}
+#action_create_csr{
+	background-color:#0038a5;
+
+}
+</style>
 <body onload="showTab()">
 		<h2>Create New <span class="csr_type">CSR</span> </h2><div class="addbtn"><a href="#" class="btn select-customer" id="btntop"><span class="fas fa-mouse-pointer"></span>	Select An Existing Client</a></div>
 		<hr>
