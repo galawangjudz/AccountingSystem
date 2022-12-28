@@ -227,6 +227,42 @@ $(document).ready(function() {
 		});
 
 
+	$(document).on('click', ".buyer-select", function(e) {
+
+		e.preventDefault;
+
+		var buyer = $(this);
+
+		$('#insert').modal({ backdrop: 'static', keyboard: false }).one('click', '#selected', function(e) {
+
+
+			var itemText = $('#insert').find("option:selected").text();
+			var itemValue = $('#insert').find("option:selected").val();
+		
+			//alert(itemValue);
+			
+		var data = itemValue.split("-");
+			
+		var code = data[0];
+		var pos = data[1];
+
+
+		$(buyer).closest('tr').find('.buyer-last').val(itemText);
+		$(buyer).closest('tr').find('.buyer-first').val(code);
+		$(buyer).closest('tr').find('.buyer-middle').val(pos);
+
+
+
+			//updateTotals('.calculate');
+			//calculateTotal();
+
+		});
+
+		return false;
+
+	});
+
+
 
 	//agent
 	$(document).on('click', ".item-select", function(e) {
@@ -344,6 +380,11 @@ $(document).ready(function() {
 
 	   $(document).on('click', ".customer-select", function(e) {
 
+
+
+
+		//old version
+
 		var customer_last_name = $(this).attr('data-customer-lname');
 		var customer_first_name = $(this).attr('data-customer-fname');
 		var customer_middle_name = $(this).attr('data-customer-mname');
@@ -366,7 +407,7 @@ $(document).ready(function() {
 		var customer_gender = $(this).attr('data-customer-gender');
 		var customer_civil = $(this).attr('data-customer-civil');
 		var customer_employment = $(this).attr('data-customer-employment');
-
+/* 
 		$('#customer_last_name_1').val(customer_last_name);
 		$('#customer_first_name_1').val(customer_first_name);
 		$('#customer_middle_name_1').val(customer_middle_name);
@@ -389,6 +430,18 @@ $(document).ready(function() {
 		$('#customer_gender').val(customer_gender);
 		$('#civil_status').val(customer_civil);
 		$('#employment_status').val(customer_employment);
+
+ */
+		
+		//new version
+		
+		var buyer = $(this);
+
+		$(buyer).closest('tr').find('.buyer-last').val(customer_last_name);
+		$(buyer).closest('tr').find('.buyer-first').val(customer_first_name);
+		$(buyer).closest('tr').find('.buyer-middle').val(customer_middle_name);
+
+
 
 		$('#insert_customer').modal('hide');
 
@@ -567,6 +620,12 @@ $('#comm_table').on('click', ".delete-row", function(e) {
 		$(this).closest('tr').remove();
 	//calculateTotal();
 });
+$('#buyer_table').on('click', ".delete-buyer-row", function(e) {
+	e.preventDefault();
+		$(this).closest('tr').remove();
+	//calculateTotal();
+});
+
 
 // add new agent row on ra
 var cloned = $('#comm_table tr:last').clone();
@@ -576,10 +635,10 @@ $(".add-row").click(function(e) {
 });
 
 
-var cloned2 = $('#buyer :last').clone();
+var cloned2 = $('#buyer_table tr:last').clone();
 $(".add-buyer-row").click(function(e) {
 	e.preventDefault();
-	cloned2.clone().appendTo('#buyer'); 
+	cloned2.clone().appendTo('#buyer_table'); 
 });
 
 

@@ -19,6 +19,9 @@
           <a href="index.php?page=customer-list"><i class="fa fa-users"></i> <span>Clients</span></a>
         </li>
         <li class="treeview">
+          <a href="index.php?page=ra-list"><i class="fa-solid fa-file-text"></i><span>Admin Only</span></a>
+        </li>
+        <li class="treeview">
           <a href="index.php?page=sm-list"><i class="fa-solid fa-file-text"></i><span>Sales And Marketing</span></a>
         </li>
 
