@@ -392,7 +392,7 @@ if ($action == 'create_csr'){
 	$lot_lid = $_POST['l_lid'];
 	/* $customer_date_of_sale = $_POST['date_of_sale']; */
 	// buyer details
-	$customer_last_name_1 = $_POST['customer_last_name_1']; // customer last name
+	/* $customer_last_name_1 = $_POST['customer_last_name_1']; // customer last name
 	$customer_first_name_1 = $_POST['customer_first_name_1']; // customer first name
 	$customer_middle_name_1 = $_POST['customer_middle_name_1']; // customer middle name
 	$customer_last_name_2 = $_POST['customer_last_name_2']; // customer last name 2
@@ -411,7 +411,7 @@ if ($action == 'create_csr'){
 	$customer_viber= $_POST['customer_viber']; // customer viber
 	$customer_gender = $_POST['customer_gender']; // customer phone number
 	$civil_status = $_POST['civil_status']; // customer civil status
-	$employment_status = $_POST['employment_status']; // customer civil status
+	$employment_status = $_POST['employment_status']; // customer civil status */
 	
 
 	// Investment Value
@@ -454,7 +454,7 @@ if ($action == 'create_csr'){
 	$query = "INSERT INTO t_csr (
 					c_lot_lid,
 					c_date_of_sale,
-					c_b1_last_name,
+					/* c_b1_last_name,
 					c_b1_first_name,
 					c_b1_middle_name,
 					c_b2_last_name,
@@ -471,7 +471,27 @@ if ($action == 'create_csr'){
 					c_viber_no, 
 					c_civil_status, 
 					c_email,
-					c_employment_status,
+					c_employment_status, 
+
+
+					'".$customer_last_name_1."',
+				  	'".$customer_first_name_1."',
+				  	'".$customer_middle_name_1."',
+					'".$customer_last_name_2."',
+				  	'".$customer_first_name_2."',
+				  	'".$customer_middle_name_2."',
+				  	'".$customer_address_1."',
+				  	'".$customer_city_prov."',
+				  	'".$customer_zip_code."',
+				  	'".$customer_address_2."',
+				  	'".$birth_day."',
+				  	'".$customer_age."',
+					'".$customer_gender."',
+				  	'".$customer_phone."',
+				  	'".$customer_viber."',
+					'".$civil_status."',
+					'".$customer_email."',
+					'".$employment_status."', */*/
 					c_lot_area, 
 					c_price_sqm, 
 					c_lot_discount, 
@@ -510,24 +530,6 @@ if ($action == 'create_csr'){
 				) VALUES (
 					'".$lot_lid."',
 					'".$mysqldate."',
-				  	'".$customer_last_name_1."',
-				  	'".$customer_first_name_1."',
-				  	'".$customer_middle_name_1."',
-					'".$customer_last_name_2."',
-				  	'".$customer_first_name_2."',
-				  	'".$customer_middle_name_2."',
-				  	'".$customer_address_1."',
-				  	'".$customer_city_prov."',
-				  	'".$customer_zip_code."',
-				  	'".$customer_address_2."',
-				  	'".$birth_day."',
-				  	'".$customer_age."',
-					'".$customer_gender."',
-				  	'".$customer_phone."',
-				  	'".$customer_viber."',
-					'".$civil_status."',
-					'".$customer_email."',
-					'".$employment_status."',
 					'$lot_area', 
 					'$price_sqm', 
 					'$lot_disc',
@@ -577,10 +579,37 @@ if ($action == 'create_csr'){
 
 		$row = mysqli_fetch_assoc($result);
 
-		$csr_id = $row['c_csr_no']; 
+		$csr_id = $row['c_csr_no'];
 				
 		}	
+	$buyer_count = 1;
+	foreach($_POST['last_name'] as $key => $value) {
 		
+		$lastname = $_POST['last_name'][$key];
+		$firstname = $_POST['first_name'][$key];
+		$middlename = $_POST['middle_name'][$key];
+		$suffixname = $_POST['suffix_name'][$key]; 
+
+		
+		$query .= "INSERT INTO t_csr_buyers (
+			c_csr_no,
+			c_buyer_count,
+			last_name,
+			first_name,
+			middle_name,
+			suffix_name
+			) VALUES (
+			'".$csr_id."',
+			'$buyer_count',
+			'$lastname',
+			'$firstname',
+			'$middlename',
+			'$suffixname'
+			);
+			"; 
+		$buyer_count += 1;
+	}
+
 
 	foreach($_POST['agent_name'] as $key => $value) {
 

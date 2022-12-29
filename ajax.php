@@ -100,3 +100,9 @@ if($action == "ca_approval"){
 	if($save)
 		echo $save;
 }
+
+if($action == "save_csr"){
+	$save = $crud->save_csr();
+	if($save)
+		echo $save;
+}
