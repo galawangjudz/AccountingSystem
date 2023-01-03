@@ -38,7 +38,7 @@
 						<td class="text-center"><?php echo $row["c_csr_no"] ?></td>
 						<td class="text-center"><?php echo $row["ra_id"] ?></td>
 						<td class="text-center"><?php echo $row["c_acronym"]. ' Block ' .$row["c_block"] . ' Lot '.$row["c_lot"] ?></td>
-						<td class="text-center"><?php echo $row["c_b1_last_name"]. ','  .$row["c_b1_first_name"] .' ' .$row["c_b1_middle_name"]?></td>
+						<td class="text-center"><?php echo $row["last_name"]. ','  .$row["first_name"] .' ' .$row["middle_name"]?></td>
 
 						<?php if($row['c_ca_status'] == 1): ?>
 							<td><span class="label label-success">CA Approved</span></td>

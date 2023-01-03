@@ -85,7 +85,7 @@
                                 <td><?php echo $row['c_csr_no'] ?></td>
                                 <td class="text-center"><?php echo $row["c_created_by"] ?></td>
                                 <td><?php echo $row["c_acronym"]. ' Block ' .$row["c_block"] . ' Lot '.$row["c_lot"] ?></td>
-                                <td class="text-center"><?php echo $row["c_b1_last_name"]. ','  .$row["c_b1_first_name"] .' ' .$row["c_b1_middle_name"]?></td>
+                                <td class="text-center"><?php echo $row["last_name"]. ','  .$row["first_name"] .' ' .$row["middle_name"]?></td>
 
                                 <td class="text-right"><?php echo "P".number_format($row["c_net_tcp"], 2) ?></td>
                                 <td class="text-center"><?php echo $timeStamp ?> </td>
@@ -184,13 +184,14 @@
                 
                 while($row=$csr->fetch_assoc()):
                     $timeStamp = date( "m/d/Y", strtotime($row['c_date_updated']));
+                    
                 ?>
                         <tr>
                             <td><?php echo $i++ ?></td>
                             <td><?php echo $row['c_csr_no'] ?></td>
                             <td class="text-center"><?php echo $row["c_created_by"] ?></td>
                             <td><?php echo $row["c_acronym"]. ' Block ' .$row["c_block"] . ' Lot '.$row["c_lot"] ?></td>
-                            <td class="text-center"><?php echo $row["c_b1_last_name"]. ','  .$row["c_b1_first_name"] .' ' .$row["c_b1_middle_name"]?></td>
+                            <td class="text-center"><?php echo $row["last_name"]. ','  .$row["first_name"] .' ' .$row["middle_name"]?></td>
 
                             <td class="text-right"><?php echo "P".number_format($row["c_net_tcp"], 2) ?></td>
                             <td class="text-center"><?php echo $timeStamp ?> </td>

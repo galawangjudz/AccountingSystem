@@ -247,7 +247,7 @@ function getCSRs() {
 					<td>'.$no++.'</td>
 					<td class="text-center">'.$row["c_created_by"].'</td>
 					<td>'.$row["c_acronym"].' Block '.$row["c_block"].' Lot '.$row["c_lot"].' </td>
-					<td>'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].' </td>
+					<td>'.$row["last_name"].', '.$row["first_name"].' '.$row["middle_name"].' </td>
 					<td class="text-right">'.number_format($row["c_net_tcp"], 2).'</td>
 					<td class="text-center">'.$timeStamp.'</td>
 					
@@ -888,7 +888,7 @@ function getRAs() {
 				<tr>
 					<td>'.$row["ra_id"].'</td>
 					<td>'.$row["c_acronym"].' Block '.$row["c_block"].' Lot '.$row["c_lot"].' </td>
-					<td>'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].' </td>
+					<td>'.$row["last_name"].', '.$row["first_name"].' '.$row["middle_name"].' </td>
 
 				';
 
@@ -1108,10 +1108,10 @@ function popRAsList() {
 						<td>'.$row["c_acronym"].'</td>
 						<td>'.$row["c_block"].'</td>
 						<td>'.$row["c_lot"].'</td>
-						<td>'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].' </td>
+						<td>'.$row["last_name"].', '.$row["first_name"].' '.$row["middle_name"].' </td>
 					
 						
-						<td><a href="#" class="btn btn-primary btn-xs ra-select" data-ra-no="'.$row['ra_id'].'" data-ra-lot-lid="'.$row['c_lot_lid'].'" data-csr-no="'.$row['c_csr_no'].'" data-ra-site="'.$row['c_acronym'].'" data-ra-block="'.$row['c_block'].'" data-ra-lot="'.$row['c_lot'].'" data-ra-res="'.$row['c_reservation'].'" data-ra-fname="'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].'">Select</a></td>
+						<td><a href="#" class="btn btn-primary btn-xs ra-select" data-ra-no="'.$row['ra_id'].'" data-ra-lot-lid="'.$row['c_lot_lid'].'" data-csr-no="'.$row['c_csr_no'].'" data-ra-site="'.$row['c_acronym'].'" data-ra-block="'.$row['c_block'].'" data-ra-lot="'.$row['c_lot'].'" data-ra-res="'.$row['c_reservation'].'" data-ra-fname="'.$row["last_name"].', '.$row["first_name"].' '.$row["middle_name"].'">Select</a></td>
 				   
 						</tr>
 				';

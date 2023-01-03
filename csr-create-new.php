@@ -226,7 +226,6 @@
 													</style>
 													<label class="control-label">Relationship: </label>
 													<select name="relationship[]" id="relationship" class="form-control required">
-														
 															<option name="customer_gender" value="0" selected>None</option>
 															<option name="customer_gender" value="1">And</option>
 															<option name="customer_gender" value="2">Spouses</option>
@@ -236,30 +235,6 @@
 													</select>
 												</div>
 											</div>
- 
-
-                                          <!--   <div class="row">
-                                                <div class="col-xs-2">
-                                                    <div class="form-group radiobtn">
-                                                        <input type="checkbox" class='radio' name='relationship[][]' value='1'/>And</br>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-2">
-                                                    <div class="form-group radiobtn">
-                                                        <input type="checkbox" class='radio' name='relationship[][]' value='2'/>Spouses</br>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-2">
-                                                    <div class="form-group radiobtn">
-                                                        <input type="checkbox" class='radio' name='relationship[][]' value='3'/>Married To</br>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-4">
-                                                    <div class="form-group radiobtn">
-                                                        <input type="checkbox" class='radio' name='relationship[][]' value='4'/>Minor/Represented by Legal Guardian</br>
-                                                    </div>
-                                                </div>
-                                            </div>   -->
                                         </div>
                                     
                                     </td>	

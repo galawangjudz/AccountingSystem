@@ -345,6 +345,7 @@ Class Action {
 		$data .= ", c_verify = 0 ";
 		$data .= ", coo_approval = 0";
 		$data .= ", c_revised = 0";
+
 		
 		if(empty($c_csr_no)){
 			$save = $this->db->query("INSERT INTO t_csr set ".$data);
@@ -373,6 +374,7 @@ Class Action {
 				$email = $_POST['email'][$key];
 				$contact_no = $_POST['contact_no'][$key];
 				$contact_abroad = $_POST['contact_abroad'][$key];
+				$relationship = $_POST['relationship'][$key];
 			
 
 				$data = " c_csr_no = '$last_id' ";
@@ -395,7 +397,7 @@ Class Action {
 				$data .= ", email = '$email' "; 
 				$data .= ", contact_no = '$contact_no' "; 
 				$data .= ", contact_abroad = '$contact_abroad' "; 
-				/* $data .= ", relationship = '$relation' ";  */
+				$data .= ", relationship = '$relationship' ";
 
 				$save = $this->db->query("INSERT INTO t_csr_buyers set ".$data);
 				$buyer_count += 1;
