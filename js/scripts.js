@@ -344,15 +344,12 @@ $(document).ready(function() {
 			var customer_last_name = $(this).attr('data-customer-lname');
 			var customer_first_name = $(this).attr('data-customer-fname');
 			var customer_middle_name = $(this).attr('data-customer-mname');
-			var customer_last_name2 = $(this).attr('data-customer-lname2');
-			var customer_first_name2 = $(this).attr('data-customer-fname2');
-			var customer_middle_name2 = $(this).attr('data-customer-mname2');
+		
 	
 			var customer_email = $(this).attr('data-customer-email');
 			var customer_phone = $(this).attr('data-customer-phone');
 	
 			var customer_address_1 = $(this).attr('data-customer-address-1');
-			var customer_city_prov = $(this).attr('data-customer-city-prov');
 			var customer_zip_code = $(this).attr('data-customer-zip-code');
 	
 			var customer_address_abroad = $(this).attr('data-customer-address-abroad');
