@@ -31,7 +31,7 @@
 	<div class="col-xs-12">
 		<div class="panel panel-default">
 		 <div class="panel-body form-group form-group-sm">  
-		  <table class="table table-striped table-hover table-bordered" id="data-table">
+		  <table class="display table table-striped table-hover table-bordered" id="">
 		  <thead>
 			  <tr>
 				  <th>RA No.</th>
@@ -183,5 +183,3 @@
 		</div>
 	</div>
 </div>
-
-

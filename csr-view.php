@@ -582,6 +582,7 @@ if($result) {
 </body>
 
 <script>
+    
     $('.coo-approval').click(function(){
 		_conf("Are you sure to approved this csr?","coo_approval",[$(this).attr('csr-id'),$(this).attr('csr-lot-lid'),$(this).attr('value')])
 	})

@@ -140,8 +140,8 @@
                                                 <div class="col-xs-2">
                                                     <div class="form-group">
                                                         <label class="control-label">Birthdate: </label>
-                                                        <div class="input-group date margin-bottom buyer-bday" id="birth_date">
-                                                            <input type="text" class="form-control required" name="birth_day[]" placeholder="YYYY-MM-DD" data-date-format="<?php echo DATE_FORMAT ?>" >		
+                                                        <div class="input-group date margin-bottom" id="birth_date">
+                                                            <input type="text" class="form-control buyer-bday required" name="birth_day[]" placeholder="YYYY-MM-DD" data-date-format="<?php echo DATE_FORMAT ?>" >		
                                                             <span class="input-group-addon">
                                                                 <span class="glyphicon glyphicon-calendar"></span>
                                                             </span>
@@ -184,9 +184,9 @@
                                                 <div class="col-xs-3">
                                                     <div class="form-group">
                                                         <label class="control-label">Email Address: </label>
-                                                        <div class="input-group float-right margin-bottom buyer-email">
+                                                        <div class="input-group float-right margin-bottom">
                                                             <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                                            <input type="text" class="form-control margin-bottom required" name="email[]">
+                                                            <input type="text" class="form-control margin-bottom buyer-email required" name="email[]">
                                                         </div>
                                                     </div>
                                                 </div>

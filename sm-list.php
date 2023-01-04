@@ -42,7 +42,7 @@
     <div class="panel panel-default">
         <div class="panel-body form-group form-group-sm">
 
-            <table class="table table-striped table-hover table-bordered" id="data-table" cellspacing="0">
+            <table class="display table table-striped table-hover table-bordered" id="" cellspacing="0">
                 <thead>
                     <tr>
 
@@ -150,7 +150,7 @@
 
 
     
-        <table class="table table-striped table-hover table-bordered" id="data-table2" cellspacing="0">
+        <table class="display table table-striped table-hover table-bordered" id="" cellspacing="0">
             <thead>
                 <tr>
 
@@ -239,6 +239,9 @@
 </body>
 
 <script>
+
+
+
 $('.delete-csr').click(function(){
 		_conf("Are you sure to delete this csr?","delete_csr",[$(this).attr('data-csr-id')])
 	})

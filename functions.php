@@ -226,7 +226,7 @@ function getCSRs() {
 	if($results) {
 
 
-		print '<table class="table table-striped table-hover table-bordered" id="data-table" cellspacing="0"><thead><tr>
+		print '<table class="display table table-striped table-hover table-bordered" id="" cellspacing="0"><thead><tr>
 
 				<th> No.</th>	
 				<th> Prepared by </th>	
