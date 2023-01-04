@@ -25,8 +25,7 @@
 	  }
 </script>
 <body onload="showTab()">
-		<h2>Create New <span class="csr_type">CSR</span> </h2><div class="addbtn"><a href="#" class="btn select-customer" id="btntop"><span class="fas fa-mouse-pointer"></span>	Select An Existing Client</a></div>
-		<hr>
+		<h2>Create New <span class="csr_type">CSR</span> </h2>
 		<div id="response" class="alert alert-success" style="display:none;">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
 			<div class="message"></div>
@@ -41,7 +40,6 @@
 		<form method="post" id="create_csr">
 			<input type="hidden" name="action" value="create_csr">
 			<input type="hidden" name="username" value="<?php echo  $_SESSION['username'] ?>">
-			<h4><a href="#" class="btn btn-success btn-xs add-buyer-row"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a> Add Buyer</h4>
 			<div id="Buyer" class="tabcontent">
 			<div class="row">
 				<div class="col-xs-12">
@@ -50,156 +48,204 @@
 							<div class="titles">Buyer's Information Details</div>
 							<div class="clear"></div>
 						</div>
-						<div class="panel-body form-group form-group-sm">
-						<div class="main_box">
-						<div class="row">
-							<div class="col-xs-4">		
-								<div class="form-group">
-								<label class="control-label">Last Name: </label>
-									<input type="text" class="form-control margin-bottom required" name="customer_last_name_1" id="customer_last_name_1" tabindex="3">
-								</div>
-								<div class="form-group">
-									<input type="text" class="form-control margin-bottom" name="customer_last_name_2" id="customer_last_name_2" tabindex="6">	
-								</div>
-							</div>
-							<div class="col-xs-4">
-								<div class="form-group">
-									<label class="control-label">First Name: </label>
-									<input type="text" class="form-control margin-bottom required" name="customer_first_name_1" id="customer_first_name_1" tabindex="5">
-								</div>
-								<div class="form-group">
-									<input type="text" class="form-control margin-bottom" name="customer_first_name_2" id="customer_first_name_2" tabindex="7">	
-								</div>	
-							</div>
-							<div class="col-xs-4">
-								<div class="form-group">
-									<label class="control-label">Middle Name: </label>
-									<input type="text" class="form-control margin-bottom" name="customer_middle_name_1" id="customer_middle_name_1" tabindex="5">
-								</div>
-								<div class="form-group">
-									<input type="text" class="form-control margin-bottom" name="customer_middle_name_2" id="customer_middle_name_2" tabindex="8">	
-								</div>
-							</div>
-						</div>
-						<hr>
-						<div class="row">
-							<div class="col-xs-4">
-								<div class="form-group">
-									<label class="control-label">Address in the Philippines (Required): </label>
-									<input type="text" class="form-control margin-bottom required" name="customer_address_1" id="customer_address_1" tabindex="9">
-								</div>
-							</div>
-							<div class="col-xs-4">
-								<div class="form-group">
-									<label class="control-label">City/Province: </label>
-									<input type="text" class="form-control margin-bottom required" name="customer_city_prov" id="customer_city_prov" tabindex="10">
-								</div>	
-							</div>
-							<div class="col-xs-4">
-								<div class="form-group">
-									<label class="control-label">Zip Code: </label>
-									<input type="text" class="form-control margin-bottom" name="customer_zip_code" id="customer_zip_code" tabindex="11">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-xs-8">
-								<div class="form-group">
-									<label class="control-label">Address Abroad (if any): </label>
-									<input type="text" class="form-control margin-bottom" name="customer_address_2" id="customer_address_2" tabindex="12">
-								</div>
-							</div>
-							<div class="col-xs-3">
-								<div class="form-group">
-									<label class="control-label">Birthdate: </label>
-									<div class="input-group date margin-bottom" id="birth_date">
-										<input type="text" class="form-control birth_day required" name="birth_day" id = "birth_day" placeholder="YYYY-MM-DD"  tabindex ="13" data-date-format="<?php echo DATE_FORMAT ?>" >		
-										<span class="input-group-addon">
-											<span class="glyphicon glyphicon-calendar"></span>
-										</span>
-									</div>	
-								</div>
-							</div>
-							<div class="col-xs-1">
-								<div class="form-group">
-									<label class="control-label">Age: </label>
-									<input type="text" class="form-control margin-bottom required" name="customer_age" id="customer_age" tabindex="14">
-								</div>
-							</div>	
-						</div>
-						<hr>
-						<div class="row">
-							<div class="col-xs-4">
-								<div class="form-group">
-									<label class="control-label">Contact Number: </label>
-									<input type="text" class="form-control margin-bottom required" name="customer_phone" id="customer_phone" tabindex="15">
-								</div>	
-							</div>
-							<div class="col-xs-4">
-								<div class="form-group">
-									<label class="control-label">Viber Account: </label>
-									<input type="text" class="form-control margin-bottom" name="customer_viber" id="customer_viber" tabindex="16">
-								</div>
-							</div>
-							<div class="col-xs-4">
-								<div class="form-group">
-									<label class="control-label">Email Address: </label>
-									<div class="input-group float-right margin-bottom">
-										<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-										<input type="text" class="form-control margin-bottom required" name="customer_email" id="customer_email" tabindex="17">
-									</div>
-								</div>
-							</div>
-						</div>
-						<hr>
-						<div class="row">
-							<div class="col-xs-4">
-								<div class="form-group">
-									<style>
-										select:invalid { color: gray; }
-									</style>
-									<label class="control-label">Gender: </label>
-									<select name="customer_gender" id="customer_gender" class="form-control" tabindex = "18" required>
-										
-											<option name="customer_gender" value="M" selected>Male</option>
-											<option name="customer_gender" value="F">Female</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-xs-4">
-								<label class="control-label">Civil Status: </label>
-								<style>
-									select:invalid { color: gray; }
-								</style>
-								<select name="civil_status" id="civil_status" class="form-control" tabindex = "19" required>
+					<div class="panel-body form-group form-group-sm">
+						<table class="table table-bordered table-hover table-striped" id="buyer_table">
+							<thead>
+								<tr>
+									<th width="100">
+                                        <h4><a href="#" class="btn btn-success btn-xs add-buyer-row"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a> Add Buyers</h4>
+									</th>
+                                    <th width="800">
+                                        <h4>Buyer's Details</h4>
+                                    </th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<div class="form-group form-group-sm  no-margin-bottom">
+                                            <a href="#" class="btn btn-danger btn-xs delete-buyer-row"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+									   
+                                            <p class="select-customer"> <a href="#" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> select a buyer</a></p>
 								
-									<option name="civil_status" value="Single" selected>Single</option>
-									<option name="civil_status" value="Married">Married</option>
-									<option name="civil_status" value="Divorced">Divorced</option>
-									<option name="civil_status" value="Widowed">Widowed</option>
-								</select>
-							</div>
-							<div class="col-xs-4">
-								<label class="control-label">Employment Status: </label>
-								<style>
-									select:invalid { color: gray; }
-								</style>
-								<select name="employment_status" id="employment_status" class="form-control required" tabindex = "20">
-									
-									<option name="employment_status" value="Employed" selected>Employed</option>
-									<option name="employment_status" value="Self-Employed">Self-Employed</option>
-									<option name="employment_status" value="OCW">OCW</option>
-									<option name="employment_status" value="Retired">Retired</option>
-									<option name="employment_status" value="Others">Others</option>
-								</select>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+										</div>
+									</td>
+									<td>
+                                        <div class="main_box">
+                                            <div class="row">
+                                                <div class="col-xs-3">		
+                                                    <div class="form-group">
+                                                    <label class="control-label">Last Name: </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-last required" name="last_name[]" >
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="col-xs-3">		
+                                                    <div class="form-group">
+                                                    <label class="control-label">Suffix Name: </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-suffix" name="suffix_name[]" >
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">First Name: </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-first required" name="first_name[]" >
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Middle Name: </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-middle" name="middle_name[]">
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Citizenship: </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-ctzn required" name="citizenship[]">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <label class="control-label">Civil Status: </label>
+                                                    <style>
+                                                        select:invalid { color: gray; }
+                                                    </style>
+                                                    <select name="civil_status[]" id="civil_status" class="form-control buyer-civil required">
+                                                    
+                                                        <option name="civil_status" value="Single" selected>Single</option>
+                                                        <option name="civil_status" value="Married">Married</option>
+                                                        <option name="civil_status" value="Divorced">Divorced</option>
+                                                        <option name="civil_status" value="Widowed">Widowed</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <div class="form-group">
+                                                        <style>
+                                                            select:invalid { color: gray; }
+                                                        </style>
+                                                        <label class="control-label">Gender: </label>
+                                                        <select name="gender[]" id="customer_gender" class="form-control buyer-gender required">
+                                                            
+                                                                <option name="customer_gender" value="M" selected>Male</option>
+                                                                <option name="customer_gender" value="F">Female</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xs-2">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Birthdate: </label>
+                                                        <div class="input-group date margin-bottom buyer-bday" id="birth_date">
+                                                            <input type="text" class="form-control required" name="birth_day[]" placeholder="YYYY-MM-DD" data-date-format="<?php echo DATE_FORMAT ?>" >		
+                                                            <span class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                        </div>	
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Age: </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-age required" name="age[]" >
+                                                    </div>
+                                                </div>	
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Type of Valid ID Presented: </label>
+                                                        <input type="text" class="form-control margin-bottom" name="id_presented[]">
+                                                    </div>	
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Tin #: </label>
+                                                        <input type="text" class="form-control margin-bottom" name="tin_no[]">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Contact Number: </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-contact required" name="contact_no[]">
+                                                    </div>	
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Viber Account: </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-viber" name="viber[]">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Email Address: </label>
+                                                        <div class="input-group float-right margin-bottom buyer-email">
+                                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                            <input type="text" class="form-control margin-bottom required" name="email[]">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-xs-9">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Residential/Billing Address: </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-address required" name="address[]">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Area Code : </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-zipcode required" name="zip_code[]">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Address Abroad (if any): </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-add-abroad" name="address_abroad[]">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Contact Number Abroad : </label>
+                                                        <input type="text" class="form-control margin-bottom" name="contact_abroad[]">
+                                                    </div>
+                                                </div>
+                                            </div>  
+
+										 	<div class="col-xs-2">
+												<div class="form-group">
+													<style>
+														select:invalid { color: gray; }
+													</style>
+													<label class="control-label">Relationship: </label>
+													<select name="relationship[]" id="relationship" class="form-control required">
+															<option name="customer_gender" value="0" selected>None</option>
+															<option name="customer_gender" value="1">And</option>
+															<option name="customer_gender" value="2">Spouses</option>
+															<option name="customer_gender" value="3">Married To</option>
+															<option name="customer_gender" value="4">Minor/Represented by Legal Guardian</option>
+
+													</select>
+												</div>
+											</div>
+                                        </div>
+                                    
+                                    </td>	
+								</tr>
+							</tbody>
+						</table>
+				    </div>
+			    </div>
+		    </div>
+	    </div>
+    </div>
 	<div id="Investment" class="tabcontent">
 		<div class="row">
 			<div class="col-xs-12">
@@ -447,7 +493,7 @@
 								<style>
 									select:invalid { color: gray; }
 								</style>
-								<select name="payment_type1" id="payment_type1" class="form-control required payment-type1" id= "payment_type1" tabindex = "2">
+								<select name="payment_type1" id="payment_type1" class="form-control required payment-type1" tabindex = "2">
 									<option name="payment_type1" value="Partial DownPayment" selected>Partial DownPayment</option>
 									<option name="payment_type1" value="Full DownPayment">Full DownPayment</option>
 									<option name="payment_type1" value="No DownPayment">No DownPayment</option>
@@ -464,6 +510,7 @@
 										select:invalid { color: gray; }
 									</style>
 									<select name="payment_type2" id="payment_type2" class="form-control required payment-type2" tabindex = "3" >
+										<option name="payment_type2" value="None" >None</option>
 										<option name="payment_type2" value="Monthly Amortization" >Monthly Amortization</option>
 										<option name="payment_type2" value="Deferred Cash Payment">Deferred Cash Payment</option>
 									</select>	
@@ -605,7 +652,7 @@
 								</div>
 							</div>
 							<div class="col-xs-12 margin-top btn-group">
-								<input type="submit" id="action_create_csr" class="btn btn-success float-right btn-l" value="Create CSR" data-loading-text="Creating...">
+								<input type="submit" id="create_csr" class="btn btn-success float-right btn-l" value="Create CSR" data-loading-text="Creating...">
 							</div>
 						</div>
 					</div>
@@ -703,6 +750,90 @@
 		document.getElementById('onlink3').style.backgroundColor="#f1f1f1c";
 		document.getElementById('onlink4').style.backgroundColor="#ccc";
 	}
+
+
+
+
+	function validateForm() {
+	    // error handling
+	    var errorCounter = 0;
+
+	    $(".required").each(function(i, obj) {
+
+	        if($(this).val() === ''){
+	            $(this).parent().addClass("has-error");
+	            errorCounter++;
+	        } else{ 
+	            $(this).parent().removeClass("has-error"); 
+	        }
+
+	    });
+		
+	    return errorCounter;
+
+	}
+
+	$('#create_csr').submit(function(e){
+		e.preventDefault();
+	 	start_load() 
+		var errorCounter = validateForm();
+		if (errorCounter > 0) {
+			/* alert("It appear's you have forgotten to complete something!","warning");	 */
+			$("#response .message").html("<strong>" + "Warning" + "</strong>: " + "It appear's you have forgotten to complete something!");
+			$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();  
+            end_load()
+		}else{
+
+			$(".required").parent().removeClass("has-error")
+			
+			$.ajax({
+				url:'ajax.php?action=save_csr',
+				method:'POST',
+				data:$(this).serialize(),
+				success:function(resp){
+					if(resp == 1){
+                        $("#response .message").html("<strong>" + "Success" + "</strong>: " + "Data successfully saved");
+						$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+						$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+                        setTimeout(function(){
+							$(".modal").removeClass("visible");
+							$(".modal").modal('hide');
+							end_load()
+						},1500)
+
+						setTimeout(function(){
+							location.reload()
+						},3000)
+					}
+					else{
+                        console.log()
+                        $("#response .message").html("<strong> Error  </strong>:"  + "Data unsuccessfully saved");
+						$("#response").removeClass("alert-success").addClass("alert-danger").fadeIn();
+						$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+                        setTimeout(function(){
+							$(".modal").removeClass("visible");
+							$(".modal").modal('hide');
+							end_load()
+						},1500)
+
+						setTimeout(function(){
+							location.reload()
+						},3000)
+				}
+			},
+			error:err=>{
+				console.log()
+				alert("An error occured")
+			}
+			})
+		}
+	})
+
+
+
+
+
+
 </script>
 
 

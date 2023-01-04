@@ -510,7 +510,7 @@ function popHousesList() {
 						<td>'.$row["middle_name"].'</td>
 						<td>'.$row["email"].'</td>
 						<td>'.$row["contact_no"].'</td>
-						<td class="actions"><a href="#" class="btn btn-primary btn-xs customer-select"  data-customer-civil="'.$row['civil_status'].'" data-customer-gender="'.$row['gender'].'" data-customer-age="'.$row['age'].'" data-customer-birthday="'.$row['birthdate'].'" data-customer-viber="'.$row['viber'].'" data-customer-address-1="'.$row['address'].'" data-customer-zip-code="'.$row['zip_code'].'" data-customer-city-prov="'.$row['city_prov'].'" data-customer-address-abroad="'.$row['address_abroad'].'" data-customer-lname2="'.$row['b2_last_name'].'" data-customer-fname2="'.$row['b2_first_name'].'" data-customer-mname2="'.$row['b2_middle_name'].'" data-customer-lname="'.$row['last_name'].'" data-customer-fname="'.$row['first_name'].'" data-customer-mname="'.$row['middle_name'].'" data-customer-email="'.$row['email'].'" data-customer-phone="'.$row['phone'].'">Select</a></td>
+						<td class="actions"><a href="#" class="btn btn-primary btn-xs customer-select"  data-customer-civil="'.$row['civil_status'].'" data-customer-gender="'.$row['gender'].'" data-customer-age="'.$row['age'].'" data-customer-birthday="'.$row['birthdate'].'" data-customer-viber="'.$row['viber'].'" data-customer-address-1="'.$row['address'].'" data-customer-zip-code="'.$row['zip_code'].'"  data-customer-address-abroad="'.$row['address_abroad'].'" data-customer-lname="'.$row['last_name'].'" data-customer-fname="'.$row['first_name'].'" data-customer-mname="'.$row['middle_name'].'" data-customer-sname="'.$row['suffix_name'].'" data-customer-email="'.$row['email'].'" data-customer-phone="'.$row['contact_no'].'" data-customer-ctzn="'.$row['citizenship'].'">Select</a></td>
 					</tr>
 				';
 			}
@@ -786,7 +786,7 @@ function getCustomers() {
 	}
 
 	// the query
-	$query = "SELECT * FROM store_customers ORDER BY last_name ASC";
+	$query = "SELECT * FROM t_client_info ORDER BY last_name ASC";
 
 	// mysqli select query
 	$results = $mysqli->query($query);
@@ -808,7 +808,7 @@ function getCustomers() {
 			    <tr>
 					<td>'.$row["last_name"].', '.$row["first_name"].'</td>
 				    <td>'.$row["email"].'</td>
-				    <td>'.$row["phone"].'</td>
+				    <td>'.$row["contact_no"].'</td>
 					<td class="actions"><a data-customer-id="'.$row['id'].'" class="btn btn-primary btn-xs edit-customer"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
 				   <a data-customer-id="'.$row['id'].'" class="btn btn-danger btn-xs delete-customer">
 					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>

@@ -344,7 +344,7 @@ $(document).ready(function() {
 			var customer_last_name = $(this).attr('data-customer-lname');
 			var customer_first_name = $(this).attr('data-customer-fname');
 			var customer_middle_name = $(this).attr('data-customer-mname');
-		
+			var customer_suffix_name = $(this).attr('data-customer-sname');
 	
 			var customer_email = $(this).attr('data-customer-email');
 			var customer_phone = $(this).attr('data-customer-phone');
@@ -359,33 +359,8 @@ $(document).ready(function() {
 			var customer_age = $(this).attr('data-customer-age');
 			var customer_gender = $(this).attr('data-customer-gender');
 			var customer_civil = $(this).attr('data-customer-civil');
-			var customer_employment = $(this).attr('data-customer-employment');
-	/* 
-			$('#customer_last_name_1').val(customer_last_name);
-			$('#customer_first_name_1').val(customer_first_name);
-			$('#customer_middle_name_1').val(customer_middle_name);
-			$('#customer_last_name_2').val(customer_last_name2);
-			$('#customer_first_name_2').val(customer_first_name2);
-			$('#customer_middle_name_2').val(customer_middle_name2);
-	
-			$('#customer_email').val(customer_email);
-			$('#customer_phone').val(customer_phone);
-	
-			$('#customer_address_1').val(customer_address_1);
-			$('#customer_city_prov').val(customer_city_prov);
-			$('#customer_zip_code').val(customer_zip_code);
-	
-			$('#customer_address_2').val(customer_address_abroad);
-			$('#customer_viber').val(customer_viber);
-			$('#birth_day').val(customer_birthday);
-			$('#customer_age').val(customer_age);
-	
-			$('#customer_gender').val(customer_gender);
-			$('#civil_status').val(customer_civil);
-			$('#employment_status').val(customer_employment);
-	
-	 */
-			
+			var customer_ctzn = $(this).attr('data-customer-ctzn');
+
 			//new version
 			
 		/* 	$('.buyer-last').val(customer_last_name); */
@@ -393,6 +368,19 @@ $(document).ready(function() {
 			$(customer).closest('tr').find('.buyer-last').val(customer_last_name);
 			$(customer).closest('tr').find('.buyer-first').val(customer_first_name);
 			$(customer).closest('tr').find('.buyer-middle').val(customer_middle_name);
+			$(customer).closest('tr').find('.buyer-suffix').val(customer_suffix_name);
+			$(customer).closest('tr').find('.buyer-address').val(customer_address_1);
+			$(customer).closest('tr').find('.buyer-zipcode').val(customer_zip_code);
+			$(customer).closest('tr').find('.buyer-add-abroad').val(customer_address_abroad);
+			$(customer).closest('tr').find('.buyer-viber').val(customer_viber);
+			$(customer).closest('tr').find('.buyer-bday').val(customer_birthday);
+			$(customer).closest('tr').find('.buyer-age').val(customer_age);
+			$(customer).closest('tr').find('.buyer-contact').val(customer_phone);
+			$(customer).closest('tr').find('.buyer-email').val(customer_email);
+			$(customer).closest('tr').find('.buyer-gender').val(customer_gender);
+			$(customer).closest('tr').find('.buyer-civl').val(customer_civil);
+			$(customer).closest('tr').find('.buyer-ctzn').val(customer_ctzn);
+
 	
 	
 	
@@ -592,6 +580,7 @@ $('#buyer_table').on('click', ".delete-buyer-row", function(e) {
 
 // add new agent row on ra
 var cloned = $('#comm_table tr:last').clone();
+cloned.find('input').val('');
 $(".add-row").click(function(e) {
 	e.preventDefault();
 	cloned.clone().appendTo('#comm_table'); 
@@ -599,6 +588,7 @@ $(".add-row").click(function(e) {
 
 
 var cloned2 = $('#buyer_table tr:last').clone();
+cloned2.find('input').val('');
 $(".add-buyer-row").click(function(e) {
 	e.preventDefault();
 	cloned2.clone().appendTo('#buyer_table'); 

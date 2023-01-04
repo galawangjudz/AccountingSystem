@@ -10,7 +10,7 @@
 
 ?>
 <body>
-<h2>For Verification</h2><div class="addbtn"><a href="index.php?page=csr-create-new" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
+<h2>For Verification</h2><div class="addbtn"><a href="index.php?page=csr-create" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New</a></div>
 <hr>
 <div id="response" class="alert alert-success" style="display:none;">
   <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -42,8 +42,6 @@
     <div class="panel panel-default">
         <div class="panel-body form-group form-group-sm">
 
-
-    
             <table class="table table-striped table-hover table-bordered" id="data-table" cellspacing="0">
                 <thead>
                     <tr>
@@ -152,7 +150,7 @@
 
 
     
-        <table class="table table-striped table-hover table-bordered" id="data-table" cellspacing="0">
+        <table class="table table-striped table-hover table-bordered" id="data-table2" cellspacing="0">
             <thead>
                 <tr>
 

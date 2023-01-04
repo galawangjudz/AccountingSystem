@@ -442,6 +442,7 @@ Class Action {
 
 		//lot computation
 		$c_csr_no =  $_POST['update_id'];
+		//lot computation
 		$username =  $_POST['username'];
 		$lot_lid = $_POST['l_lid'];
 		$lot_area = $_POST['lot_area'];
@@ -513,103 +514,94 @@ Class Action {
 		$data .= ", coo_approval = 0";
 		$data .= ", c_revised = 0";
 
+		if(!empty($c_csr_no)){
+			$this->db->query("UPDATE t_csr set ".$data." where c_csr_no = ".$c_csr_no);
+			$this->db->query("DELETE FROM t_csr_buyers where c_csr_no = ".$c_csr_no);
+			$this->db->query("DELETE FROM t_csr_commission where c_csr_no = ".$c_csr_no);
+			// get last insert id
+			$last_id = $c_csr_no;
+
+			foreach($_POST['agent_name'] as $key => $value) {
+				$agent = $value;
+				$agent_code = $_POST['agent_code'][$key];
+				$agent_pos = $_POST['agent_position'][$key];
+				$agent_amount = $_POST['comm_amt'][$key];
+				$agent_rate = $_POST['agent_rate'][$key]; 
+
+				$data = " c_csr_no = '$last_id' ";
+				$data .= ", c_code = '$agent_code' ";
+				$data .= ", c_position = '$agent_pos' ";
+				$data .= ", c_agent = '$agent' ";
+				$data .= ", c_amount = '$agent_amount' ";
+				$data .= ", c_rate = '$agent_rate' ";
 
 
-		$save = $this->db->query("UPDATE t_csr set ".$data." where id = ".$c_csr_no);
-
-		$delete = $this->db->query("DELETE FROM t_csr_buyer where c_csr_no = ".$c_csr_no);
-
-		$delete = $this->db->query("DELETE FROM t_csr_commission where c_csr_no = ".$c_csr_no);
+				$save = $this->db->query("INSERT INTO t_csr_commission set ".$data);
+				}
 
 
-		// get last insert id
-		$last_id = $c_csr_no;
 
 
-		foreach($_POST['agent_name'] as $key => $value) {
-
-
-			$agent = $value;
+			$buyer_count = 1;
+			foreach($_POST['last_name'] as $key => $value) {
 		
-			$agent_code = $_POST['agent_code'][$key];
-			$agent_pos = $_POST['agent_position'][$key];
-			$agent_amount = $_POST['comm_amt'][$key];
-			$agent_rate = $_POST['agent_rate'][$key]; 
+				$lastname = $_POST['last_name'][$key];
+				$firstname = $_POST['first_name'][$key];
+				$middlename = $_POST['middle_name'][$key];
+				$suffixname = $_POST['suffix_name'][$key]; 
+				$address = $_POST['address'][$key];
+				$zip_code = $_POST['zip_code'][$key];
+				$address_abroad = $_POST['address_abroad'][$key];
+				$birthdate = $_POST['birth_day'][$key];
+				$age = $_POST['age'][$key];
+				$viber = $_POST['viber'][$key];
+				$gender = $_POST['gender'][$key];
+				$civil_status = $_POST['civil_status'][$key];
+				$citizenship = $_POST['citizenship'][$key];
+				$id_presented = $_POST['id_presented'][$key];
+				$tin_no = $_POST['tin_no'][$key];
+				$email = $_POST['email'][$key];
+				$contact_no = $_POST['contact_no'][$key];
+				$contact_abroad = $_POST['contact_abroad'][$key];
+				$relationship = $_POST['relationship'][$key];
+			
 
-			$data = " c_csr_no = '$last_id' ";
-			$data .= ", c_code = '$agent_code' ";
-			$data .= ", c_position = '$agent_pos' ";
-			$data .= ", c_agent = '$agent' ";
-			$data .= ", c_amount = '$agent_amount' ";
-			$data .= ", c_rate = '$agent_rate' ";
+				$data = " c_csr_no = '$last_id' ";
+				$data .= ", c_buyer_count = '$buyer_count' ";
+				$data .= ", last_name = '$lastname' ";
+				$data .= ", first_name = '$firstname' ";
+				$data .= ", middle_name = '$middlename' ";
+				$data .= ", suffix_name = '$suffixname' ";
+				$data .= ", address = '$address' ";
+				$data .= ", zip_code = '$zip_code' ";
+				$data .= ", address_abroad = '$address_abroad ' ";
+				$data .= ", birthdate = '$birthdate ' ";
+				$data .= ", age = '$age ' ";
+				$data .= ", viber = '$viber ' ";
+				$data .= ", gender = '$gender' ";
+				$data .= ", civil_status = '$civil_status' "; 
+				$data .= ", citizenship = '$citizenship' ";
+				$data .= ", id_presented = '$id_presented' "; 
+				$data .= ", tin_no = '$tin_no' "; 
+				$data .= ", email = '$email' "; 
+				$data .= ", contact_no = '$contact_no' "; 
+				$data .= ", contact_abroad = '$contact_abroad' "; 
+				$data .= ", relationship = '$relationship' ";
+
+				$save = $this->db->query("INSERT INTO t_csr_buyers set ".$data);
+				$buyer_count += 1;
+				}
 
 
-			$save = $this->db->query("INSERT INTO t_csr_commission set ".$data);
-			}
-
-
-
-
-		$buyer_count = 1;
-		foreach($_POST['last_name'] as $key => $value) {
-	
-			$lastname = $_POST['last_name'][$key];
-			$firstname = $_POST['first_name'][$key];
-			$middlename = $_POST['middle_name'][$key];
-			$suffixname = $_POST['suffix_name'][$key]; 
-			$address = $_POST['address'][$key];
-			$zip_code = $_POST['zip_code'][$key];
-			$address_abroad = $_POST['address_abroad'][$key];
-			$birthdate = $_POST['birth_day'][$key];
-			$age = $_POST['age'][$key];
-			$viber = $_POST['viber'][$key];
-			$gender = $_POST['gender'][$key];
-			$civil_status = $_POST['civil_status'][$key];
-			$citizenship = $_POST['citizenship'][$key];
-			$id_presented = $_POST['id_presented'][$key];
-			$tin_no = $_POST['tin_no'][$key];
-			$email = $_POST['email'][$key];
-			$contact_no = $_POST['contact_no'][$key];
-			$contact_abroad = $_POST['contact_abroad'][$key];
-			$relationship = $_POST['relationship'][$key];
-		
-
-			$data = " c_csr_no = '$last_id' ";
-			$data .= ", c_buyer_count = '$buyer_count' ";
-			$data .= ", last_name = '$lastname' ";
-			$data .= ", first_name = '$firstname' ";
-			$data .= ", middle_name = '$middlename' ";
-			$data .= ", suffix_name = '$suffixname' ";
-			$data .= ", address = '$address' ";
-			$data .= ", zip_code = '$zip_code' ";
-			$data .= ", address_abroad = '$address_abroad ' ";
-			$data .= ", birthdate = '$birthdate ' ";
-			$data .= ", age = '$age ' ";
-			$data .= ", viber = '$viber ' ";
-			$data .= ", gender = '$gender' ";
-			$data .= ", civil_status = '$civil_status' "; 
-			$data .= ", citizenship = '$citizenship' ";
-			$data .= ", id_presented = '$id_presented' "; 
-			$data .= ", tin_no = '$tin_no' "; 
-			$data .= ", email = '$email' "; 
-			$data .= ", contact_no = '$contact_no' "; 
-			$data .= ", contact_abroad = '$contact_abroad' "; 
-			$data .= ", relationship = '$relationship' ";
-
-			$save = $this->db->query("INSERT INTO t_csr_buyers set ".$data);
-			$buyer_count += 1;
-			}
-		
-		
-
+		}
 		if($save){
 			return 1;
 		}
 
+
+
 	}
 
-
-	
 	function coo_approval(){
 		extract($_POST);
 

@@ -106,3 +106,9 @@ if($action == "save_csr"){
 	if($save)
 		echo $save;
 }
+
+if($action == "update_csr"){
+	$save = $crud->update_csr();
+	if($save)
+		echo $save;
+}
