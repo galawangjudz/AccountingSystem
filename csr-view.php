@@ -113,8 +113,10 @@ if($result) {
                                 <?php } ?>
 
                                 <?php if($verify == 1 && $coo_approval == 0 && $usertype = "COO"){ ?>
-                                     <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block coo-approval">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
-                                    <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="3" class="btn btn-danger btn-lg btn-block coo-approval2">COO DisApproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
+                                    <button type="button" data-csr-id =<?php echo $getID; ?> class="btn btn-success btn-lg btn-block new-coo-approval">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                   
+                                   <!--  <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block coo-approval">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                     --><button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="3" class="btn btn-danger btn-lg btn-block coo-approval2">COO DisApproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
                                   
                                  
                                 <?php } ?>
@@ -539,6 +541,10 @@ if($result) {
 <script>
 
     
+    $('.new-coo-approval').click(function(){   
+        uni_modal('Coo Approval','approval_setting.php?id='+$(this).attr('data-csr-id'))
+    })
+
 
 
     $('.coo-approval').click(function(){

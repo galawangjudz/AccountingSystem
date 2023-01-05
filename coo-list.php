@@ -105,9 +105,7 @@
                             <?php } ?>
                             
                             <td class="actions">
-                            <a data-csr-id="<?php echo $row['c_csr_no'] ?>" class="btn btn-info btn-xs new-coo-approval">
-                            <span class="glyphicon glyphicon-check" aria-hidden="true"></span></a> 
-                       
+                      
                             <a href="?page=csr-view&id=<?php echo $row["c_csr_no"] ?>" class="btn btn-info btn-xs">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
 
@@ -241,10 +239,6 @@
 </body>
 
 <script>
-
-$('.new-coo-approval').click(function(){   
-    uni_modal('Coo Approval','approval_setting.php?id='+$(this).attr('data-csr-id'))
-})
 
 
 $('.delete-csr').click(function(){

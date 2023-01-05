@@ -11,6 +11,7 @@ $(document).ready(function() {
 	});
 	 */
 
+
 	// Invoice Type
 	$('#invoice_type').change(function() {
 		var invoiceType = $("#invoice_type option:selected").text();

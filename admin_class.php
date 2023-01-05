@@ -605,6 +605,7 @@ Class Action {
 	function coo_approval(){
 		extract($_POST);
 
+		
 
 		$data = " c_csr_no = '$id' ";
 		$data .= ", c_lot_lid = '$lid' ";
@@ -633,6 +634,43 @@ Class Action {
 			return 1;
 		}
 	}
+
+
+	function new_coo_approval(){
+		extract($_POST);
+		$id =  $_POST['id'];
+		$lid = $_POST['lid'];
+		$value = $_POST['value'];
+		$duration = $_POST['duration'];
+
+		$data = " c_csr_no = '$id' ";
+		$data .= ", c_lot_lid = '$lid' ";
+		$data .= ", c_csr_status = '$value' ";
+		$data .= ", c_reserve_status = '0' ";
+		$data .= ", c_ca_status = '0' ";
+		
+		$data .= ", c_duration = DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL $duration DAY)";
+ 
+
+		$chk = $this->db->query("SELECT * FROM t_lots where c_status = 'Available' and c_lid =".$lid);
+			if($chk->num_rows > 0){
+				if ($value == 1){
+	  			$save = $this->db->query("UPDATE t_lots set c_status = 'Pre-Reserved' where c_lid =".$chk->fetch_array()['c_lid']);
+				$save = $this->db->query("UPDATE t_csr SET coo_approval = ".$value." where c_csr_no = ".$id); 
+		 		$save = $this->db->query("INSERT INTO t_approval_csr set ".$data);
+				}
+				if ($value == 3){
+				$save = $this->db->query("UPDATE t_csr SET coo_approval = ".$value." where c_csr_no = ".$id);
+				$save = $this->db->query("UPDATE t_csr SET c_verify = 2 where c_csr_no = ".$id);
+				}
+			}else{
+				
+			} 
+		if($save){
+			return 1;
+		}
+	}
+
 
 
 	function sm_verification(){
