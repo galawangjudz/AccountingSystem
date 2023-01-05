@@ -235,7 +235,38 @@ Class Action {
 		}
 	}
 
+	function upload_file(){
 
+		extract($_FILES);
+		extract($_POST);
+		$getID = $_POST['id'];
+		$title = $_POST["title"];
+	
+		#	#retrieve file title
+		
+			
+		#file name with a random number so that similar dont get replaced
+		$pname = $_POST['getFileName'];
+		
+		#temporary file name to store file
+		#$tname = $_FILES["file"]["tmp_name"];
+		
+			#upload directory path
+		#$uploads_dir = 'attachments';
+		#TO move the uploaded file to specific location
+		#move_uploaded_file($tname, $uploads_dir.'/'.$pname);
+		
+		#sql query to insert into database
+		
+		$save = $this->db->query("INSERT into tbl_attachments(c_csr_no,title,name) VALUES('$getID','$title','".$pname."')");
+		
+		#$sql = "INSERT into tbl_attachments(c_csr_no,title,name) VALUES('$getID','$title','$pname')";
+		if($save){
+			return 1;
+		}
+		
+		 
+	}
 
 
 

@@ -45,6 +45,7 @@ header("location:index.php?page=dashboard");
     box-shadow: 2px 20px 20px #C0C0C0;
     width:30%;
     height:auto;
+    margin-left:35%;
 }
 </style>
 <body>  

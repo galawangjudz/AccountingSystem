@@ -27,7 +27,7 @@
         </li>
         <!-- Menu 1 -->
          <li class="treeview">
-          <a href="index.php?page=ra-list-new"><i class="fa-solid fa-clipboard"></i><span>&nbsp;&nbsp;Reservation Application</span></a>
+          <a href="index.php?page=ra-list"><i class="fa-solid fa-clipboard"></i><span>&nbsp;&nbsp;Reservation Application</span></a>
         </li>
         <?php } ?>
          <!-- Menu 1 -->

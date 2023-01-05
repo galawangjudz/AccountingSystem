@@ -2,6 +2,7 @@
   include('functions.php');
   
 ?>
+
 <h2>RA Sale List</h2>
 <hr>
 
@@ -57,6 +58,7 @@
 						$date_created=$row["c_date_created"];
 						$id=$row["c_csr_no"];
 						$lid = $row["c_lot_lid"];
+
 
 						$exp_date=new DateTime($row["c_duration"]);
 						$exp_date_str=$row["c_duration"];
@@ -173,15 +175,49 @@
 						<?php else: ?>
 							<td><span class="label label-danger"> --- </span></td>
 						<?php endif; ?>
-
+						<!-- <td class="text-center"><?php echo $row["title"] ?></td>
+						<td><button data-id='<?php echo $row["c_csr_no"]; ?>' class="attachment_name btn-link"><?php echo $row["title"]; ?></button></td>
+						<td><?php echo $row["date_uploaded"]; ?></td> -->
 						<td class="actions"><a href="?page=ra-view&id=<?php echo $row['c_csr_no'] ?>" data-ra-id="<?php $row['ra_id'] ?>" class="btn btn-primary btn-xs">View
 						<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
 					
 					</tr>	
 					<?php endwhile; ?>
+				</tbody>
+			</table>
 			</div>
 		</div>
 	</div>
 </div>
-
-
+<!-- 
+<div class="modal fade" id="a_modal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">User Info</h4>
+				<button type="button" class="close" data-dismiss="modal"></button>
+			</div>
+			<div class="modal-body">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div> -->
+<!-- <script type='text/javascript'>
+	$(document).ready(function(){
+		$('.attachment_name').click(function(){
+			var csrno=$(this).data('id');
+			$.ajax({
+				url:'ajaxfile.php',
+				type:'post',
+				data:{csrno:csrno},
+				success:function(response){
+					$('.modal-body').html(response);
+					$('#a_modal').modal('show');
+				}
+			})
+		});
+	});
+</script> -->

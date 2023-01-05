@@ -20,7 +20,11 @@ include('header.php');
 <style>
 
 	body{
-        background: #80808045;
+      background: #80808045;
+  }
+  .modal-title{
+      font-size:20px!important;
+      font-weight:bold;
   }
 </style>
 <body>
@@ -80,7 +84,7 @@ include('header.php');
     <div class="modal-dialog modal-md" role="document">
       <div class="modal-content">
         <div class="modal-header">
-        <h5 class="modal-title"></h5>
+        <div class="modal-title"></div>
       </div>
       <div class="modal-body">
       </div>
