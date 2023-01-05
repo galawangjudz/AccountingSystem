@@ -24,31 +24,13 @@ if($result) {
         $lot_id = $row['c_lot_lid'];
         $customer_date_of_sale = $row['c_date_of_sale'];
         // buyer
-        $customer_last_name_1 = $row['c_b1_last_name']; // customer last name
-        $customer_first_name_1 = $row['c_b1_first_name']; // customer first name
-        $customer_middle_name_1 = $row['c_b1_middle_name']; // customer middle name
-        $customer_last_name_2 = $row['c_b2_last_name']; // customer last name 2
-        $customer_first_name_2 = $row['c_b2_first_name']; // customer first name 2
-        $customer_middle_name_2 = $row['c_b2_middle_name']; // customer middle name 2
-
-        $cust_fullname1 = sprintf('%s, %s %s', $customer_last_name_1, $customer_first_name_1, $customer_middle_name_1); 
-        $cust_fullname2 = sprintf('%s, %s %s', $customer_last_name_2, $customer_first_name_2, $customer_middle_name_2); 
+        $customer_last_name_1 = $row['last_name']; // customer last name
+        $customer_first_name_1 = $row['first_name']; // customer first name
+        $customer_middle_name_1 = $row['middle_name']; // customer middle name
+    
+        $cust_fullname1 = sprintf('%s, %s %s', $customer_last_name_1, $customer_first_name_1, $customer_middle_name_1);  
         // more details
-        
-        $customer_address_1 = $row['c_address']; // customer address
-        $customer_city_prov= $row['c_city_prov']; // customer city_prov
-        $customer_zip_code = $row['c_zip_code']; // customer zip_code
-        $customer_address_2 = $row['c_address_abroad']; // customer address abroad
-
-        $birth_date = $row['c_birthday']; // customer birthday
-        $customer_age = $row['c_age']; // customer age
-
-        $customer_phone = $row['c_mobile_no']; // customer phone number
-        $customer_email = $row['c_email']; // customer civil status
-        $customer_viber= $row['c_viber_no']; // customer viber
-        $customer_gender = $row['c_sex']; // customer phone number
-        $civil_status = $row['c_civil_status']; // customer civil status
-        $employment_status = $row['c_employment_status']; // customer civil status
+      
         $csr_status = $row['c_csr_status'];// status
         if ($csr_status == 1){
             $csr_status = "Approved";
@@ -120,9 +102,9 @@ $mysqli->close();
 	.container-fluid p{
 		margin: unset
 	}
-	#uni_modal .modal-footer{
+ 	#uni_modal .modal-footer{
 		display: none;
-	}
+	} 
 </style>
 <div class="container-fluid">
     <table class="table table-striped table-hover table-bordered" id="data-table">
@@ -178,10 +160,11 @@ $mysqli->close();
     <button type="button" style="width:160px;margin-left:46px;margin-bottom:10px;" class="btn btn-danger btn-s ca_approved" csr-id ="<?php $csr_no ?>" value= 3>For Revision</button>
     </div>
 
-    <div class="col-md-5">
-        <button type="button" class="ca_approved" data-dismiss="modal" style="position:absolute;margin-top:-600px;margin-left:520px;border:none;background-color:transparent;"><i class='fa fa-close'></i></button>
+  <!--   <div class="col-md-5">
+        <button type="button" class="btn btn-secondary btn-s ca_approved" data-dismiss="modal">Close</button>
+
     </div>
-		
+		 -->
 
 </div>
 <script>

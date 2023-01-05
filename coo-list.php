@@ -44,7 +44,7 @@
 
 
     
-            <table class="table table-striped table-hover table-bordered" id="data-table" cellspacing="0">
+            <table class="display table table-striped table-hover table-bordered" id="" cellspacing="0">
                 <thead>
                     <tr>
 
@@ -67,12 +67,12 @@
                     $where = '';
                     if(isset($_GET['category_id'])  && $_GET['category_id'] != 'all'){
                   
-                        $where .= " where coo_approval = '".$_GET['category_id']."'  and c_verify = '1' ";
+                        $where .= " where coo_approval = '".$_GET['category_id']."'  and c_verify = '1' and c_revised = 0";
              
                     }
                     else{
                     
-                        $where .=  " where c_verify = 1 ";
+                        $where .=  " where c_verify = 1 and c_revised = 0";
                        
                     }
                     $csr = $mysqli->query("SELECT * FROM t_csr_view ".$where." order by c_date_updated asc");
@@ -85,7 +85,7 @@
                                 <td><?php echo $row['c_csr_no'] ?></td>
                                 <td class="text-center"><?php echo $row["c_created_by"] ?></td>
                                 <td><?php echo $row["c_acronym"]. ' Block ' .$row["c_block"] . ' Lot '.$row["c_lot"] ?></td>
-                                <td class="text-center"><?php echo $row["c_b1_last_name"]. ','  .$row["c_b1_first_name"] .' ' .$row["c_b1_middle_name"]?></td>
+                                <td class="text-center"><?php echo $row["last_name"]. ','  .$row["first_name"] .' ' .$row["middle_name"]?></td>
 
                                 <td class="text-right"><?php echo "P".number_format($row["c_net_tcp"], 2) ?></td>
                                 <td class="text-center"><?php echo $timeStamp ?> </td>
@@ -103,8 +103,10 @@
                             elseif($row['coo_approval'] == 2){ ?> 
                                 <td class="text-center"><span class="label label-default">Cancelled</span></td>
                             <?php } ?>
-
-                            <td class="actions"><a href="?page=csr-view&id=<?php echo $row["c_csr_no"] ?>" class="btn btn-info btn-xs">
+                            
+                            <td class="actions">
+                      
+                            <a href="?page=csr-view&id=<?php echo $row["c_csr_no"] ?>" class="btn btn-info btn-xs">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
 
                             <a data-csr-id="<?php echo $row['c_csr_no'] ?>" class="btn btn-danger btn-xs delete-csr">
@@ -149,7 +151,7 @@
 
 
     
-        <table class="table table-striped table-hover table-bordered" id="data-table" cellspacing="0">
+        <table class="display table table-striped table-hover table-bordered" id="" cellspacing="0">
             <thead>
                 <tr>
 
@@ -184,13 +186,14 @@
                 
                 while($row=$csr->fetch_assoc()):
                     $timeStamp = date( "m/d/Y", strtotime($row['c_date_updated']));
+                    
                 ?>
                         <tr>
                             <td><?php echo $i++ ?></td>
                             <td><?php echo $row['c_csr_no'] ?></td>
                             <td class="text-center"><?php echo $row["c_created_by"] ?></td>
                             <td><?php echo $row["c_acronym"]. ' Block ' .$row["c_block"] . ' Lot '.$row["c_lot"] ?></td>
-                            <td class="text-center"><?php echo $row["c_b1_last_name"]. ','  .$row["c_b1_first_name"] .' ' .$row["c_b1_middle_name"]?></td>
+                            <td class="text-center"><?php echo $row["last_name"]. ','  .$row["first_name"] .' ' .$row["middle_name"]?></td>
 
                             <td class="text-right"><?php echo "P".number_format($row["c_net_tcp"], 2) ?></td>
                             <td class="text-center"><?php echo $timeStamp ?> </td>
@@ -210,8 +213,9 @@
                         elseif($row['coo_approval'] == 2){ ?> 
                             <td class="text-center"><span class="label label-default">Cancelled</span></td>
                         <?php } ?>
-                        
-                        <td class="actions"><a href="?page=csr-view&id=<?php echo $row["c_csr_no"] ?>" class="btn btn-info btn-xs">
+                         <td class="actions">
+                  
+                        <a href="?page=csr-view&id=<?php echo $row["c_csr_no"] ?>" class="btn btn-info btn-xs">
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
 
                         <a data-csr-id="<?php echo $row['c_csr_no'] ?>" class="btn btn-danger btn-xs delete-csr">
@@ -235,6 +239,8 @@
 </body>
 
 <script>
+
+
 $('.delete-csr').click(function(){
 		_conf("Are you sure to delete this csr?","delete_csr",[$(this).attr('data-csr-id')])
 	})

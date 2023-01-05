@@ -18,33 +18,7 @@ if($result) {
     while ($row = mysqli_fetch_assoc($result)) {
         $csr_no = $row['c_csr_no'];
         $lot_id = $row['c_lot_lid'];
-        $customer_date_of_sale = $row['c_date_of_sale'];
-        // buyer
-        $customer_last_name_1 = $row['c_b1_last_name']; // customer last name
-        $customer_first_name_1 = $row['c_b1_first_name']; // customer first name
-        $customer_middle_name_1 = $row['c_b1_middle_name']; // customer middle name
-        $customer_last_name_2 = $row['c_b2_last_name']; // customer last name 2
-        $customer_first_name_2 = $row['c_b2_first_name']; // customer first name 2
-        $customer_middle_name_2 = $row['c_b2_middle_name']; // customer middle name 2
-
-        $cust_fullname1 = sprintf('%s, %s %s', $customer_last_name_1, $customer_first_name_1, $customer_middle_name_1); 
-        $cust_fullname2 = sprintf('%s, %s %s', $customer_last_name_2, $customer_first_name_2, $customer_middle_name_2); 
-        // more details
-        
-        $customer_address_1 = $row['c_address']; // customer address
-        $customer_city_prov= $row['c_city_prov']; // customer city_prov
-        $customer_zip_code = $row['c_zip_code']; // customer zip_code
-        $customer_address_2 = $row['c_address_abroad']; // customer address abroad
-
-        $birth_date = $row['c_birthday']; // customer birthday
-        $customer_age = $row['c_age']; // customer age
-
-        $customer_phone = $row['c_mobile_no']; // customer phone number
-        $customer_email = $row['c_email']; // customer civil status
-        $customer_viber= $row['c_viber_no']; // customer viber
-        $customer_gender = $row['c_sex']; // customer phone number
-        $civil_status = $row['c_civil_status']; // customer civil status
-        $employment_status = $row['c_employment_status']; // customer civil status
+       
         $coo_approval = $row['coo_approval'];// status
 
 
@@ -95,7 +69,7 @@ if($result) {
 
 }
 /* close connection */
-$mysqli->close();
+
 ?>
 
 <style>
@@ -133,6 +107,8 @@ $mysqli->close();
                        
                                 <a href="?page=csr-edit&id=<?php echo $getID; ?>" class="btn btn-primary">Edit <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
                                 <a href="?page=mail&id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
+                                <a href="print_ra.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                           
                                 <!-- <a href="print_ra.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a> -->
 
      
@@ -162,47 +138,60 @@ $mysqli->close();
                                 <?php if($verify == 0){?> 
                                     <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block sm-verification">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>                            
                                     <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="2" class="btn btn-danger btn-lg btn-block sm-verification2">Void <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>                            
-                                <!--                                    
-                                    <button type="button" id= "verify_btn" csr-id =<?php echo $getID; ?> value="1" class="btn btn-success btn-lg btn-block verify-btn">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
-                                    <button type="button" id= "cancel_btn" csr-id =<?php echo $getID; ?> value="2" class="btn btn-danger btn-lg btn-block void-btn">Void <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button> -->
                                 <?php } ?>
 
                                 <?php if($verify == 1 && $coo_approval == 0 && $usertype = "COO"){ ?>
-                                <!--     <button type="button" class="btn btn-primary" id="approved">Approved</button> -->
-                                    <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block coo-approval">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
-                                    <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="3" class="btn btn-danger btn-lg btn-block coo-approval2">COO DisApproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
+                                    <button type="button" data-csr-id =<?php echo $getID; ?> class="btn btn-success btn-lg btn-block new-coo-approval">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                   
+                                   <!--  <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block coo-approval">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
+                                     --><button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="3" class="btn btn-danger btn-lg btn-block coo-approval2">COO DisApproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
                                   
-                                    <!-- <button type="button" id= "coo_approval_btn" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block">COO Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
-                                     <button type="button" id= "dis_coo_approval_btn" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="3" class="btn btn-danger btn-lg btn-block">COO Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
-                                -->
+                                 
                                 <?php } ?>
 
                         
                     </div>
                     <div class="titles"> Buyer's Profile</div>
                         <br>
+                        <?php $query2 = "SELECT * FROM t_csr_buyers WHERE c_csr_no = '" . $mysqli->real_escape_string($getID) . "'";
+                        $result2 = mysqli_query($mysqli, $query2);
+                        if($result2) {
+                            while ($row = mysqli_fetch_assoc($result2)) { 
+                                $buyer_count = $row['c_buyer_count']; // customer buyers no
+                                $customer_last_name_1 = $row['last_name']; // customer last name
+                                $customer_suffix_name_1 = $row['suffix_name']; // customer suffix name
+                                $customer_first_name_1 = $row['first_name']; // customer first name
+                                $customer_middle_name_1 = $row['middle_name']; // customer middle name
+                                $cust_fullname1 = sprintf('%s %s, %s %s', $customer_last_name_1, $customer_suffix_name_1, $customer_first_name_1, $customer_middle_name_1); 
+                                $customer_address_1 = $row['address']; // customer address
+                                $customer_zip_code = $row['zip_code']; // customer zip_code
+                                $customer_address_2 = $row['address_abroad']; // customer address abroad
+                        
+                                $birth_date = $row['birthdate']; // customer birthday
+                                $customer_age = $row['age']; // customer age
+                        
+                                $customer_phone = $row['contact_no']; // customer phone number
+                                $customer_email = $row['email']; // customer civil status
+                                $customer_viber= $row['viber']; // customer viber
+                                $customer_gender = $row['gender']; // customer phone number
+                                $civil_status = $row['civil_status']; // customer civil status
+
+                        ?>
                         <div class="view_box">
                             <div class="float-left col-xs-12">
                                 <table class="table table-striped">
                                     <tr>
-                                        <td><b>Date of Sale: </b></td>
-                                        <td><?php echo $customer_date_of_sale ?></td>
+                                        <td><b>Buyer No: </b></td>
+                                        <td><?php echo $buyer_count ?></td>
                                     </tr>
                                     <tr>
                                         <td><b>Buyer's Full Name:</b></td>
                                         <td><?php echo $cust_fullname1 ?></td>
                                     </tr>
-                                    <tr>
-                                        <td><b>2nd Buyer's Full Name:</b></td>
-                                        <td><?php echo $cust_fullname2 ?></td>
-                                    </tr>
+                                 
                                     <tr>
                                         <td><b>Address 1:</b></td>
                                         <td><?php echo $customer_address_1 ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>City Province :</b></td>
-                                        <td><?php echo $customer_city_prov ?></td>
                                     </tr>
                                     <tr>
                                         <td><b>Zipcode : </b></td>
@@ -240,30 +229,18 @@ $mysqli->close();
                                         <td><b>Civil Status:</b></td>
                                         <td><?php echo $civil_status ?></td>
                                     </tr>
-                                    <tr>
-                                        <td><b>Employment Status:</b></td>
-                                        <td><?php echo $employment_status ?></td>
-                                    </tr>
-                           
-                               <!--      <tr>
-                                        <td> <label id="lblupdatestatus3">COO Approval: </label> </td>
-                                        <td> <?php echo $csr_status ?> </span>
-                                    
-                                    </tr>
-                                    <tr> 
-                                        <td><b>Reservation Status:</b></td>
-                                        <td><?php echo $reserv_status ?></td>
-                                    </tr>
-                                    <tr>
-                                        <div class="lbl_box2">
-                                        <td> <label id="lblupdatestatus3">CA Approval: </label> </td>
-                                        <td> <?php echo $ca_status ?>
-                                        </div>
-                                    </tr> -->
+                                  
                                 </table> 
+                               
                             </div>       
                         </div>
                         <br>
+                        <div class="space"></div>
+                        <?php 
+                               
+                            }} 
+                            $mysqli->close();?>
+                       
                         <div class="space"></div>
                         <div class="space"></div>
                         <div class="titles">Investment Value</div>
@@ -586,51 +563,21 @@ $mysqli->close();
         </div>
     </div>
 </div>
-<!-- 
-<div id="update_stat" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Update Status</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to change the status to <input type="text" name="upstat" id="upstat" value="" readonly/>?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" data-dismiss="modal" class="btn btn-primary" id="confirm">Confirm</button>
-		<button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
-
- -->
-<div id="verify_stat" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Verify Status</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to verify CSR?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" data-dismiss="modal" class="btn btn-primary" id="verify">Confirm</button>
-		<button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-</div>
 
 </body>
 
 <script>
+
+    
+    $('.new-coo-approval').click(function(){   
+        uni_modal('Coo Approval','approval_setting.php?id='+$(this).attr('data-csr-id'))
+    })
+
+
+
     $('.coo-approval').click(function(){
 		_conf("Are you sure to approved this csr?","coo_approval",[$(this).attr('csr-id'),$(this).attr('csr-lot-lid'),$(this).attr('value')])
-	})
+	}) 
 
     $('.coo-approval2').click(function(){
 		_conf("Are you sure to disapproved this csr?","coo_approval",[$(this).attr('csr-id'),$(this).attr('csr-lot-lid'),$(this).attr('value')])

@@ -32,7 +32,7 @@
 	<div class="col-xs-12">
 		<div class="panel panel-default">
 		 <div class="panel-body form-group form-group-sm">  
-		  <table class="table table-striped table-hover table-bordered" id="data-table">
+		  <table class="display table table-striped table-hover table-bordered" id="">
 		  <thead>
 			  <tr>
 				  <th>RA No.</th>
@@ -77,7 +77,7 @@
 						<td class="text-center"><?php echo $row["ra_id"] ?></td>
 						<td class="text-center"><?php echo $row["c_csr_no"] ?></td>
 						<td class="text-center"><?php echo $row["c_acronym"]. ' Block ' .$row["c_block"] . ' Lot '.$row["c_lot"] ?></td>
-						<td class="text-center"><?php echo $row["c_b1_last_name"]. ','  .$row["c_b1_first_name"] .' ' .$row["c_b1_middle_name"]?></td>
+						<td class="text-center"><?php echo $row["last_name"]. ','  .$row["first_name"] .' ' .$row["middle_name"]?></td>
 
 
 
@@ -112,13 +112,14 @@
 						var distance<?php echo $id ?> = countDownDate<?php echo $id ?> - now<?php echo $id ?>;
 						
 						// Time calculations for hours, minutes and seconds
+						var days<?php echo $id ?> = Math.floor(distance<?php echo $id ?> / (1000 * 60 * 60 * 24));
 						var hours<?php echo $id ?> = Math.floor((distance<?php echo $id ?> % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 						var minutes<?php echo $id ?> = Math.floor((distance<?php echo $id ?> % (1000 * 60 * 60)) / (1000 * 60));
 						var seconds<?php echo $id ?> = Math.floor((distance<?php echo $id ?> % (1000 * 60)) / 1000);
 							
 						
 						// Display the result in the element with id="demo"
-						document.getElementById("demo<?php echo $id ?>").innerHTML = " Time Left:" + hours<?php echo $id ?> + "h " + minutes<?php echo $id?> + "m " + seconds<?php echo $id ?> + "s ";
+						document.getElementById("demo<?php echo $id ?>").innerHTML = " Time Left: " + days<?php echo $id ?>+ "d " + hours<?php echo $id ?> + "h " + minutes<?php echo $id?> + "m " + seconds<?php echo $id ?> + "s ";
 						
 						// If the count down is finished, write some text
 						if (distance<?php echo $id ?> < 0) {

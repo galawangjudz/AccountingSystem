@@ -18,17 +18,29 @@
         <li class="treeview">
           <a href="index.php?page=customer-list"><i class="fa fa-users"></i> <span>Clients</span></a>
         </li>
+       
         <li class="treeview">
           <a href="index.php?page=sm-list"><i class="fa-solid fa-file-text"></i><span>&nbsp;&nbsp;Sales And Marketing</span></a>
         </li>
 
         <li class="treeview">
-          <a href="index.php?page=coo-list"><i class="fa-solid fa-file"></i><span>&nbsp;&nbsp;COO For Approval</span></a>
+          <a href="index.php?page=coo-list"><i class="fa-solid fa-file"></i><span>COO For Approval</span></a>
         </li>
-        <!-- Menu 1 -->
-         <li class="treeview">
-          <a href="index.php?page=ra-list"><i class="fa-solid fa-clipboard"></i><span>&nbsp;&nbsp;Reservation Application</span></a>
+     
+
+        <li class="treeview">
+
+           <a href="index.php?page=ra-list"><i class="fa-solid fa-file-text"></i><span>All Status</span></a>
         </li>
+        <?php } ?>
+
+        <?php if ($usertype == 'IT Admin' || $usertype == 'Cashier'){ ?>
+             <!-- Menu 1.2 -->
+        <li class="treeview">
+          <a href="index.php?page=reservation-list"><i class="fa fa-calendar-check"></i><span>Reservation</span></a>
+
+        </li>
+
         <?php } ?>
          <!-- Menu 1 -->
          <?php if ($usertype == 'IT Admin' || $usertype == 'CA'){ ?>
@@ -37,13 +49,7 @@
         </li>
         <?php } ?>
        
-        <?php if ($usertype == 'IT Admin' || $usertype == 'Cashier'){ ?>
-             <!-- Menu 1.2 -->
-        <li class="treeview">
-          <a href="index.php?page=reservation-list"><i class="fa fa-calendar-check"></i><span>Reservation</span></a>
-        </li>
-
-        <?php } ?>
+       
         <?php if ($usertype == 'IT Admin'){ ?>
         <!-- Menu 2 -->
          <li class="treeview">

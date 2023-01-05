@@ -4,9 +4,6 @@ include('functions.php');
 
 $getID = $_GET['id'];
 
-
-
-
 // Connect to the database
 $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
 
@@ -25,32 +22,7 @@ if($result) {
 
 while ($row = mysqli_fetch_assoc($result)) {
 
-	$customer_date_of_sale = $row['c_date_of_sale'];
-	// buyer
-	$customer_last_name_1 = $row['c_b1_last_name']; // customer last name
-	$customer_first_name_1 = $row['c_b1_first_name']; // customer first name
-	$customer_middle_name_1 = $row['c_b1_middle_name']; // customer middle name
-	$customer_last_name_2 = $row['c_b2_last_name']; // customer last name 2
-	$customer_first_name_2 = $row['c_b2_first_name']; // customer first name 2
-	$customer_middle_name_2 = $row['c_b2_middle_name']; // customer middle name 2
 
-	// more details
-	
-	$customer_address_1 = $row['c_address']; // customer address
-	$customer_address_abroad = $row['c_address_abroad']; // customer address
-	$customer_city_prov= $row['c_city_prov']; // customer city_prov
-	$customer_zip_code = $row['c_zip_code']; // customer zip_code
-	$customer_address_2 = $row['c_address_abroad']; // customer address abroad
-
-	$birth_date = $row['c_birthday']; // customer birthday
-	$customer_age = $row['c_age']; // customer age
-
-	$customer_phone = $row['c_mobile_no']; // customer phone number
-	$customer_email = $row['c_email']; // customer email
-	$customer_viber= $row['c_viber_no']; // customer viber
-	$customer_gender = $row['c_sex']; // customer gender
-	$civil_status = $row['c_civil_status']; // customer civil status
-	$employment_status = $row['c_employment_status']; // customer employement status
 
 	$lot_id = $row['c_lot_lid'];
 	$lot_area = $row['c_lot_area'];
@@ -97,7 +69,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 
 /* close connection */
-$mysqli->close();
+
 
 ?>
 
@@ -131,7 +103,7 @@ $mysqli->close();
 		document.getElementById('Buyer').style.display="block";
 		
 		var l_payment_type1 = $('.payment-type1').val();
-		$('#payment_type2').removeAttr('disabled');
+	/* 	$('#payment_type2').removeAttr('disabled'); */
 		$('#loan_text').text("Amount to be financed :");
 		$('#down_frm').show();
 		$('#monthly_frm').show();
@@ -144,7 +116,7 @@ $mysqli->close();
 		$('#ma_text').text("Monthly Amortization ");
 		//alert(l_payment_type1);
 		if (l_payment_type1 == "Spot Cash"){
-			$('#payment_type2').attr('disabled','disable');
+	/* 		$('#payment_type2').attr('disabled','disable'); */
 			$('#down_frm').hide();
 			$('#monthly_frm').hide();
 			$('#down_text').hide();
@@ -257,189 +229,267 @@ $mysqli->close();
 		<form method="post" id="update_csr">
 			<input type="hidden" name="action" value="update_csr">
 			<input type="hidden" name="update_id" value="<?php echo $getID; ?>">
-			
-			<div id="Buyer" class="tabcontent">
-	<!-- 	<form method="post" id="create_csr">
-			<input type="hidden" name="action" value="create_csr"> -->
+			<input type="hidden" name="username" value="<?php echo  $_SESSION['username'] ?>">
+            <div id="Buyer" class="tabcontent">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<div class="titles">Buyer's Information Details</div>
-							
 							<div class="clear"></div>
 						</div>
-						<div class="panel-body form-group form-group-sm">
-						<div class="main_box">
-						<div class="row">
-							<div class="col-xs-6">		
-								<label class="control-label">Date of Sale: </label>
-								<div class="input-group date margin-bottom" id="dos">
-									<input type="text" class="form-control required date-of-sale" id ="date_of_sale" name = "date_of_sale" tabindex =1 value="<?php echo $customer_date_of_sale; ?>" />
-									<span class="input-group-addon">
-										<span class="glyphicon glyphicon-calendar"></span>
-									</span>
-								</div>
-							</div>
-							<div class="col-xs-6">
-								<label class="control-label">CSR No: <label>
-								<div class="input-group col-xs-12">
-									<span class="input-group-addon">#<?php echo CSR_PREFIX ?></span>
-									<input type="text" name="csr_id" id="csr_id" class="form-control required" aria-describedby="sizing-addon1" tabindex =2 value=" <?php echo $getID; ?>">
-								</div>
-							</div>
-						</div>
-						<hr>
-						<div class="row">
-							<div class="col-xs-4">		
-								<div class="form-group">
-								<label class="control-label">Last Name: </label>
-									<input type="text" class="form-control margin-bottom required" name="customer_last_name_1" id="customer_last_name_1" placeholder="Buyer 1 Last Name" tabindex="3" value="<?php echo $customer_last_name_1; ?>">
-								</div>
-								<div class="form-group">
-									<input type="text" class="form-control margin-bottom" name="customer_last_name_2" id="customer_last_name_2" placeholder="Buyer 2 Last Name" tabindex="6" value="<?php echo $customer_last_name_2; ?>">	
-								</div>
-							</div>
-							<div class="col-xs-4">
-								<div class="form-group">
-									<label class="control-label">First Name: </label>
-									<input type="text" class="form-control margin-bottom required" name="customer_first_name_1" id="customer_first_name_1" placeholder="Buyer 1 First Name" tabindex="5" value="<?php echo $customer_first_name_1; ?>">
-								</div>
-								<div class="form-group">
-									<input type="text" class="form-control margin-bottom" name="customer_first_name_2" id="customer_first_name_2" placeholder="Buyer 2 First Name" tabindex="7" value="<?php echo $customer_first_name_2; ?>">	
-								</div>	
-							</div>
-							<div class="col-xs-4">
-								<div class="form-group">
-									<label class="control-label">Middle Name: </label>
-									<input type="text" class="form-control margin-bottom" name="customer_middle_name_1" id="customer_middle_name_1" placeholder="Buyer 1 Middle Name" tabindex="5" value="<?php echo $customer_middle_name_1; ?>">
-								</div>
-								<div class="form-group">
-									<input type="text" class="form-control margin-bottom" name="customer_middle_name_2" id="customer_middle_name_2" placeholder="Buyer 2 Middle Name" tabindex="8" value="<?php echo $customer_middle_name_2; ?>">	
-								</div>
-							</div>
-						</div>
-	  						<hr>
-							<div class="row">
-								<div class="col-xs-4">
-									<div class="form-group">
-										<label class="control-label">Address in the Philippines (Required): </label>
-										<input type="text" class="form-control margin-bottom required" name="customer_address_1" id="customer_address_1" tabindex="9" value="<?php echo $customer_address_1; ?>">
-									</div>
-								</div>
-								<div class="col-xs-4">
-									<div class="form-group">
-										<label class="control-label">City/Province: </label>
-										<input type="text" class="form-control margin-bottom required" name="customer_city_prov" id="customer_city_prov" tabindex="10" value="<?php echo $customer_city_prov; ?>">
-									</div>	
-								</div>
-								<div class="col-xs-4">
-									<div class="form-group">
-										<label class="control-label">Zip Code: </label>
-										<input type="text" class="form-control margin-bottom required" name="customer_zip_code" id="customer_zip_code" tabindex="11" value="<?php echo $customer_zip_code; ?>">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-xs-8">
-									<div class="form-group">
-										<label class="control-label">Address Abroad (if any): </label>
-										<input type="text" class="form-control margin-bottom" name="customer_address_2" id="customer_address_2" tabindex="12" value="<?php echo $customer_address_2; ?>">
-									</div>
-								</div>
-								<div class="col-xs-3">
-									<div class="form-group">
-										<label class="control-label">Birthdate: </label>
-										<div class="input-group date margin-bottom" id="birth_date">
-											<input type="text" class="form-control birth_day required" name="birth_day" id = "birth_day" placeholder="YYYY-MM-DD"  tabindex ="13" data-date-format="<?php echo DATE_FORMAT ?>" value="<?php echo $birth_date; ?>" >		
-											<span class="input-group-addon">
-												<span class="glyphicon glyphicon-calendar"></span>
-											</span>
-										</div>	
-									</div>
-								</div>
-								<div class="col-xs-1">
-									<div class="form-group">
-										<label class="control-label">Age: </label>
-										<input type="text" class="form-control margin-bottom required" name="customer_age" id="customer_age" tabindex="14" value="<?php echo $customer_age; ?>">
-									</div>
-								</div>	
-							</div>
-	  						<hr>
-							<div class="row">
-								<div class="col-xs-4">
-									<div class="form-group">
-										<label class="control-label">Contact Number: </label>
-										<input type="text" class="form-control margin-bottom required" name="customer_phone" id="customer_phone" tabindex="15" value="<?php echo $customer_phone; ?>">
-									</div>	
-								</div>
-								<div class="col-xs-4">
-									<div class="form-group">
-										<label class="control-label">Viber Account: </label>
-										<input type="text" class="form-control margin-bottom" name="customer_viber" id="customer_viber" tabindex="16" value="<?php echo $customer_viber; ?>">
-									</div>
-								</div>
-								<div class="col-xs-4">
-									<div class="form-group">
-										<label class="control-label">Email Address: </label>
-										<div class="input-group float-right margin-bottom">
-											<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-											<input type="text" class="form-control margin-bottom required" name="customer_email" id="customer_email" tabindex="17" value="<?php echo $customer_email; ?>">
+					<div class="panel-body form-group form-group-sm">
+						<table class="table table-bordered table-hover table-striped" id="buyer_table">
+							<thead>
+								<tr>
+									<th width="100">
+                                        <h4><a href="#" class="btn btn-success btn-xs add-buyer-row"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> Add Buyers</h4>
+									</th>
+                                    <th width="800">
+                                        <h4>Buyer's Details</h4>
+                                    </th>
+								</tr>
+							</thead>
+							<tbody>
+                            <?php
+                               
+
+                                $getID = $_GET['id'];
+
+                                // Connect to the database
+                                $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+
+                                // output any connection error
+                                if ($mysqli->connect_error) {
+                                    die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
+                                }
+
+                                // the query
+                                $query2 = "SELECT * FROM t_csr_buyers WHERE c_csr_no = '" . $mysqli->real_escape_string($getID) . "'";
+
+                                $result2 = mysqli_query($mysqli, $query2);
+
+                                // mysqli select query
+                                if($result2) {
+
+                                while ($row = mysqli_fetch_assoc($result2)) {
+                                    $buyer_count = $row['c_buyer_count']; // customer buyers no
+                                    $customer_last_name_1 = $row['last_name']; // customer last name
+                                    $customer_suffix_name_1 = $row['suffix_name']; // customer suffix name
+                                    $customer_first_name_1 = $row['first_name']; // customer first name
+                                    $customer_middle_name_1 = $row['middle_name']; // customer middle name
+                                    $customer_address_1 = $row['address']; // customer address
+                                    $customer_zip_code = $row['zip_code']; // customer zip_code
+                                    $customer_address_abroad = $row['address_abroad']; // customer address abroad
+                                    $citizenship = $row['citizenship'];
+                                    $id_presented = $row['id_presented'];
+                                    $tin_no = $row['tin_no'];
+                                    $birth_date = $row['birthdate']; // customer birthday
+                                    $customer_age = $row['age']; // customer age
+                                        
+                                    $contact_no = $row['contact_no']; // customer phone 
+                                    $contact_abroad = $row['contact_abroad']; // customer phone number
+                                    $customer_email = $row['email']; // customer civil status
+                                    $customer_viber= $row['viber']; // customer viber
+                                    $customer_gender = $row['gender']; // customer phone number
+                                    $civil_status = $row['civil_status']; // customer civil status
+
+                                    $civil_status = $row['civil_status']; // customer civil status
+                                    $relationship = $row['relationship'];
+                                ?>
+
+								<tr>
+									<td>
+										<div class="form-group form-group-sm  no-margin-bottom">
+                                            <a href="#" class="btn btn-danger btn-xs delete-buyer-row"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+									   
+                                            <p class="select-customer"> <a href="#" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> select a buyer</a></p>
+								
 										</div>
-									</div>
-								</div>
-							</div>
-							<hr>
-							<div class="row">
-								<div class="col-xs-4">
-									<div class="form-group">
-										<style>
-											select:invalid { color: gray; }
-										</style>
-										<label class="control-label">Gender: </label>
-										<select name="customer_gender" id="customer_gender" class="form-control" tabindex = "18" require>
-												<option value="M" <?php if($customer_gender === 'M'){?>selected<?php }?>>Male</option>
-												<option value="F" <?php if($customer_gender === 'F'){?>selected<?php }?>>Female</option>
-										</select>
-									
-									</div>
-								</div>
-								<div class="col-xs-4">
-									<label class="control-label">Civil Status: </label>
-									<style>
-										select:invalid { color: gray; }
-									</style>
-									
-									<select name="civil_status" id="civil_status" class="form-control" tabindex = "19"required>
-											<option value="Single" <?php if($civil_status === 'Single'){?>selected<?php }?>>Single</option>
-											<option value="Married" <?php if($civil_status === 'Married'){?>selected<?php }?>>Married</option>
-											<option value="Divorced" <?php if($civil_status === 'Divorced'){?>selected<?php }?>>Divorced</option>
-											<option value="Widowed" <?php if($civil_status === 'Widowed'){?>selected<?php }?>>Widowed</option>
-									</select>
-							
-								</div>
-								<div class="col-xs-4">
-									<label class="control-label">Employment Status: </label>
-									<style>
-										select:invalid { color: gray; }
-									</style>
-									<select name="employment_status" id="employment_status" class="form-control required" tabindex = "20" required >
-										<option value="Employed" <?php if($employment_status === 'Employed'){?>selected<?php }?>>Employed</option>
-										<option value="Self-mployed" <?php if($employment_status === 'Self-Employed'){?>selected<?php }?>>Self Employed</option>
-										<option value="OCW" <?php if($employment_status === 'OCW'){?>selected<?php }?>>OCW</option>
-										<option value="Retired" <?php if($employment_status === 'Retired'){?>selected<?php }?>>Retired</option>
-										<option value="Others" <?php if($employment_status === 'Others'){?>selected<?php }?>>Others</option>
-										
-									</select>
-									
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+									</td>
+									<td>
+                                        <div class="main_box">
+                                            <div class="row">
+                                                <div class="col-xs-3">		
+                                                    <div class="form-group">
+                                                    <label class="control-label">Last Name: </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-last required" name="last_name[]" value="<?php echo $customer_last_name_1 ?>" >
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="col-xs-3">		
+                                                    <div class="form-group">
+                                                    <label class="control-label">Suffix Name: </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-suffix" name="suffix_name[]" value="<?php echo $customer_suffix_name_1 ?>">
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">First Name: </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-first required" name="first_name[]" value="<?php echo $customer_first_name_1 ?>" >
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Middle Name: </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-middle" name="middle_name[]" value="<?php echo $customer_middle_name_1 ?>">
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Citizenship: </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-ctzn required" name="citizenship[]" value="<?php echo $citizenship ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <label class="control-label">Civil Status: </label>
+                                                    <style>
+                                                        select:invalid { color: gray; }
+                                                    </style>
+                                                    <select name="civil_status[]" id="civil_status" class="form-control buyer-civil required">
+                                                    
+                                                    <option value="Single" <?php if($civil_status === 'Single'){?>selected<?php }?>>Single</option>
+                                                    <option value="Married" <?php if($civil_status === 'Married'){?>selected<?php }?>>Married</option>
+                                                    <option value="Divorced" <?php if($civil_status === 'Divorced'){?>selected<?php }?>>Divorced</option>
+                                                    <option value="Widowed" <?php if($civil_status === 'Widowed'){?>selected<?php }?>>Widowed</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <div class="form-group">
+                                                        <style>
+                                                            select:invalid { color: gray; }
+                                                        </style>
+                                                        <label class="control-label">Gender: </label>
+                                                        <select name="gender[]" id="customer_gender" class="form-control buyer-gender required">
+                                                            
+                                                            <option value="M" <?php if($customer_gender === 'M'){?>selected<?php }?>>Male</option>
+                                                            <option value="F" <?php if($customer_gender === 'F'){?>selected<?php }?>>Female</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xs-2">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Birthdate: </label>
+                                                        <div class="input-group date margin-bottom" id="birth_date">
+                                                            <input type="text" class="form-control buyer-bday required" name="birth_day[]" value="<?php echo $birth_date ?>" placeholder="YYYY-MM-DD" data-date-format="<?php echo DATE_FORMAT ?>" >		
+                                                            <span class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                        </div>	
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Age: </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-age required" name="age[]" value="<?php echo $customer_age ?>">
+                                                    </div>
+                                                </div>	
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Type of Valid ID Presented: </label>
+                                                        <input type="text" class="form-control margin-bottom" name="id_presented[]" value="<?php echo $id_presented ?>">
+                                                    </div>	
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Tin #: </label>
+                                                        <input type="text" class="form-control margin-bottom" name="tin_no[]" value="<?php echo $tin_no ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Contact Number: </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-contact required" name="contact_no[]" value="<?php echo $contact_no ?>">
+                                                    </div>	
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Viber Account: </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-viber" name="viber[]" value="<?php echo $customer_viber ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Email Address: </label>
+                                                        <div class="input-group float-right margin-bottom">
+                                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                            <input type="text" class="form-control margin-bottom buyer-email required" name="email[]" value="<?php echo $customer_email ?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-xs-9">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Residential/Billing Address: </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-address required" name="address[]" value="<?php echo $customer_address_1 ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Area Code : </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-zipcode required" name="zip_code[]" value="<?php echo $customer_zip_code ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Address Abroad (if any): </label>
+                                                        <input type="text" class="form-control margin-bottom buyer-add-abroad" name="address_abroad[]" value="<?php echo $customer_address_abroad ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Contact Number Abroad : </label>
+                                                        <input type="text" class="form-control margin-bottom" name="contact_abroad[]" value="<?php echo $contact_abroad ?>">
+                                                    </div>
+                                                </div>
+                                            </div>  
+
+										 	<div class="col-xs-2">
+												<div class="form-group">
+													<style>
+														select:invalid { color: gray; }
+													</style>
+													<label class="control-label">Relationship: </label>
+													<select name="relationship[]" id="relationship" class="form-control required">
+															<option name="customer_gender" value="0" <?php if($relationship === '0'){?>selected<?php }?>>None</option>
+															<option name="customer_gender" value="1" <?php if($relationship === '1'){?>selected<?php }?>>And</option>
+															<option name="customer_gender" value="2" <?php if($relationship === '2'){?>selected<?php }?>>Spouses</option>
+															<option name="customer_gender" value="3" <?php if($relationship === '3'){?>selected<?php }?>>Married To</option>
+															<option name="customer_gender" value="4" <?php if($relationship === '4'){?>selected<?php }?>>Minor/Represented by Legal Guardian</option>
+													</select>
+												</div>
+											</div>
+                                        </div>
+
+                                    </td>	
+								</tr>
+                                <?php
+                                }}
+
+                                $mysqli->close();
+
+                                ?>
+							</tbody>
+						</table>
+				    </div>
+			    </div>
+		    </div>
+	    </div>
+    </div>
+   
+	
 			<div id="Investment" class="tabcontent">
 				<div class="row">
 					<div class="col-xs-12">
@@ -721,7 +771,7 @@ $mysqli->close();
 											select:invalid { color: gray; }
 										</style>
 									
-										<select name="payment_type1" id="payment_type1" class="form-control required payment-type1" id= "payment_type1" tabindex = "2">
+										<select name="payment_type1" id="payment_type1" class="form-control required payment-type1" tabindex = "2">
 											<option name="payment_type1" value="Partial DownPayment" <?php if($payment_type1 === 'Partial DownPayment'){ ?> selected <?php }?>>Partial DownPayment</option>
 											<option name="payment_type1" value="Full DownPayment" <?php if($payment_type1 === 'Full DownPayment'){?>selected<?php }?>>Full DownPayment</option>
 											<option name="payment_type1" value="No DownPayment" <?php if($payment_type1 === 'No DownPayment'){?>selected<?php }?>>No DownPayment</option>
@@ -739,6 +789,7 @@ $mysqli->close();
 												select:invalid { color: gray; }
 											</style>
 											<select name="payment_type2" id="payment_type2" class="form-control required payment-type2" tabindex = "3" >
+												<option name="payment_type2" value="None" <?php if($payment_type2 === 'None'){?>selected<?php }?>>None</option>
 												<option name="payment_type2" value="Monthly Amortization" <?php if($payment_type2 === 'Monthly Amortization'){?>selected<?php }?>>Monthly Amortization</option>
 												<option name="payment_type2" value="Deferred Cash Payment" <?php if($payment_type2 === 'Deferred Cash Payment'){?>selected<?php }?>>Deferred Cash Payment</option>
 											</select>	
@@ -759,14 +810,14 @@ $mysqli->close();
 											<input type="text" class="form-control margin-bottom required monthly-down" name="monthly_down" id="monthly_down" placeholder="Monthly Down" tabindex="7" value="<?php echo $monthly_down; ?>">
 											<label class="control-label">First DP: </label>
 											<div class="input-group date margin-bottom" id="down_start_date">
-												<input type="text" class="form-control required first-dp-date" name="first_dp_date" id = "first_dp_date" placeholder="First DP Date" tabindex ="8" data-date-format="<?php echo DATE_FORMAT ?>" value="<?php echo $first_dp; ?>"/>
+												<input type="text" class="form-control first-dp-date" name="first_dp_date" id = "first_dp_date" placeholder="First DP Date" tabindex ="8" data-date-format="<?php echo DATE_FORMAT ?>" value="<?php echo $first_dp; ?>"/>
 												<span class="input-group-addon">
 													<span class="glyphicon glyphicon-calendar"></span>
 												</span>
 											</div>
 											<label class="control-label">Full Down: </label>
 											<div class="input-group date margin-bottom" id="down_end_date">
-												<input type="text" class="form-control required full-down-date" name="full_down_date" id = "full_down_date" placeholder="Full Down Date" tabindex ="9" data-date-format="<?php echo DATE_FORMAT ?>" value="<?php echo $full_down; ?>"/>
+												<input type="text" class="form-control full-down-date" name="full_down_date" id = "full_down_date" placeholder="Full Down Date" tabindex ="9" data-date-format="<?php echo DATE_FORMAT ?>" value="<?php echo $full_down; ?>"/>
 												<span class="input-group-addon">
 													<span class="glyphicon glyphicon-calendar"></span>
 												</span>
@@ -912,7 +963,7 @@ $mysqli->close();
 									</div>
 								</div>
 								<div class="col-xs-12 margin-top btn-group">
-									<input type="submit" id="action_update_csr" class="btn btn-success float-right btn-l" value="Update CSR" data-loading-text="Creating...">
+									<input type="submit" id="update_csr" class="btn btn-success float-right btn-l" value="Update CSR" data-loading-text="Creating...">
 								</div>
 
 							</div>
@@ -953,9 +1004,7 @@ $mysqli->close();
 			<h4 class="modal-title">Select Lot</h4>
 		</div>
 		<div class="modal-body">
-				<!-- <input type="text" name="l_code" id="hide_code" value="" >
-				<input type="text" name="l_blk" id="hide_blk" value="" >
-				<input type="text" name="l_lot" id="hide_lot" value="" > -->
+		
 			<?php				
 				popLotsList();
 			?>
@@ -1034,5 +1083,92 @@ $mysqli->close();
 		document.getElementById('onlink3').style.backgroundColor="#f1f1f1c";
 		document.getElementById('onlink4').style.backgroundColor="#ccc";
 	}
+
+
+	
+
+	function validateForm() {
+	    // error handling
+	    var errorCounter = 0;
+
+	    $(".required").each(function(i, obj) {
+
+	        if($(this).val() === ''){
+	            $(this).parent().addClass("has-error");
+	            errorCounter++;
+	        } else{ 
+	            $(this).parent().removeClass("has-error"); 
+	        }
+
+	    });
+		
+	    return errorCounter;
+
+	}
+
+	$('#update_csr').submit(function(e){
+		e.preventDefault();
+	 	start_load() 
+		var errorCounter = validateForm();
+		if (errorCounter > 0) {
+			/* alert("It appear's you have forgotten to complete something!","warning");	 */
+			$("#response .message").html("<strong>" + "Warning" + "</strong>: " + "It appear's you have forgotten to complete something!");
+			$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();  
+            end_load()
+		}else{
+
+			$(".required").parent().removeClass("has-error")
+			
+			$.ajax({
+				url:'ajax.php?action=update_csr',
+				method:'POST',
+				data:$(this).serialize(),
+				success:function(resp){
+					if(resp == 1){
+                        $("#response .message").html("<strong>" + "Success" + "</strong>: " + "Data successfully saved");
+						$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+						$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+                        setTimeout(function(){
+							$(".modal").removeClass("visible");
+							$(".modal").modal('hide');
+							end_load()
+						},1500)
+
+						setTimeout(function(){
+							location.reload()
+						},3000)
+					}
+					else{
+                        console.log()
+                        $("#response .message").html("<strong> Error  </strong>:"  + "Data unsuccessfully saved");
+						$("#response").removeClass("alert-success").addClass("alert-danger").fadeIn();
+						$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+                        setTimeout(function(){
+							$(".modal").removeClass("visible");
+							$(".modal").modal('hide');
+							end_load()
+						},1500)
+
+						setTimeout(function(){
+							location.reload()
+						},3000)
+				}
+			},
+			error:err=>{
+				console.log()
+				alert("An error occured")
+			}
+			})
+		}
+	})
+
+
+
+
+
+
+
+
+
 
 </script>

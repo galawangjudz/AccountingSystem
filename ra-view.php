@@ -13,7 +13,6 @@ if ($mysqli->connect_error) {
 // the query
 $query = "SELECT x.*, y.ra_id, y.c_csr_status, y.c_reserve_status, y.c_ca_status, y.c_duration, y.c_csr_no as csr_num FROM t_approval_csr y inner join t_csr x on x.c_csr_no = y.c_csr_no WHERE y.c_csr_no = '" . $mysqli->real_escape_string($getID) . "'";
  
-/* $query = "SELECT * FROM t_approval_csr y inner join t_csr_view x on y.c_csr_no = x.c_csr_no WHERE y.ra_id = '" . $mysqli->real_escape_string($getID) . "'"; */
 
 $result = mysqli_query($mysqli, $query);
 // mysqli select query
@@ -22,33 +21,7 @@ if($result) {
         $ra_id = $row['ra_id'];
         $csr_no = $row['c_csr_no'];
         $lot_id = $row['c_lot_lid'];
-        $customer_date_of_sale = $row['c_date_of_sale'];
-        // buyer
-        $customer_last_name_1 = $row['c_b1_last_name']; // customer last name
-        $customer_first_name_1 = $row['c_b1_first_name']; // customer first name
-        $customer_middle_name_1 = $row['c_b1_middle_name']; // customer middle name
-        $customer_last_name_2 = $row['c_b2_last_name']; // customer last name 2
-        $customer_first_name_2 = $row['c_b2_first_name']; // customer first name 2
-        $customer_middle_name_2 = $row['c_b2_middle_name']; // customer middle name 2
-
-        $cust_fullname1 = sprintf('%s, %s %s', $customer_last_name_1, $customer_first_name_1, $customer_middle_name_1); 
-        $cust_fullname2 = sprintf('%s, %s %s', $customer_last_name_2, $customer_first_name_2, $customer_middle_name_2); 
-        // more details
-        
-        $customer_address_1 = $row['c_address']; // customer address
-        $customer_city_prov= $row['c_city_prov']; // customer city_prov
-        $customer_zip_code = $row['c_zip_code']; // customer zip_code
-        $customer_address_2 = $row['c_address_abroad']; // customer address abroad
-
-        $birth_date = $row['c_birthday']; // customer birthday
-        $customer_age = $row['c_age']; // customer age
-
-        $customer_phone = $row['c_mobile_no']; // customer phone number
-        $customer_email = $row['c_email']; // customer civil status
-        $customer_viber= $row['c_viber_no']; // customer viber
-        $customer_gender = $row['c_sex']; // customer phone number
-        $civil_status = $row['c_civil_status']; // customer civil status
-        $employment_status = $row['c_employment_status']; // customer civil status
+ 
         $csr_status = $row['c_csr_status'];// status
         $reserv_status = $row['c_reserve_status'];// status
         $ca_status = $row['c_ca_status'];// status 
@@ -101,7 +74,7 @@ if($result) {
 
 }
 /* close connection */
-$mysqli->close();
+
 ?>
 <head>
     <link rel="stylesheet" href="css/TimeCircles.css"></script>
@@ -179,29 +152,47 @@ $mysqli->close();
                     </div>
                     <div class="titles"> Buyer's Profile</div>
                         <br>
+                        <?php $query2 = "SELECT * FROM t_csr_buyers WHERE c_csr_no = '" . $mysqli->real_escape_string($getID) . "'";
+                        $result2 = mysqli_query($mysqli, $query2);
+                        if($result2) {
+                            while ($row = mysqli_fetch_assoc($result2)) { 
+                                $buyer_count = $row['c_buyer_count']; // customer buyers no
+                                $customer_last_name_1 = $row['last_name']; // customer last name
+                                $customer_suffix_name_1 = $row['suffix_name']; // customer suffix name
+                                $customer_first_name_1 = $row['first_name']; // customer first name
+                                $customer_middle_name_1 = $row['middle_name']; // customer middle name
+                                $cust_fullname1 = sprintf('%s %s, %s %s', $customer_last_name_1, $customer_suffix_name_1, $customer_first_name_1, $customer_middle_name_1); 
+                                $customer_address_1 = $row['address']; // customer address
+                                $customer_zip_code = $row['zip_code']; // customer zip_code
+                                $customer_address_2 = $row['address_abroad']; // customer address abroad
+                        
+                                $birth_date = $row['birthdate']; // customer birthday
+                                $customer_age = $row['age']; // customer age
+                        
+                                $customer_phone = $row['contact_no']; // customer phone number
+                                $customer_email = $row['email']; // customer civil status
+                                $customer_viber= $row['viber']; // customer viber
+                                $customer_gender = $row['gender']; // customer phone number
+                                $civil_status = $row['civil_status']; // customer civil status
+
+                        ?>
                         <div class="view_box">
                             <div class="float-left col-xs-12">
                                 <table class="table table-striped">
                                     <tr>
-                                        <td><b>Date of Sale: </b></td>
-                                        <td><?php echo $customer_date_of_sale ?></td>
+                                        <td><b>Buyer No: </b></td>
+                                        <td><?php echo $buyer_count ?></td>
                                     </tr>
                                     <tr>
                                         <td><b>Buyer's Full Name:</b></td>
                                         <td><?php echo $cust_fullname1 ?></td>
                                     </tr>
-                                    <tr>
-                                        <td><b>2nd Buyer's Full Name:</b></td>
-                                        <td><?php echo $cust_fullname2 ?></td>
-                                    </tr>
+                                   
                                     <tr>
                                         <td><b>Address 1:</b></td>
                                         <td><?php echo $customer_address_1 ?></td>
                                     </tr>
-                                    <tr>
-                                        <td><b>City Province :</b></td>
-                                        <td><?php echo $customer_city_prov ?></td>
-                                    </tr>
+                                  
                                     <tr>
                                         <td><b>Zipcode : </b></td>
                                         <td><?php echo $customer_zip_code?></td>
@@ -238,30 +229,19 @@ $mysqli->close();
                                         <td><b>Civil Status:</b></td>
                                         <td><?php echo $civil_status ?></td>
                                     </tr>
-                                    <tr>
-                                        <td><b>Employment Status:</b></td>
-                                        <td><?php echo $employment_status ?></td>
-                                    </tr>
+                                  
                            
-                               <!--      <tr>
-                                        <td> <label id="lblupdatestatus3">COO Approval: </label> </td>
-                                        <td> <?php echo $csr_status ?> </span>
-                                    
-                                    </tr>
-                                    <tr> 
-                                        <td><b>Reservation Status:</b></td>
-                                        <td><?php echo $reserv_status ?></td>
-                                    </tr>
-                                    <tr>
-                                        <div class="lbl_box2">
-                                        <td> <label id="lblupdatestatus3">CA Approval: </label> </td>
-                                        <td> <?php echo $ca_status ?>
-                                        </div>
-                                    </tr> -->
+                             
                                 </table> 
                             </div>       
                         </div>
                         <br>
+                        <div class="space"></div>
+                        <?php 
+                               
+                            }} 
+                            $mysqli->close();?>
+                       
                         <div class="space"></div>
                         <div class="space"></div>
                         <div class="titles">Investment Value</div>

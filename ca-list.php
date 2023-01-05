@@ -8,7 +8,7 @@
 	<div class="col-xs-12">
 		<div class="panel panel-default">
 		 <div class="panel-body form-group form-group-sm">  
-		  <table class="table table-striped table-hover table-bordered" id="data-table">
+		  <table class="display table table-striped table-hover table-bordered" id="">
 		  <thead>
 			  <tr>
 			  	  <th>Ref. No.</th>
@@ -38,7 +38,7 @@
 						<td class="text-center"><?php echo $row["c_csr_no"] ?></td>
 						<td class="text-center"><?php echo $row["ra_id"] ?></td>
 						<td class="text-center"><?php echo $row["c_acronym"]. ' Block ' .$row["c_block"] . ' Lot '.$row["c_lot"] ?></td>
-						<td class="text-center"><?php echo $row["c_b1_last_name"]. ','  .$row["c_b1_first_name"] .' ' .$row["c_b1_middle_name"]?></td>
+						<td class="text-center"><?php echo $row["last_name"]. ','  .$row["first_name"] .' ' .$row["middle_name"]?></td>
 
 						<?php if($row['c_ca_status'] == 1): ?>
 							<td><span class="label label-success">CA Approved</span></td>
@@ -53,8 +53,6 @@
 						<?php endif; ?>
 
 						<td class="actions">
-						<!-- 	<a href="?page=ca-view&id=<?php echo $row['c_csr_no'] ?>" data-ra-id="<?php $row['ra_id'] ?>" class="btn btn-primary btn-xs">View
-						<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> -->
 						<button class="btn btn-sm btn-primary ca_approval" type="button" data-id="<?php echo $row['c_csr_no'] ?>">View <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> </td>
 						 
 					
@@ -67,7 +65,8 @@
 <script>
 
 $('.ca_approval').click(function(){
-		uni_modal("CA Approval","manage_ca.php?approval=1&id="+$(this).attr("data-id"))
+		/* uni_modal("CA Approval","manage_ca.php?id="+$(this).attr("data-id")) */
+		uni_modal('CA Approval','manage_ca.php?id='+$(this).attr('data-id'))
 
 })
 </script>

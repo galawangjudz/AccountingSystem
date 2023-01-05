@@ -226,7 +226,7 @@ function getCSRs() {
 	if($results) {
 
 
-		print '<table class="table table-striped table-hover table-bordered" id="data-table" cellspacing="0"><thead><tr>
+		print '<table class="display table table-striped table-hover table-bordered" id="" cellspacing="0"><thead><tr>
 
 				<th> No.</th>	
 				<th> Prepared by </th>	
@@ -247,7 +247,7 @@ function getCSRs() {
 					<td>'.$no++.'</td>
 					<td class="text-center">'.$row["c_created_by"].'</td>
 					<td>'.$row["c_acronym"].' Block '.$row["c_block"].' Lot '.$row["c_lot"].' </td>
-					<td>'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].' </td>
+					<td>'.$row["last_name"].', '.$row["first_name"].' '.$row["middle_name"].' </td>
 					<td class="text-right">'.number_format($row["c_net_tcp"], 2).'</td>
 					<td class="text-center">'.$timeStamp.'</td>
 					
@@ -482,7 +482,7 @@ function popHousesList() {
 		}
 	
 		// the query
-		$query = "SELECT * FROM store_customers ORDER BY last_name ASC";
+		$query = "SELECT * FROM t_client_info ORDER BY last_name ASC";
 	
 		//echo $query;
 		// mysqli select query
@@ -509,8 +509,8 @@ function popHousesList() {
 						<td>'.$row["first_name"].'</td>
 						<td>'.$row["middle_name"].'</td>
 						<td>'.$row["email"].'</td>
-						<td>'.$row["phone"].'</td>
-						<td class="actions"><a href="#" class="btn btn-primary btn-xs customer-select" data-customer-employment="'.$row['employment_status'].'" data-customer-civil="'.$row['civil_status'].'" data-customer-gender="'.$row['gender'].'" data-customer-age="'.$row['age'].'" data-customer-birthday="'.$row['birthdate'].'" data-customer-viber="'.$row['viber'].'" data-customer-address-1="'.$row['address'].'" data-customer-zip-code="'.$row['zip_code'].'" data-customer-city-prov="'.$row['city_prov'].'" data-customer-address-abroad="'.$row['address_abroad'].'" data-customer-lname2="'.$row['b2_last_name'].'" data-customer-fname2="'.$row['b2_first_name'].'" data-customer-mname2="'.$row['b2_middle_name'].'" data-customer-lname="'.$row['last_name'].'" data-customer-fname="'.$row['first_name'].'" data-customer-mname="'.$row['middle_name'].'" data-customer-email="'.$row['email'].'" data-customer-phone="'.$row['phone'].'">Select</a></td>
+						<td>'.$row["contact_no"].'</td>
+						<td class="actions"><a href="#" class="btn btn-primary btn-xs customer-select"  data-customer-civil="'.$row['civil_status'].'" data-customer-gender="'.$row['gender'].'" data-customer-age="'.$row['age'].'" data-customer-birthday="'.$row['birthdate'].'" data-customer-viber="'.$row['viber'].'" data-customer-address-1="'.$row['address'].'" data-customer-zip-code="'.$row['zip_code'].'"  data-customer-address-abroad="'.$row['address_abroad'].'" data-customer-lname="'.$row['last_name'].'" data-customer-fname="'.$row['first_name'].'" data-customer-mname="'.$row['middle_name'].'" data-customer-sname="'.$row['suffix_name'].'" data-customer-email="'.$row['email'].'" data-customer-phone="'.$row['contact_no'].'" data-customer-ctzn="'.$row['citizenship'].'">Select</a></td>
 					</tr>
 				';
 			}
@@ -786,7 +786,7 @@ function getCustomers() {
 	}
 
 	// the query
-	$query = "SELECT * FROM store_customers ORDER BY last_name ASC";
+	$query = "SELECT * FROM t_client_info ORDER BY last_name ASC";
 
 	// mysqli select query
 	$results = $mysqli->query($query);
@@ -808,7 +808,7 @@ function getCustomers() {
 			    <tr>
 					<td>'.$row["last_name"].', '.$row["first_name"].'</td>
 				    <td>'.$row["email"].'</td>
-				    <td>'.$row["phone"].'</td>
+				    <td>'.$row["contact_no"].'</td>
 					<td class="actions"><a data-customer-id="'.$row['id'].'" class="btn btn-primary btn-xs edit-customer"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
 				   <a data-customer-id="'.$row['id'].'" class="btn btn-danger btn-xs delete-customer">
 					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
@@ -888,7 +888,7 @@ function getRAs() {
 				<tr>
 					<td>'.$row["ra_id"].'</td>
 					<td>'.$row["c_acronym"].' Block '.$row["c_block"].' Lot '.$row["c_lot"].' </td>
-					<td>'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].' </td>
+					<td>'.$row["last_name"].', '.$row["first_name"].' '.$row["middle_name"].' </td>
 
 				';
 
@@ -1108,10 +1108,10 @@ function popRAsList() {
 						<td>'.$row["c_acronym"].'</td>
 						<td>'.$row["c_block"].'</td>
 						<td>'.$row["c_lot"].'</td>
-						<td>'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].' </td>
+						<td>'.$row["last_name"].', '.$row["first_name"].' '.$row["middle_name"].' </td>
 					
 						
-						<td><a href="#" class="btn btn-primary btn-xs ra-select" data-ra-no="'.$row['ra_id'].'" data-ra-lot-lid="'.$row['c_lot_lid'].'" data-csr-no="'.$row['c_csr_no'].'" data-ra-site="'.$row['c_acronym'].'" data-ra-block="'.$row['c_block'].'" data-ra-lot="'.$row['c_lot'].'" data-ra-res="'.$row['c_reservation'].'" data-ra-fname="'.$row["c_b1_last_name"].', '.$row["c_b1_first_name"].' '.$row["c_b1_middle_name"].'">Select</a></td>
+						<td><a href="#" class="btn btn-primary btn-xs ra-select" data-ra-no="'.$row['ra_id'].'" data-ra-lot-lid="'.$row['c_lot_lid'].'" data-csr-no="'.$row['c_csr_no'].'" data-ra-site="'.$row['c_acronym'].'" data-ra-block="'.$row['c_block'].'" data-ra-lot="'.$row['c_lot'].'" data-ra-res="'.$row['c_reservation'].'" data-ra-fname="'.$row["last_name"].', '.$row["first_name"].' '.$row["middle_name"].'">Select</a></td>
 				   
 						</tr>
 				';

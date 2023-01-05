@@ -73,7 +73,7 @@ foreach($user->fetch_array() as $k =>$v){
 		<div class="form-group">
             <label class="control-label">Remarks: </label>
             <div class="input-group form-group-sm textarea no-margin-bottom">
-                <textarea class="form-control required textarea" name="prod_remarks" id="prod_remarks" value="<?php echo isset($meta['c_remarks']) ? $meta['c_remarks']: '' ?>" rows="3"></textarea>
+                <textarea class="form-control textarea" name="prod_remarks" id="prod_remarks" value="<?php echo isset($meta['c_remarks']) ? $meta['c_remarks']: '' ?>" rows="3"></textarea>
             </div>
         </div>
 	</form>

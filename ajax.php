@@ -95,6 +95,12 @@ if($action == "coo_approval"){
 		echo $save;
 }
 
+if($action == "new_coo_approval"){
+	$save = $crud->new_coo_approval();
+	if($save)
+		echo $save;
+}
+
 if($action == "sm_verification"){
 	$save = $crud->sm_verification();
 	if($save)
@@ -103,6 +109,18 @@ if($action == "sm_verification"){
 
 if($action == "ca_approval"){
 	$save = $crud->ca_approval();
+	if($save)
+		echo $save;
+}
+
+if($action == "save_csr"){
+	$save = $crud->save_csr();
+	if($save)
+		echo $save;
+}
+
+if($action == "update_csr"){
+	$save = $crud->update_csr();
 	if($save)
 		echo $save;
 }

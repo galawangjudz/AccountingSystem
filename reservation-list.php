@@ -54,6 +54,3 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<?php
-	include('footer.php');
-?>

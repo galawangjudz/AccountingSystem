@@ -1,8 +1,8 @@
 <?php 
 include('functions.php');
-/* include('includes/config.php'); */
+
 if(isset($_GET['id'])){
-$user = $mysqli->query("SELECT * FROM store_customers where id =".$_GET['id']);
+$user = $mysqli->query("SELECT * FROM t_client_info where id =".$_GET['id']);
 foreach($user->fetch_array() as $k =>$v){
 	$meta[$k] = $v;
 }
@@ -21,12 +21,7 @@ foreach($user->fetch_array() as $k =>$v){
                                 <label class="control-label">Last Name: </label>
                                 <input type="text" class="form-control margin-bottom copy-input required" name="customer_last_name" id="customer_last_name" value="<?php echo isset($meta['last_name']) ? $meta['last_name']: '' ?>">
                             </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control margin-bottom copy-input" name="b2_customer_last_name" id="b2_customer_last_name" value="<?php echo isset($meta['b2_last_name']) ? $meta['b2_last_name']: '' ?>" >
-                            </div>
-                            <!-- <div class="form-group">
-                                <input type="text" class="form-control margin-bottom copy-input" name="b3_customer_last_name" id="b3_customer_last_name" value="<?php echo isset($meta['b3_last_name']) ? $meta['b3_last_name']: '' ?>" >
-                            </div> -->
+                           
                         </div>
                         <!-- <div class="col-xs-2">		
                             <div class="form-group">
@@ -48,38 +43,31 @@ foreach($user->fetch_array() as $k =>$v){
                             <div class="form-group">
                                 <input type="text" class="form-control margin-bottom copy-input" name="b2_customer_first_name" id="b2_customer_first_name" value="<?php echo isset($meta['b2_first_name']) ? $meta['b2_first_name']: '' ?>">
                             </div>
-                            <!-- <div class="form-group">
-                                <input type="text" class="form-control margin-bottom copy-input" name="b3_customer_first_name" id="b3_customer_first_name" value="<?php echo isset($meta['b3_first_name']) ? $meta['b3_first_name']: '' ?>">
-                            </div> -->
                         </div>
-                        <div class="col-xs-4">		
+                        <div class="col-xs-3">		
                             <div class="form-group">
                                 <label class="control-label">Middle Name: </label>
                                 <input type="text" class="form-control margin-bottom copy-input" name="customer_middle_name" id="customer_middle_name" value="<?php echo isset($meta['middle_name']) ? $meta['middle_name']: '' ?>">	
                             </div>
+                         
+                        </div>
+                        <div class="col-xs-2">		
                             <div class="form-group">
-                                <input type="text" class="form-control margin-bottom copy-input" name="b2_customer_middle_name" id="b2_customer_middle_name" value="<?php echo isset($meta['b2_middle_name']) ? $meta['b2_middle_name']: '' ?>">
+                                <label class="control-label">Suffix Name: </label>
+                                <input type="text" class="form-control margin-bottom copy-input" name="customer_suffix_name" id="customer_suffix_name" value="<?php echo isset($meta['suffix_name']) ? $meta['suffix_name']: '' ?>">	
                             </div>
-                            <!-- <div class="form-group">
-                                <input type="text" class="form-control margin-bottom copy-input" name="b3_customer_middle_name" id="b3_customer_middle_name" value="<?php echo isset($meta['b3_middle_name']) ? $meta['b3_middle_name']: '' ?>">
-                            </div> -->
                         </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-xs-4">		
+                        <div class="col-xs-10">		
                             <div class="form-group">
                                 <label class="control-label">Address: </label>
                                 <input type="text" class="form-control margin-bottom copy-input required" name="customer_address" id="customer_address" value="<?php echo isset($meta['address']) ? $meta['address']: '' ?>">		
                             </div>
                         </div>
-                        <div class="col-xs-4">		
-                            <div class="form-group">
-                                <label class="control-label">City/Province: </label>
-                                <input type="text" class="form-control margin-bottom copy-input required" name="customer_city_prov" id="customer_city_prov" value="<?php echo isset($meta['city_prov']) ? $meta['city_prov']: '' ?>">	
-                            </div>
-                        </div>
-                        <div class="col-xs-4">		
+                      
+                        <div class="col-xs-2">		
                             <div class="form-group">
                                 <label class="control-label">Zip Code: </label>
                                 <input type="text" class="form-control copy-input" name="customer_zip_code" id="customer_zip_code" value="<?php echo isset($meta['zip_code']) ? $meta['zip_code']: '' ?>">					
@@ -87,13 +75,13 @@ foreach($user->fetch_array() as $k =>$v){
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xs-6">
+                        <div class="col-xs-7    ">
                             <div class="form-group">
                                 <label class="control-label">Address Abroad (if any): </label>
                                 <input type="text" class="form-control margin-bottom" name="customer_address_2" id="customer_address_2" value="<?php echo isset($meta['address_abroad']) ? $meta['address_abroad']: '' ?>">
                             </div>
                         </div>
-                        <div class="col-xs-4">
+                        <div class="col-xs-3">
                             <div class="form-group">
                                 <label class="control-label">Birthdate: </label>
                                 <div class="input-group date margin-bottom" id="birth_date">
@@ -116,7 +104,7 @@ foreach($user->fetch_array() as $k =>$v){
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">Contact Number: </label>
-                                <input type="text" class="form-control margin-bottom required" name="customer_phone" id="customer_phone" value="<?php echo isset($meta['phone']) ? $meta['phone']: '' ?>">
+                                <input type="text" class="form-control margin-bottom required" name="contact_no" id="contact_no" value="<?php echo isset($meta['contact_no']) ? $meta['contact_no']: '' ?>">
                             </div>	
                         </div>
                         <div class="col-xs-4">
@@ -137,13 +125,7 @@ foreach($user->fetch_array() as $k =>$v){
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-xs-3">
-                            <div class="form-group">
-                                <label class="control-label">Citizenship: </label>
-                                <input type="text" class="form-control margin-bottom required" name="customer_citizenship" id="customer_citizenship" value="<?php echo isset($meta['citizenship']) ? $meta['citizenship']: '' ?>">
-                            </div>
-                        </div>
-                        <div class="col-xs-3">
+                        <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">Gender: </label>
                                 <style>
@@ -167,7 +149,7 @@ foreach($user->fetch_array() as $k =>$v){
                                 <option value="Widowed" <?php echo isset($meta['civil_status']) && $meta['civil_status'] == "Widowed" ? 'selected': '' ?>>Widowed</option>
                             </select>
                         </div>
-                        <div class="col-xs-3">
+                        <div class="col-xs-4">
                             <label class="control-label">Employment Status: </label>
                             <style>
                                 select:invalid { color: gray; }

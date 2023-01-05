@@ -11,6 +11,7 @@ $(document).ready(function() {
 	});
 	 */
 
+
 	// Invoice Type
 	$('#invoice_type').change(function() {
 		var invoiceType = $("#invoice_type option:selected").text();
@@ -18,9 +19,10 @@ $(document).ready(function() {
 	});
 
 	
+	$('table.display').DataTable();
 	
-	// Load dataTables
 	$("#data-table").dataTable();
+	// Load dataTables
 
 	$("#data-table-lot").dataTable();
 
@@ -227,6 +229,8 @@ $(document).ready(function() {
 		});
 
 
+	
+
 
 	//agent
 	$(document).on('click', ".item-select", function(e) {
@@ -336,63 +340,65 @@ $(document).ready(function() {
 
 		var customer = $(this);
 
-		$('#insert_customer').modal({ backdrop: 'static', keyboard: false });
+		$('#insert_customer').modal({ backdrop: 'static', keyboard: false }).one('click', '.customer-select', function(e) {
+
+			//old version
+			var customer_last_name = $(this).attr('data-customer-lname');
+			var customer_first_name = $(this).attr('data-customer-fname');
+			var customer_middle_name = $(this).attr('data-customer-mname');
+			var customer_suffix_name = $(this).attr('data-customer-sname');
+	
+			var customer_email = $(this).attr('data-customer-email');
+			var customer_phone = $(this).attr('data-customer-phone');
+	
+			var customer_address_1 = $(this).attr('data-customer-address-1');
+			var customer_zip_code = $(this).attr('data-customer-zip-code');
+	
+			var customer_address_abroad = $(this).attr('data-customer-address-abroad');
+	
+			var customer_viber = $(this).attr('data-customer-viber');
+			var customer_birthday = $(this).attr('data-customer-birthday');
+			var customer_age = $(this).attr('data-customer-age');
+			var customer_gender = $(this).attr('data-customer-gender');
+			var customer_civil = $(this).attr('data-customer-civil');
+			var customer_ctzn = $(this).attr('data-customer-ctzn');
+
+			//new version
+			
+		/* 	$('.buyer-last').val(customer_last_name); */
+	
+			$(customer).closest('tr').find('.buyer-last').val(customer_last_name);
+			$(customer).closest('tr').find('.buyer-first').val(customer_first_name);
+			$(customer).closest('tr').find('.buyer-middle').val(customer_middle_name);
+			$(customer).closest('tr').find('.buyer-suffix').val(customer_suffix_name);
+			$(customer).closest('tr').find('.buyer-address').val(customer_address_1);
+			$(customer).closest('tr').find('.buyer-zipcode').val(customer_zip_code);
+			$(customer).closest('tr').find('.buyer-add-abroad').val(customer_address_abroad);
+			$(customer).closest('tr').find('.buyer-viber').val(customer_viber);
+			$(customer).closest('tr').find('.buyer-bday').val(customer_birthday);
+			$(customer).closest('tr').find('.buyer-age').val(customer_age);
+			$(customer).closest('tr').find('.buyer-contact').val(customer_phone);
+			$(customer).closest('tr').find('.buyer-email').val(customer_email);
+			$(customer).closest('tr').find('.buyer-gender').val(customer_gender);
+			$(customer).closest('tr').find('.buyer-civl').val(customer_civil);
+			$(customer).closest('tr').find('.buyer-ctzn').val(customer_ctzn);
+
+	
+	
+	
+			$('#insert_customer').modal('hide');
+	
+		});
+
+
+
+
 
 		return false;
 
    	});
 
-	   $(document).on('click', ".customer-select", function(e) {
-
-		var customer_last_name = $(this).attr('data-customer-lname');
-		var customer_first_name = $(this).attr('data-customer-fname');
-		var customer_middle_name = $(this).attr('data-customer-mname');
-		var customer_last_name2 = $(this).attr('data-customer-lname2');
-		var customer_first_name2 = $(this).attr('data-customer-fname2');
-		var customer_middle_name2 = $(this).attr('data-customer-mname2');
-
-		var customer_email = $(this).attr('data-customer-email');
-		var customer_phone = $(this).attr('data-customer-phone');
-
-		var customer_address_1 = $(this).attr('data-customer-address-1');
-		var customer_city_prov = $(this).attr('data-customer-city-prov');
-		var customer_zip_code = $(this).attr('data-customer-zip-code');
-
-		var customer_address_abroad = $(this).attr('data-customer-address-abroad');
-
-		var customer_viber = $(this).attr('data-customer-viber');
-		var customer_birthday = $(this).attr('data-customer-birthday');
-		var customer_age = $(this).attr('data-customer-age');
-		var customer_gender = $(this).attr('data-customer-gender');
-		var customer_civil = $(this).attr('data-customer-civil');
-		var customer_employment = $(this).attr('data-customer-employment');
-
-		$('#customer_last_name_1').val(customer_last_name);
-		$('#customer_first_name_1').val(customer_first_name);
-		$('#customer_middle_name_1').val(customer_middle_name);
-		$('#customer_last_name_2').val(customer_last_name2);
-		$('#customer_first_name_2').val(customer_first_name2);
-		$('#customer_middle_name_2').val(customer_middle_name2);
-
-		$('#customer_email').val(customer_email);
-		$('#customer_phone').val(customer_phone);
-
-		$('#customer_address_1').val(customer_address_1);
-		$('#customer_city_prov').val(customer_city_prov);
-		$('#customer_zip_code').val(customer_zip_code);
-
-		$('#customer_address_2').val(customer_address_abroad);
-		$('#customer_viber').val(customer_viber);
-		$('#birth_day').val(customer_birthday);
-		$('#customer_age').val(customer_age);
-
-		$('#customer_gender').val(customer_gender);
-		$('#civil_status').val(customer_civil);
-		$('#employment_status').val(customer_employment);
-
-		$('#insert_customer').modal('hide');
-
-	});
+	  
    	
 
 		
@@ -567,13 +573,29 @@ $('#comm_table').on('click', ".delete-row", function(e) {
 		$(this).closest('tr').remove();
 	//calculateTotal();
 });
+$('#buyer_table').on('click', ".delete-buyer-row", function(e) {
+	e.preventDefault();
+		$(this).closest('tr').remove();
+	//calculateTotal();
+});
 
-// add new product row on invoice
+
+// add new agent row on ra
 var cloned = $('#comm_table tr:last').clone();
+cloned.find('input').val('');
 $(".add-row").click(function(e) {
 	e.preventDefault();
 	cloned.clone().appendTo('#comm_table'); 
 });
+
+
+var cloned2 = $('#buyer_table tr:last').clone();
+cloned2.find('input').val('');
+$(".add-buyer-row").click(function(e) {
+	e.preventDefault();
+	cloned2.clone().appendTo('#buyer_table'); 
+});
+
 
  
 /* $(document).on('keyup', ".agent-rate", function(e) {
@@ -1169,263 +1191,6 @@ function updateTotals(elem) {
 
 
 
-
-	function vat_calculation(){
-
-		var tcp_total = $('.total-tcp').val();
-		l_vat_amt = parseFloat(tcp_total) * 0.12;
-		$('#vat_amt').val(l_vat_amt.toFixed(2));
-		l_total_ntcp = parseFloat(tcp_total) + parseFloat(l_vat_amt);
-		$('#net_tcp').val(l_total_ntcp.toFixed(2));
-
-	}
-
-	function actionAddUser() {
-
-		var errorCounter = validateForm();
-
-		if (errorCounter > 0) {
-		    $("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-		    $("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
-		    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-		} else {
-
-			$(".required").parent().removeClass("has-error");
-
-			var $btn = $("#action_add_user").button("loading");
-
-			$.ajax({
-
-				url: 'response.php',
-				type: 'POST',
-				data: $("#add_user").serialize(),
-				dataType: 'json',
-				success: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$("#add_user").remove();
-					setInterval(redirectToUserList,2000);
-					$btn.button("reset");
-				},
-				error: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$btn.button("reset");
-				}
-
-			});
-		}
-
-	}
-
-	function actionAddAgent() {
-
-		var errorCounter = validateForm();
-
-		if (errorCounter > 0) {
-		    $("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-		    $("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
-		    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-		} else {
-
-			$(".required").parent().removeClass("has-error");
-
-			var $btn = $("#action_add_agent").button("loading");
-
-			$.ajax({
-
-				url: 'response.php',
-				type: 'POST',
-				data: $("#add_agent").serialize(),
-				dataType: 'json',
-				success: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$("#add_agent").remove();
-					setInterval(redirectToAgentList,2000);
-					$btn.button("reset");
-				},
-				error: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$btn.button("reset");
-				}
-
-			});
-		}
-
-	}
-
-	function actionAddLot() {
-
-		var errorCounter = validateForm();
-
-		if (errorCounter > 0) {
-		    $("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-		    $("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
-		    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-		} else {
-
-			$(".required").parent().removeClass("has-error");
-
-			var $btn = $("#action_add_lot").button("loading");
-
-			$.ajax({
-
-				url: 'response.php',
-				type: 'POST',
-				data: $("#add_lot").serialize(),
-				dataType: 'json',
-				success: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$("#add_lot").remove();
-					setInterval(redirectToLotList,2000);
-					$btn.button("reset");
-					setInterval('location.reload()', 4000);
-				},
-				error: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$btn.button("reset");
-				}
-
-			});
-		}
-
-	}
-
-	function actionAddHouse() {
-
-		var errorCounter = validateForm();
-
-		if (errorCounter > 0) {
-		    $("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-		    $("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
-		    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-		} else {
-
-			$(".required").parent().removeClass("has-error");
-
-			var $btn = $("#action_add_house").button("loading");
-
-			$.ajax({
-
-				url: 'response.php',
-				type: 'POST',
-				data: $("#add_house").serialize(),
-				dataType: 'json',
-				success: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$("#add_house").remove();
-					setInterval(redirectToHouseList,2000);
-					$btn.button("reset");
-				
-				},
-				error: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$btn.button("reset");
-				}
-
-			});
-		}
-
-	}
-
-	function actionAddProject(){
-
-		var errorCounter = validateForm();
-
-		if (errorCounter > 0) {
-		    $("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-		    $("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
-		    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-		} else {
-
-			var $btn = $("#action_add_project").button("loading");
-
-			$(".required").parent().removeClass("has-error");
-
-			$.ajax({
-
-				url: 'response.php',
-				type: 'POST',
-				data: $("#add_project").serialize(),
-				dataType: 'json',
-				success: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$("#add_project").before().html("<a href='./project-add.php' class='btn btn-primary'>Add New Customer</a>");
-					$("#add_project").remove();
-					setInterval(redirectToProjectList,2000);
-					$btn.button("reset");
-					
-				},
-				error: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$btn.button("reset");
-				}
-
-			});
-		}
-
-	}
-
-	function actionCreateCustomer(){
-
-		var errorCounter = validateForm();
-
-		if (errorCounter > 0) {
-		    $("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-		    $("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
-		    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-		} else {
-
-			var $btn = $("#action_create_customer").button("loading");
-
-			$(".required").parent().removeClass("has-error");
-
-			$.ajax({
-
-				url: 'response.php',
-				type: 'POST',
-				data: $("#create_customer").serialize(),
-				dataType: 'json',
-				success: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$("#create_customer").before().html("<a href='./customer-add.php' class='btn btn-primary'>Add New Customer</a>");
-					$("#create_customer").remove();
-					setInterval(redirectToClientList,2000);
-					$btn.button("reset");
-					
-				},
-				error: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$btn.button("reset");
-				} 
-
-			});
-		}
-
-	}
-
 	function actionSaveRes(){
 
 		var errorCounter = validateForm();
@@ -1469,71 +1234,6 @@ function updateTotals(elem) {
 
 	}
 
-	function actionCreateCSR(){
-
-		var errorCounter = validateForm();
-
-		if (errorCounter > 0) {
-		    $("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-		    $("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
-		    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-		} else {
-
-			var $btn = $("#action_create_csr").button("loading");
-
-			$(".required").parent().removeClass("has-error");
-
-			$.ajax({
-
-				url: 'response.php',
-				type: 'POST',
-				data: $("#create_csr").serialize(),
-				dataType: 'json',
-				success: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$("#create_csr").before().html("<a href='./csr-create.php' class='btn btn-primary'>Add New CSR</a>");
-					$("#create_csr").remove();
-					setInterval(redirectToCSRList,2000);
-					$btn.button("reset");
-					
-				},
-				error: function(data){
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$btn.button("reset");
-				} 
-
-			});
-		}
-	}
-
-	function deleteHouse(houseId) {
-
-        jQuery.ajax({
-
-        	url: 'response.php',
-            type: 'POST', 
-            data: houseId,
-            dataType: 'json', 
-            success: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				$btn.button("reset");
-			},
-			error: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				$btn.button("reset");
-			} 
-    	});
-
-   	}
-
 
 	function verify_btn(csrId) {
 
@@ -1560,29 +1260,7 @@ function updateTotals(elem) {
 
    	}
 
-	   function csrReopen(csrId) {
-
-        jQuery.ajax({
-
-        	url: 'response.php',
-            type: 'POST', 
-            data: csrId,
-            dataType: 'json', 
-            success: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				
-			},
-			error: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				
-			} 
-    	});
-
-   	}
+	
 
 	function CooApproval(csrId) {
 
@@ -1657,30 +1335,6 @@ function updateTotals(elem) {
 
    	}
 
-  
-   	function deleteCSR(csrId) {
-
-        jQuery.ajax({
-
-        	url: 'response.php',
-            type: 'POST', 
-            data: csrId,
-            dataType: 'json', 
-            success: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				$btn.button("reset");
-			},
-			error: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				$btn.button("reset");
-			} 
-    	});
-
-   	}
 
    	function updateLot(){
 
@@ -1840,200 +1494,9 @@ function updateTotals(elem) {
    	}
 
 
-
-   	function updateUser() {
-
-		var errorCounter = validateForm();
-	
-		if (errorCounter > 0) {
-		/* 	$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn(); */
-			$("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
-			/* $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000); */
-		} else {
-	
-   		var $btn = $("#action_update_user").button("loading");
-
-			$(".required").parent().removeClass("has-error");
-	
-			$.ajax({
-
-        	url: 'response.php',
-            type: 'POST', 
-            data: $("#update_user").serialize(),
-            dataType: 'json', 
-            success: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 5000);
-					$("#update_user").before().html("<a href='./house-edit.php' class='btn btn-primary'>Edit Another House</a>");
-					$("#update_user").remove();
-					setInterval(redirectToUserList,2000);
-				$btn.button("reset");
-					
-			},
-			error: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				$btn.button("reset");
-			} 
-				
-    	});
-		}
-   	}
-
-
-	function updateCustomer(){
-
-	var errorCounter = validateForm();
-
-	if (errorCounter > 0) {
-		$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-		$("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
-		$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-	} else {
-
-   		var $btn = $("#action_update_customer").button("loading");
-
-		$(".required").parent().removeClass("has-error");
-
-		$.ajax({
-
-        	url: 'response.php',
-            type: 'POST', 
-            data: $("#update_customer").serialize(),
-            dataType: 'json', 
-            success: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 5000);
-				$("#update_customer").before().html("<a href='./customer-edit.php' class='btn btn-primary'>Edit Another Client</a>");
-				$("#update_customer").remove();
-				setInterval(redirectToClientList,2000);
-				$btn.button("reset");
-				
-			},
-			error: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				$btn.button("reset");
-			} 
-			
-    	});
-	}
-}
-
-function updateAgent(){
-
-	var errorCounter = validateForm();
-
-	if (errorCounter > 0) {
-		$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-		$("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
-		$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-	} else {
-
-		var $btn = $("#action_update_agent").button("loading");
-
-		$(".required").parent().removeClass("has-error");
-
-		$.ajax({
-
-			url: 'response.php',
-			type: 'POST',
-			data: $("#update_agent").serialize(),
-			dataType: 'json',
-			success: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 5000);
-				$("#update_agent").before().html("<a href='./agent-edit.php' class='btn btn-primary'>Edit Another Agent</a>");
-				$("#update_agent").remove();
-				setInterval(redirectToAgentList,2000);
-				$btn.button("reset");
-				
-			},
-			error: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				$btn.button("reset");
-			} 
-
-		});
-	}
-   	}
-
-   	function updateCSR() {
-
-   		var $btn = $("#action_update_csr").button("loading");
-   		$("#update_csr").find(':input:disabled').removeAttr('disabled');
-		//setTimeout(function() {
-        jQuery.ajax({
-
-        	url: 'response.php',
-            type: 'POST', 
-            data: $("#update_csr").serialize(),
-            dataType: 'json', 
-            success: function(data){
-				//setInterval(function() {
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					$btn.button("reset");
-					$("#update_csr").remove();
-					setInterval('location.reload()', 2000);
-					//},500);
-			},
-			error: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				$btn.button("reset");
-			} 
-    	});
-		//}, 1000); //interval
-
-   	}
-
    
 
-
-   	// login function
-	/**function actionLogin() {
-
-		var errorCounter = validateForm();
-
-		if (errorCounter > 0) {
-			toastr["error"]('Missing something are we? check and try again!');
-
-
-		} else {
-
-			var $btn = $("#btn-login").button("loading");
-
-			jQuery.ajax({
-				url: 'response.php',
-				type: "POST",
-				data: $("#login_form").serialize(), // serializes the form's elements.
-				dataType: 'json',
-				success: function(data){
-					toastr["success"]('Login was a success! Transfering you to the system now, hold tight!');
-
-					setTimeout(function(){location.href="dashboard.php"} , 3000);   
-					
-				},
-				error: function(data){
-					toastr["error"].html(data.status);
-				}
-
-			});
-
-		}
-		
-	}*/
-
+   
    	function validateForm() {
 	    // error handling
 	    var errorCounter = 0;
@@ -2195,16 +1658,6 @@ function updateAgent(){
 
 	}
 
-
-
-
-	//tab
-
-	// save reservation
-/* 	$("#tablinks").click(function(e) {
-		e.preventDefault();
-	    opentab(evt, tabName);
-	}); */
 		
 	$(document).on('click', ".tablinks", function(e) {
 		e.preventDefault();

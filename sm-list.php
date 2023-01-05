@@ -42,9 +42,7 @@
     <div class="panel panel-default">
         <div class="panel-body form-group form-group-sm">
 
-
-    
-            <table class="table table-striped table-hover table-bordered" id="data-table" cellspacing="0">
+            <table class="display table table-striped table-hover table-bordered" id="" cellspacing="0">
                 <thead>
                     <tr>
 
@@ -67,20 +65,20 @@
                     $where = '';
                     if(isset($_GET['category_id'])  && $_GET['category_id'] != 'all'){
                         if ($usertype == 'Agent')
-                            $where .= " where coo_approval = '".$_GET['category_id']."' and c_created_by = '$username' ";
+                            $where .= " where coo_approval = '".$_GET['category_id']."' and c_created_by = '$username' and c_revised = 0 ";
                         
                         if ($usertype == 'COO')
-                            $where .= " where coo_approval = '".$_GET['category_id']."'  and c_verify = '1' ";
+                            $where .= " where coo_approval = '".$_GET['category_id']."'  and c_verify = '1' and c_revised = 0 ";
                         else
-                            $where .= " where coo_approval = '".$_GET['category_id']."' ";
+                            $where .= " where coo_approval = '".$_GET['category_id']."' and c_revised = 0 ";
                     }
                     else{
                         if ($usertype == 'Agent')
-                            $where .=  " where c_created_by = '$username' ";
+                            $where .=  " where c_created_by = '$username' and c_revised = 0 ";
                         if ($usertype == 'COO')
-                            $where .=  " where c_verify = 1 ";
+                            $where .=  " where c_verify = 1  and c_revised = 0";
                         else
-                            $where .= " ";
+                            $where .= "where c_revised = 0";
                     }
                     $csr = $mysqli->query("SELECT * FROM t_csr_view ".$where." order by c_date_updated asc");
                     
@@ -92,7 +90,7 @@
                                 <td><?php echo $row['c_csr_no'] ?></td>
                                 <td class="text-center"><?php echo $row["c_created_by"] ?></td>
                                 <td><?php echo $row["c_acronym"]. ' Block ' .$row["c_block"] . ' Lot '.$row["c_lot"] ?></td>
-                                <td class="text-center"><?php echo $row["c_b1_last_name"]. ','  .$row["c_b1_first_name"] .' ' .$row["c_b1_middle_name"]?></td>
+                                <td class="text-center"><?php echo $row["last_name"]. ' ' .$row["suffix_name"]. ','  .$row["first_name"] .' ' .$row["middle_name"]?></td>
 
                                 <td class="text-right"><?php echo "P".number_format($row["c_net_tcp"], 2) ?></td>
                                 <td class="text-center"><?php echo $timeStamp ?> </td>
@@ -152,7 +150,7 @@
 
 
     
-        <table class="table table-striped table-hover table-bordered" id="data-table" cellspacing="0">
+        <table class="display table table-striped table-hover table-bordered" id="" cellspacing="0">
             <thead>
                 <tr>
 
@@ -200,7 +198,7 @@
                             <td><?php echo $row['c_csr_no'] ?></td>
                             <td class="text-center"><?php echo $row["c_created_by"] ?></td>
                             <td><?php echo $row["c_acronym"]. ' Block ' .$row["c_block"] . ' Lot '.$row["c_lot"] ?></td>
-                            <td class="text-center"><?php echo $row["c_b1_last_name"]. ','  .$row["c_b1_first_name"] .' ' .$row["c_b1_middle_name"]?></td>
+                            <td class="text-center"><?php echo $row["last_name"]. ','  .$row["first_name"] .' ' .$row["middle_name"]?></td>
 
                             <td class="text-right"><?php echo "P".number_format($row["c_net_tcp"], 2) ?></td>
                             <td class="text-center"><?php echo $timeStamp ?> </td>
@@ -241,6 +239,9 @@
 </body>
 
 <script>
+
+
+
 $('.delete-csr').click(function(){
 		_conf("Are you sure to delete this csr?","delete_csr",[$(this).attr('data-csr-id')])
 	})
