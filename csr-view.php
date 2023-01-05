@@ -81,6 +81,9 @@ if($result) {
         text-align:center;
         font-weight:bold;
     }
+    #btnprint:hover{
+        background-color:blue;
+    }
 </style>
 <body onload="loadAll()">
 
@@ -106,6 +109,31 @@ if($result) {
                                 <a href="?page=mail&id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
                                 <a href="print_ra.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
                            
+                                <!-- <a href="print_ra.php?id=<?php echo $getID; ?>" class="btn btn-info" target="_blank"> Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a> -->
+
+     
+                                    
+                                    <!-- User Account Menu -->
+                                    <li class="dropdown user user-menu">
+                                        <!-- Menu Toggle Button -->
+                                        <a href="#" class="btn btn-info" id="btnprint" data-toggle="dropdown">
+                                        <!-- The user image in the navbar-->
+                                        
+                                        <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                                        Print <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                        <!-- Drop down list-->
+                                        <li><a class="dropdown-item" href="print_ra.php?id=<?php echo $getID; ?>">Print Front Page</a>
+                                        <li><a class="dropdown-item" href="print_ra_back.php?id=<?php echo $getID; ?>">Print Back Page</a>
+                                        <li><a class="dropdown-item" href="print_agreement.php?id=<?php echo $getID; ?>">Print Agreement Page</a>
+                                        </ul>
+                                    </li>
+                                  
+                           
+
+                                <!--  <a data-csr-id="<?php echo $getID ?>" class="btn btn-info compose-email"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
+                                 -->
                                 <hr>
                                 <?php if($verify == 0){?> 
                                     <button type="button" csr-id =<?php echo $getID; ?> csr-lot-lid = <?php echo  $lot_id?> value="1" class="btn btn-success btn-lg btn-block sm-verification">Verified <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>                            

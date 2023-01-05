@@ -22,6 +22,12 @@ if($action == "save_client"){
 		echo $save;
 }
 
+if($action == "upload_file"){
+	$save = $crud->upload_file();
+	if($save)
+		echo $save;
+}
+
 if($action == "save_agent"){
 	$save = $crud->save_agent();
 	if($save)

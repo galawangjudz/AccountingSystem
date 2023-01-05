@@ -20,7 +20,11 @@ include('header.php');
 <style>
 
 	body{
-        background: #80808045;
+      background: #80808045;
+  }
+  .modal-title{
+      font-size:20px!important;
+      font-weight:bold;
   }
 </style>
 <body>
@@ -68,7 +72,10 @@ include('header.php');
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" id='confirm' onclick="">Continue</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="  color:white;
+  font-weight:bold;
+  background-color: #cc0a2f;
+  border:none!important;">Close</button>
       </div>
       </div>
     </div>
@@ -77,13 +84,16 @@ include('header.php');
     <div class="modal-dialog modal-md" role="document">
       <div class="modal-content">
         <div class="modal-header">
-        <h5 class="modal-title"></h5>
+        <div class="modal-title"></div>
       </div>
       <div class="modal-body">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" id='submit' onclick="$('#uni_modal form').submit()">Save</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="  color:white;
+  font-weight:bold;
+  background-color: #cc0a2f;
+  border:none!important;">Cancel</button>
       </div>
       </div>
     </div>

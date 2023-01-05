@@ -107,35 +107,62 @@ $mysqli->close();
 	} 
 </style>
 <div class="container-fluid">
-	<p><b>RA # : </b><?php echo $ra_id ?></p>
-	<p><b>Location : </b><?php echo $acronym ?> <?php echo $block?> <?php echo $lot ?></p>
-	<p><b>Buyer's Name : </b><?php echo $cust_fullname1 ?></p>
-	<p><b>NET TCP : </b><?php echo 'P'.number_format($net_tcp,2) ?></p>
-	<p><b>Coo Approval : </b><span><?php echo $csr_status ?></span></p>
-	<p><b>Reservation Status: </b><?php echo $reserv_status ?></p>
-	<p><b>Loan Amount : </b><?php echo 'P'.number_format($amt_fnanced,2) ?></p>
-    <p><b>Payment Type 1: </b><?php echo $p1 ?></p>
-    <p><b>payment Type 2: </b><?php echo $p2 ?></p>
-	<p><b>Interest Rate : </b><?php echo $interest_rate ?></p>
-	<p><b>Terms : </b><?php echo $terms ?></p>
-	<p><b>Monthly Amortization : </b><?php echo $monthly_payment ?></p>
-	<hr>
-    <hr>
+    <table class="table table-striped table-hover table-bordered" id="data-table">
+        <tr>
+            <td><b>RA #: </b></td><td><?php echo $ra_id ?></td>
+        </tr>
+        <tr>
+            <td><b>Location: </b></td><td><?php echo $acronym ?> <?php echo $block?> <?php echo $lot ?></td>
+        </tr>
+        <tr>
+            <td><b>Buyer's Name: </b></td><td><?php echo $cust_fullname1 ?></td>
+        </tr>
+        <tr>
+            <td><b>NET TCP: </b></td><td><?php echo 'P'.number_format($net_tcp,2) ?></td>
+        </tr>
+        <tr>
+            <td><b>Coo Approval: </b></td><td><?php echo $csr_status ?></td>
+        </tr>
+        <tr>
+            <td><b>Reservation Status: </b></td><td><?php echo $reserv_status ?></td>
+        </tr>
+        <tr>
+            <td><b>Loan Amount: </b></td><td><?php echo 'P'.number_format($amt_fnanced,2) ?></td>
+        </tr>
+        <tr>
+            <td><b>Payment Type 1: </b></td><td><?php echo $p1 ?></td>
+        </tr>
+        <tr>
+            <td>Payment Type 2: </b></td><td><?php echo $p2 ?></td>
+        </tr>
+        <tr>
+            <td><b>Interest Rate: </b></td><td><?php echo $interest_rate ?></td>
+        </tr>
+        <tr>
+            <td><b>Terms: </b></td><td><?php echo $terms ?></td>
+        </tr>
+        <tr>
+            <td><b>Monthly Amortization: </b></td><td><?php echo $monthly_payment ?></td>
+        </tr>
+
+        <br>
+    </table>
 
     <div class="col-md-3"> 
-        <button type="button" class="btn btn-success btn-s ca_approved" csr-id ="<?php $csr_no ?>"  value= 1>Approved</button>
+    <button type="button" style="width:160px;margin-left:-16px;" class="btn btn-success btn-s ca_approved" csr-id ="<?php $csr_no ?>"  value= 1>Approved</button>
     </div>
 
     <div class="col-md-4">
-        <button type="button" class="btn btn-danger btn-s ca_approved" csr-id ="<?php $csr_no ?>"  value= 2>Disapproved</button>
+    <button type="button" style="width:160px;margin-left:36px;" class="btn btn-danger btn-s ca_approved" csr-id ="<?php $csr_no ?>"  value= 2>Disapproved</button>
     </div>
 
     <div class="col-md-4">
-        <button type="button" class="btn btn-danger btn-s ca_approved" csr-id ="<?php $csr_no ?>" value= 3>For Revision</button>
+    <button type="button" style="width:160px;margin-left:46px;margin-bottom:10px;" class="btn btn-danger btn-s ca_approved" csr-id ="<?php $csr_no ?>" value= 3>For Revision</button>
     </div>
 
   <!--   <div class="col-md-5">
         <button type="button" class="btn btn-secondary btn-s ca_approved" data-dismiss="modal">Close</button>
+
     </div>
 		 -->
 
