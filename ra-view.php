@@ -106,15 +106,20 @@ $mysqli->close();
 <head>
     <link rel="stylesheet" href="css/TimeCircles.css"></script>
     <script src="js/TimeCircles.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <style>
+
     h4{
         font-size:12px!important;
         font-weight:bold;
     }
-    h3{
-        text-align:center;
-        font-weight:bold;
+    .modal-content{
+    width:1035px;
+    height:auto;
+    margin-left:-200px;
+    max-width:1035px;
+        display: block!important; /* remove extra space below image */
     }
 </style>
 <body onload="loadAll()">
@@ -141,8 +146,8 @@ $mysqli->close();
                 <div class="row">
                     <div class="buttons">
                        
-                                <a href="?page=csr-edit&id=<?php echo $getID; ?>" class="btn btn-primary">Edit <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
-                                <a href="?page=mail&id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
+                                <a href="?page=csr-edit&id=<?php echo $getID; ?>" class="btn btn-primary">Edit&nbsp;&nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
+                                <a href="?page=mail&id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail&nbsp;&nbsp;<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
 
                                       <!-- Navbar Right Menu -->
                                 
@@ -151,7 +156,7 @@ $mysqli->close();
 
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
-                                        <span class="btn btn-info" target="_blank">Print<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></span>   
+                                        <span class="btn btn-info" target="_blank">Print&nbsp;&nbsp;<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
                                         </a>
                                         <ul class="dropdown-menu">
 
@@ -160,7 +165,8 @@ $mysqli->close();
                                         <li><a class="dropdown-item" href="print_agreement.php?id=<?php echo $getID; ?>" class="btn btn-info">Print Agreement Page</a>
                                         </ul>
                                     </li>
-
+                                    <a attachment-id="<?php echo $getID; ?>" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal" id="upload_file">Upload file&nbsp;&nbsp;<span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></a>
+                                    
                                 <hr>
                                 <?php if($reserv_status == 1  && $ca_status == 0){ ?>
                          
@@ -490,7 +496,51 @@ $mysqli->close();
                                     </table>
                                 </div>
                             </div>
-                                
+                            <div id="space1" class="space"></div>
+                            <div id="space1" class="space"></div>
+                            <div class="view_box" style="padding:20px;">
+                            <table style="text-align:center;" class="table table-striped">
+                                                <th style="text-align:center;">File Name</th>
+                                                <th style="text-align:center;">Date Uploaded</th>
+                                <?php
+                                    $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+                                    if ($mysqli->connect_error) {
+                                        die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
+                                    }
+                                    $query1 = "SELECT * FROM tbl_attachments WHERE c_csr_no = '".$getID."' ORDER BY date_uploaded DESC";
+
+                                    $results1 = $mysqli->query($query1);
+
+                                    if($results1) {
+                                        ?>
+                                        
+                                                <b>Attachments: </b>
+                                                <?php
+                                                while($row1 = $results1->fetch_assoc()):
+                                                    
+                                                    ?>
+                                                
+                                               
+                                                    <tr>
+                                                        <td style="width:50%;">
+                                                        <div data-id='<?php echo $row1["id"]; ?>' class="attachment_name btn-link"><?php echo $row1["title"]; ?>
+                                                </td>
+                                                <td>
+                                                        <?php echo $row1["date_uploaded"]; ?></div>
+                                                </td>
+                                                    </tr>
+                                                
+
+                                                <?php endwhile; ?>
+                                                </table>
+                                        <?php
+                                        
+                                    }
+                                ?>
+                                  
+                            </div>
+                        
+
                         <!--     add comment form here  -->
                             <div class="commentDiv">
                                 <form  method="POST" id="add_comment">
@@ -635,7 +685,21 @@ $mysqli->close();
   </div><!-- /.modal-dialog -->
 </div>
 </div>
-
+<div class="modal fade" id="a_modal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">User Info</h4>
+				<button type="button" class="close" data-dismiss="modal"></button>
+			</div>
+			<div class="modal-body">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
 <form id="statform" action="update_duration.php?c_csr_no=<?php echo $getID ?>" method="post">
     <input type="hidden" name="samp_txt" id="samp_txt">
 </form>
@@ -667,22 +731,6 @@ $mysqli->close();
     document.getElementById("form-" + commentId).scrollIntoView();
     }
 
-/*     function statusColor(){
-        var cstatus=document.getElementById('txtstatus').value;
-        if (cstatus=='Disapproved'){
-            document.getElementById('txtstatus').style.background = "#dd4b39";
-            document.getElementById('status_list').style.background = "#dd4b39";
-            document.getElementById('status_list').style.color = "white";
-        }else if (cstatus=='Approved'){
-            document.getElementById('txtstatus').style.background = "#00a65a";
-            document.getElementById('status_list').style.background = "#00a65a";
-            document.getElementById('status_list').style.color = "white";
-        }else{
-            document.getElementById('txtstatus').style.background = "#f39c12";
-            document.getElementById('status_list').style.background = "#f39c12";
-            document.getElementById('status_list').style.color = "white";
-        }
-    } */
     function changeSelected(){
         var cstatus_changed=document.getElementById('status_list').value;
     }
@@ -775,5 +823,25 @@ $mysqli->close();
         //}
         }
 </script>
+<script>
+	$(document).ready(function(){
+		$('.attachment_name').click(function(){
+			var csrno=$(this).data('id');
+            $.ajax({
+				url:'ajax_attachments.php',
+				type:'post',
+				data:{csrno:csrno},
+				success:function(response){
+					$('.modal-body').html(response);
+					$('#a_modal').modal('show');
+				}
+			})
+		});
+	});
+</script>
+<script>
+$('#upload_file').click(function(){
+	uni_modal('Upload File','upload_files.php?id='+$(this).attr('attachment-id'));
+})
 
-
+</script>
