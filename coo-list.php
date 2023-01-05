@@ -67,12 +67,12 @@
                     $where = '';
                     if(isset($_GET['category_id'])  && $_GET['category_id'] != 'all'){
                   
-                        $where .= " where coo_approval = '".$_GET['category_id']."'  and c_verify = '1' ";
+                        $where .= " where coo_approval = '".$_GET['category_id']."'  and c_verify = '1' and c_revised = 0";
              
                     }
                     else{
                     
-                        $where .=  " where c_verify = 1 ";
+                        $where .=  " where c_verify = 1 and c_revised = 0";
                        
                     }
                     $csr = $mysqli->query("SELECT * FROM t_csr_view ".$where." order by c_date_updated asc");

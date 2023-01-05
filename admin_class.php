@@ -700,7 +700,7 @@ Class Action {
 			$save = $this->db->query("UPDATE t_approval_csr SET c_ca_status = ".$value." where ra_id = ".$ra_id);
 		elseif ($value == 3):
 			$save = $this->db->query("UPDATE t_csr SET c_verify = 0, coo_approval = 0, c_revised = 1 where c_csr_no = ".$id);
-			$save = $this->db->query("UPDATE t_approval_csr SET c_csr_status = 0, c_reserve_status = 0, c_ca_status = ".$value." where ra_id = ".$ra_id);
+			$save = $this->db->query("UPDATE t_approval_csr SET c_csr_status = 0, c_ca_status = ".$value." where ra_id = ".$ra_id);
 		endif;
 
 		if($save){
