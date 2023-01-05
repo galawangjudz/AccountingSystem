@@ -8,14 +8,14 @@ if ($mysqli->connect_error) {
 	die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
 }
 // the query
-$query = "SELECT * FROM t_csr WHERE c_csr_no = '" . $mysqli->real_escape_string($getID) . "'";
+$query = "SELECT * FROM t_csr inner join t_csr_buyers on t_csr.c_csr_no = t_csr_buyers.c_csr_no WHERE t_csr_buyers.c_buyer_count = 1 and t_csr.c_csr_no = '" . $mysqli->real_escape_string($getID) . "'";
 $result = mysqli_query($mysqli, $query);
 // mysqli select query
 if($result) {
 	while ($row = mysqli_fetch_assoc($result)) {
 		$csr_no = $row['c_csr_no'];
-        $email = $row['c_email'];
-        $employment_status= $row['c_employment_status'];
+        $email = $row['email'];
+      /*   $employment_status= $row['c_employment_status']; */
     }
 }
 $mysqli->close();
