@@ -25,7 +25,7 @@ Class Action {
 
 	function delete_customer(){
 		extract($_POST);
-		$delete = $this->db->query("DELETE FROM store_customers where id = ".$id);
+		$delete = $this->db->query("DELETE FROM t_client_info where id = ".$id);
 		if($delete){
 			return 1;
 		}
@@ -76,7 +76,9 @@ Class Action {
 
 	function delete_csr(){
 		extract($_POST);
+		$delete = $this->db->query("DELETE FROM t_csr_buyers where c_csr_no = ".$id);
 		$delete = $this->db->query("DELETE FROM t_csr where c_csr_no = ".$id);
+		$delete = $this->db->query("DELETE FROM t_csr_commission where c_csr_no = ".$id);
 		if($delete){
 			return 1;
 		}
@@ -727,8 +729,9 @@ Class Action {
 		if ($value == 1):
 			$save = $this->db->query("UPDATE t_approval_csr SET c_ca_status = ".$value." where ra_id = ".$ra_id);
 		elseif ($value == 2):
-			$save = $this->db->query("UPDATE t_csr SET c_verify = 2 where c_csr_no = ".$id);
-			$save = $this->db->query("UPDATE t_approval_csr SET c_ca_status = ".$value." where ra_id = ".$ra_id);
+			$save = $this->db->query("UPDATE t_csr SET c_verify = 2, coo_approval = 0 where c_csr_no = ".$id);
+			$save = $this->db->query("UPDATE t_lots set c_status = 'Available' where c_lid =".$lot_id);
+			$save = $this->db->query("UPDATE t_approval_csr SET c_csr_status = 3, c_ca_status = ".$value." where ra_id = ".$ra_id);
 		elseif ($value == 3):
 			$save = $this->db->query("UPDATE t_csr SET c_verify = 0, coo_approval = 0, c_revised = 1 where c_csr_no = ".$id);
 			$save = $this->db->query("UPDATE t_approval_csr SET c_csr_status = 0, c_ca_status = ".$value." where ra_id = ".$ra_id);
@@ -741,7 +744,6 @@ Class Action {
 	
 	function ca_approval2(){
 		extract($_POST);
-	/* 	$save = $this->db->query("UPDATE t_csr SET c_verify = 2 where c_csr_no = ".$id); */
 		$save = $this->db->query("UPDATE t_approval_csr SET c_ca_status = 2 where ra_id = ".$ra_id);
 		if($save){
 			return 1;

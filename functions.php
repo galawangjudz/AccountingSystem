@@ -806,7 +806,7 @@ function getCustomers() {
 
 		    print '
 			    <tr>
-					<td>'.$row["last_name"].', '.$row["first_name"].'</td>
+					<td>'.$row["last_name"].' '.$row["suffix_name"].', '.$row["first_name"].'</td>
 				    <td>'.$row["email"].'</td>
 				    <td>'.$row["contact_no"].'</td>
 					<td class="actions"><a data-customer-id="'.$row['id'].'" class="btn btn-primary btn-xs edit-customer"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 

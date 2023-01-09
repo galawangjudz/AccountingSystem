@@ -177,7 +177,7 @@ $mysqli->close();
 		$.ajax({
 			url:'ajax.php?action=ca_approval',
 			method:'POST',
-			data:{ra_id:'<?php echo $ra_id ?>',id:'<?php echo $csr_no ?>',value:$(this).attr('value')},
+			data:{ra_id:'<?php echo $ra_id ?>',id:'<?php echo $csr_no ?>',lot_id:'<?php echo $lot_id ?>',value:$(this).attr('value')},
 			success:function(resp){
 				if(resp ==1){
 					alert("Data successfully saved",'success')
