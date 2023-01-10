@@ -34,7 +34,7 @@
 }
 </style>
 <body onload="showTab()">
-		<h2>Create New <span class="csr_type">CSR</span> </h2>
+		<h2>Create New <span class="csr_type">RA</span> </h2>
 		<div id="response" class="alert alert-success" style="display:none;">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
 			<div class="message"></div>

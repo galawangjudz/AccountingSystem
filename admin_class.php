@@ -638,8 +638,7 @@ Class Action {
 	function coo_approval(){
 		extract($_POST);
 
-		
-
+	
 		$data = " c_csr_no = '$id' ";
 		$data .= ", c_lot_lid = '$lid' ";
 		$data .= ", c_csr_status = '$value' ";
@@ -726,8 +725,14 @@ Class Action {
 
 	function ca_approval(){
 		extract($_POST);
+		$data = " c_ca_status = '$value' ";
+		$data .= ", c_ca_approved_date = DATE_ADD(CURRENT_TIMESTAMP())";
+		$data .= ", c_ca_duration = DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL 30 DAY)";
+
+
 		if ($value == 1):
-			$save = $this->db->query("UPDATE t_approval_csr SET c_ca_status = ".$value." where ra_id = ".$ra_id);
+			/* $save = $this->db->query("UPDATE t_approval_csr SET c_ca_status = ".$value." where ra_id = ".$ra_id); */
+			$save = $this->db->query("UPDATE t_approval_csr SET ".$data." where ra_id = ".$ra_id);
 		elseif ($value == 2):
 			$save = $this->db->query("UPDATE t_csr SET c_verify = 2, coo_approval = 0 where c_csr_no = ".$id);
 			$save = $this->db->query("UPDATE t_lots set c_status = 'Available' where c_lid =".$lot_id);

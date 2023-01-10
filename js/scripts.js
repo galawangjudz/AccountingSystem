@@ -57,18 +57,6 @@ $(document).ready(function() {
     };
     $('#password').pwstrength(options);
 
-	// add project 
-	$("#action_add_project").click(function(e) {
-		e.preventDefault();
-		actionAddProject();
-	});
-
-	// add agent
-	$("#action_add_agent").click(function(e) {
-		e.preventDefault();
-		actionAddAgent();
-	});
-
 	// add house 
 	$("#action_add_house").click(function(e) {
 		e.preventDefault();
@@ -85,19 +73,6 @@ $(document).ready(function() {
 		}
 	};
 	$('#password').pwstrength(options);
-
-
-	// add user
-	$("#action_add_user").click(function(e) {
-		e.preventDefault();
-	    actionAddUser();
-	});
-
-	// update customer
-	$(document).on('click', "#action_update_user", function(e) {
-		e.preventDefault();
-		updateUser();
-	});
 
 	// verify csr
 	$(document).on('click', "#verify_btn", function(e) {
@@ -121,84 +96,6 @@ $(document).ready(function() {
 
 		});
    	});
-
-
-	// coo approved csr
-	$(document).on('click', "#coo_approval_btn", function(e) {
-        e.preventDefault();
-		var btn_val = $("#coo_approval_btn").val();
-		var csrId = 'action=coo_approval_csr&id='+ $(this).attr('csr-id')+ '&lot_lid=' + $(this).attr('csr-lot-lid') + '&value=' + btn_val ;
-	 	$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() { 
-			CooApproval(csrId);
-			
-
-		}); 
-   	});
-
-	// dis coo approved csr
-	$(document).on('click', "#dis_coo_approval_btn", function(e) {
-        e.preventDefault();
-		var btn_val = $("#dis_coo_approval_btn").val();
-		var csrId = 'action=coo_approval_csr&id='+ $(this).attr('csr-id')+ '&lot_lid=' + $(this).attr('csr-lot-lid') + '&value=' + btn_val ;
-	 	$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() { 
-			CooApproval(csrId);
-		
-		}); 
-   	});
-
-	// ca approved csr
-	$(document).on('click', "#ca_approval_btn", function(e) {
-        e.preventDefault();
-		var btn_val = $("#ca_approval_btn").val();
-		var csrId = 'action=ca_approval_csr&id='+ $(this).attr('csr-id')+ '&value=' + btn_val;
-		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
-			CaApproval(csrId);
-	
-
-		});
-   	});
-
-	// ca approved csr
-	$(document).on('click', "#dis_ca_approval_btn", function(e) {
-        e.preventDefault();
-		var btn_val = $("#dis_ca_approval_btn").val();
-		var csrId = 'action=ca_approval_csr&id='+ $(this).attr('csr-id')+ '&value=' + btn_val;
-		$('#verify_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#verify', function() {
-			CaApproval(csrId);
-		
-		});
-   	});
-
-
-	// update agent
-	$(document).on('click', "#action_update_agent", function(e) {
-		e.preventDefault();
-		updateAgent();
-	});
-
-	// update customer
-	$(document).on('click', "#action_update_customer", function(e) {
-		e.preventDefault();
-		updateCustomer();
-	});
-
-	// update lot
-	$(document).on('click', "#action_update_lot", function(e) {
-		e.preventDefault();
-		updateLot();
-	});
-
-	// update project
-	$(document).on('click', "#action_update_project", function(e) {
-		e.preventDefault();
-		updateProject();
-	});
-
-	// update house
-	$(document).on('click', "#action_update_house", function(e) {
-		e.preventDefault();
-		updateHouse();
-	});
 
 	// login form
 	$(document).bind('keypress', function(e) {
@@ -227,9 +124,6 @@ $(document).ready(function() {
 		});
 		
 		});
-
-
-	
 
 
 	//agent
@@ -267,64 +161,6 @@ $(document).ready(function() {
 		return false;
 
 	});
-
-	//ra stat
-	$(document).on('change', "#ra_stat", function(e) {
-		e.preventDefault();  
-
-		var stat = $("#ra_stat").val();
-		//alert(stat);
-		//var raId = 'action=ra_stat&stat="'+ stat + '"&id='+ $(this).attr('csr-id')+'&lot_lid=' + $(this).attr('csr-lot-lid'); //build a post data structure
-		var raId = 'action=ra_stat&stat="'+ stat + '"&id='+ $(this).attr('ra-id')
-		//alert(csrId);
-	
-		$(".modal-body #upstat").val(stat);
-		$('#update_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#confirm', function() {
-			RaStat(raId);
-			//$(csr).closest('tr').remove();
-		
-		});
-	
-	});
-
-	//change approval
-	$(document).on('change', ".status-list", function(e) {
-		e.preventDefault();
-
-		var stat = $("#status_list").val();
-		//alert(stat);
-        var csrId = 'action=update_stat&stat="'+ stat + '"&id='+ $(this).attr('csr-id')+'&lot_lid=' + $(this).attr('csr-lot-lid'); //build a post data structure
-		//var csrId = 'action=update_stat&stat="'+ stat + '"&id='+ $(this).attr('csr-id')
-		//alert(csrId);
-	
-		$(".modal-body #upstat").val(stat);
-	    $('#update_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#confirm', function() {
-			UpdateStat(csrId);
-			//$(csr).closest('tr').remove();
-		
-		});
-   	});
-
-
-	//change approval
-	$(document).on('change', ".ca-approval", function(e) {
-		e.preventDefault();
-
-		var stat = $("#ca_approval").val();
-		//alert(stat);
-		var csrId = 'action=ca_stat&stat="'+ stat + '"&id='+ $(this).attr('csr-id')+'&lot_lid=' + $(this).attr('csr-lot-lid'); //build a post data structure
-		//var csrId = 'action=update_stat&stat="'+ stat + '"&id='+ $(this).attr('csr-id')
-		//alert(csrId);
-	
-		$(".modal-body #upstat").val(stat);
-		$('#update_stat').modal({ backdrop: 'static', keyboard: false }).one('click', '#confirm', function() {
-			UpdateCAStat(csrId);
-			//$(csr).closest('tr').remove();
-		
-		});
-	});
-	
-
 
 	
 	// create customer
@@ -397,9 +233,6 @@ $(document).ready(function() {
 		return false;
 
    	});
-
-	  
-   	
 
 		
 	//select lot
@@ -481,23 +314,11 @@ $(document).ready(function() {
 
 	$(document).on('click', ".house-select", function(e) {
 
-		/* let house_lid = $(this).attr('data-house-lid');
-		var house_site =  $(this).attr('data-house-site');
-		var house_block = $(this).attr('data-house-block');
-		var house_lot = $(this).attr('data-house-lot');
- */
 		var house_model = $(this).attr('data-house-model');
 		var house_floor_area = $(this).attr('data-house-floor-area');
 		var house_price_sqm = $(this).attr('data-house-per-sqm');
 
-		//var house_status = $(this).attr('data-house-status');
-
-		//alert(lot_status);
 	
-	/* 	$('#_lid').val(house_lid);
-		$('#l_site').val(house_site);
-		$('#l_block').val(house_block);
-		$('#l_lot').val(house_lot); */
 		
 		$('#house_model').val(house_model);
 		$('#floor_area').val(house_floor_area);
@@ -517,8 +338,6 @@ $(document).ready(function() {
 		compute_net_tcp();
 
 	});
-
-
 
 	//select ra
 
@@ -596,14 +415,6 @@ $(".add-buyer-row").click(function(e) {
 	cloned2.clone().appendTo('#buyer_table'); 
 });
 
-
- 
-/* $(document).on('keyup', ".agent-rate", function(e) {
-	alert("121212");
-
-
-});
-*/
 $('#comm_table').on('input', '.calculate', function () {
 	//alert(this);
 	updateTotals(this);  
@@ -621,8 +432,6 @@ function updateTotals(elem) {
 	$('.comm-amt', tr).val(subtotal.toFixed(2));
 	
 }
-
-
 
 	// create csr
 	$("#action_create_csr").click(function(e) {
@@ -658,7 +467,6 @@ function updateTotals(elem) {
 		showClose: false,
 		format: dateFormat
 	});
-
 
 	$('#birth_date').datetimepicker({
 		showClose: false,
@@ -714,13 +522,6 @@ function updateTotals(elem) {
 
 	});	
 
-
-	/* $(document).on('blur', ".date_of_sale", function(e) {
-		var today = new Date();
-		$('#date_of_sale').val(today);
-
-	
-	}); */
 
 	$(document).on('blur', ".birth_day", function(e) {
 		e.preventDefault();
@@ -820,6 +621,7 @@ function updateTotals(elem) {
 
 
 	});
+
 
 	function payment_type1_changed(){
 			var l_payment_type1 = $('.payment-type1').val();
@@ -1189,8 +991,6 @@ function updateTotals(elem) {
 
 	}
 
-
-
 	function actionSaveRes(){
 
 		var errorCounter = validateForm();
@@ -1235,83 +1035,7 @@ function updateTotals(elem) {
 	}
 
 
-	function verify_btn(csrId) {
-
-        jQuery.ajax({
-
-        	url: 'response.php',
-            type: 'POST', 
-            data: csrId,
-            dataType: 'json', 
-            success: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				setInterval('location.reload()', 500);
-				
-			},
-			error: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				
-			} 
-    	});
-
-   	}
-
-	
-
-	function CooApproval(csrId) {
-
-        jQuery.ajax({
-
-        	url: 'response.php',
-            type: 'POST', 
-            data: csrId,
-            dataType: 'json', 
-            success: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				setInterval('location.reload()', 500);
-				
-			},
-			error: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				
-			} 
-    	});
-
-   	}
-
-	function CaApproval(csrId) {
-
-        jQuery.ajax({
-
-        	url: 'response.php',
-            type: 'POST', 
-            data: csrId,
-            dataType: 'json', 
-            success: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				setInterval('location.reload()', 500);
-				
-			},
-			error: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				
-			} 
-    	});
-
-   	}
-	   function deleteReservation(raId) {
+	function deleteReservation(raId) {
 
         jQuery.ajax({
 
@@ -1336,130 +1060,7 @@ function updateTotals(elem) {
    	}
 
 
-   	function updateLot(){
 
-		var errorCounter = validateForm();
-	
-		if (errorCounter > 0) {
-			$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-			$("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
-			$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-		} else {
-
-   		var $btn = $("#action_update_lot").button("loading");
-
-			$(".required").parent().removeClass("has-error");
-	
-			$.ajax({
-
-        	url: 'response.php',
-            type: 'POST', 
-            data: $("#update_lot").serialize(),
-            dataType: 'json', 
-            success: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 5000);
-					$("#update_lot").before().html("<a href='./lot-edit.php' class='btn btn-primary'>Edit Another Lot</a>");
-					$("#update_lot").remove();
-					setInterval(redirectToLotList,2000);
-				$btn.button("reset");
-					
-			},
-			error: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				$btn.button("reset");
-			} 
-				
-    	});
-		}
-   	}
-
-
-	
-	   function updateProject(){
-
-		var errorCounter = validateForm();
-	
-		if (errorCounter > 0) {
-			$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-			$("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
-			$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-		} else {
-
-		var $btn = $("#action_update_project").button("loading");
-
-			$(".required").parent().removeClass("has-error");
-	
-			$.ajax({
-
-		url: 'response.php',
-		type: 'POST', 
-		data: $("#update_project").serialize(),
-		dataType: 'json', 
-		success: function(data){
-			$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-			$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 5000);
-					$("#update_project").before().html("<a href='./project-edit.php' class='btn btn-primary'>Edit Another Project</a>");
-					$("#update_project").remove();
-					setInterval(redirectToProjectList,2000);
-			$btn.button("reset");
-					
-		},
-		error: function(data){
-			$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-			$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-			$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-			$btn.button("reset");
-		} 
-				
-	});
-		}
-	}
-
-	function updateHouse(){
-
-		var errorCounter = validateForm();
-	
-		if (errorCounter > 0) {
-			$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-			$("#response .message").html("<strong>Error</strong>: It appear's you have forgotten to complete something!");
-			$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-		} else {
-
-	var $btn = $("#action_update_house").button("loading");
-
-			$(".required").parent().removeClass("has-error");
-	
-			$.ajax({
-
-		url: 'response.php',
-		type: 'POST', 
-		data: $("#update_house").serialize(),
-		dataType: 'json', 
-		success: function(data){
-			$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-			$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 5000);
-					$("#update_house").before().html("<a href='./house-edit.php' class='btn btn-primary'>Edit Another House</a>");
-					$("#update_house").remove();
-					setInterval(redirectToHouseList,2000);
-			$btn.button("reset");
-					
-		},
-		error: function(data){
-			$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-			$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-			$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-			$btn.button("reset");
-		} 
-				
-	});
-		}
-}
 
 	function updateRes() {
 
@@ -1495,8 +1096,6 @@ function updateTotals(elem) {
 
 
    
-
-   
    	function validateForm() {
 	    // error handling
 	    var errorCounter = 0;
@@ -1514,60 +1113,6 @@ function updateTotals(elem) {
 	    });
 
 	    return errorCounter;
-	}
-
-	function UpdateStat(csrId) {
-
-
-	 jQuery.ajax({
-
-		 url: 'response.php',
-		 type: 'POST', 
-		 data: csrId,
-		 dataType: 'json', 
-		 success: function(data){
-
-				 $("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				 $("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-				 $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				 setInterval('location.reload()', 500);
-			
-		 },
-		 error: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				setInterval('location.reload()', 500);
-		 } 
-	 });
-
-	}
-
-	function UpdateCAStat(csrId) {
-
-
-		jQuery.ajax({
-
-			url: 'response.php',
-			type: 'POST', 
-			data: csrId,
-			dataType: 'json', 
-			success: function(data){
-
-					$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-					$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-					$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					setInterval('location.reload()', 500);
-			
-			},
-			error: function(data){
-				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
-				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
-				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-				setInterval('location.reload()', 500);
-			} 
-		});
-
 	}
    
 
@@ -1665,7 +1210,47 @@ function updateTotals(elem) {
 	});
 
 
+	$(document).on('click', "#compute-pmt", function(e) {
+		e.preventDefault();
+		alert("done");
+		var interest_rate = $('.int-rate').val();
+		var terms = $('.term-rate').val();
+		var l_amt_financed = $('.loan-amt').val();
+		$i = (interest_rate /100)/12;
+		$n = terms;
+		$fv  = 0;
+		$pv =  l_amt_financed;
+		$type = 0;
+
+		$PMT = (($pv - $fv) * $i )/ (1 - pow((1 + $i), (-$n))); 
+		/* pmt($interest_rate,$terms,$pv,$fv,$type); */
+
+
+		alert($PMT);
+
+	});
+
 });
+
+
+function pmt(rate_per_period, number_of_payments, present_value, future_value, type){
+	future_value = typeof future_value !== 'undefined' ? future_value : 0;
+	type = typeof type !== 'undefined' ? type : 0;
+
+	if(rate_per_period != 0.0){
+		// Interest rate exists
+		var q = Math.pow(1 + rate_per_period, number_of_payments);
+		return -(rate_per_period * (future_value + (q * present_value))) / ((-1 + q) * (1 + rate_per_period * (type)));
+
+	} else if(number_of_payments != 0.0){
+		// No interest rate, but number of payments exists
+		return -(future_value + present_value) / number_of_payments;
+	}
+
+	return 0;
+
+	
+}
 
 //** //////////////////////////////////////////////////////////////////*/
 
