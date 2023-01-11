@@ -611,18 +611,16 @@ while ($row = mysqli_fetch_assoc($result)) {
 									<div class="titles">House</div>
 									<hr>
 									<div class="row">
+										<input type="hidden" class="form-control margin-bottom copy-input" name="l_house_lid" id="l_house_lid" >
 										<div class="col-xs-12">		
 											<div class="form-group">
 												<label class="control-label">House Model: </label>
-												<!-- <?php echo $house_model; ?> -->
-												<?php getHouseModel(); ?>
-												
-												<option value="<?php echo $house_model ?> " selected> <?php echo $house_model?></option>
+												<input type="text" class="form-control margin-bottom house-model" name="house_model" id="house_model" value="<?php echo $house_model ?>" tabindex="31">
 												</select>
-														
 											</div>
 										</div>
 									</div>
+									
 									<div class="row">
 										<div class="col-xs-12">
 											<div class="form-group">

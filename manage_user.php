@@ -20,7 +20,7 @@ foreach($user->fetch_array() as $k =>$v){
 		</div>
 		<div class="form-group">
 			<label for="name">Middle Name</label>
-			<input type="text" name="middle_name" id="middle_name" class="form-control required" value="<?php echo isset($meta['middle_name']) ? $meta['middle_name']: '' ?>" required>
+			<input type="text" name="middle_name" id="middle_name" class="form-control" value="<?php echo isset($meta['middle_name']) ? $meta['middle_name']: '' ?>" required>
 		</div>
 		<div class="form-group">
 			<label for="name">Email Address</label>
@@ -57,6 +57,7 @@ foreach($user->fetch_array() as $k =>$v){
 				<option value="COO"<?php echo isset($meta['user_type']) && $meta['user_type'] == "COO" ? 'selected': '' ?>> COO</option>
 				<option value="IT Admin"<?php echo isset($meta['user_type']) && $meta['user_type'] == "IT Admin" ? 'selected': '' ?>>IT Admin</option>
 				<option value="Agent" <?php echo isset($meta['user_type']) && $meta['user_type'] == "Agent" ? 'selected': '' ?>>Agent</option>
+				<option value="Broker" <?php echo isset($meta['user_type']) && $meta['user_type'] == "Broker" ? 'selected': '' ?>>Broker</option>
 				<option value="CA" <?php echo isset($meta['user_type']) && $meta['user_type'] == "CA Supervisor" ? 'selected': '' ?>>CA Supervisor</option>
 				<option value="Cashier" <?php echo isset($meta['user_type']) && $meta['user_type'] == "Cashier" ? 'selected': '' ?>>Cashier</option>
 			</select>
@@ -95,7 +96,7 @@ foreach($user->fetch_array() as $k =>$v){
 	 	start_load() 
 		var errorCounter = validateForm();
 		if (errorCounter > 0) {
-			alert_toast("It appear's you have forgotten to complete something!","warning")	
+			alert("It appear's you have forgotten to complete something!","warning")	
 			end_load()  
 		}else{
 

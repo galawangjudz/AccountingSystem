@@ -104,10 +104,12 @@ if($result) {
 
 <div class="row">
     <div class="col-xs-12">
+        <?php if($reserv_status == 0){ ?>
         <div class="timer_box">
             <div id="CountDown" data-date="<?php echo $duration; ?>"></div>
             <br>
         </div>
+        <?php } ?>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <input type="hidden" value="<?php echo $p1; ?>" id="p1">
@@ -118,9 +120,9 @@ if($result) {
             <div class="panel-body form-group form-group-sm">
                 <div class="row">
                     <div class="buttons">
-                       
-                                <a href="?page=csr-edit&id=<?php echo $getID; ?>" class="btn btn-primary">Edit&nbsp;&nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
-                                <a href="?page=mail&id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail&nbsp;&nbsp;<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
+
+                               <!--  <a href="?page=csr-edit&id=<?php echo $getID; ?>" class="btn btn-primary">Edit&nbsp;&nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
+                                 --><a href="?page=mail&id=<?php echo $getID; ?>" data-csr-id="'.$row['c_csr_no'].'" data-email="'.$row['c_email'].'" data-invoice-type="'.$row['c_employment_status'].'" data-custom-email="'.$row['c_email'].'" class="btn btn-info"> E-mail&nbsp;&nbsp;<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </a>
 
                                       <!-- Navbar Right Menu -->
                                 
@@ -141,12 +143,12 @@ if($result) {
                                     <a attachment-id="<?php echo $getID; ?>" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal" id="upload_file">Upload file&nbsp;&nbsp;<span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></a>
                                     
                                 <hr>
-                                <?php if($reserv_status == 1  && $ca_status == 0){ ?>
+                               <!--  <?php if($reserv_status == 1  && $ca_status == 0){ ?>
                          
                                     <button type="button" id= "ca_approval_btn" csr-id =<?php echo $getID; ?> value=1 class="btn btn-success btn-lg btn-block">CA Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
                                     <button type="button" id= "dis_ca_approval_btn" csr-id =<?php echo $getID; ?> value=2 class="btn btn-danger btn-lg btn-block">CA Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
                                 
-                                <?php } ?> 
+                                <?php } ?>  -->
 
                         
                     </div>
@@ -482,6 +484,7 @@ if($result) {
                             <table style="text-align:center;" class="table table-striped">
                                                 <th style="text-align:center;">File Name</th>
                                                 <th style="text-align:center;">Date Uploaded</th>
+                                                <th style="text-align:center;">Action</th>
                                 <?php
                                     $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
                                     if ($mysqli->connect_error) {
@@ -507,6 +510,13 @@ if($result) {
                                                 </td>
                                                 <td>
                                                         <?php echo $row1["date_uploaded"]; ?></div>
+                                                </td>
+                                                <td class="actions">
+                                                    <a data-csr-id="<?php echo $row['id'] ?>" class="btn btn-info btn-xs">
+                                                    <span class="glyphicon glyphicon-check" aria-hidden="true">Approved</span></a> 
+
+                                                    <a data-csr-id="<?php echo $row['id'] ?>" class="btn btn-danger btn-xs delete-csr">
+                                                    <span class="glyphicon glyphicon-trash" aria-hidden="true">Delete</span></a>
                                                 </td>
                                                     </tr>
                                                 

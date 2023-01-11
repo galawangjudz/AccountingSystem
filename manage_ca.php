@@ -10,6 +10,11 @@ $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME)
 if ($mysqli->connect_error) {
 	die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
 }
+$csr = $mysqli->query("SELECT c_reserve_date, c_amount_paid FROM t_reservation where c_csr_no = '" . $mysqli->real_escape_string($getID) . "'");    
+while($row=$csr->fetch_assoc()){
+    $reservation_date = $row['c_reserve_date'];
+    $amount_paid = $row['c_amount_paid'];
+}
 // the query
 $query = "SELECT x.*, y.ra_id, y.c_csr_status, y.c_reserve_status, y.c_ca_status, y.c_duration, y.c_csr_no as csr_num FROM t_approval_csr y inner join t_csr_view x on x.c_csr_no = y.c_csr_no WHERE y.c_csr_no = '" . $mysqli->real_escape_string($getID) . "'";
  
@@ -39,9 +44,10 @@ if($result) {
         }
         $reserv_status = $row['c_reserve_status'];// status
         if($reserv_status == 1){
-            $reserv_status = "Approved";
+            $reserv_status = "Paid";
+          
         }else{
-            $reserv_status = "Disapproved";
+            $reserv_status = "unpaid";
         }
         $ca_status = $row['c_ca_status'];// status 
 
@@ -127,13 +133,19 @@ $mysqli->close();
             <td><b>Reservation Status: </b></td><td><?php echo $reserv_status ?></td>
         </tr>
         <tr>
+            <td><b>Reservation Date: </b></td><td><?php echo $reservation_date ?></td>
+        </tr>
+        <tr>
+            <td><b>Amount Paid: </b></td><td><?php echo 'P'.number_format($amount_paid,2) ?></td>
+        </tr>
+        <tr>
             <td><b>Loan Amount: </b></td><td><?php echo 'P'.number_format($amt_fnanced,2) ?></td>
         </tr>
         <tr>
             <td><b>Payment Type 1: </b></td><td><?php echo $p1 ?></td>
         </tr>
         <tr>
-            <td>Payment Type 2: </b></td><td><?php echo $p2 ?></td>
+            <td><b>Payment Type 2: </b></td><td><?php echo $p2 ?></td>
         </tr>
         <tr>
             <td><b>Interest Rate: </b></td><td><?php echo $interest_rate ?></td>
@@ -142,11 +154,57 @@ $mysqli->close();
             <td><b>Terms: </b></td><td><?php echo $terms ?></td>
         </tr>
         <tr>
-            <td><b>Monthly Amortization: </b></td><td><?php echo $monthly_payment ?></td>
-        </tr>
+            <td><b>Monthly Amortization: </b></td><td><?php echo 'P'.number_format($monthly_payment,2) ?></td>
+        </tr> 
+        <form>
+            <div class="form-group">
+                <label class="control-label">Loan Amount: </label>
+                <input type="text" class="form-control margin-bottom loan-amt required" name="loan_amt" id="loan_amt" value="<?php echo isset($amt_fnanced) ? $amt_fnanced: '' ?>">
+            </div>
+            <div class="form-group">
+                <label class="control-label">Interest Rate: </label>
+                <input type="text" class="form-control margin-bottom int-rate required" name="int_rate" id="int_rate" value="<?php echo isset($interest_rate) ? $interest_rate: '' ?>">
+            </div>
+            <div class="form-group">
+                <label class="control-label">Terms: </label>
+                <input type="text" class="form-control margin-bottom term-rate equired" name="term_rate" id="term_rate" value="<?php echo isset($terms) ? $terms: '' ?>">
+            </div>
+            <?php 
+           
+                $i = ($interest_rate /100)/12;
+                $n = $terms;
+                $fv  = 0;
+                $pv =  $amt_fnanced;
+                $type = 0;
+                if ($terms != 0 or $i != 0){
+                    $ans = (($pv - $fv) * $i )/ (1 - pow((1 + $i), (-$n)));
+                    $PMT = number_format($ans,2) ;
+                    $income_req = $ans / 0.4;
+                    $income_req = number_format($income_req,2) ;
+                }else{ 
+                    $PMT = 0;
+                    $income_req = 0;
+                }
+                   
+            ?>
+            <div class="form-group">
+                <label class="control-label">Monthly : </label>
+                <input type="text" class="form-control margin-bottom required" name="monthly" id="monthly" value="<?php echo isset($PMT) ? $PMT: '' ?>">
+            </div>
+            <div class="form-group">
+                <label class="control-label">Income Requirement: </label>
+                <input type="text" class="form-control margin-bottom required" name="income_req" id="income_req" value="<?php echo isset($income_req) ? $income_req: '' ?>">
+            </div>
+
+         <!--    <button class="btn btn-primary btn-xs compute-pmt">Compute</button>
+            -->
 
         <br>
     </table>
+
+    
+
+
 
     <div class="col-md-3"> 
     <button type="button" style="width:160px;margin-left:-16px;" class="btn btn-success btn-s ca_approved" csr-id ="<?php $csr_no ?>"  value= 1>Approved</button>
@@ -168,6 +226,10 @@ $mysqli->close();
 
 </div>
 <script>
+
+    
+
+
 	$(document).ready(function(){
 		
 	})
@@ -177,7 +239,7 @@ $mysqli->close();
 		$.ajax({
 			url:'ajax.php?action=ca_approval',
 			method:'POST',
-			data:{ra_id:'<?php echo $ra_id ?>',id:'<?php echo $csr_no ?>',value:$(this).attr('value')},
+			data:{ra_id:'<?php echo $ra_id ?>',id:'<?php echo $csr_no ?>',lot_id:'<?php echo $lot_id ?>',value:$(this).attr('value')},
 			success:function(resp){
 				if(resp ==1){
 					alert("Data successfully saved",'success')

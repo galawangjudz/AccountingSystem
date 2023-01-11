@@ -262,7 +262,7 @@ if ($action == 'save_reservation'){
 	/* $c_acronym = $_POST['reserve_site'];
 	$c_block = $_POST['reserve_block'];
 	$c_lot = $_POST['reserve_lot']; */
-	$c_reserve_date = $_POST['pay_date'];
+/* 	$c_reserve_date = $_POST['pay_date']; */
 	$c_amount_paid = $_POST['amount_paid'];
 	$c_lot_lid =  $_POST['lot_lid'];
 
@@ -279,14 +279,12 @@ if ($action == 'save_reservation'){
 					ra_no,
 					c_csr_no,
 					c_or_no,
-					c_reserve_date,
 					c_amount_paid,
 					c_lot_id
 				) VALUES (
 					'".$ra_no."',
 					'".$csr_no."',
-					'".$c_or_no."',
-					'".$c_reserve_date."',
+					'".$c_or_no."',	
 					$c_amount_paid,
 					'".$c_lot_lid."'
 					);

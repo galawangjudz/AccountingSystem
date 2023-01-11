@@ -52,6 +52,8 @@
 							<td><span class="label label-danger"> --- </span></td>
 						<?php endif; ?>
 
+					
+
 						<td class="actions">
 						<button class="btn btn-sm btn-primary ca_approval" type="button" data-id="<?php echo $row['c_csr_no'] ?>">View <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> </td>
 						 

@@ -111,7 +111,7 @@ include('header.php');
   }
 
   window.uni_modal = function($title = '' , $url=''){
- /*    start_load() */
+    start_load() 
     $.ajax({
         url:$url,
         error:err=>{
@@ -123,7 +123,7 @@ include('header.php');
                 $('#uni_modal .modal-title').html($title)
                 $('#uni_modal .modal-body').html(resp)
                 $('#uni_modal').modal('show')
-              /*   end_load() */
+                 end_load()
             }
         }
     })

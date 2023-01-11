@@ -346,10 +346,13 @@ function popLotsList() {
 	}
 	
 	// the query
-	$query = "SELECT c_lid, c.c_acronym, i.c_block, i.c_lot, i.c_status, i.c_lot_area, i.c_price_sqm 
+	$query = "SELECT c_lid, c.c_acronym, h.c_house_lid, h.c_house_model, h.c_floor_area, 
+	h.c_h_price_sqm , i.c_block, i.c_lot, i.c_status, i.c_lot_area, i.c_price_sqm 
 	FROM t_lots i 
-	JOIN t_projects c 
+	LEFT JOIN t_projects c 
 	ON i.c_site = c.c_code
+    LEFT JOIN t_house h  
+	ON i.c_house_lid = h.c_house_lid
 	WHERE i.c_site = c.c_code  and  (i.c_status = 'Available' )
 	ORDER BY c.c_acronym, i.c_block, i.c_lot";
 
@@ -371,7 +374,7 @@ function popLotsList() {
 			  </tr></thead><tbody>';
 
 		while($row = $results->fetch_assoc()) {
-	
+		
 		    print '
 			    <tr>
 					<td>'.$row["c_lid"].'</td>
@@ -379,7 +382,7 @@ function popLotsList() {
 				    <td>'.$row["c_block"].'</td>
 				    <td>'.$row["c_lot"].'</td>
 					<td>'.$row["c_status"].'</td>
-				    <td class="actions"><a href="#" class="btn btn-primary btn-xs lot-select" data-lot-lid="'.$row['c_lid'].'" data-lot-site="'.$row['c_acronym'].'" data-lot-block="'.$row['c_block'].'" data-lot-lot="'.$row['c_lot'].'" data-lot-lot-area="'.$row['c_lot_area'].'" data-lot-per-sqm="'.$row['c_price_sqm'].'">Select</a></td>
+				    <td class="actions"><a href="#" class="btn btn-primary btn-xs lot-select" data-lot-lid="'.$row['c_lid'].'" data-house-lid="'.$row['c_house_lid'].'" data-floor-area="'.$row['c_floor_area'].'" data-house-price="'.$row['c_h_price_sqm'].'" data-house-model="'.$row['c_house_model'].'" data-lot-site="'.$row['c_acronym'].'" data-lot-block="'.$row['c_block'].'" data-lot-lot="'.$row['c_lot'].'" data-lot-lot-area="'.$row['c_lot_area'].'" data-lot-per-sqm="'.$row['c_price_sqm'].'">Select</a></td>
 			   
 				</tr>
 		    ';
@@ -400,74 +403,6 @@ function popLotsList() {
 	$mysqli->close();
 
 }
-function popHousesList() {
-
-	// Connect to the database
-		$mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
-	
-		// output any connection error
-		if ($mysqli->connect_error) {
-			die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
-		}
-		
-		
-	
-		// the query
-		$query = "SELECT distinct(c_lid), i.c_status as c_lot_status, i.*, c.*
-		FROM t_house i 
-		JOIN t_projects c 
-		ON i.c_site = c.c_code
-		WHERE i.c_site = c.c_code  and i.c_status = 'Available' 
-		ORDER BY c.c_acronym, i.c_block, i.c_lot";
-	
-		//echo $query;
-		// mysqli select query
-		$results = $mysqli->query($query);
-	
-		if($results) {
-	
-			print '<table class="table table-striped table-hover table-bordered" id="data-table-lot"><thead><tr>
-					
-					<th>Lot ID</th>
-					<th>Project</th>
-					<th>Block</th>
-					<th>Lot</th>
-					<th>Status</th>
-					<th>Action</th>
-	
-				  </tr></thead><tbody>';
-	
-			while($row = $results->fetch_assoc()) {
-	
-				print '
-					<tr>
-						<td>'.$row["c_lid"].'</td>
-						<td>'.$row["c_acronym"].'</td>
-						<td>'.$row["c_block"].'</td>
-						<td>'.$row["c_lot"].'</td>
-						<td>'.$row["c_lot_status"].'</td>
-						<td><a href="#" class="btn btn-primary btn-xs house-select" data-house-model="'.$row['c_house_model'].'" data-house-floor-area="'.$row['c_floor_area'].'" data-house-per-sqm="'.$row['c_h_price_sqm'].'">Select</a></td>
-				   
-					</tr>
-				';
-			}
-	
-			print '</tr></tbody></table>';
-	
-		} else {
-	
-			echo "<p>There are no lots to display.</p>";
-	
-		}
-	
-		// Frees the memory associated with a result
-		$results->free();
-	
-		// close connection 
-		$mysqli->close();
-	
-	}
-
 
 
 	function popCustomersList() {
@@ -674,6 +609,44 @@ function getUsers() {
 	// close connection 
 	$mysqli->close();
 }
+function popHouseModel() {
+
+	// Connect to the database
+	$mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+
+	// output any connection error
+	if ($mysqli->connect_error) {
+	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+	}
+
+	// the query
+	$query = "SELECT * FROM t_model_house ORDER BY c_code ASC";
+
+	// mysqli select query
+	$results = $mysqli->query($query);
+
+	if($results) {
+		echo '<select class="form-control model-select">';
+		while($row = $results->fetch_assoc()) {
+
+		    print '<option value="'.$row["c_model"].'">'.$row["c_model"].' </option>';
+		}
+		echo '</select>';
+
+	} else {
+
+		echo "<p>There are no agents, please add an agents.</p>";
+
+	}
+
+	// Frees the memory associated with a result
+	$results->free();
+
+	// close connection 
+	$mysqli->close();
+
+}
+
 function popAgentsList() {
 
 	// Connect to the database
@@ -806,7 +779,7 @@ function getCustomers() {
 
 		    print '
 			    <tr>
-					<td>'.$row["last_name"].', '.$row["first_name"].'</td>
+					<td>'.$row["last_name"].' '.$row["suffix_name"].', '.$row["first_name"].'</td>
 				    <td>'.$row["email"].'</td>
 				    <td>'.$row["contact_no"].'</td>
 					<td class="actions"><a data-customer-id="'.$row['id'].'" class="btn btn-primary btn-xs edit-customer"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
