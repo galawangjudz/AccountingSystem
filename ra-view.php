@@ -484,6 +484,7 @@ if($result) {
                             <table style="text-align:center;" class="table table-striped">
                                                 <th style="text-align:center;">File Name</th>
                                                 <th style="text-align:center;">Date Uploaded</th>
+                                                <th style="text-align:center;">Action</th>
                                 <?php
                                     $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
                                     if ($mysqli->connect_error) {
@@ -509,6 +510,13 @@ if($result) {
                                                 </td>
                                                 <td>
                                                         <?php echo $row1["date_uploaded"]; ?></div>
+                                                </td>
+                                                <td class="actions">
+                                                    <a data-csr-id="<?php echo $row['id'] ?>" class="btn btn-info btn-xs">
+                                                    <span class="glyphicon glyphicon-check" aria-hidden="true">Approved</span></a> 
+
+                                                    <a data-csr-id="<?php echo $row['id'] ?>" class="btn btn-danger btn-xs delete-csr">
+                                                    <span class="glyphicon glyphicon-trash" aria-hidden="true">Delete</span></a>
                                                 </td>
                                                     </tr>
                                                 

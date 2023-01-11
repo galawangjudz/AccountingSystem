@@ -71,7 +71,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+       <!--  <div class="row">
             <div class="col-xs-12">   
                 <div class="form-group">
                     <label>Pay Date:</label>
@@ -83,7 +83,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="row">
             <div class="col-xs-12">   
                 <div class="form-group">

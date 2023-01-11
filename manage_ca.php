@@ -10,6 +10,11 @@ $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME)
 if ($mysqli->connect_error) {
 	die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
 }
+$csr = $mysqli->query("SELECT c_reserve_date, c_amount_paid FROM t_reservation where c_csr_no = '" . $mysqli->real_escape_string($getID) . "'");    
+while($row=$csr->fetch_assoc()){
+    $reservation_date = $row['c_reserve_date'];
+    $amount_paid = $row['c_amount_paid'];
+}
 // the query
 $query = "SELECT x.*, y.ra_id, y.c_csr_status, y.c_reserve_status, y.c_ca_status, y.c_duration, y.c_csr_no as csr_num FROM t_approval_csr y inner join t_csr_view x on x.c_csr_no = y.c_csr_no WHERE y.c_csr_no = '" . $mysqli->real_escape_string($getID) . "'";
  
@@ -40,6 +45,7 @@ if($result) {
         $reserv_status = $row['c_reserve_status'];// status
         if($reserv_status == 1){
             $reserv_status = "Paid";
+          
         }else{
             $reserv_status = "unpaid";
         }
@@ -127,6 +133,12 @@ $mysqli->close();
             <td><b>Reservation Status: </b></td><td><?php echo $reserv_status ?></td>
         </tr>
         <tr>
+            <td><b>Reservation Date: </b></td><td><?php echo $reservation_date ?></td>
+        </tr>
+        <tr>
+            <td><b>Amount Paid: </b></td><td><?php echo 'P'.number_format($amount_paid,2) ?></td>
+        </tr>
+        <tr>
             <td><b>Loan Amount: </b></td><td><?php echo 'P'.number_format($amt_fnanced,2) ?></td>
         </tr>
         <tr>
@@ -142,7 +154,7 @@ $mysqli->close();
             <td><b>Terms: </b></td><td><?php echo $terms ?></td>
         </tr>
         <tr>
-            <td><b>Monthly Amortization: </b></td><td><?php echo $monthly_payment ?></td>
+            <td><b>Monthly Amortization: </b></td><td><?php echo 'P'.number_format($monthly_payment,2) ?></td>
         </tr> 
         <form>
             <div class="form-group">
