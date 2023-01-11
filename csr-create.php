@@ -347,13 +347,20 @@
 							<div class="titles">House</div>
 							<hr>
 							<div class="row">
-								<div class="col-xs-12">		
+								<input type="hidden" class="form-control margin-bottom copy-input" name="l_house_lid" id="l_house_lid" >
+								<div class="col-xs-6">		
 									<div class="form-group">
 										<label class="control-label">House Model: </label>
-										<?php getHouseModel(); ?>
+										<input type="text" class="form-control margin-bottom house-model" name="house_model" id="house_model" value = "" tabindex="31">
 										</select>
 									</div>
 								</div>
+								<!-- <div class="col-xs-3">
+									<div class="form-group">
+										<br>
+										<input type="submit" class="btn btn-success float-right select-house" value="Find House Model" data-loading-text="Finding..." id="btnfind" tabindex ="37">
+									</div>
+								</div> -->
 							</div>
 							<div class="row">
 								<div class="col-xs-12">
@@ -725,6 +732,7 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
 </body>
 
 <script>

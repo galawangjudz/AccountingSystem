@@ -5,7 +5,14 @@ $getID = $_GET['id'];
 
 
 if(isset($_GET['id'])){
-    $csr = $mysqli->query("SELECT * FROM t_csr_view where c_csr_no =".$_GET['id']);
+    $csr = $mysqli->query("select q.c_acronym, z.c_block, z.c_lot, y.last_name, y.first_name, 
+							y.middle_name, y.suffix_name , x.* from t_csr x , t_csr_buyers y ,
+							t_lots z,  t_projects q
+							where x.c_csr_no = y.c_csr_no 
+							and x.c_lot_lid = z.c_lid 
+							and z.c_site = q.c_code 
+							and y.c_buyer_count = 1 
+							and x.c_csr_no = ".$_GET['id']);
     foreach($csr->fetch_array() as $k =>$v){
         $meta[$k] = $v;
     }

@@ -162,6 +162,31 @@ $(document).ready(function() {
 
 	});
 
+	$(document).on('click', ".model-select", function(e) {
+
+		e.preventDefault;
+
+		var model = $(this);
+
+		$('#insert_model').modal({ backdrop: 'static', keyboard: false }).one('click', '#selected_model', function(e) {
+
+
+		 var itemText = $('#insert_model').find("option:selected").text();
+
+
+		 $('#house_model').val(itemText);
+	
+
+
+		 //updateTotals('.calculate');
+		 //calculateTotal();
+
+		});
+
+		return false;
+
+	});
+
 	
 	// create customer
 	$("#action_create_customer").click(function(e) {
@@ -253,23 +278,11 @@ $(document).ready(function() {
 
 	//select lot
 
-	$(document).on('click', ".select-house", function(e) {
-
-		e.preventDefault;
-
-		var house = $(this);
-		
-
-		$('#insert_house').modal({ backdrop: 'static', keyboard: false });
 	
-
-		return false;
-
-	});
-
 	$(document).on('click', ".lot-select", function(e) {
 
 		let prod_lid = $(this).attr('data-lot-lid');
+		let prod_h_lid = $(this).attr('data-house-lid');
 		var prod_site =  $(this).attr('data-lot-site');
 		var prod_block = $(this).attr('data-lot-block');
 		var prod_lot = $(this).attr('data-lot-lot');
@@ -277,11 +290,16 @@ $(document).ready(function() {
 		var prod_lot_area = $(this).attr('data-lot-lot-area');
 		var prod_price_sqm = $(this).attr('data-lot-per-sqm');
 
+		var prod_floor_area = $(this).attr('data-floor-area');
+		var prod_h_price_sqm = $(this).attr('data-house-price');
+		var prod_house_model = $(this).attr('data-house-model');
+
 		var lot_status = $(this).attr('data-lot-status');
 
 		//alert(lot_status);
 	
 		$('#l_lid').val(prod_lid);
+		$('#l_house_lid').val(prod_h_lid);
 		$('#l_site').val(prod_site);
 		
 		//$('#prod_code').val(prod_site);
@@ -298,11 +316,17 @@ $(document).ready(function() {
 		$('#lot_disc_amt').val(lot_disc_amount.toFixed(2));
 		$('#lcp').val(subtotal.toFixed(2));
 
-		if(lot_status == "Packaged"){
-			$('#insert_lot').modal('hide');
-			$('#insert_house').modal({ backdrop: 'static', keyboard: false });
-			return false;
+		
+		if(prod_floor_area == "" & prod_h_price_sqm == ""){
+			var prod_floor_area = 0
+			var prod_h_price_sqm = 0
 		}
+		$('#house_model').val(prod_house_model);
+		$('#floor_area').val(prod_floor_area);
+		$('#h_price_per_sqm').val(prod_h_price_sqm);
+		subtotal2 = parseInt(prod_floor_area) * parseFloat(prod_h_price_sqm);
+		$('#hcp').val(subtotal2.toFixed(2))
+
 
 
 		$('#insert_lot').modal('hide');
@@ -312,7 +336,7 @@ $(document).ready(function() {
 
 	});
 
-	$(document).on('click', ".house-select", function(e) {
+	/* $(document).on('click', ".house-select", function(e) {
 
 		var house_model = $(this).attr('data-house-model');
 		var house_floor_area = $(this).attr('data-house-floor-area');
@@ -337,7 +361,7 @@ $(document).ready(function() {
 		compute_house();
 		compute_net_tcp();
 
-	});
+	}); */
 
 	//select ra
 
