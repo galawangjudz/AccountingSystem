@@ -33,6 +33,7 @@ if(isset($_GET['id'])){
 	<form action="" id="approval">
 		<input type="hidden" name="id"  id="id" value="<?php echo $getID ?>">
 		<input type="hidden" name="lid" id="lid" value="<?php echo $meta['c_lot_lid'] ?>">
+		<input type="hidden" name="reservation_amt" id="reservation_amt" value="<?php echo $meta['c_reservation'] ?>">
 		<input type="hidden" name="value" id="value" value="1">
 
       	<p><b>Location : </b><?php echo $meta['c_acronym'] ?> <?php echo $meta['c_block'] ?> <?php echo $meta['c_lot'] ?></p>

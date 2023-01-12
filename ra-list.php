@@ -162,6 +162,8 @@
 							<td><span class="label label-success">Paid</span></td>
 						<?php elseif($row['c_reserve_status'] == 0): ?>
 							<td><span class="label label-warning">Unpaid</span></td>
+						<?php elseif($row['c_reserve_status'] == 3): ?>
+							<td><span class="label label-info">Partial Paid</span></td>
 						<?php endif; ?>
 
 
@@ -180,7 +182,7 @@
 						<td><button data-id='<?php echo $row["c_csr_no"]; ?>' class="attachment_name btn-link"><?php echo $row["title"]; ?></button></td>
 						<td><?php echo $row["date_uploaded"]; ?></td> -->
 						<td class="actions"><a href="?page=ra-view&id=<?php echo $row['c_csr_no'] ?>" data-ra-id="<?php $row['ra_id'] ?>" class="btn btn-primary btn-xs">View
-						<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> </td>
 					
 					</tr>	
 					<?php endwhile; ?>
@@ -190,35 +192,15 @@
 		</div>
 	</div>
 </div>
-<!-- 
-<div class="modal fade" id="a_modal" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">User Info</h4>
-				<button type="button" class="close" data-dismiss="modal"></button>
-			</div>
-			<div class="modal-body">
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div> -->
-<!-- <script type='text/javascript'>
-	$(document).ready(function(){
-		$('.attachment_name').click(function(){
-			var csrno=$(this).data('id');
-			$.ajax({
-				url:'ajaxfile.php',
-				type:'post',
-				data:{csrno:csrno},
-				success:function(response){
-					$('.modal-body').html(response);
-					$('#a_modal').modal('show');
-				}
-			})
-		});
-	});
-</script> -->
+
+
+<script>
+	$('.new_reservation').click(function(){
+	uni_modal('New Reservation','manage_reservation.php?id='+$(this).attr('data-ra-id'))
+})
+
+$('.edit-lot').click(function(){
+	uni_modal('Edit Lot','manage_reservation.php?id='+$(this).attr('data-ra-id'))
+})
+</script>
+	

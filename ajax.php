@@ -124,3 +124,16 @@ if($action == "update_csr"){
 	if($save)
 		echo $save;
 }
+
+
+if($action == "save_reservation"){
+	$save = $crud->save_reservation();
+	if($save)
+		echo $save;
+}
+
+if($action == "delete_reservation"){
+	$save = $crud->delete_reservation();
+	if($save)
+		echo $save;
+}

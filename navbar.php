@@ -15,16 +15,19 @@
           <a href="index.php?page=dashboard"><i class="fa fa-th nav-dashboard"></i><span>Dashboard</span></a>
         </li>
         <li class="treeview">
-          <a href="index.php?page=customer-list"><i class="fa fa-male"></i>Clients</a>
+          <a href="index.php?page=customer-list"><i class="fa fa-male"></i><span>Clients</span></a>
         </li>
         <li class="treeview">
-          <a href="index.php?page=list-sm"><i class="fa fa-check-square"></i>Pending RA</a>
+          <a href="index.php?page=list-sm"><i class="fa fa-check-square"></i><span>Pending RA</span></a>
         </li>
         <li class="treeview">
-          <a href="index.php?page=ra-list"><i class="fa fa-certificate"></i>Ra Approved List</a>
+          <a href="index.php?page=ra-list"><i class="fa fa-certificate"></i><span>Ra Approved List</span></a>
         </li>
         <li class="treeview">
           <a href="index.php?page=reservation-list"><i class="fa fa-calendar-check"></i><span>Reservation</span></a>
+        </li>
+        <li class="treeview">
+          <a href="index.php?page=reservation-list-new"><i class="fa fa-calendar-check"></i><span>New Reservation</span></a>
         </li>
         <li class="treeview">
           <a href="index.php?page=ca-list"><i class="fa-solid fa-ruble"></i><span>&nbsp;&nbsp;Credit Assestment</span></a>

@@ -88,13 +88,14 @@
             <div class="col-xs-12">   
                 <div class="form-group">
                     <label>Reservation Fee: </label>
-                    <input type="text" class="form-control margin-bottom required" name="amount_paid" id="amount_paid" tabindex="3">	
+                    <input type="text" class="form-control margin-bottom required" name="amount_paid" id="amount_paid" tabindex="3">
+                    <input type="text" class="form-control margin-bottom required" name="total_res" id="total_res" tabindex="3">	
                 </div>
             </div>
         </div>      
 		<div class="row">
 			<div class="col-xs-12">		
-                <input type="submit" id="action_save_reservation" class="btn btn-success" value="Save Reservation" data-loading-text="Creating...">
+                <input type="submit" id="save_reservation" class="btn btn-success" value="Save Reservation" data-loading-text="Creating...">
             </div>
         </div>
     </div>
@@ -120,6 +121,24 @@
 <div class="row">
 </div>
 </body>
-<?php
-	include('footer.php');
-?>
+<script>
+$('#save_reservation').submit(function(e){
+		e.preventDefault();
+		start_load()
+		$.ajax({
+			url:'ajax.php?action=save_reservation',
+			method:'POST',
+			data:$(this).serialize(),
+			success:function(resp){
+				if(resp ==1){
+					alert("Data successfully saved",'success')
+					setTimeout(function(){
+						location.reload()
+					},1500)
+				}else{
+                    alert("error");
+                }
+			}
+		})
+	})
+</script>
