@@ -473,8 +473,13 @@ Class Action {
 	function update_csr(){
 		extract($_POST);
 
+		
+
 		//lot computation
 		$c_csr_no =  $_POST['update_id'];
+
+
+		
 		//lot computation
 		$username =  $_POST['username'];
 		$lot_lid = $_POST['l_lid'];
@@ -495,6 +500,18 @@ Class Action {
 
 		// Payment Details
 		$reservation = $_POST['reservation'];
+
+		$chk_pay = $this->db->query("SELECT sum(c_amount_paid) as total_reservation FROM t_reservation where c_csr_no =".$c_csr_no);
+			if($chk_pay->num_rows > 0){
+			while($row = $chk_pay->fetch_assoc()){
+					$total = $row['total_reservation'];
+					if($reservation == $total){
+						$save = $this->db->query("UPDATE t_approval_csr SET c_reserve_status = 1 , c_amount_paid = '$total', c_ca_status = 0 where c_csr_no = '$c_csr_no'");
+						/* $save = $this->db->query("UPDATE t_lots SET c_status = 'Reserved' where c_lid = '".$lot_lid."'"); */
+					}else if ($reservation > $total) {
+						$save = $this->db->query("UPDATE t_approval_csr SET c_reserve_status = 3 , c_amount_paid = '$total', c_ca_status = 0 where c_csr_no= '$c_csr_no'");
+						
+					}}}
 		$payment_type1 = $_POST['payment_type1'];
 		$payment_type2 = $_POST['payment_type2'];
 		$down_percent = $_POST['down_percent'];
@@ -545,7 +562,7 @@ Class Action {
 		$data .= ", c_created_by = '$username' ";
 		$data .= ", c_verify = 0 ";
 		$data .= ", coo_approval = 0";
-		$data .= ", c_revised = 0";
+		/* $data .= ", c_revised = 0"; */
 
 		if(!empty($c_csr_no)){
 			$this->db->query("UPDATE t_csr set ".$data." where c_csr_no = ".$c_csr_no);
@@ -679,26 +696,6 @@ Class Action {
 		$data = " c_csr_no = '$id' ";
 		$data .= ", c_lot_lid = '$lid' ";
 		$data .= ", c_csr_status = '$value' ";
-		/* $chk_pay = $this->db->query("SELECT sum(c_amount_paid) as total_reservation FROM t_reservation where c_csr_no =".$id);
-		if($chk_pay->num_rows > 0){
-			while($row = $chk_pay->fetch_assoc()){
-					$total = $row['total_reservation'];
-					$chck_csr = $this->db->query("SELECT c_reservation FROM t_csr where c_csr_no =".$id);
-					while($row2 = $chk_csr->fetch_assoc()){
-						$reservation = $row2['c_reservation'];
-
-						if($total != $reservation){
-							$data . "c_reserve_status = 2";
-						}
-						elseif($total == $reservation) {
-							$data . "c_reserve_status = 1";	
-						}
-
-					}
-				}
-			} */
-
-	/* 	$data .= ", c_reserve_status = '0' "; */
 		$data .= ", c_reservation_amt = $reservation_amt "; 
 		$data .= ", c_ca_status = '0' ";
 		$data .= ", c_date_approved = CURRENT_TIMESTAMP() ";
@@ -707,14 +704,12 @@ Class Action {
 		$chk2 = $this->db->query("SELECT * FROM t_approval_csr where c_csr_no =".$id);
 			if($chk2->num_rows > 0){
 				if ($value == 1){
-					$save = $this->db->query("UPDATE t_approval_csr set ".$data);
+					$save = $this->db->query("UPDATE t_approval_csr set ".$data." where c_csr_no =".$id);
 					$save = $this->db->query("UPDATE t_csr SET coo_approval = ".$value." where c_csr_no = ".$id);
-			
 				}
-				if ($value == 3){
-					$save = $this->db->query("UPDATE t_approval_csr set ".$data);
-					$save = $this->db->query("UPDATE t_csr SET coo_approval = ".$value." where c_csr_no = ".$id);
-					$save = $this->db->query("UPDATE t_csr SET c_verify = 2 where c_csr_no = ".$id);
+				else if ($value == 3){
+					$save = $this->db->query("UPDATE t_approval_csr set ".$data." where c_csr_no =".$id);
+					$save = $this->db->query("UPDATE t_csr SET c_verify = 2, coo_approval = ".$value." where c_csr_no = ".$id);
 				}
 			}else{
 
@@ -803,6 +798,8 @@ Class Action {
 					$total = $row['total_reservation'];
 					if($total_res == $total){
 						$save = $this->db->query("UPDATE t_approval_csr SET c_reserve_status = 1 , c_amount_paid = '$total', c_ca_status = 0 where ra_id = '$ra_no'");
+						$save = $this->db->query("UPDATE t_lots SET c_status = 'Reserved' where c_lid = '".$lot_lid."'");
+						
 					}else if($total_res > $total){
 						$save = $this->db->query("UPDATE t_approval_csr SET c_reserve_status = 3 , c_amount_paid = '$total', c_ca_status = 0 where ra_id = '$ra_no'");
 					

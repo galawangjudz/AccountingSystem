@@ -21,6 +21,9 @@
           <a href="index.php?page=list-sm"><i class="fa fa-check-square"></i><span>Pending RA</span></a>
         </li>
         <li class="treeview">
+          <a href="index.php?page=list-revision"><i class="fa fa-check-square"></i><span>Revision</span></a>
+        </li>
+        <li class="treeview">
           <a href="index.php?page=ra-list"><i class="fa fa-certificate"></i><span>Ra Approved List</span></a>
         </li>
         <li class="treeview">
