@@ -93,7 +93,7 @@
                     ?>
                             <tr>
                                 <td><?php echo $i++ ?></td>
-                                <td><?php echo $row['c_csr_no'] ?></td>
+                                <td><?php echo $row['ref_no'] ?></td>
                                 <td class="text-center"><?php echo $row["c_created_by"] ?></td>
                                 <td><?php echo $row["c_acronym"]. ' Block ' .$row["c_block"] . ' Lot '.$row["c_lot"] ?></td>
                                 <td class="text-center"><?php echo $row["last_name"]. ' ' .$row["suffix_name"]. ','  .$row["first_name"] .' ' .$row["middle_name"]?></td>

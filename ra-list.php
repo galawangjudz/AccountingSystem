@@ -150,7 +150,7 @@
 							$td=strtotime($today_date);		
 	
 							if(($td>$exp) && ($row['c_reserve_status'] == 0)  && ($row['c_csr_status'] == 1)){
-								$update_csr = $mysqli->query("UPDATE t_csr SET coo_approval = 2 WHERE c_csr_no = '".$id."'");	
+								$update_csr = $mysqli->query("UPDATE t_csr SET c_verify = 2, coo_approval = 2 WHERE c_csr_no = '".$id."'");	
 								$update_app = $mysqli->query("UPDATE t_approval_csr SET c_csr_status = 2 WHERE c_csr_no = '".$id."'");
 								$update_lot = $mysqli->query("UPDATE t_lots SET c_status = 'Available' WHERE c_lid = '".$lid."'");
 							}
@@ -178,11 +178,23 @@
 						<?php else: ?>
 							<td><span class="label label-danger"> --- </span></td>
 						<?php endif; ?>
-						<!-- <td class="text-center"><?php echo $row["title"] ?></td>
-						<td><button data-id='<?php echo $row["c_csr_no"]; ?>' class="attachment_name btn-link"><?php echo $row["title"]; ?></button></td>
-						<td><?php echo $row["date_uploaded"]; ?></td> -->
-						<td class="actions"><a href="?page=ra-view&id=<?php echo $row['c_csr_no'] ?>" data-ra-id="<?php $row['ra_id'] ?>" class="btn btn-primary btn-xs">View
-						<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> </td>
+						<td class="actions">	
+						<li class="dropdown user user-menu">
+
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+							<span class="btn btn-info" target="_blank">Actions&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+							</a>
+							<ul class="dropdown-menu">
+
+							<li><a class="dropdown-item" href="?page=ra-view&id=<?php echo $row['c_csr_no'] ?>" >View RA</a>
+							<?php if ($status == 1 && ($row["c_duration"] > $row["c_date_approved"])) { ?>
+							<li><a class="dropdown-item extend-approval" extend=1 data-csr-id=<?php echo $row['c_csr_no'] ?> >Extend Approval Time</a>
+							<?php } ?>
+							<li><a class="dropdown-item" href="print_agreement.php?id=<?php echo $getID; ?>">Cancelled</a>
+							</ul>
+						</li>		
+						</td>
 					
 					</tr>	
 					<?php endwhile; ?>
@@ -195,7 +207,11 @@
 
 
 <script>
-	$('.new_reservation').click(function(){
+$('.extend-approval').click(function(){   
+        uni_modal('Extend Coo Approval','approval_extend_setting.php?&id='+$(this).attr('data-csr-id'))
+    })
+
+$('.new_reservation').click(function(){
 	uni_modal('New Reservation','manage_reservation.php?id='+$(this).attr('data-ra-id'))
 })
 

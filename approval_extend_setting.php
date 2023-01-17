@@ -7,13 +7,15 @@ $extend = $_GET['extend']; */
 
 if(isset($_GET['id'])){
     $csr = $mysqli->query("select q.c_acronym, z.c_block, z.c_lot, y.last_name, y.first_name, 
-							y.middle_name, y.suffix_name , x.* from t_csr x , t_csr_buyers y ,
-							t_lots z,  t_projects q
+							y.middle_name, y.suffix_name ,j.c_duration, x.* from t_csr x , t_csr_buyers y ,
+							t_lots z, t_projects q, t_approval_csr j
 							where x.c_csr_no = y.c_csr_no 
 							and x.c_lot_lid = z.c_lid 
 							and z.c_site = q.c_code 
+                            and x.c_csr_no = j.c_csr_no
 							and y.c_buyer_count = 1 
 							and x.c_csr_no = ".$_GET['id']);
+
     foreach($csr->fetch_array() as $k =>$v){
         $meta[$k] = $v;
     }
@@ -40,11 +42,12 @@ if(isset($_GET['id'])){
       	<p><b>Location : </b><?php echo $meta['c_acronym'] ?> <?php echo $meta['c_block'] ?> <?php echo $meta['c_lot'] ?></p>
         <p><b>Buyer's Name : </b><?php echo $meta['last_name']?> ,<?php echo $meta['first_name'] ?></p>
         <p><b>NET TCP : </b><?php echo 'P'.number_format($meta['c_net_tcp'],2) ?></p>
-
+        <p><b>Exisiting Approval Duration : </b><?php echo $meta['c_duration'] ?></p>
+        <input type="hidden" class="form-control existing-duration " name="ext_duration" id="ext_duration" value="<?php echo $meta['c_duration'] ?>">
 
 		<div class="form-group">
-			<label class="control-label">Approval Time Duration: (No of Days) </label>
-			<input type="number" class="form-control duration-day required" name="duration" id="duration" value="1" min="1">
+			<label class="control-label">Extend Time Duration: (No of Days) </label>
+			<input type="hidden" class="form-control duration-day required" name="duration" id="duration" value="1" min="1">
 		</div>
 
 		<?php 
@@ -68,7 +71,7 @@ if(isset($_GET['id'])){
 		start_load()
 	
 		$.ajax({
-			url:'ajax.php?action=new_coo_approval',
+			url:'ajax.php?action=extend_coo_approval',
 			method:'POST',
 			data:$(this).serialize(),
 			success:function(resp){
@@ -81,10 +84,9 @@ if(isset($_GET['id'])){
 						location.reload()
 					},1500)
                 }else{
-                    $("#response .message").html("<strong> Lot Already Reserved </strong>: ");
+                    $("#response .message").html("<strong> Error Extended duration </strong>: ");
                     $("#response").removeClass("alert-success").addClass("alert-danger").fadeIn();
                     $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-                   /*  alert("Lot already Reserved",'warning') */
 					setTimeout(function(){
 						location.reload()
 					},1500)

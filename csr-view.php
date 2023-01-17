@@ -11,13 +11,16 @@ if ($mysqli->connect_error) {
 	die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
 }
 // the query
-$query = "SELECT * FROM t_csr WHERE c_csr_no = '" . $mysqli->real_escape_string($getID) . "'";
+ $query = "SELECT * FROM t_csr WHERE c_csr_no = '" . $mysqli->real_escape_string($getID) . "'"; 
+/* $query = "SELECT * FROM t_csr WHERE ref_no = '" . $mysqli->real_escape_string($getID) . "'"; */
 $result = mysqli_query($mysqli, $query);
 // mysqli select query
 if($result) {
     while ($row = mysqli_fetch_assoc($result)) {
         $csr_no = $row['c_csr_no'];
         $lot_id = $row['c_lot_lid'];
+        $lot_id = $row['c_lot_lid'];
+
        
         $coo_approval = $row['coo_approval'];// status
 
@@ -574,47 +577,11 @@ if($result) {
         uni_modal('Coo Approval','approval_setting.php?id='+$(this).attr('data-csr-id'))
     })
 
-
-
-    $('.coo-approval').click(function(){
-		_conf("Are you sure to approved this csr?","coo_approval",[$(this).attr('csr-id'),$(this).attr('csr-lot-lid'),$(this).attr('value')])
-	}) 
-
     $('.coo-approval2').click(function(){
 		_conf("Are you sure to disapproved this csr?","coo_approval",[$(this).attr('csr-id'),$(this).attr('csr-lot-lid'),$(this).attr('value')])
 	})
 
-	function coo_approval($id,$lid,$value){
-		start_load()
-		$.ajax({
-			url:'ajax.php?action=coo_approval',
-			method:'POST',
-            data:{id:$id,lid:$lid,value:$value},
-			success:function(resp){
-				if(resp==1){
-					/* alert("CSR successfully approved",'success') */
-                    $("#response .message").html("<strong>" + "Success" + "</strong>: " + "Data Successfully saved");
-                    $("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-                    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					setTimeout(function(){
-						location.reload()
-					},1500)
-                }else{
-                    $("#response .message").html("<strong> Lot Already Reserved </strong>: ");
-                    $("#response").removeClass("alert-success").addClass("alert-danger").fadeIn();
-                    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-                   /*  alert("Lot already Reserved",'warning') */
-					setTimeout(function(){
-						location.reload()
-					},1500)
-                }
-			},
-			error:err=>{
-				console.log()
-				alert("An error occured")
-			}
-		})
-	}
+
 
     $('.sm-verification').click(function(){
 		_conf("Are you sure to verified this csr?","sm_verification",[$(this).attr('csr-id'),$(this).attr('csr-lot-lid'),$(this).attr('value')])

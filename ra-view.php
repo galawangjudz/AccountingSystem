@@ -141,14 +141,7 @@ if($result) {
                                         </ul>
                                     </li>
                                     <a attachment-id="<?php echo $getID; ?>" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal" id="upload_file">Upload file&nbsp;&nbsp;<span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></a>
-                                    
-                                <hr>
-                               <!--  <?php if($reserv_status == 1  && $ca_status == 0){ ?>
-                         
-                                    <button type="button" id= "ca_approval_btn" csr-id =<?php echo $getID; ?> value=1 class="btn btn-success btn-lg btn-block">CA Approved <span class="glyphicon glyphicon-ok" aria-hidden="true"> </button>
-                                    <button type="button" id= "dis_ca_approval_btn" csr-id =<?php echo $getID; ?> value=2 class="btn btn-danger btn-lg btn-block">CA Disapproved <span class="glyphicon glyphicon-remove" aria-hidden="true"> </button>
-                                
-                                <?php } ?>  -->
+                                            
 
                         
                     </div>

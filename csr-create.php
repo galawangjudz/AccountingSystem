@@ -819,7 +819,8 @@
 						},1500)
 
 						setTimeout(function(){
-							location.reload()
+							window.location.href = "?page=list-sm"
+							/* location.reload() */
 						},3000)
 					}
 					else{

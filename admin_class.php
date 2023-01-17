@@ -341,6 +341,13 @@ Class Action {
 		$invoice_notes = $_POST['invoice_notes'];
 
 		$data = " c_lot_lid = '$lot_lid' ";
+		$i = 1;
+		while($i== 1){
+			$ref  = sprintf("%'.04d\n",mt_rand(1,9999999999));
+			if($this->db->query("SELECT * FROM t_csr where ref_no ='$ref'")->num_rows <= 0)
+				$i=0;
+		}
+		$data .= ", ref_no = '$ref' ";
 		$data .= ", c_lot_area = '$lot_area' ";
 		$data .= ", c_price_sqm = '$price_sqm' ";
 		$data .= ", c_lot_discount= '$lot_disc' ";
@@ -477,9 +484,6 @@ Class Action {
 
 		//lot computation
 		$c_csr_no =  $_POST['update_id'];
-
-
-		
 		//lot computation
 		$username =  $_POST['username'];
 		$lot_lid = $_POST['l_lid'];
@@ -735,6 +739,18 @@ Class Action {
 	}
 
 
+	function extend_coo_approval(){
+		extract($_POST);
+		$id =  $_POST['id'];
+		$duration = $_POST['duration'];
+		$ext_duration = $_POST['ext_duration'];
+		$data = "c_duration = DATE_ADD('$ext_duration',INTERVAL $duration DAY)";
+		$save = $this->db->query("UPDATE t_approval_csr set ".$data." where c_csr_no =".$id);
+				
+		if($save){
+			return 1;
+		}
+	}
 
 	function sm_verification(){
 		extract($_POST);
