@@ -477,6 +477,7 @@ if($result) {
                             <table style="text-align:center;" class="table table-striped">
                                                 <th style="text-align:center;">File Name</th>
                                                 <th style="text-align:center;">Date Uploaded</th>
+                                                <th style="text-align:center;">Approval</th>
                                                 <th style="text-align:center;">Action</th>
                                 <?php
                                     $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
@@ -488,6 +489,7 @@ if($result) {
                                     $results1 = $mysqli->query($query1);
 
                                     if($results1) {
+                                              
                                         ?>
                                         
                                                 <b>Attachments: </b>
@@ -504,13 +506,20 @@ if($result) {
                                                 <td>
                                                         <?php echo $row1["date_uploaded"]; ?></div>
                                                 </td>
-                                                <td class="actions">
-                                                    <a data-csr-id="<?php echo $row['id'] ?>" class="btn btn-info btn-xs">
+                                                <?php if($row1['approval_status'] == 1): ?>
+                                                    <td><span class="label label-success">SM Approved</span></td>
+                                                    <td class="actions">--- </td>
+                                                <?php else: ?>    
+                                                    <td><span class="label label-warning"> Pending </span></td>
+                                                    <td class="actions">
+                                                    <a data-upload-id="<?php echo $row1['id'] ?>" class="btn btn-info btn-xs approved-upload">
                                                     <span class="glyphicon glyphicon-check" aria-hidden="true">Approved</span></a> 
-
-                                                    <a data-csr-id="<?php echo $row['id'] ?>" class="btn btn-danger btn-xs delete-csr">
+                                      
+                                                    <a data-upload-id="<?php echo $row1['id'] ?>" class="btn btn-danger btn-xs delete-upload">
                                                     <span class="glyphicon glyphicon-trash" aria-hidden="true">Delete</span></a>
-                                                </td>
+                                                    </td>
+						                        <?php endif; ?>
+                                               
                                                     </tr>
                                                 
 
@@ -612,62 +621,6 @@ if($result) {
     </div>
 </div>
 
-<div id="update_stat" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Update Status</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to change the status to <input type="text" name="upstat" id="upstat" value="" readonly/>?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" data-dismiss="modal" class="btn btn-primary" id="confirm">Confirm</button>
-		<button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-
-<div id="verify_stat" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Verify Status</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to verify CSR?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" data-dismiss="modal" class="btn btn-primary" id="verify">Confirm</button>
-		<button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-</div>
-
-<div id="reopen_csr" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Reopen CSR</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to reopen CSR?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" data-dismiss="modal" class="btn btn-primary" id="reopen">Confirm</button>
-		<button type="button" data-dismiss="modal" class="btn" id="btncancel">Cancel</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div>
-</div>
 <div class="modal fade" id="a_modal" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -786,6 +739,11 @@ if($result) {
 </script>
 <script>
 
+    $('#upload_file').click(function(){
+	uni_modal('Upload File','upload_files.php?id='+$(this).attr('attachment-id'));
+    })
+
+
     $("#CountDown").TimeCircles();
     $("#CountDown").TimeCircles({count_past_zero: false}).addListener(countdownComplete);
 	
@@ -798,15 +756,47 @@ if($result) {
 
         }
     }
-</script>
-<script>
-        function updateStat(){
-           // document.getElementById("samp_txt").onchange = function() {
-            document.getElementById("statform").submit();
-        //}
-        }
-</script>
-<script>
+
+    $(document).ready(function(){
+		$('.approved-upload').click(function(){
+            $.ajax({
+				url:'ajax.php?action=approved_upload',
+				type:'POST',
+				data:{id:$(this).attr('data-upload-id'),ra_id:'<?php echo $ra_id ?>',csr_no:'<?php echo $csr_no ?>'},
+				success:function(resp){
+				if(resp ==1){
+					alert("Data successfully saved",'success')
+					setTimeout(function(){
+						location.reload()
+					},1500)
+				}else{
+                    alert("error");
+                }
+			}
+			})
+		});
+	});
+    $(document).ready(function(){
+		$('.delete-upload').click(function(){
+            $.ajax({
+				url:'ajax.php?action=delete_upload',
+				type:'POST',
+				data:{id:$(this).attr('data-upload-id')},
+				success:function(resp){
+				if(resp ==1){
+					alert("Data successfully deleted",'success')
+					setTimeout(function(){
+						location.reload()
+					},1500)
+				}else{
+                    alert("error");
+                }
+			}
+            })
+		});
+	});
+
+    
 	$(document).ready(function(){
 		$('.attachment_name').click(function(){
 			var csrno=$(this).data('id');
@@ -821,10 +811,4 @@ if($result) {
 			})
 		});
 	});
-</script>
-<script>
-$('#upload_file').click(function(){
-	uni_modal('Upload File','upload_files.php?id='+$(this).attr('attachment-id'));
-})
-
 </script>

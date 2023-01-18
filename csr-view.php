@@ -3,6 +3,8 @@ include('functions.php');
 
 $getID = $_GET['id'];
 $usertype = $_SESSION['user_type'];
+$refno = $_GET['ref'];
+
 
 // Connect to the database
 $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
@@ -19,11 +21,8 @@ if($result) {
     while ($row = mysqli_fetch_assoc($result)) {
         $csr_no = $row['c_csr_no'];
         $lot_id = $row['c_lot_lid'];
-        $lot_id = $row['c_lot_lid'];
-
-       
+        $lot_id = $row['c_lot_lid'];   
         $coo_approval = $row['coo_approval'];// status
-
 
         ///LOT
         $lot_area = $row['c_lot_area'];
@@ -101,7 +100,7 @@ if($result) {
             <div class="panel-heading">
                 <input type="hidden" value="<?php echo $p1; ?>" id="p1">
                 <input type="hidden" value="<?php echo $p2; ?>" id="p2">
-                 <h2 class="float-left">CTRL #<?php echo $getID; ?></h2> 
+                 <h2 class="float-left">Reference #<?php echo $refno; ?></h2> 
                 <div class="clear"></div>
             </div>
             <div class="panel-body form-group form-group-sm">

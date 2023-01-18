@@ -143,3 +143,15 @@ if($action == "delete_reservation"){
 	if($save)
 		echo $save;
 }
+
+
+if($action == "approved_upload"){
+	$save = $crud->approved_upload();
+	if($save)
+		echo $save;
+}
+if($action == "delete_upload"){
+	$save = $crud->delete_upload();
+	if($save)
+		echo $save;
+}

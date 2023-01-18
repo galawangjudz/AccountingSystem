@@ -75,7 +75,7 @@
 					<tr>
 					
 						<td class="text-center"><?php echo $row["ra_id"] ?></td>
-						<td class="text-center"><?php echo $row["c_csr_no"] ?></td>
+						<td class="text-center"><?php echo $row["ref_no"] ?></td>
 						<td class="text-center"><?php echo $row["c_acronym"]. ' Block ' .$row["c_block"] . ' Lot '.$row["c_lot"] ?></td>
 						<td class="text-center"><?php echo $row["last_name"]. ','  .$row["first_name"] .' ' .$row["middle_name"]?></td>
 
@@ -187,7 +187,7 @@
 							</a>
 							<ul class="dropdown-menu">
 
-							<li><a class="dropdown-item" href="?page=ra-view&id=<?php echo $row['c_csr_no'] ?>" >View RA</a>
+							<li><a class="dropdown-item" href="?page=ra-view&id=<?php echo $row['c_csr_no'] ?>&ref=<?php echo $row['ref_no'] ?>" >View RA</a>
 							<?php if ($status == 1 && ($row["c_duration"] > $row["c_date_approved"])) { ?>
 							<li><a class="dropdown-item extend-approval" extend=1 data-csr-id=<?php echo $row['c_csr_no'] ?> >Extend Approval Time</a>
 							<?php } ?>

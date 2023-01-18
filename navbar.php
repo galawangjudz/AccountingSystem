@@ -30,7 +30,7 @@
           <a href="index.php?page=reservation-list"><i class="fa fa-calendar-check"></i><span>Reservation</span></a>
         </li>
         <li class="treeview">
-          <a href="index.php?page=reservation-list-new"><i class="fa fa-calendar-check"></i><span>New Reservation</span></a>
+          <a href="index.php?page=manage-loan-calcu"><i class="fa fa-calculator"></i><span>Loan Calculator</span></a>
         </li>
         <li class="treeview">
           <a href="index.php?page=ca-list"><i class="fa-solid fa-ruble"></i><span>&nbsp;&nbsp;Credit Assestment</span></a>

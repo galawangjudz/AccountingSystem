@@ -125,7 +125,7 @@
                             <?php } ?>
 
 
-                            <td class="actions"><a href="?page=csr-view&id=<?php echo $row["c_csr_no"] ?>" class="btn btn-info btn-xs">
+                            <td class="actions"><a href="?page=csr-view&id=<?php echo $row["c_csr_no"] ?>&ref=<?php echo $row["ref_no"] ?>" class="btn btn-info btn-xs">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
 
                             <a data-csr-id="<?php echo $row['c_csr_no'] ?>" class="btn btn-danger btn-xs delete-csr">
