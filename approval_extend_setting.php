@@ -47,7 +47,7 @@ if(isset($_GET['id'])){
 
 		<div class="form-group">
 			<label class="control-label">Extend Time Duration: (No of Days) </label>
-			<input type="hidden" class="form-control duration-day required" name="duration" id="duration" value="1" min="1">
+			<input type="text" class="form-control duration-day required" name="duration" id="duration" value="1" min="1">
 		</div>
 
 		<?php 
