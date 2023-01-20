@@ -101,15 +101,15 @@ function getProjectSite() {
 
 		print '<table class="table table-striped table-hover table-bordered" id="data-table"><thead><tr>
 
-				<th>Code</th>
-				<th>Name</th>
-				<th>Acronym</th>
-				<th>Address</th>
-				<th>Province</th>
-				<th>Zip</th>
-				<th>Rate</th>
-				<th>Reservation</th>
-				<th class="actions">Actions</th>
+					<th>Code</th>
+					<th>Name</th>
+					<th>Acronym</th>
+					<th>Address</th>
+					<th>Province</th>
+					<th>Zip</th>
+					<th>Rate</th>
+					<th>Reservation</th>
+					<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 

@@ -35,6 +35,9 @@
         <li class="treeview">
           <a href="index.php?page=ca-list"><i class="fa-solid fa-ruble"></i><span>&nbsp;&nbsp;Credit Assestment</span></a>
         </li>
+        <li class="treeview">
+          <a href="index.php?page=ca-checking"><i class="fa-solid fa-ruble"></i><span>&nbsp;&nbsp;Credit Assestment 2</span></a>
+        </li>
        
         <?php if ($usertype == 'IT Admin'){ ?>
        

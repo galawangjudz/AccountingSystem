@@ -82,7 +82,7 @@
                             $where .= "where c_revised = 0";
                     }
                    /* $csr = $mysqli->query("SELECT * FROM t_csr_view ".$where." order by c_date_updated asc");  */
-                   $csr = $mysqli->query(" select q.c_acronym, z.c_block, z.c_lot, y.last_name, y.first_name, y.middle_name, y.suffix_name , x.* from t_csr x , t_csr_buyers y ,
+                   $csr = $mysqli->query("select q.c_acronym, z.c_block, z.c_lot, y.last_name, y.first_name, y.middle_name, y.suffix_name , x.* from t_csr x , t_csr_buyers y ,
                             t_lots z,  t_projects q
                             ".$where." and  x.c_csr_no = y.c_csr_no 
                             and x.c_lot_lid = z.c_lid 
