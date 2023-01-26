@@ -39,11 +39,11 @@ header("Access-Control-Allow-Origin: *");
 <?php 
       include "includes/header.php" ;
       include('functions.php');?> 
-<!-- <style>
+<style>
 .whole_content{
     visibility:hidden;
 }
-</style> -->
+</style>
 
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>

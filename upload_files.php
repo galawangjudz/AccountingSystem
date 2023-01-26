@@ -25,7 +25,7 @@ $getID = $_GET['id'];
 							</tr>
 							<tr>
 								<td>
-									<input type="hidden" name="getFileName" id="getFileName" class="form-control required">
+									<input type="text" name="getFileName" id="getFileName" class="form-control required">
 								</td>
 							</tr>
 							</table>

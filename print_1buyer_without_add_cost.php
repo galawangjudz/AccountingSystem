@@ -792,103 +792,81 @@
             </div>
         </div>
         <div class="sales" style="font-weight:normal;">
-            <div class="titles3">SALES</div>
-            <div class="first_table">
-            <!-- <?php
-            $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+                <div class="titles3">SALES</div>
+                <div class="first_table">
+                <?php
+                $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
 
-            // output any connection error
-            if ($mysqli->connect_error) {
-                die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
-            }
+                // output any connection error
+                if ($mysqli->connect_error) {
+                    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+                }
 
-            // the query
-            $query = "SELECT * FROM t_csr_commission WHERE c_csr_no = $c_csr_no";
+                // the query
+                $query = "SELECT * FROM t_csr_commission WHERE c_csr_no = $c_csr_no";
 
-            // mysqli select query
-            $results = $mysqli->query($query);
+                // mysqli select query
+                $results = $mysqli->query($query);
 
-            if($results) {
-                print '<table class="table-bordered" id="table-bordered1"><thead><tr>
-                        <th class="agent_position2">POSITION</th>
-                        <th>AGENT</th>
-                        <th class="signature_width2">SIGNATURE</th>
-                    </tr></thead><tbody>';
-                while($row = $results->fetch_assoc()) {
-                    print '
+                if($results) {
+
+                    print '<table class="table-bordered" id="table-bordered1"><thead><tr>
+                            <th class="agent_position2">POSITION</th>
+                            <th>AGENT</th>
+                            <th class="signature_width2">SIGNATURE</th>
+                        </tr></thead><tbody>';
+
+                    while($row = $results->fetch_assoc()) {
+
+                        print '
+                            <tr>
+                                <td>'.$row["c_position"].'</td>
+                                <td>'.$row["c_agent"].'</td>
+                                <td id="border_right_none"></td>
+                            </tr>
+                        ';
+                    }
+                    print '</tr></tbody></table>';
+                } else {
+                    echo "<p>There are no project sites to display.</p>";
+                }
+                $results->free();
+                $mysqli->close();
+                ?>
+                </div>
+                <div class="second_table">
+                    <table class="table-bordered">
+
+                    <tbody>
+
                         <tr>
-                            <td>'.$row["c_position"].'</td>
-                            <td>'.$row["c_agent"].'</td>
+                            <td style="width:100px;">
+                                <div class="row" id="sales_checkbox">
+                                    <div style="float:left;margin-right:2px;">
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                                    </div>
+                                    <div style="float:left">
+                                        <label style="font-weight:normal">REB<label>
+                                    </div>
+                                    <div style="float:left;margin-right:2px;">
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
+                                    </div>
+                                    <div style="float:left">
+                                        <label style="font-weight:normal">PC<label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="width:171px;"></td>
                             <td id="border_right_none"></td>
                         </tr>
-                    ';
-                }
-                print '</tr></tbody></table>';
-            } else {
-                echo "<p>There are no project sites to display.</p>";
-            }
-            $results->free();
-            $mysqli->close(); 
-            ?>-->
-                    <table class="table-bordered" id="table-bordered1"><thead><tr>
-                        <th class="agent_position2">POSITION</th>
-                        <th>AGENT</th>
-                        <th class="signature_width2">SIGNATURE</th>
-                        </tr></thead><tbody>
+                        <tr>
+                            <td>Employee Referral</td>
+                            <td></td>
+                            <td id="border_right_none"></td>
+                        </tr>
+                    </tbody>
                     </table>
-            </div>
-            <div class="second_table">
-                <table class="table-bordered">
-
-                <tbody>
-                    <tr>
-                        <td id="spc" class="agent_position3">SALES DIRECTOR</td>
-                        <td></td>
-                        <td class="signature_width3" id="border_right_none"></td>
-                    </tr>
-                    <tr>
-                        <td id="spc" class="agent_position3">SALES MANAGER</td>
-                        <td></td>
-                        <td class="signature_width3" id="border_right_none"></td>
-                    </tr>
-                    <tr>
-                        <td id="spc" class="agent_position3">SENIOR PROPERTY CONSULTANT</td>
-                        <td></td>
-                        <td class="signature_width3" id="border_right_none"></td>
-                    </tr>
-                    <tr>
-                        <td id="spc">PC COORDINATOR</td>
-                        <td></td>
-                        <td id="border_right_none"></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="row" id="sales_checkbox">
-                                <div style="float:left;margin-right:2px;">
-                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" style="margin-top:5px;"/>
-                                </div>
-                                <div style="float:left">
-                                    <label class="light" style="font-weight:normal;margin-bottom:-10px;margin-top:5px;">REB<label>
-                                </div>
-                                <div style="float:left;margin-right:2px;">
-                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" style="margin-top:5px;"/>
-                                </div>
-                                <div style="float:left">
-                                    <label class="light" style="font-weight:normal;margin-bottom:-10px;margin-top:5px;">PC<label>
-                                </div>
-                            </div>
-                        </td>
-                        <td></td>
-                        <td id="border_right_none"></td>
-                    </tr>
-                    <tr>
-                        <td>Employee Referral</td>
-                        <td></td>
-                        <td id="border_right_none"></td>
-                    </tr>
-                </tbody>
-                </table>
-            </div>
+                </div>
             <table width="100%" id="tblborder">
                 <tr><td><div class="notes">I have read and understood the Guidelines and Policies for In-House Financing and Data Privacy Consent at the back page. I certify that all information given are true and correct.</div></td></tr>
                 <tr><td><div class="client_conforme" style="font-weight:normal;font-size:9px;margin-bottom:8px;">Conforme:</div><td></tr>
@@ -1252,6 +1230,16 @@ function getFCP(){
 
     document.getElementById('c_fcp').value = fcp;
 }
+
+// function getDPAmout(){
+//     var tcp = document.getElementById('c_tcp').value;
+//     var ans=0;
+
+//     if(document.getElementById('dp_20').checked==true){
+//         ans = tcp * 0.20;
+//     }
+//     document.getElementById('dp_amt').value=ans;
+// }
 
 function loadAll(){
     getCivilStatus();

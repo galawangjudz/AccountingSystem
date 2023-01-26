@@ -476,9 +476,9 @@
         <div class="container-fluid" style="margin-top:-20px;">
             <div class="row">
                 <div class="col-md-1" id="tcp_coverage">
-                    <label class="control-label" style="margin-bottom:4px;">LOT</label><br>
-                    <label class="control-label" style="margin-bottom:4px;">HOUSE</label><br>
-                    <label class="control-label">FENCE</label><br>
+                    <label class="control-label" style="margin-bottom:1px;">LOT</label><br>
+                    <label class="control-label" style="margin-bottom:1px;">HOUSE</label><br>
+                    <label class="control-label" style="margin-bottom:1px;">FENCE</label><br>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
@@ -685,7 +685,7 @@
                     <input type="text" id="c_less" name="c_less" value="<?php echo $c_less; ?>" class="form-control form-control-sm">
                 </div>
                 <div class="col-md-3">
-                    <label class="control-label" style="margin-left:34px;font-size:10px;">TOTAL CONTRACT PRICE: </label>
+                    <label class="control-label" style="font-size:10px;">TOTAL CONTRACT PRICE: </label>
                     <div class="vatlbl1" style="font-style:italic;margin-top:-5px;margin-left:25px;font-size:9px;">VAT Inclusive</div>
                 </div>
                 <div class="col-md-3" style="margin-left:-4px;">
@@ -894,9 +894,9 @@
                 </div>
             </div>
             <div class="sales" style="font-weight:normal;">
-                <div class="titles3">SALES</div>
+            <div class="titles3">SALES</div>
                 <div class="first_table">
-                <!-- <?php
+                <?php
                 $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
 
                 // output any connection error
@@ -911,12 +911,15 @@
                 $results = $mysqli->query($query);
 
                 if($results) {
+
                     print '<table class="table-bordered" id="table-bordered1"><thead><tr>
                             <th class="agent_position2">POSITION</th>
                             <th>AGENT</th>
                             <th class="signature_width2">SIGNATURE</th>
                         </tr></thead><tbody>';
+
                     while($row = $results->fetch_assoc()) {
+
                         print '
                             <tr>
                                 <td>'.$row["c_position"].'</td>
@@ -930,57 +933,32 @@
                     echo "<p>There are no project sites to display.</p>";
                 }
                 $results->free();
-                $mysqli->close(); 
-                ?>-->
-                        <table class="table-bordered" id="table-bordered1"><thead><tr>
-                            <th class="agent_position2">POSITION</th>
-                            <th>AGENT</th>
-                            <th class="signature_width2">SIGNATURE</th>
-                            </tr></thead><tbody>
-                        </table>
+                $mysqli->close();
+                ?>
                 </div>
                 <div class="second_table">
                     <table class="table-bordered">
 
                     <tbody>
+
                         <tr>
-                            <td id="spc" class="agent_position3">SALES DIRECTOR</td>
-                            <td></td>
-                            <td class="signature_width3" id="border_right_none"></td>
-                        </tr>
-                        <tr>
-                            <td id="spc" class="agent_position3">SALES MANAGER</td>
-                            <td></td>
-                            <td class="signature_width3" id="border_right_none"></td>
-                        </tr>
-                        <tr>
-                            <td id="spc" class="agent_position3">SENIOR PROPERTY CONSULTANT</td>
-                            <td></td>
-                            <td class="signature_width3" id="border_right_none"></td>
-                        </tr>
-                        <tr>
-                            <td id="spc">PC COORDINATOR</td>
-                            <td></td>
-                            <td id="border_right_none"></td>
-                        </tr>
-                        <tr>
-                            <td>
+                            <td style="width:100px;">
                                 <div class="row" id="sales_checkbox">
                                     <div style="float:left;margin-right:2px;">
-                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" style="margin-top:5px;"/>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
                                     </div>
                                     <div style="float:left">
-                                        <label class="light" style="font-weight:normal;margin-bottom:-10px;margin-top:5px;">REB<label>
+                                        <label style="font-weight:normal">REB<label>
                                     </div>
                                     <div style="float:left;margin-right:2px;">
-                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" style="margin-top:5px;"/>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id="chkOption1" type="checkbox" name="chkOption1" />
                                     </div>
                                     <div style="float:left">
-                                        <label class="light" style="font-weight:normal;margin-bottom:-10px;margin-top:5px;">PC<label>
+                                        <label style="font-weight:normal">PC<label>
                                     </div>
                                 </div>
                             </td>
-                            <td></td>
+                            <td style="width:171px;"></td>
                             <td id="border_right_none"></td>
                         </tr>
                         <tr>
@@ -1274,9 +1252,9 @@ function printRA(){
     };
     // New Promise-based usage:
     html2pdf().set(opt).from(element).save();
-    // window.setTimeout(function(){
-    // window.history.back();
-    // }, 500);
+    window.setTimeout(function(){
+    window.history.back();
+    }, 500);
 }
 
 function investmentValue(){
