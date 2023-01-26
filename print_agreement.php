@@ -87,6 +87,7 @@ header("Access-Control-Allow-Origin: *");
         $amt_fnanced = $row['c_amt_financed'];
         $interest_rate = $row['c_interest_rate'];
         $down_percent = $row['c_down_percent'];
+        $c_lot_lid = $row['c_lot_lid'];
 	}
 }
 /* close connection */
@@ -119,8 +120,31 @@ $mysqli->close();
     margin-left:350px;
     opacity:0.1;
 }
-.whole_content{
+/* .whole_content{
     visibility:hidden;
+} */
+.form-control{
+    border:none;
+    background-color:transparent;
+    width:auto;
+    float:left;
+}
+.hiddentxt{
+    width:65px;
+    max-width:65px;
+    height:auto;
+    font-size:10.5px;
+    border:none;
+    text-decoration: underline;
+    text-align:center;
+}
+.hiddentxt1{
+    width:20px;
+    height:auto;
+    font-size:10.5px;
+    border:none;
+    text-decoration: underline;
+    text-align:center;
 }
 </style>
 
@@ -130,16 +154,25 @@ $mysqli->close();
 	<input type="button" id="rep" value="Print" class="btn btn-info btn_print">
 </div>
 <div class="container_content" id="container_content">
-<img src="images/Header.jpg" class="img-thumbnail" style="height:95px;width:650px" alt="">
-<h5 class="text-center" style="position:absolute;margin-top:-55px;margin-left:320px;"><b>RESERVATION AGREEMENT</b></h5>
+<img src="images/Header.jpg" class="img-thumbnail" style="height:95px;width:650px;border:none;margin-left:20px;" alt="">
+<h5 class="text-center" style="position:absolute;margin-top:-55px;margin-left:275px;"><b>RESERVATION AGREEMENT</b></h5>
 <div style="clear:both"></div>
     <br>
     <div class="card-body" style="margin-top:-20px;">
         <div class="watermark_sample"></div>
+        <input type="hidden" value="<?php echo $c_lot_lid; ?>" id="lid">
+        <?php
+            $l_lid=$c_lot_lid;
+            $l_phase = intval(substr($l_lid, 0,3));
+            $l_block = intval(substr($l_lid, 3,3));
+            $l_lot = intval(substr($l_lid, 6,8));
+        ?>
+
+        <input type="hidden" value="<?php echo $l_phase; ?>" id="txtPhase">
     I hereby offer to purchase from Asian Land Strategies Corporation (“ALSC”, “Seller”) the following property (“Property”) and request that the property be reserved for my
-purchase. Project Name and Phase ___________________________ Block ______ Lot ______ . The property is to be paid by me in the manner I chose as indicated in the
+purchase. Project Name and Phase <input type="text" class="hiddentxt" id="final_phase"> Block <input type="text" class="hiddentxt1" value="<?php echo $l_block; ?>"> Lot <input type="text" class="hiddentxt1" value="<?php echo $l_lot; ?>">. The property is to be paid by me in the manner I chose as indicated in the
 attachments and understand that the purchase price is valid only for the payment scheme and manner of payment which has been selected herein. I request that the
-Property be reserved, and for this purpose I deposit the amount of Pesos: ___________________________________ (Php ____________) my reservation money for the
+Property be reserved, and for this purpose I deposit the amount of Pesos: <input type="text" name="num" value="<?php if(isset($num)){echo $num;}?>"/> (Php<input type="text" class="hiddentxt" value="<?php echo $c_reservation; ?>">) my reservation money for the
 Property. Should I decide to change the selected payment manner, such change will be effective only upon the approval of the Seller, and will also result in a change of
 Purchase Price and amendment of necessary documents.<br><br>
 I understand and agree that my reservation for the property is subject to the following Terms and Conditions:<br>
@@ -218,10 +251,25 @@ of &#8195;&#8195;purchase of the Property.<br><br><br>
 &#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&nbsp;Client’s Signature over Printed Name/Date Purchase&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;Client’s Signature over Printed Name/Date Purchase<br><br>
 <br>&#8195;&#8195;&#8195;&#8195;&#8195;Witnessed by:<br><br>
 &#8195;&#8195;&#8195;&#8195;&#8195;______________________________________________________<br><br>
-&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&nbsp;&nbsp;&nbsp;Authorized Signature over Printed Name/Date
+&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Authorized Signature over Printed Name/Date
     </div>
 </div>
 </div>
+
+
+<form method="post">
+    <table border="0" align="center">
+        <tr>
+        <td>Enter Your Numbers</td>
+        <Td><input type="text" name="num" value="<?php if(isset($num)){echo $num;}?>"/></Td>
+        </tr>
+        <tr>
+        <td colspan="2" align="center">
+        <input type="submit" value="Conver Number to Words" name="convert"/>
+        </td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>
 <script>
@@ -235,6 +283,7 @@ of &#8195;&#8195;purchase of the Property.<br><br><br>
 
     <script type="text/javascript">
     function printAgreement(){
+        getPhase();
 			var element = document.getElementById('container_content'); 
 
 			var opt = 
@@ -253,5 +302,313 @@ of &#8195;&#8195;purchase of the Property.<br><br><br>
             window.history.back();
             }, 500);
     }
+    
 	</script>
+    <script>
+function getPhase(){
+    var phase=document.getElementById("txtPhase").value;
+
+    if(phase==152){
+        document.getElementById('final_phase').value="CBP";
+    }else if(phase==161){
+        document.getElementById('final_phase').value="CBP-1A";
+    }else if(phase==180){
+        document.getElementById('final_phase').value="CBP-1B";
+    }else if(phase==157){
+        document.getElementById('final_phase').value="CBP-2";
+    }else if(phase==166){
+        document.getElementById('final_phase').value="CBP-2A";
+    }else if(phase==170){
+        document.getElementById('final_phase').value="CBP-2B";
+    }else if(phase==168){
+        document.getElementById('final_phase').value="CBP-3";
+    }else if(phase==182){
+        document.getElementById('final_phase').value="CBP-3A";
+    }else if(phase==186){
+        document.getElementById('final_phase').value="CBP-3B";
+    }else if(phase==189){
+        document.getElementById('final_phase').value="CBP-3C";
+    }else if(phase==169){
+        document.getElementById('final_phase').value="CBP-4";
+    }else if(phase==172){
+        document.getElementById('final_phase').value="CBP-5";
+    }else if(phase==183){
+        document.getElementById('final_phase').value="CBP-5A";
+    }else if(phase==187){
+        document.getElementById('final_phase').value="CBP-5B";
+    }else if(phase==102){
+        document.getElementById('final_phase').value="CR";
+    }else if(phase==191){
+        document.getElementById('final_phase').value="CR-AH";
+    }else if(phase==104){
+        document.getElementById('final_phase').value="DCH-1";
+    }else if(phase==114){
+        document.getElementById('final_phase').value="DCH-1A";
+    }else if(phase==107){
+        document.getElementById('final_phase').value="DCH-2A";
+    }else if(phase==109){
+        document.getElementById('final_phase').value="DCH-2B";
+    }else if(phase==137){
+        document.getElementById('final_phase').value="DCH-2C";
+    }else if(phase==158){
+        document.getElementById('final_phase').value="DCH-2D";
+    }else if(phase==112){
+        document.getElementById('final_phase').value="DCH-3";
+    }else if(phase==116){
+        document.getElementById('final_phase').value="DCH-4";
+    }else if(phase==117){
+        document.getElementById('final_phase').value="DCH-5";
+    }else if(phase==138){
+        document.getElementById('final_phase').value="DCH-5A";
+    }else if(phase==145){
+        document.getElementById('final_phase').value="DCH-5B";
+    }else if(phase==147){
+        document.getElementById('final_phase').value="DCH-5C";
+    }else if(phase==162){
+        document.getElementById('final_phase').value="DCH-5D";
+    }else if(phase==185){
+        document.getElementById('final_phase').value="DCH-5E";
+    }else if(phase==192){
+        document.getElementById('final_phase').value="DCH-AH";
+    }else if(phase==106){
+        document.getElementById('final_phase').value="GIE";
+    }else if(phase==103){
+        document.getElementById('final_phase').value="GR-1";
+    }else if(phase==128){
+        document.getElementById('final_phase').value="GR-10";
+    }else if(phase==110){
+        document.getElementById('final_phase').value="GR-1A";
+    }else if(phase==133){
+        document.getElementById('final_phase').value="GR-1B";
+    }else if(phase==134){
+        document.getElementById('final_phase').value="GR-1C";
+    }else if(phase==153){
+        document.getElementById('final_phase').value="GR-1D";
+    }else if(phase==154){
+        document.getElementById('final_phase').value="GR-1E";
+    }else if(phase==160){
+        document.getElementById('final_phase').value="GR-1F";
+    }else if(phase==105){
+        document.getElementById('final_phase').value="GR-2";
+    }else if(phase==108){
+        document.getElementById('final_phase').value="GR-2A";
+    }else if(phase==111){
+        document.getElementById('final_phase').value="GR-3";
+    }else if(phase==139){
+        document.getElementById('final_phase').value="GR-3A";
+    }else if(phase==165){
+        document.getElementById('final_phase').value="GR-3B";
+    }else if(phase==113){
+        document.getElementById('final_phase').value="GR-4";
+    }else if(phase==136){
+        document.getElementById('final_phase').value="GR-4A";
+    }else if(phase==115){
+        document.getElementById('final_phase').value="GR-5";
+    }else if(phase==118){
+        document.getElementById('final_phase').value="GR-5A";
+    }else if(phase==142){
+        document.getElementById('final_phase').value="GR-5B";
+    }else if(phase==144){
+        document.getElementById('final_phase').value="GR-5C";
+    }else if(phase==151){
+        document.getElementById('final_phase').value="GR-5D";
+    }else if(phase==119){
+        document.getElementById('final_phase').value="GR-6";
+    }else if(phase==143){
+        document.getElementById('final_phase').value="GR-6A";
+    }else if(phase==148){
+        document.getElementById('final_phase').value="GR-6B";
+    }else if(phase==173){
+        document.getElementById('final_phase').value="GR-6C";
+    }else if(phase==184){
+        document.getElementById('final_phase').value="GR-6D";
+    }else if(phase==179){
+        document.getElementById('final_phase').value="GR-6E";
+    }else if(phase==120){
+        document.getElementById('final_phase').value="GR-7";
+    }else if(phase==130){
+        document.getElementById('final_phase').value="GR-7A";
+    }else if(phase==132){
+        document.getElementById('final_phase').value="GR-7B";
+    }else if(phase==135){
+        document.getElementById('final_phase').value="GR-7C";
+    }else if(phase==140){
+        document.getElementById('final_phase').value="GR-7D";
+    }else if(phase==141){
+        document.getElementById('final_phase').value="GR-7E";
+    }else if(phase==146){
+        document.getElementById('final_phase').value="GR-7F";
+    }else if(phase==155){
+        document.getElementById('final_phase').value="GR-7G";
+    }else if(phase==159){
+        document.getElementById('final_phase').value="GR-7H";
+    }else if(phase==171){
+        document.getElementById('final_phase').value="GR-7I";
+    }else if(phase==188){
+        document.getElementById('final_phase').value="GR-7J";
+    }else if(phase==121){
+        document.getElementById('final_phase').value="GR-8";
+    }else if(phase==124){
+        document.getElementById('final_phase').value="GR-8A";
+    }else if(phase==125){
+        document.getElementById('final_phase').value="GR-8B";
+    }else if(phase==126){
+        document.getElementById('final_phase').value="GR-8C";
+    }else if(phase==129){
+        document.getElementById('final_phase').value="GR-8D";
+    }else if(phase==131){
+        document.getElementById('final_phase').value="GR-8E";
+    }else if(phase==178){
+        document.getElementById('final_phase').value="GR-8F";
+    }else if(phase==122){
+        document.getElementById('final_phase').value="GR-9";
+    }else if(phase==127){
+        document.getElementById('final_phase').value="GR-9A";
+    }else if(phase==175){
+        document.getElementById('final_phase').value="GR-9B";
+    }else if(phase==193){
+        document.getElementById('final_phase').value="GR-AH";
+    }else if(phase==194){
+        document.getElementById('final_phase').value="MEAD-AH";
+    }else if(phase==123){
+        document.getElementById('final_phase').value="MEADOWS";
+    }else if(phase==164){
+        document.getElementById('final_phase').value="MEADOWS-2";
+    }else if(phase==101){
+        document.getElementById('final_phase').value="RE";
+    }else if(phase==150){
+        document.getElementById('final_phase').value="RE-2";
+    }else if(phase==190){
+        document.getElementById('final_phase').value="RE-AH";
+    }else if(phase==149){
+        document.getElementById('final_phase').value="WGR";
+    }else if(phase==167){
+        document.getElementById('final_phase').value="WGR-1A";
+    }else if(phase==177){
+        document.getElementById('final_phase').value="WGR-1B";
+    }else if(phase==156){
+        document.getElementById('final_phase').value="WGR-2";
+    }else if(phase==176){
+        document.getElementById('final_phase').value="WGR-2A";
+    }else if(phase==181){
+        document.getElementById('final_phase').value="WGR-2B";
+    }else if(phase==163){
+        document.getElementById('final_phase').value="WGR-3";
+    }else if(phase==174){
+        document.getElementById('final_phase').value="WGR-4";
+    }
+}
+    </script>
  
+    <?php
+function numberTowords($num)
+{
+
+$ones = array(
+0 =>"ZERO",
+1 => "ONE",
+2 => "TWO",
+3 => "THREE",
+4 => "FOUR",
+5 => "FIVE",
+6 => "SIX",
+7 => "SEVEN",
+8 => "EIGHT",
+9 => "NINE",
+10 => "TEN",
+11 => "ELEVEN",
+12 => "TWELVE",
+13 => "THIRTEEN",
+14 => "FOURTEEN",
+15 => "FIFTEEN",
+16 => "SIXTEEN",
+17 => "SEVENTEEN",
+18 => "EIGHTEEN",
+19 => "NINETEEN",
+"014" => "FOURTEEN"
+);
+$tens = array( 
+0 => "ZERO",
+1 => "TEN",
+2 => "TWENTY",
+3 => "THIRTY", 
+4 => "FORTY", 
+5 => "FIFTY", 
+6 => "SIXTY", 
+7 => "SEVENTY", 
+8 => "EIGHTY", 
+9 => "NINETY" 
+); 
+$hundreds = array( 
+"HUNDRED", 
+"THOUSAND", 
+"MILLION", 
+"BILLION", 
+"TRILLION", 
+"QUARDRILLION" 
+); /*limit t quadrillion */
+$num = number_format($num,2,".",","); 
+$num_arr = explode(".",$num); 
+$wholenum = $num_arr[0]; 
+$decnum = $num_arr[1]; 
+$whole_arr = array_reverse(explode(",",$wholenum)); 
+krsort($whole_arr,1); 
+$rettxt = ""; 
+foreach($whole_arr as $key => $i){
+	
+while(substr($i,0,1)=="0")
+		$i=substr($i,1,5);
+if($i < 20){ 
+/* echo "getting:".$i; */
+$rettxt .= $ones[$i]; 
+}elseif($i < 100){ 
+if(substr($i,0,1)!="0")  $rettxt .= $tens[substr($i,0,1)]; 
+if(substr($i,1,1)!="0") $rettxt .= " ".$ones[substr($i,1,1)]; 
+}else{ 
+if(substr($i,0,1)!="0") $rettxt .= $ones[substr($i,0,1)]." ".$hundreds[0]; 
+if(substr($i,1,1)!="0")$rettxt .= " ".$tens[substr($i,1,1)]; 
+if(substr($i,2,1)!="0")$rettxt .= " ".$ones[substr($i,2,1)]; 
+} 
+if($key > 0){ 
+$rettxt .= " ".$hundreds[$key]." "; 
+}
+} 
+if($decnum > 0){
+$rettxt .= " and ";
+if($decnum < 20){
+$rettxt .= $ones[$decnum];
+}elseif($decnum < 100){
+$rettxt .= $tens[substr($decnum,0,1)];
+$rettxt .= " ".$ones[substr($decnum,1,1)];
+}
+}
+return $rettxt;
+}
+extract($_POST);
+if(isset($convert))
+{
+echo "<p align='center' style='color:blue'>".numberTowords("$num")."</p>";
+}
+?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Conver Number to Words in PHP</title>
+	</head>
+	<body>
+		<form method="post">
+			<table border="0" align="center">
+				<tr>
+				<td>Enter Your Numbers</td>
+				<Td><input type="text" name="num" value="<?php if(isset($num)){echo $num;}?>"/></Td>
+				</tr>
+				<tr>
+				<td colspan="2" align="center">
+				<input type="submit" value="Conver Number to Words" name="convert"/>
+				</td>
+				</tr>
+			</table>
+        </form> 
+
+	</body>
+</html>

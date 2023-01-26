@@ -1,168 +1,3 @@
-<?php
-if (isset($_SERVER['HTTPS']) &&
-    ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
-    isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
-    $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
-  $ssl = 'https';
-}
-else {
-  $ssl = 'http';
-}
-$app_url = ($ssl  )
-          . "://".$_SERVER['HTTP_HOST']
-          . (dirname($_SERVER["SCRIPT_NAME"]) == DIRECTORY_SEPARATOR ? "" : "/")
-          . trim(str_replace("\\", "/", dirname($_SERVER["SCRIPT_NAME"])), "/");
-header("Access-Control-Allow-Origin: *");
-?>
-<!DOCTYPE html>
-<head>
-    <link rel="stylesheet" href="css/print_payment.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script> 
-	<script src="https://cdn.apidelv.com/libs/awesome-functions/awesome-functions.min.js"></script> 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" ></script>
-</head>
-<style>
-    .watermark_sample{
-        background-image: url("images/4.png");
-        width:400px;
-        background-repeat:no-repeat;
-        position:absolute;
-        height:350px;
-        margin-top:900px;
-        margin-left:375px;
-        opacity:0.1;
-    }
-</style>
-<!DOCTYPE html>
-<html lang="en">
-<?php 
-      include "includes/header.php" ;
-      include('functions.php');?> 
-<style>
-.whole_content{
-    visibility:hidden;
-}
-</style>
-
-<head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" ></script>
-</head>
-<body onload="loadAll()">
-<div class="whole_content">
-    <div class="text-center" style="padding:20px;">
-	<input type="button" id="rep" value="Print" class="btn btn-info btn_print">
-</div>
-<div class="container_content" id="container_content" style="margin-top:5px;font-size:9px;">
-    <img src="images/Header.jpg" class="img-thumbnail" style="height:80px;width:500px;margin-left:130px;border:none;margin-bottom:-5px;z-index:-1;position: relative;" alt="">
-    <h6 class="text-center" style="position:absolute;margin-top:-40px;margin-left:330px;"><b>RESERVATION APPLICATION</b></h6>
-    <?php
-    $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
-    $query = "SELECT x.*, y.*, y.c_csr_no as csr_num FROM t_csr_buyers y inner join t_csr x on x.c_csr_no = y.c_csr_no WHERE y.c_csr_no = '{$_GET['id']}' ";
-    $result = mysqli_query($mysqli, $query);
-    $count=$result->num_rows;
-    // mysqli select query
-    echo $count;
-    while ($row = mysqli_fetch_assoc($result)) {
-        $c_date_created = $row['c_date_created'];
-        $c_csr_no = $row['c_csr_no']; 
-        $c_b1_last_name = $row['last_name']; 
-        $c_b1_first_name = $row['first_name']; 
-        $c_b1_middle_name = $row['middle_name']; 
-        $c_suffix = $row['suffix_name']; 
-        $c_citizenship = $row['citizenship']; 
-        $c_address = $row['address']; 
-        $c_mobile_no = $row['contact_no']; 
-        $c_viber_no = $row['viber']; 
-        $c_address_abroad = $row['address_abroad']; 
-        $c_mobile_abroad = $row['contact_abroad']; 
-        
-        $c_lid = $row['c_lot_lid']; 
-        $c_birthday = $row['birthdate'];  
-        $c_age = $row['age'];  
-        $c_tin = $row['tin_no'];  
-        $c_zip = $row['zip_code'];  
-        $c_id_presented = $row['id_presented'];
-        $c_sex = $row['gender']; 
-        $c_civil_status = $row['civil_status'];  
-        $c_email = $row['email'];  
-        $c_lot_area = $row['c_lot_area'];
-        $c_price_sqm = $row['c_price_sqm'];
-        $c_lot_discount_amt = $row['c_lot_discount_amt'];
-        $c_lot_discount = $row['c_lot_discount'];
-        $c_house = $row['c_house_model'];
-        $c_date_created = $row['c_date_created'];
-        $c_floor_area = $row['c_floor_area'];
-        $c_house_discount = $row['c_house_discount'];
-        $c_house_discount_amt = $row['c_house_discount_amt'];
-        $c_house_price_sqm = $row['c_house_price_sqm'];
-        $c_linear = $row['c_linear'];
-        $c_fence_price_sqm = $row['c_fence_price_sqm'];
-        $c_tcp = $row['c_tcp'];
-        $remarks = $row['c_remarks'];
-        // $c_employment_status = $row['c_employment_status'];
-        $c_lot_discount_percentage = $row['c_lot_discount'];
-        $c_net_dp = $row['c_net_dp'];
-        $c_reservation = $row['c_reservation'];
-        $c_terms = $row['c_terms'];
-        $c_monthly_payment = $row['c_monthly_payment'];
-        $c_monthly_down = $row['c_monthly_down'];
-        $amt_fnanced = $row['c_amt_financed'];
-        $interest_rate = $row['c_interest_rate'];
-        $c_fixed_factor = $row['c_fixed_factor'];
-        $down_percent = $row['c_down_percent'];
-        $c_relation = $row['relationship'];
-        $c_processing_fee = $row['c_processing_fee'];
-        $c_less = $row['c_less'];
-        $c_pf_mo = $row['pf_mo'];
-        $c_no_payment = $row['c_no_payments'];
-        ?>
-        <div class="text-center" id="dateofsale" style="margin-top:-22px;margin-bottom:-5px;margin-left:65px;"><b>Date of Sale:</b> <?php echo date("F d, Y",strtotime($c_date_created)) ?></div>
-        <br>
-        <div class="watermark_sample"></div>
-        <?php
-     }
-    ?>
-<?php
-    if ($count == 1 && $c_floor_area == 0){
-        include('print_1buyer_without_add_cost.php');
-        return;
-    }else if($count == 1 && $c_floor_area != 0){
-        include('print_1buyer_with_add_cost.php');
-        return;
-    }else if($count == 2 && $c_floor_area != 0){
-        include('print_2buyers_with_add_cost.php');
-        include('print_payment_with_add_cost.php');
-    }else if($count == 2 && $c_floor_area == 0){
-        include('print_2buyers_without_add_cost.php');
-        include('print_payment_without_add_cost.php');
-    }else if($count == 3 && $c_floor_area == 0){
-        include('print_3buyers_without_add_cost.php');
-        include('print3_payment_without_add_cost.php');
-    ?>
-        <!-- <p style="page-break-after:always;"></p> -->
-    <?php
-        // include('print_payment_without_add_cost.php');
-    }else if($count == 3 && $c_floor_area =! 0){
-        ?>
-        <br>
-        <?php
-        include('print_3buyers_with_add_cost.php');
-        include('print3_payment_with_add_cost.php');
-        ?>
-        <!-- <p style="page-break-after:always;"></p> -->
-    <?php
-        
-        
-    }
-?>
-</body>
-</html>
-</div>
-<!-- 
-<script type="text/javascript">
 function getCivilStatus(){
 	var civil=document.getElementById("civil_status").value;
 	if(civil=="Married"){
@@ -176,13 +11,14 @@ function getCivilStatus(){
 	}
 }
 function getGender(){
-    var sex=document.getElementById("gender").value;
-    if(sex=="male"){
-        document.getElementById('male').checked=true;
-    }else{
-        document.getElementById('female').checked=true;
-    }
+	var sex=document.getElementById("gender").value;
+	if(sex=="male"){
+		document.getElementById('male').checked=true;
+	}else{
+		document.getElementById('female').checked=true;
+	}
 }
+
 function getPhase(){
     var phase=document.getElementById("txtPhase").value;
 
@@ -397,23 +233,9 @@ function getLCP(){
     document.getElementById('c_lcp').value = lcp;
 }
 
-function printRA(){
-        var element = document.getElementById('container_content'); 
-        var opt = 
-        {
-        margin:       [0,5,0,5],
-        filename:    'RA<?php echo $c_csr_no; ?>-'+'<?php echo $c_b1_last_name; ?>_'+'<?php echo $c_b1_first_name; ?>_'+'<?php echo $c_b1_middle_name; ?>'+'.pdf',
-        
-        image:        { type: 'jpeg', quality: 2 },
-        html2canvas:  { dpi: 300, letterRendering: true, width: 780, height: 2500, scale:2},
-        //html2canvas:  { dpi: 2000, letterRendering: true, width: 216, height: 356, scale:2},
-        jsPDF:        { unit: 'mm', format: 'legal', orientation: 'portrait' }
-        };
-        // New Promise-based usage:
-        html2pdf().set(opt).from(element).save();
-        // window.setTimeout(function(){
-        // window.history.back();
-        // }, 500);
-} -->
-
-</script>
+function loadAll(){
+    getCivilStatus();
+    getGender();
+    getPhase();
+    printRA();
+}
