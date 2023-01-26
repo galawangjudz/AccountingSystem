@@ -23,7 +23,7 @@
 		  <tbody>
 				<?php 
 					$i = 0;
-					$ras = $mysqli->query("SELECT * FROM t_approval_csr i inner join t_csr_view x on i.c_csr_no = x.c_csr_no where c_reserve_status = 1 ORDER BY c_date_approved");
+					$ras = $mysqli->query("SELECT * FROM t_approval_csr i inner join t_csr_view x on i.c_csr_no = x.c_csr_no where c_csr_status = 1 and c_reserve_status = 1 ORDER BY c_date_approved");
 					while($row=$ras->fetch_assoc()):
 						
 						$i ++;
@@ -35,7 +35,7 @@
 
 						?>
 					<tr>
-						<td class="text-center"><?php echo $row["c_csr_no"] ?></td>
+						<td class="text-center"><?php echo $row["ref_no"] ?></td>
 						<td class="text-center"><?php echo $row["ra_id"] ?></td>
 						<td class="text-center"><?php echo $row["c_acronym"]. ' Block ' .$row["c_block"] . ' Lot '.$row["c_lot"] ?></td>
 						<td class="text-center"><?php echo $row["last_name"]. ','  .$row["first_name"] .' ' .$row["middle_name"]?></td>

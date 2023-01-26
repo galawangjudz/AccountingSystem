@@ -75,7 +75,7 @@
 					<tr>
 					
 						<td class="text-center"><?php echo $row["ra_id"] ?></td>
-						<td class="text-center"><?php echo $row["c_csr_no"] ?></td>
+						<td class="text-center"><?php echo $row["ref_no"] ?></td>
 						<td class="text-center"><?php echo $row["c_acronym"]. ' Block ' .$row["c_block"] . ' Lot '.$row["c_lot"] ?></td>
 						<td class="text-center"><?php echo $row["last_name"]. ','  .$row["first_name"] .' ' .$row["middle_name"]?></td>
 
@@ -150,7 +150,7 @@
 							$td=strtotime($today_date);		
 	
 							if(($td>$exp) && ($row['c_reserve_status'] == 0)  && ($row['c_csr_status'] == 1)){
-								$update_csr = $mysqli->query("UPDATE t_csr SET coo_approval = 2 WHERE c_csr_no = '".$id."'");	
+								$update_csr = $mysqli->query("UPDATE t_csr SET c_verify = 2, coo_approval = 2 WHERE c_csr_no = '".$id."'");	
 								$update_app = $mysqli->query("UPDATE t_approval_csr SET c_csr_status = 2 WHERE c_csr_no = '".$id."'");
 								$update_lot = $mysqli->query("UPDATE t_lots SET c_status = 'Available' WHERE c_lid = '".$lid."'");
 							}
@@ -162,6 +162,8 @@
 							<td><span class="label label-success">Paid</span></td>
 						<?php elseif($row['c_reserve_status'] == 0): ?>
 							<td><span class="label label-warning">Unpaid</span></td>
+						<?php elseif($row['c_reserve_status'] == 3): ?>
+							<td><span class="label label-info">Partial Paid</span></td>
 						<?php endif; ?>
 
 
@@ -176,11 +178,23 @@
 						<?php else: ?>
 							<td><span class="label label-danger"> --- </span></td>
 						<?php endif; ?>
-						<!-- <td class="text-center"><?php echo $row["title"] ?></td>
-						<td><button data-id='<?php echo $row["c_csr_no"]; ?>' class="attachment_name btn-link"><?php echo $row["title"]; ?></button></td>
-						<td><?php echo $row["date_uploaded"]; ?></td> -->
-						<td class="actions"><a href="?page=ra-view&id=<?php echo $row['c_csr_no'] ?>" data-ra-id="<?php $row['ra_id'] ?>" class="btn btn-primary btn-xs">View
-						<span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
+						<td class="actions">	
+						<li class="dropdown user user-menu">
+
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+							<span class="btn btn-info" target="_blank">Actions&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+							</a>
+							<ul class="dropdown-menu">
+
+							<li><a class="dropdown-item" href="?page=ra-view&id=<?php echo $row['c_csr_no'] ?>&ref=<?php echo $row['ref_no'] ?>" >View RA</a>
+							<?php if ($status == 1 && ($row["c_duration"] > $row["c_date_approved"])) { ?>
+							<li><a class="dropdown-item extend-approval" extend=1 data-csr-id=<?php echo $row['c_csr_no'] ?> >Extend Approval Time</a>
+							<?php } ?>
+							<li><a class="dropdown-item" href="print_agreement.php?id=<?php echo $getID; ?>">Cancelled</a>
+							</ul>
+						</li>		
+						</td>
 					
 					</tr>	
 					<?php endwhile; ?>
@@ -190,35 +204,19 @@
 		</div>
 	</div>
 </div>
-<!-- 
-<div class="modal fade" id="a_modal" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">User Info</h4>
-				<button type="button" class="close" data-dismiss="modal"></button>
-			</div>
-			<div class="modal-body">
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div> -->
-<!-- <script type='text/javascript'>
-	$(document).ready(function(){
-		$('.attachment_name').click(function(){
-			var csrno=$(this).data('id');
-			$.ajax({
-				url:'ajaxfile.php',
-				type:'post',
-				data:{csrno:csrno},
-				success:function(response){
-					$('.modal-body').html(response);
-					$('#a_modal').modal('show');
-				}
-			})
-		});
-	});
-</script> -->
+
+
+<script>
+$('.extend-approval').click(function(){   
+        uni_modal('Extend Coo Approval','approval_extend_setting.php?&id='+$(this).attr('data-csr-id'))
+    })
+
+$('.new_reservation').click(function(){
+	uni_modal('New Reservation','manage_reservation.php?id='+$(this).attr('data-ra-id'))
+})
+
+$('.edit-lot').click(function(){
+	uni_modal('Edit Lot','manage_reservation.php?id='+$(this).attr('data-ra-id'))
+})
+</script>
+	

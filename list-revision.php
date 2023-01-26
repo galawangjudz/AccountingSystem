@@ -10,7 +10,7 @@
 
 ?>
 <body>
-<h2>For Verification</h2><div class="addbtn"><a href="index.php?page=csr-create" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New RA</a></div>
+<h2>For Revision</h2><div class="addbtn"><a href="index.php?page=csr-create" class="btn btn-flat" id="btntop"><span class="fas fa-plus"></span>  Create New RA</a></div>
 <hr>
 <div id="response" class="alert alert-success" style="display:none;">
   <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -66,23 +66,23 @@
                     $where = '';
                     if(isset($_GET['category_id'])  && $_GET['category_id'] != 'all'){
                         if ($usertype == 'Agent')
-                            $where .= " where coo_approval = '".$_GET['category_id']."' and c_created_by = '$username' and c_revised = 0 ";
+                            $where .= " where coo_approval = '".$_GET['category_id']."' and c_created_by = '$username' and c_revised = 1 ";
                         
                         if ($usertype == 'COO')
-                            $where .= " where coo_approval = '".$_GET['category_id']."'  and c_verify = '1' and c_revised = 0 ";
+                            $where .= " where coo_approval = '".$_GET['category_id']."'  and c_verify = '1' and c_revised = 1 ";
                         else
-                            $where .= " where coo_approval = '".$_GET['category_id']."' and c_revised = 0 ";
+                            $where .= " where coo_approval = '".$_GET['category_id']."' and c_revised = 1 ";
                     }
                     else{
                         if ($usertype == 'Agent')
-                            $where .=  " where c_created_by = '$username' and c_revised = 0 ";
+                            $where .=  " where c_created_by = '$username' and c_revised = 1 ";
                         if ($usertype == 'COO')
-                            $where .=  " where c_verify = 1  and c_revised = 0";
+                            $where .=  " where c_verify = 1  and c_revised = 1";
                         else
-                            $where .= "where c_revised = 0";
+                            $where .= "where c_revised = 1";
                     }
                    /* $csr = $mysqli->query("SELECT * FROM t_csr_view ".$where." order by c_date_updated asc");  */
-                   $csr = $mysqli->query("select q.c_acronym, z.c_block, z.c_lot, y.last_name, y.first_name, y.middle_name, y.suffix_name , x.* from t_csr x , t_csr_buyers y ,
+                   $csr = $mysqli->query(" select q.c_acronym, z.c_block, z.c_lot, y.last_name, y.first_name, y.middle_name, y.suffix_name , x.* from t_csr x , t_csr_buyers y ,
                             t_lots z,  t_projects q
                             ".$where." and  x.c_csr_no = y.c_csr_no 
                             and x.c_lot_lid = z.c_lid 
@@ -181,13 +181,13 @@ function delete_csr($id){
 
 $('#filter').submit(function(e){
 		e.preventDefault()
-		location.replace('index.php?page=list-sm&category_id='+$(this).find('[name="category_id"]').val())
+		location.replace('index.php?page=list-revision&category_id='+$(this).find('[name="category_id"]').val())
 	})
 
 
 
 $('#filter2').submit(function(e){
 		e.preventDefault()
-		location.replace('index.php?page=list-sm&category_id2='+$(this).find('[name="category_id2"]').val())
+		location.replace('index.php?page=list-revision&category_id2='+$(this).find('[name="category_id2"]').val())
 	})
 </script>

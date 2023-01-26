@@ -235,11 +235,11 @@
 													</style>
 													<label class="control-label">Relationship: </label>
 													<select name="relationship[]" id="relationship" class="form-control required">
-															<option name="customer_gender" value="0" selected>None</option>
-															<option name="customer_gender" value="1">And</option>
-															<option name="customer_gender" value="2">Spouses</option>
-															<option name="customer_gender" value="3">Married To</option>
-															<option name="customer_gender" value="4">Minor/Represented by Legal Guardian</option>
+															<option name="customer_relation" value="0" selected>None</option>
+															<option name="customer_relation" value="1">And</option>
+															<option name="customer_relation" value="2">Spouses</option>
+															<option name="customer_relation" value="3">Married To</option>
+															<option name="customer_relation" value="4">Minor/Represented by Legal Guardian</option>
 
 													</select>
 												</div>
@@ -819,7 +819,8 @@
 						},1500)
 
 						setTimeout(function(){
-							location.reload()
+							window.location.href = "?page=list-sm"
+							/* location.reload() */
 						},3000)
 					}
 					else{

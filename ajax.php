@@ -101,6 +101,12 @@ if($action == "new_coo_approval"){
 		echo $save;
 }
 
+if($action == "extend_coo_approval"){
+	$save = $crud->extend_coo_approval();
+	if($save)
+		echo $save;
+}
+
 if($action == "sm_verification"){
 	$save = $crud->sm_verification();
 	if($save)
@@ -121,6 +127,31 @@ if($action == "save_csr"){
 
 if($action == "update_csr"){
 	$save = $crud->update_csr();
+	if($save)
+		echo $save;
+}
+
+
+if($action == "save_reservation"){
+	$save = $crud->save_reservation();
+	if($save)
+		echo $save;
+}
+
+if($action == "delete_reservation"){
+	$save = $crud->delete_reservation();
+	if($save)
+		echo $save;
+}
+
+
+if($action == "approved_upload"){
+	$save = $crud->approved_upload();
+	if($save)
+		echo $save;
+}
+if($action == "delete_upload"){
+	$save = $crud->delete_upload();
 	if($save)
 		echo $save;
 }

@@ -101,15 +101,15 @@ function getProjectSite() {
 
 		print '<table class="table table-striped table-hover table-bordered" id="data-table"><thead><tr>
 
-				<th>Code</th>
-				<th>Name</th>
-				<th>Acronym</th>
-				<th>Address</th>
-				<th>Province</th>
-				<th>Zip</th>
-				<th>Rate</th>
-				<th>Reservation</th>
-				<th class="actions">Actions</th>
+					<th>Code</th>
+					<th>Name</th>
+					<th>Acronym</th>
+					<th>Address</th>
+					<th>Province</th>
+					<th>Zip</th>
+					<th>Rate</th>
+					<th>Reservation</th>
+					<th class="actions">Actions</th>
 
 			  </tr></thead><tbody>';
 
@@ -1048,7 +1048,7 @@ function popRAsList() {
 			endwhile;
 
 
-		$query ="SELECT * FROM t_approval_csr i inner join t_csr_view x on i.c_csr_no = x.c_csr_no where (i.c_csr_status = 1 and i.c_reserve_status = 0) 
+		$query ="SELECT * FROM t_approval_csr i inner join t_csr_view x on i.c_csr_no = x.c_csr_no where (i.c_csr_status = 1 and (i.c_reserve_status = 0 or i.c_reserve_status = 3)) 
 				ORDER BY c_date_approved";
 
 		
@@ -1057,8 +1057,7 @@ function popRAsList() {
 		$results = $mysqli->query($query);
 	
 		if($results) {
-		
-	
+			
 			print '<table class="table table-striped table-hover table-bordered" id= "data-table" cellspacing="0"><thead><tr>
 			
 			
@@ -1074,6 +1073,10 @@ function popRAsList() {
 			  </tr></thead><tbody>';
 	
 			while($row = $results->fetch_assoc()) {
+				$res = $row['c_reservation_amt'];
+				$amt_paid = $row['c_amount_paid'];
+				$remaining_res = $res - $amt_paid;
+				
 	
 				print '
 					<tr>
@@ -1084,7 +1087,7 @@ function popRAsList() {
 						<td>'.$row["last_name"].', '.$row["first_name"].' '.$row["middle_name"].' </td>
 					
 						
-						<td><a href="#" class="btn btn-primary btn-xs ra-select" data-ra-no="'.$row['ra_id'].'" data-ra-lot-lid="'.$row['c_lot_lid'].'" data-csr-no="'.$row['c_csr_no'].'" data-ra-site="'.$row['c_acronym'].'" data-ra-block="'.$row['c_block'].'" data-ra-lot="'.$row['c_lot'].'" data-ra-res="'.$row['c_reservation'].'" data-ra-fname="'.$row["last_name"].', '.$row["first_name"].' '.$row["middle_name"].'">Select</a></td>
+						<td><a href="#" class="btn btn-primary btn-xs ra-select" data-ra-no="'.$row['ra_id'].'" data-ra-lot-lid="'.$row['c_lot_lid'].'" data-csr-no="'.$row['c_csr_no'].'" data-ra-site="'.$row['c_acronym'].'" data-ra-block="'.$row['c_block'].'" data-ra-lot="'.$row['c_lot'].'" data-res-remaining="'.$remaining_res.'" data-ra-res="'.$row['c_reservation_amt'].'" data-ra-fname="'.$row["last_name"].', '.$row["first_name"].' '.$row["middle_name"].'">Select</a></td>
 				   
 						</tr>
 				';

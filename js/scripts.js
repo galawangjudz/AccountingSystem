@@ -43,8 +43,6 @@ $(document).ready(function() {
 	    actionAddReply();
 	});
 
-	
-
 
 	// password strength 
 	var options = {
@@ -390,7 +388,8 @@ $(document).ready(function() {
 		var reserve_or_no = $(this).attr('data-or-no');
 		var reserve_date = $(this).attr('data-reserve-date');
 		/* var reserve_amt = $(this).attr('data-amt-paid'); */
-		var reserve_amt = $(this).attr('data-ra-res');
+		var reserve_amt = $(this).attr('data-res-remaining');
+		var total_res = $(this).attr('data-ra-res');
 
 
 		$('#ra_no').val(ra_no);
@@ -403,6 +402,7 @@ $(document).ready(function() {
 		$('#or_no').val(reserve_or_no);
 		$('#pay_date').val(reserve_date);
 		$('#amount_paid').val(reserve_amt);
+		$('#total_res').val(total_res);
 
 		
 
@@ -1275,7 +1275,27 @@ function pmt(rate_per_period, number_of_payments, present_value, future_value, t
 
 	
 }
+function pmt(rate_per_period, number_of_payments, present_value, future_value, type){
+	var loanAmount = Number(this.inputValArray[0]),
+	interest = Number(this.inputValArray[1]),
+	numOfMonths = Number(this.inputValArray[2]),
+	rate = interest / 1200,
+	income_req = 0,
+	monthlyPayment = 0;
 
+	// Use toFixed method to round rate. The toFixed method converts a number to a string,
+	// so we use Number() to convert it back.
+	rate = Number(rate.toFixed(7));
+
+	// Substitute the proper variables into our equation to get the monthlyPayment value.
+	monthlyPayment = (rate + rate / (Math.pow(rate + 1, numOfMonths) - 1)) * loanAmount;
+
+	income_req =  monthlyPayment / 0.4;
+	// Round the monthlyPayment to the second decimal place. We can leave it as a string.
+	monthlyPayment = monthlyPayment.toFixed(2);
+
+	income_req = income_req.toFixed(2);
+}
 //** //////////////////////////////////////////////////////////////////*/
 
 function redirectToClientList(){

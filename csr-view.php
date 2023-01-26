@@ -3,6 +3,8 @@ include('functions.php');
 
 $getID = $_GET['id'];
 $usertype = $_SESSION['user_type'];
+$refno = $_GET['ref'];
+
 
 // Connect to the database
 $mysqli = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
@@ -11,16 +13,16 @@ if ($mysqli->connect_error) {
 	die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
 }
 // the query
-$query = "SELECT * FROM t_csr WHERE c_csr_no = '" . $mysqli->real_escape_string($getID) . "'";
+ $query = "SELECT * FROM t_csr WHERE c_csr_no = '" . $mysqli->real_escape_string($getID) . "'"; 
+/* $query = "SELECT * FROM t_csr WHERE ref_no = '" . $mysqli->real_escape_string($getID) . "'"; */
 $result = mysqli_query($mysqli, $query);
 // mysqli select query
 if($result) {
     while ($row = mysqli_fetch_assoc($result)) {
         $csr_no = $row['c_csr_no'];
         $lot_id = $row['c_lot_lid'];
-       
+        $lot_id = $row['c_lot_lid'];   
         $coo_approval = $row['coo_approval'];// status
-
 
         ///LOT
         $lot_area = $row['c_lot_area'];
@@ -98,7 +100,7 @@ if($result) {
             <div class="panel-heading">
                 <input type="hidden" value="<?php echo $p1; ?>" id="p1">
                 <input type="hidden" value="<?php echo $p2; ?>" id="p2">
-                 <h2 class="float-left">CTRL #<?php echo $getID; ?></h2> 
+                 <h2 class="float-left">Reference #<?php echo $refno; ?></h2> 
                 <div class="clear"></div>
             </div>
             <div class="panel-body form-group form-group-sm">
@@ -574,47 +576,11 @@ if($result) {
         uni_modal('Coo Approval','approval_setting.php?id='+$(this).attr('data-csr-id'))
     })
 
-
-
-    $('.coo-approval').click(function(){
-		_conf("Are you sure to approved this csr?","coo_approval",[$(this).attr('csr-id'),$(this).attr('csr-lot-lid'),$(this).attr('value')])
-	}) 
-
     $('.coo-approval2').click(function(){
 		_conf("Are you sure to disapproved this csr?","coo_approval",[$(this).attr('csr-id'),$(this).attr('csr-lot-lid'),$(this).attr('value')])
 	})
 
-	function coo_approval($id,$lid,$value){
-		start_load()
-		$.ajax({
-			url:'ajax.php?action=coo_approval',
-			method:'POST',
-            data:{id:$id,lid:$lid,value:$value},
-			success:function(resp){
-				if(resp==1){
-					/* alert("CSR successfully approved",'success') */
-                    $("#response .message").html("<strong>" + "Success" + "</strong>: " + "Data Successfully saved");
-                    $("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
-                    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-					setTimeout(function(){
-						location.reload()
-					},1500)
-                }else{
-                    $("#response .message").html("<strong> Lot Already Reserved </strong>: ");
-                    $("#response").removeClass("alert-success").addClass("alert-danger").fadeIn();
-                    $("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
-                   /*  alert("Lot already Reserved",'warning') */
-					setTimeout(function(){
-						location.reload()
-					},1500)
-                }
-			},
-			error:err=>{
-				console.log()
-				alert("An error occured")
-			}
-		})
-	}
+
 
     $('.sm-verification').click(function(){
 		_conf("Are you sure to verified this csr?","sm_verification",[$(this).attr('csr-id'),$(this).attr('csr-lot-lid'),$(this).attr('value')])

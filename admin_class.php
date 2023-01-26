@@ -341,6 +341,13 @@ Class Action {
 		$invoice_notes = $_POST['invoice_notes'];
 
 		$data = " c_lot_lid = '$lot_lid' ";
+		$i = 1;
+		while($i== 1){
+			$ref  = sprintf("%'.04d\n",mt_rand(1,9999999999));
+			if($this->db->query("SELECT * FROM t_csr where ref_no ='$ref'")->num_rows <= 0)
+				$i=0;
+		}
+		$data .= ", ref_no = '$ref' ";
 		$data .= ", c_lot_area = '$lot_area' ";
 		$data .= ", c_price_sqm = '$price_sqm' ";
 		$data .= ", c_lot_discount= '$lot_disc' ";
@@ -472,7 +479,6 @@ Class Action {
 
 	function update_csr(){
 		extract($_POST);
-
 		//lot computation
 		$c_csr_no =  $_POST['update_id'];
 		//lot computation
@@ -495,6 +501,22 @@ Class Action {
 
 		// Payment Details
 		$reservation = $_POST['reservation'];
+
+		$chk_pay = $this->db->query("SELECT COALESCE(sum(c_amount_paid), 0)  as total_reservation FROM t_reservation where c_csr_no =".$c_csr_no);
+			if($chk_pay->num_rows > 0){
+			while($row = $chk_pay->fetch_assoc()){
+					$total = $row['total_reservation'];
+					if($reservation == $total){
+						$save = $this->db->query("UPDATE t_approval_csr SET c_reserve_status = 1 , c_amount_paid = '$total', c_ca_status = 0 where c_csr_no = '$c_csr_no'");
+						/* $save = $this->db->query("UPDATE t_lots SET c_status = 'Reserved' where c_lid = '".$lot_lid."'"); */
+					}else if (($reservation > $total) && ($total != 0)) {
+						$save = $this->db->query("UPDATE t_approval_csr SET c_reserve_status = 3 , c_amount_paid = '$total', c_ca_status = 0 where c_csr_no= '$c_csr_no'");
+						
+					}else if ($total == 0) {
+						$save = $this->db->query("UPDATE t_approval_csr SET c_reserve_status = 0 , c_amount_paid = '$total', c_ca_status = 0 where c_csr_no= '$c_csr_no'");
+						
+					}
+				}}
 		$payment_type1 = $_POST['payment_type1'];
 		$payment_type2 = $_POST['payment_type2'];
 		$down_percent = $_POST['down_percent'];
@@ -545,7 +567,7 @@ Class Action {
 		$data .= ", c_created_by = '$username' ";
 		$data .= ", c_verify = 0 ";
 		$data .= ", coo_approval = 0";
-		$data .= ", c_revised = 0";
+		/* $data .= ", c_revised = 0"; */
 
 		if(!empty($c_csr_no)){
 			$this->db->query("UPDATE t_csr set ".$data." where c_csr_no = ".$c_csr_no);
@@ -656,8 +678,8 @@ Class Action {
 		 		$save = $this->db->query("INSERT INTO t_approval_csr set ".$data);
 				}
 				if ($value == 3){
-				$save = $this->db->query("UPDATE t_csr SET coo_approval = ".$value." where c_csr_no = ".$id);
-				$save = $this->db->query("UPDATE t_csr SET c_verify = 2 where c_csr_no = ".$id);
+				$save = $this->db->query("UPDATE t_csr SET c_verify = 2, coo_approval = ".$value." where c_csr_no = ".$id);
+				
 				}
 			}else{
 				
@@ -673,31 +695,13 @@ Class Action {
 		$id =  $_POST['id'];
 		$lid = $_POST['lid'];
 		$value = $_POST['value'];
+		$reservation_amt = $_POST['reservation_amt'];
 		$duration = $_POST['duration'];
 		$datenow = GETDATE();
 		$data = " c_csr_no = '$id' ";
 		$data .= ", c_lot_lid = '$lid' ";
 		$data .= ", c_csr_status = '$value' ";
-		/* $chk_pay = $this->db->query("SELECT sum(c_amount_paid) as total_reservation FROM t_reservation where c_csr_no =".$id);
-		if($chk_pay->num_rows > 0){
-			while($row = $chk_pay->fetch_assoc()){
-					$total = $row['total_reservation'];
-					$chck_csr = $this->db->query("SELECT c_reservation FROM t_csr where c_csr_no =".$id);
-					while($row2 = $chk_csr->fetch_assoc()){
-						$reservation = $row2['c_reservation'];
-
-						if($total != $reservation){
-							$data . "c_reserve_status = 2";
-						}
-						elseif($total == $reservation) {
-							$data . "c_reserve_status = 1";	
-						}
-
-					}
-				}
-			} */
-
-	/* 	$data .= ", c_reserve_status = '0' "; */
+		$data .= ", c_reservation_amt = $reservation_amt "; 
 		$data .= ", c_ca_status = '0' ";
 		$data .= ", c_date_approved = CURRENT_TIMESTAMP() ";
 		$data .= ", c_duration = DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL $duration DAY)";
@@ -705,14 +709,12 @@ Class Action {
 		$chk2 = $this->db->query("SELECT * FROM t_approval_csr where c_csr_no =".$id);
 			if($chk2->num_rows > 0){
 				if ($value == 1){
-					$save = $this->db->query("UPDATE t_approval_csr set ".$data);
+					$save = $this->db->query("UPDATE t_approval_csr set ".$data." where c_csr_no =".$id);
 					$save = $this->db->query("UPDATE t_csr SET coo_approval = ".$value." where c_csr_no = ".$id);
-			
 				}
-				if ($value == 3){
-					$save = $this->db->query("UPDATE t_approval_csr set ".$data);
-					$save = $this->db->query("UPDATE t_csr SET coo_approval = ".$value." where c_csr_no = ".$id);
-					$save = $this->db->query("UPDATE t_csr SET c_verify = 2 where c_csr_no = ".$id);
+				else if ($value == 3){
+					$save = $this->db->query("UPDATE t_approval_csr set ".$data." where c_csr_no =".$id);
+					$save = $this->db->query("UPDATE t_csr SET c_verify = 2, coo_approval = ".$value." where c_csr_no = ".$id);
 				}
 			}else{
 
@@ -738,10 +740,21 @@ Class Action {
 	}
 
 
+	function extend_coo_approval(){
+		extract($_POST);
+		$id =  $_POST['id'];
+		$duration = $_POST['duration'];
+		$ext_duration = $_POST['ext_duration'];
+		$data = "c_duration = DATE_ADD('$ext_duration',INTERVAL $duration DAY)";
+		$save = $this->db->query("UPDATE t_approval_csr set ".$data." where c_csr_no =".$id);
+				
+		if($save){
+			return 1;
+		}
+	}
 
 	function sm_verification(){
 		extract($_POST);
-
 		$chk = $this->db->query("SELECT * FROM t_csr where c_verify = 1 and c_lot_lid =".$lid);
 			if($chk->num_rows == 0){
 				$save = $this->db->query("UPDATE t_csr SET c_verify = ".$value." where c_csr_no = ".$id);
@@ -768,9 +781,9 @@ Class Action {
 			/* $save = $this->db->query("UPDATE t_approval_csr SET c_ca_status = ".$value." where ra_id = ".$ra_id); */
 			$save = $this->db->query("UPDATE t_approval_csr SET ".$data." where ra_id = ".$ra_id);
 		elseif ($value == 2):
-			$save = $this->db->query("UPDATE t_csr SET c_verify = 2, coo_approval = 0 where c_csr_no = ".$id);
+			$save = $this->db->query("UPDATE t_csr SET c_verify = 2 where c_csr_no = ".$id);
 			$save = $this->db->query("UPDATE t_lots set c_status = 'Available' where c_lid =".$lot_id);
-			$save = $this->db->query("UPDATE t_approval_csr SET c_csr_status = 3, c_ca_status = ".$value." where ra_id = ".$ra_id);
+			$save = $this->db->query("UPDATE t_approval_csr SET c_ca_status = ".$value." where ra_id = ".$ra_id);
 		elseif ($value == 3):
 			$save = $this->db->query("UPDATE t_csr SET c_verify = 0, coo_approval = 0, c_revised = 1 where c_csr_no = ".$id);
 			$save = $this->db->query("UPDATE t_approval_csr SET c_csr_status = 0, c_ca_status = ".$value." where ra_id = ".$ra_id);
@@ -780,12 +793,72 @@ Class Action {
 			return 1;
 		}
 	}
-	
-	function ca_approval2(){
+
+	function save_reservation(){
 		extract($_POST);
-		$save = $this->db->query("UPDATE t_approval_csr SET c_ca_status = 2 where ra_id = ".$ra_id);
+		
+		$data = " ra_no = '$ra_no' ";
+		$data .= ", c_csr_no = '$csr_no' ";
+		$data .= ", c_lot_id = '$lot_lid' ";
+		$data .= ", c_or_no = '$or_no' ";
+		$data .= ", c_reserve_date = CURRENT_TIMESTAMP() " ;
+		$data .= ", c_amount_paid = '$amount_paid' ";
+		if(empty($id)){
+			$save = $this->db->query("INSERT INTO t_reservation set ".$data);
+			$chk_pay = $this->db->query("SELECT sum(c_amount_paid) as total_reservation FROM t_reservation where c_csr_no =".$csr_no);
+			if($chk_pay->num_rows > 0){
+			while($row = $chk_pay->fetch_assoc()){
+					$total = $row['total_reservation'];
+					if($total_res == $total){
+						$save = $this->db->query("UPDATE t_approval_csr SET c_reserve_status = 1 , c_amount_paid = '$total', c_ca_status = 0 where ra_id = '$ra_no'");
+						$save = $this->db->query("UPDATE t_lots SET c_status = 'Reserved' where c_lid = '".$lot_lid."'");
+						
+					}else if($total_res > $total){
+						$save = $this->db->query("UPDATE t_approval_csr SET c_reserve_status = 3 , c_amount_paid = '$total', c_ca_status = 0 where ra_id = '$ra_no'");
+					
+					}
+				}
+		
+			}
+		
+
+
+			}else{
+			$save = $this->db->query("UPDATE t_reservation set ".$data." where c_code = ".$id);
+		}
+
 		if($save){
 			return 1;
 		}
 	}
+
+
+	function approved_upload(){
+		extract($_POST);
+		$id =  $_POST['id'];
+		$csr_no =  $_POST['csr_no'];
+		$ra_id =  $_POST['ra_id'];
+	
+		$save = $this->db->query("UPDATE tbl_attachments SET approval_status = '1' where id=".$id);
+		$save = $this->db->query("UPDATE t_csr SET c_verify = 0, coo_approval = 0, c_revised = 1 where c_csr_no = ".$csr_no);  
+		$save = $this->db->query("UPDATE t_approval_csr SET c_csr_status = 0 where ra_id = ".$ra_id);
+		if($save){
+			return 1;
+		}
+	}
+
+	function delete_upload(){
+		extract($_POST);
+		$id =  $_POST['id'];
+	
+		$save = $this->db->query("DELETE FROM tbl_attachments where id=" .$id);
+		
+		if($save){
+			return 1;
+		}
+	}
+
+
+
+
 }
