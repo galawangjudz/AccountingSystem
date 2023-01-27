@@ -1,3 +1,6 @@
+
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/num-to-words.js" type="text/javascript"></script>
 <?php
 //--->get app url > start
 
@@ -44,50 +47,10 @@ header("Access-Control-Allow-Origin: *");
         while ($row = mysqli_fetch_assoc($result)) {
         
         $c_csr_no = $row['c_csr_no']; 
-        $c_b1_last_name = $row['c_b1_last_name']; 
-        $c_b2_last_name = $row['c_b2_last_name']; 
-        $c_b1_first_name = $row['c_b1_first_name']; 
-        $c_b2_first_name = $row['c_b2_first_name']; 
-        $c_b1_middle_name = $row['c_b1_middle_name']; 
-        $c_b2_middle_name = $row['c_b2_middle_name']; 
-        $c_citizenship = $row['c_citizenship']; 
-        $c_address = $row['c_address']; 
-        $c_city_prov = $row['c_city_prov']; 
-        $c_mobile_no = $row['c_mobile_no']; 
-        $c_viber_no = $row['c_viber_no']; 
-        $c_address_abroad = $row['c_address_abroad']; 
-        $c_mobile_abroad = $row['c_mobile_abroad']; 
-        $c_billing_address = $row['c_billing_address'];
-        $c_birthday = $row['c_birthday'];  
-        $c_age = $row['c_age'];  
-        $c_tin = $row['c_tin'];  
-        $c_zip_code = $row['c_zip_code'];  
-        $c_id_presented = $row['c_id_presented'];
-        $c_sex = $row['c_sex']; 
-        $c_civil_status = $row['c_civil_status'];  
-        $c_email = $row['c_email'];  
-        $c_lot_area = $row['c_lot_area'];
-        $c_price_sqm = $row['c_price_sqm'];
-        $c_lot_discount_amt = $row['c_lot_discount_amt'];
-        $c_lot_discount = $row['c_lot_discount'];
-        $c_house_model = $row['c_house_model'];
-        $c_date_created = $row['c_date_created'];
-        $c_floor_area = $row['c_floor_area'];
-        $c_house_discount = $row['c_house_discount'];
-        $c_house_discount_amt = $row['c_house_discount_amt'];
-        $c_house_price_sqm = $row['c_house_price_sqm'];
-        $c_tcp = $row['c_tcp'];
-        $remarks = $row['c_remarks'];
-        $c_employment_status = $row['c_employment_status'];
-        $c_lot_discount_percentage = $row['c_lot_discount'];
 
         $c_reservation = $row['c_reservation'];
-        $c_terms = $row['c_terms'];
-        $c_monthly_payment = $row['c_monthly_payment'];
-        $amt_fnanced = $row['c_amt_financed'];
-        $interest_rate = $row['c_interest_rate'];
-        $down_percent = $row['c_down_percent'];
         $c_lot_lid = $row['c_lot_lid'];
+       
 	}
 }
 /* close connection */
@@ -120,9 +83,9 @@ $mysqli->close();
     margin-left:350px;
     opacity:0.1;
 }
-/* .whole_content{
+.whole_content{
     visibility:hidden;
-} */
+}
 .form-control{
     border:none;
     background-color:transparent;
@@ -145,6 +108,15 @@ $mysqli->close();
     border:none;
     text-decoration: underline;
     text-align:center;
+}
+#numtowords{
+    width:400px;
+    height:auto;
+    font-size:10.5px;
+    border:none;
+    text-decoration: underline;
+    text-align:center;
+    text-transform:uppercase;
 }
 </style>
 
@@ -172,7 +144,7 @@ $mysqli->close();
     I hereby offer to purchase from Asian Land Strategies Corporation (“ALSC”, “Seller”) the following property (“Property”) and request that the property be reserved for my
 purchase. Project Name and Phase <input type="text" class="hiddentxt" id="final_phase"> Block <input type="text" class="hiddentxt1" value="<?php echo $l_block; ?>"> Lot <input type="text" class="hiddentxt1" value="<?php echo $l_lot; ?>">. The property is to be paid by me in the manner I chose as indicated in the
 attachments and understand that the purchase price is valid only for the payment scheme and manner of payment which has been selected herein. I request that the
-Property be reserved, and for this purpose I deposit the amount of Pesos: <input type="text" name="num" value="<?php if(isset($num)){echo $num;}?>"/> (Php<input type="text" class="hiddentxt" value="<?php echo $c_reservation; ?>">) my reservation money for the
+Property be reserved, and for this purpose I deposit the amount of Pesos: <input type="text" id="numtowords"> (Php<input type="text" class="hiddentxt" value="<?php echo $c_reservation; ?>" id="res_amount">) my reservation money for the
 Property. Should I decide to change the selected payment manner, such change will be effective only upon the approval of the Seller, and will also result in a change of
 Purchase Price and amendment of necessary documents.<br><br>
 I understand and agree that my reservation for the property is subject to the following Terms and Conditions:<br>
@@ -255,23 +227,22 @@ of &#8195;&#8195;purchase of the Property.<br><br><br>
     </div>
 </div>
 </div>
-
-
-<form method="post">
-    <table border="0" align="center">
-        <tr>
-        <td>Enter Your Numbers</td>
-        <Td><input type="text" name="num" value="<?php if(isset($num)){echo $num;}?>"/></Td>
-        </tr>
-        <tr>
-        <td colspan="2" align="center">
-        <input type="submit" value="Conver Number to Words" name="convert"/>
-        </td>
-        </tr>
-    </table>
-</form>
 </body>
 </html>
+
+<script>
+
+
+
+function per() {
+    var words="";
+    var totalamount = document.getElementById('res_amount').value;
+    
+    words = toWords(totalamount);
+    $("#numtowords").val(words + "Pesos Only");
+}
+
+</script>
 <script>
     ///////////////////////////BILLING ADDRESS///////////////////////////////////
 
@@ -284,12 +255,13 @@ of &#8195;&#8195;purchase of the Property.<br><br><br>
     <script type="text/javascript">
     function printAgreement(){
         getPhase();
+        per();
 			var element = document.getElementById('container_content'); 
 
 			var opt = 
 			{
 			  margin:       [0,10,0,5],
-			  filename:    'RA<?php echo $c_csr_no; ?>-'+'<?php echo $c_b1_last_name; ?>_AGREEMENT'+'.pdf',
+			  filename:    'RA<?php echo $c_csr_no; ?>_AGREEMENT'+'.pdf',
               
 			  image:        { type: 'jpeg', quality: 2 },
 			  html2canvas:  { dpi: 300, letterRendering: true, width: 780, height: 1500, scale:2},
@@ -499,116 +471,3 @@ function getPhase(){
     }
 }
     </script>
- 
-    <?php
-function numberTowords($num)
-{
-
-$ones = array(
-0 =>"ZERO",
-1 => "ONE",
-2 => "TWO",
-3 => "THREE",
-4 => "FOUR",
-5 => "FIVE",
-6 => "SIX",
-7 => "SEVEN",
-8 => "EIGHT",
-9 => "NINE",
-10 => "TEN",
-11 => "ELEVEN",
-12 => "TWELVE",
-13 => "THIRTEEN",
-14 => "FOURTEEN",
-15 => "FIFTEEN",
-16 => "SIXTEEN",
-17 => "SEVENTEEN",
-18 => "EIGHTEEN",
-19 => "NINETEEN",
-"014" => "FOURTEEN"
-);
-$tens = array( 
-0 => "ZERO",
-1 => "TEN",
-2 => "TWENTY",
-3 => "THIRTY", 
-4 => "FORTY", 
-5 => "FIFTY", 
-6 => "SIXTY", 
-7 => "SEVENTY", 
-8 => "EIGHTY", 
-9 => "NINETY" 
-); 
-$hundreds = array( 
-"HUNDRED", 
-"THOUSAND", 
-"MILLION", 
-"BILLION", 
-"TRILLION", 
-"QUARDRILLION" 
-); /*limit t quadrillion */
-$num = number_format($num,2,".",","); 
-$num_arr = explode(".",$num); 
-$wholenum = $num_arr[0]; 
-$decnum = $num_arr[1]; 
-$whole_arr = array_reverse(explode(",",$wholenum)); 
-krsort($whole_arr,1); 
-$rettxt = ""; 
-foreach($whole_arr as $key => $i){
-	
-while(substr($i,0,1)=="0")
-		$i=substr($i,1,5);
-if($i < 20){ 
-/* echo "getting:".$i; */
-$rettxt .= $ones[$i]; 
-}elseif($i < 100){ 
-if(substr($i,0,1)!="0")  $rettxt .= $tens[substr($i,0,1)]; 
-if(substr($i,1,1)!="0") $rettxt .= " ".$ones[substr($i,1,1)]; 
-}else{ 
-if(substr($i,0,1)!="0") $rettxt .= $ones[substr($i,0,1)]." ".$hundreds[0]; 
-if(substr($i,1,1)!="0")$rettxt .= " ".$tens[substr($i,1,1)]; 
-if(substr($i,2,1)!="0")$rettxt .= " ".$ones[substr($i,2,1)]; 
-} 
-if($key > 0){ 
-$rettxt .= " ".$hundreds[$key]." "; 
-}
-} 
-if($decnum > 0){
-$rettxt .= " and ";
-if($decnum < 20){
-$rettxt .= $ones[$decnum];
-}elseif($decnum < 100){
-$rettxt .= $tens[substr($decnum,0,1)];
-$rettxt .= " ".$ones[substr($decnum,1,1)];
-}
-}
-return $rettxt;
-}
-extract($_POST);
-if(isset($convert))
-{
-echo "<p align='center' style='color:blue'>".numberTowords("$num")."</p>";
-}
-?>
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Conver Number to Words in PHP</title>
-	</head>
-	<body>
-		<form method="post">
-			<table border="0" align="center">
-				<tr>
-				<td>Enter Your Numbers</td>
-				<Td><input type="text" name="num" value="<?php if(isset($num)){echo $num;}?>"/></Td>
-				</tr>
-				<tr>
-				<td colspan="2" align="center">
-				<input type="submit" value="Conver Number to Words" name="convert"/>
-				</td>
-				</tr>
-			</table>
-        </form> 
-
-	</body>
-</html>

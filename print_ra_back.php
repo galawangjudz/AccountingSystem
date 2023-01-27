@@ -69,28 +69,6 @@ header("Access-Control-Allow-Origin: *");
         while ($row = mysqli_fetch_assoc($result)) {
         
         $c_csr_no = $row['c_csr_no']; 
-        $c_b1_last_name = $row['c_b1_last_name']; 
-        $c_b2_last_name = $row['c_b2_last_name']; 
-        $c_b1_first_name = $row['c_b1_first_name']; 
-        $c_b2_first_name = $row['c_b2_first_name']; 
-        $c_b1_middle_name = $row['c_b1_middle_name']; 
-        $c_b2_middle_name = $row['c_b2_middle_name']; 
-        $c_citizenship = $row['c_citizenship']; 
-        $c_address = $row['c_address']; 
-        $c_city_prov = $row['c_city_prov']; 
-        $c_mobile_no = $row['c_mobile_no']; 
-        $c_viber_no = $row['c_viber_no']; 
-        $c_address_abroad = $row['c_address_abroad']; 
-        $c_mobile_abroad = $row['c_mobile_abroad']; 
-        $c_billing_address = $row['c_billing_address'];
-        $c_birthday = $row['c_birthday'];  
-        $c_age = $row['c_age'];  
-        $c_tin = $row['c_tin'];  
-        $c_zip_code = $row['c_zip_code'];  
-        $c_id_presented = $row['c_id_presented'];
-        $c_sex = $row['c_sex']; 
-        $c_civil_status = $row['c_civil_status'];  
-        $c_email = $row['c_email'];  
         $c_lot_area = $row['c_lot_area'];
         $c_price_sqm = $row['c_price_sqm'];
         $c_lot_discount_amt = $row['c_lot_discount_amt'];
@@ -103,7 +81,6 @@ header("Access-Control-Allow-Origin: *");
         $c_house_price_sqm = $row['c_house_price_sqm'];
         $c_tcp = $row['c_tcp'];
         $remarks = $row['c_remarks'];
-        $c_employment_status = $row['c_employment_status'];
         $c_lot_discount_percentage = $row['c_lot_discount'];
 
         $c_reservation = $row['c_reservation'];
@@ -559,7 +536,7 @@ preclude the existence of other &#8195;&#8195;&#8195;criteria for the lawful pro
 			var opt = 
 			{
 			  margin:       [10,20,0,5],
-			  filename:    'RA<?php echo $c_csr_no; ?>-'+'<?php echo $c_b1_last_name; ?>_'+'<?php echo $c_b1_first_name; ?>_'+'<?php echo $c_b1_middle_name; ?>_BACK'+'.pdf',
+			  filename:    'RA<?php echo $c_csr_no; ?>_BACKPAGE'+'.pdf',
               
 			  image:        { type: 'jpeg', quality: 2 },
 			  html2canvas:  { dpi: 300, letterRendering: true, width: 780, height: 1500, scale:2},

@@ -2,7 +2,7 @@
     include('functions.php');
 ?>
 <body>
-    <h2><span class="ra_type">Credit Assestment</span></h2>
+    <h2><span class="ra_type">Credit Assessment</span></h2>
     <div class="addbtn"><a href="#" class="btn select-ra" id="btntop"><span class="fas fa-mouse-pointer"></span>	Select RA</a></div>
     <hr>
     <div id="response" class="alert alert-success" style="display:none;">
