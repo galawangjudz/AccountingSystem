@@ -33,10 +33,10 @@
           <a href="index.php?page=manage-loan-calcu"><i class="fa fa-calculator"></i><span>Loan Calculator</span></a>
         </li>
         <li class="treeview">
-          <a href="index.php?page=ca-list"><i class="fa-solid fa-ruble"></i><span>&nbsp;&nbsp;Credit Assestment</span></a>
+          <a href="index.php?page=ca-list"><i class="fa-solid fa-ruble"></i><span>&nbsp;&nbsp;Credit Assessment</span></a>
         </li>
         <li class="treeview">
-          <a href="index.php?page=ca-checking"><i class="fa-solid fa-ruble"></i><span>&nbsp;&nbsp;Credit Assestment 2</span></a>
+          <a href="index.php?page=ca-checking"><i class="fa-solid fa-ruble"></i><span>&nbsp;&nbsp;Credit Assessment 2</span></a>
         </li>
        
         <?php if ($usertype == 'IT Admin'){ ?>

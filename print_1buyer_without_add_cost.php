@@ -1149,9 +1149,9 @@ function printRA(){
     };
     // New Promise-based usage:
     html2pdf().set(opt).from(element).save();
-    // window.setTimeout(function(){
-    // window.history.back();
-    // }, 500);
+    window.setTimeout(function(){
+    window.history.back();
+    }, 500);
 }
 
 function investmentValue(){

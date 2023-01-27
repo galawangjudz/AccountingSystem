@@ -159,15 +159,15 @@ $mysqli->close();
         <form>
             <div class="form-group">
                 <label class="control-label">Loan Amount: </label>
-                <input type="text" class="form-control margin-bottom loan-amt required" name="loan_amt" id="loan_amt" value="<?php echo isset($amt_fnanced) ? $amt_fnanced: '' ?>">
+                <input type="text" class="form-control margin-bottom loan-amt required" name="loan_amt" id="loan_amt" value="<?php echo isset($amt_fnanced) ? $amt_fnanced: '' ?>" onkeyup="computeIncomeReq();">
             </div>
             <div class="form-group">
                 <label class="control-label">Interest Rate: </label>
-                <input type="text" class="form-control margin-bottom int-rate required" name="int_rate" id="int_rate" value="<?php echo isset($interest_rate) ? $interest_rate: '' ?>">
+                <input type="text" class="form-control margin-bottom int-rate required" name="int_rate" id="int_rate" value="<?php echo isset($interest_rate) ? $interest_rate: '' ?>" onkeyup="computeIncomeReq();">
             </div>
             <div class="form-group">
                 <label class="control-label">Terms: </label>
-                <input type="text" class="form-control margin-bottom term-rate equired" name="term_rate" id="term_rate" value="<?php echo isset($terms) ? $terms: '' ?>">
+                <input type="text" class="form-control margin-bottom term-rate equired" name="term_rate" id="term_rate" value="<?php echo isset($terms) ? $terms: '' ?>" onkeyup="computeIncomeReq();">
             </div>
             <?php 
            
@@ -189,11 +189,11 @@ $mysqli->close();
             ?>
             <div class="form-group">
                 <label class="control-label">Monthly : </label>
-                <input type="text" class="form-control margin-bottom required" name="monthly" id="monthly" value="<?php echo isset($PMT) ? $PMT: '' ?>">
+                <input type="text" class="form-control margin-bottom required" name="monthly" id="monthly" value="<?php echo isset($PMT) ? $PMT: '' ?>" onkeyup="computeIncomeReq();">
             </div>
             <div class="form-group">
                 <label class="control-label">Income Requirement: </label>
-                <input type="text" class="form-control margin-bottom required" name="income_req" id="income_req" value="<?php echo isset($income_req) ? $income_req: '' ?>">
+                <input type="text" class="form-control margin-bottom required" name="income_req" id="income_req" value="<?php echo isset($income_req) ? $income_req: '' ?>" onkeyup="computeIncomeReq();">
             </div>
 
          <!--    <button class="btn btn-primary btn-xs compute-pmt">Compute</button>
@@ -257,4 +257,33 @@ $mysqli->close();
 		})
 	})
 
+</script>
+<script>
+function computeIncomeReq(){
+    let int_rate = document.getElementById('int_rate').value;
+    let int_terms = document.getElementById('term_rate').value;
+
+    let n = int_terms;
+
+    let i = (int_rate/100)/12;
+
+    
+    let fv = 0;
+    let pv = document.getElementById('loan_amt').value;
+    let type = 0;
+    let ans = 0;
+    let PMT = 0;
+    let income_req = 0;
+    if (int_terms != 0 || i != 0){
+        ans = ((pv - fv) * i)/(1 - Math.pow((1 + i), (-n)));
+        PMT = ans.toFixed(2);
+        income_req = ans / 0.4;
+        income_req = income_req.toFixed(2);
+    }else{ 
+        PMT = 0;
+        income_req = 0;
+    }   
+    document.getElementById('income_req').value = income_req;
+    document.getElementById('monthly').value = PMT;
+}
 </script>
